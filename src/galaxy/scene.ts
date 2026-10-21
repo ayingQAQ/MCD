@@ -10,7 +10,7 @@ import { createPlanetMaterials, makeLabelTexture } from './materials';
 export interface GalaxySceneInput {
   dataset:Dataset; graph:NutritionGraph; positions:PlanetPosition[]; visible:Set<string>;
   lens:NutrientKey; selected:string|null; route:string[]; routeStep:number; showRelations:boolean;
-  expanded:boolean;showLabels:boolean;highlight:SimilarityEdge|null;category?:FoodCategory|'all';
+  expanded:boolean;showLabels:boolean;highlight:SimilarityEdge|null;category?:FoodCategory|'all';categoryFocusKey?:number;
   onSelect:(id:string|null)=>void;onRelationSelect?:(edge:SimilarityEdge)=>void;
   insets?:()=>{left:number;bottom:number};
 }
@@ -34,6 +34,7 @@ export function createGalaxyScene(canvas:HTMLCanvasElement,read:()=>GalaxySceneI
   let width=1000,height=800,frame=0,dirty=true,disposed=false,hover:string|null=null,saved:Pose|null=null;
   let flight:{start:number;from:Pose;to:Pose}|null=null;
   let previousSelected:string|null=null,previousLens:NutrientKey|null=null,previousCategory:FoodCategory|'all'|undefined,previousRoute='',previousEdges='';
+  let previousCategoryFocusKey:number|undefined;
   let down:{x:number;y:number;pointer:number;moved:boolean}|null=null;
   const pointers=new Set<number>();
   function stopInertia(){controls.enableDamping=false;controls.update();controls.enableDamping=!reduced.matches;}
@@ -126,8 +127,9 @@ export function createGalaxyScene(canvas:HTMLCanvasElement,read:()=>GalaxySceneI
       framePoints(ids.flatMap(id=>byId.has(id)?[byId.get(id)!.group.position]:[]),120);
     }
     previousRoute=routeKey;
-    if(p.category!==previousCategory&&p.category&&p.category!=='all'&&!p.selected&&!p.route.length&&!p.highlight)focusCategory(p.category);
+    if((p.category!==previousCategory||p.categoryFocusKey!==previousCategoryFocusKey)&&p.category&&p.category!=='all'&&!p.selected&&!p.highlight)focusCategory(p.category);
     previousCategory=p.category;
+    previousCategoryFocusKey=p.categoryFocusKey;
     const edgeKey=`${p.selected}:${p.showRelations}:${p.expanded}:${p.route.join(':')}:${p.routeStep}:${p.highlight?.source}:${p.highlight?.target}:${[...p.visible].join(',')}`;
     if(edgeKey!==previousEdges){
       clearEdges();
@@ -225,7 +227,7 @@ export function createGalaxyScene(canvas:HTMLCanvasElement,read:()=>GalaxySceneI
     home(){flight=null;saved=null;apply(home);read().onSelect(null);dirty=true;},
     overview(){saved=null;read().onSelect(null);framePoints(initial.positions.map(p=>new THREE.Vector3(p.x,p.y,p.z)),180);},
     restore,
-    category:focusCategory,
+    category(category){saved=null;focusCategory(category);},
     dolly(factor){flight=null;stopInertia();const offset=camera.position.clone().sub(controls.target),distance=THREE.MathUtils.clamp(offset.length()/factor,controls.minDistance,controls.maxDistance);camera.position.copy(controls.target).add(offset.setLength(distance));controls.update();dirty=true;},
     dispose(){
       disposed=true;cancelAnimationFrame(frame);resize.disconnect();document.removeEventListener('visibilitychange',visibility);reduced.removeEventListener('change',motion);

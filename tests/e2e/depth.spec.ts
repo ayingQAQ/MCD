@@ -51,6 +51,8 @@ test('native right drag reveals another region; reset is local and universe over
 
 for (const width of [1440, 390]) for (const reducedMotion of ['reduce', 'no-preference'] as const) {
   test(`WebGL perspective rotates in 3D and survives resize at ${width}px, motion ${reducedMotion}`, async ({ page }, info) => {
+    // CI uses a software WebGL driver; this case exports five full-size GPU screenshots.
+    test.setTimeout(90_000);
     await page.setViewportSize({ width, height: width > 1000 ? 1000 : 844 });
     await page.emulateMedia({ reducedMotion });
     const errors: string[] = [];

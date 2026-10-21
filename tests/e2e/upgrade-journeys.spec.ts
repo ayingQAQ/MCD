@@ -445,6 +445,14 @@ test('lens and category changes preserve the world; category controls fly and fo
   await page.getByRole('button', { name: '返回漫游视角', exact: true }).click();
   await expect.poll(async () => (await canvasScene(canvas)).camera).toEqual(roaming);
   expect(await canvas.getAttribute('data-world')).toBe(world);
+  // A category command also exits an open food archive and frames its volume.
+  await search.fill('巨无霸');
+  await page.getByRole('button',{name:'探索 巨无霸',exact:true}).click();
+  const focused=(await canvasScene(canvas)).camera.target;
+  await page.getByRole('button',{name:'饮品星系',exact:true}).click();
+  await expect(page.getByRole('heading',{name:'巨无霸',exact:true})).toBeHidden();
+  await expect.poll(async()=>(await canvasScene(canvas)).camera.target).not.toEqual(focused);
+  expect(await canvas.getAttribute('data-world')).toBe(world);
 });
 
 test('clicking a visible canvas relationship opens its real explanation', async ({ page }) => {

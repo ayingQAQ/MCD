@@ -20,7 +20,7 @@ export function GalaxyCanvas(props:Props){
     }).catch(()=>{if(!cancelled)setError('三维渲染模块未能下载，请重新载入。');});
     return()=>{cancelled=true;controller.current?.dispose();controller.current=null;};
   },[props.dataset,props.positions]);
-  useEffect(()=>{controller.current?.sync();},[props.selected,props.lens,props.visible,props.route,props.routeStep,props.showRelations,props.expanded,props.showLabels,props.highlight,props.category,props.fitKey]);
+  useEffect(()=>{controller.current?.sync();},[props.selected,props.lens,props.visible,props.route,props.routeStep,props.showRelations,props.expanded,props.showLabels,props.highlight,props.category,props.categoryFocusKey,props.fitKey]);
   return <>
     <canvas ref={canvas} className="galaxy-canvas" data-scene="webgl-3d" data-lens={props.lens} role="img" aria-label={`三维餐品营养星系，当前透镜：${nutrientNames[props.lens]}。左键旋转，右键平移，滚轮推进。可使用左侧餐品列表进行键盘探索。`}/>
     {!ready&&!error&&<div className="webgl-loading" role="status">正在展开三维美食宇宙…</div>}

@@ -1,6 +1,6 @@
 # Third-party notices
 
-- Rough.js — MIT, Copyright (c) 2017 Preet Shihn. Seeded sketch outlines and decoration; full license included in static package.
+- Rough.js — MIT, Copyright (c) 2019 Preet Shihn. Seeded sketch outlines and decoration; full license included in static package.
 - d3-force — ISC, Copyright Mike Bostock and contributors. Deterministic pre-layout.
 - React — MIT, Meta Platforms, Inc. and affiliates.
 - Zod — MIT, Colin McDonnell and contributors.

@@ -1,10 +1,11 @@
 import { useEffect, useRef, useState } from 'react';
 import rough from 'roughjs';
-import type { Dataset, FoodPlanet, NutrientKey, NutritionGraph } from '../data/schema';
+import type { Dataset, FoodPlanet, NutrientKey, NutritionGraph, SimilarityEdge } from '../data/schema';
 import { nutrientNames, stableHash } from '../data/schema';
 import type { PlanetPosition } from '../graph/layout';
 import { centers } from '../graph/layout';
 import { quantile } from '../graph/analysis';
+import { focusIds, relationEdges } from '../graph/view';
 import { drawPlanet, ink } from '../art/planets';
 import { Icon } from './Illustrations';
 
@@ -12,6 +13,7 @@ interface Props {
   dataset: Dataset; graph: NutritionGraph; positions: PlanetPosition[]; visible: Set<string>;
   lens: NutrientKey; selected: string | null; onSelect: (id: string | null) => void;
   route: string[]; routeStep: number; showRelations: boolean; expanded: boolean; showLabels: boolean;
+  highlight: SimilarityEdge | null;
 }
 interface Camera { x: number; y: number; scale: number }
 export function GalaxyCanvas(props: Props) {
@@ -25,7 +27,7 @@ export function GalaxyCanvas(props: Props) {
   const hover = useRef<string | null>(null);
   const radii = useRef(new Map<string, number>());
   const sizeRef = useRef({ width: 1000, height: 650 });
-  const previousSelected = useRef<string | null>(null);
+  const previousFocus = useRef('');
 
   useEffect(() => {
     const canvas = canvasRef.current!;
@@ -79,18 +81,16 @@ export function GalaxyCanvas(props: Props) {
         ctx.font = '13px "Cosmos Hand", sans-serif'; ctx.fillStyle = '#9F9482'; ctx.textAlign = 'center';
         ctx.fillText(({ burger: 'THE BURGER ORBIT', breakfast: 'GOOD MORNING', side: 'LITTLE BITES', drink: 'SIP & WANDER', dessert: 'SWEET DREAMS', other: 'THE UNKNOWN' } as Record<string, string>)[category], cx, cy - 180);
       }
-      const relevant = new Set<string>();
-      if (p.selected) {
-        relevant.add(p.selected);
-        for (const e of p.graph.edges) if (e.source === p.selected || e.target === p.selected) { relevant.add(e.source); relevant.add(e.target); }
-      }
+      const relations = new Set(p.showRelations ? relationEdges(p.graph, p.selected, p.expanded, p.visible) : []);
       const routePairs = new Set(p.route.slice(1, Math.max(1, p.routeStep + 1)).map((id, i) => [id, p.route[i]].sort().join(':')));
-      for (const e of p.graph.edges) {
+      const drawingEdges = p.highlight ? [...p.graph.edges.filter(e => !([e.source, e.target].includes(p.highlight!.source) && [e.source, e.target].includes(p.highlight!.target))), p.highlight] : p.graph.edges;
+      for (const e of drawingEdges) {
         const inRoute = routePairs.has([e.source, e.target].sort().join(':'));
-        const show = inRoute || p.showRelations && p.selected && (e.source === p.selected || e.target === p.selected || p.expanded && relevant.has(e.source) && relevant.has(e.target));
+        const isDiscovery = e === p.highlight;
+        const show = inRoute || isDiscovery || relations.has(e);
         if (!show || !p.visible.has(e.source) || !p.visible.has(e.target)) continue;
         const a = positions.get(e.source)!, b = positions.get(e.target)!;
-        ctx.strokeStyle = inRoute ? '#BD7043' : '#A99E89'; ctx.lineWidth = (inRoute ? 2.8 : 1.2) / c.scale; ctx.setLineDash(inRoute ? [8 / c.scale, 5 / c.scale] : [3 / c.scale, 5 / c.scale]);
+        ctx.strokeStyle = isDiscovery ? '#9276AF' : inRoute ? '#BD7043' : '#A99E89'; ctx.lineWidth = (inRoute || isDiscovery ? 2.8 : 1.2) / c.scale; ctx.setLineDash(inRoute || isDiscovery ? [8 / c.scale, 5 / c.scale] : [3 / c.scale, 5 / c.scale]);
         ctx.beginPath(); ctx.moveTo(a.x, a.y); ctx.quadraticCurveTo((a.x + b.x) / 2, (a.y + b.y) / 2 - 22, b.x, b.y); ctx.stroke();
       }
       ctx.setLineDash([]);
@@ -99,7 +99,7 @@ export function GalaxyCanvas(props: Props) {
         const pos = positions.get(food.id)!;
         const sx = pos.x * c.scale + c.x, sy = pos.y * c.scale + c.y;
         if (sx < -90 || sx > width + 90 || sy < -90 || sy > height + 90) continue;
-        const selected = p.selected === food.id, isHover = hover.current === food.id;
+        const selected = p.selected === food.id || p.highlight?.target === food.id, isHover = hover.current === food.id;
         ctx.globalAlpha = p.route.length && !p.route.includes(food.id) ? .35 : 1;
         const radius = (radii.current.get(food.id) ?? 30) * (selected || isHover ? 1.12 : 1);
         drawPlanet(ctx, food, pos.x, pos.y, radius, selected);
@@ -178,17 +178,21 @@ export function GalaxyCanvas(props: Props) {
   }, [props.positions, props.dataset]);
 
   useEffect(() => {
-    if (props.selected && props.selected !== previousSelected.current) {
-      const point = props.positions.find(p => p.id === props.selected);
-      if (point) {
+    const ids = focusIds(props.selected, props.route, props.highlight), key = `${ids.join(':')}:${!!props.selected}`;
+    if (ids.length && key !== previousFocus.current) {
+      const points = props.positions.filter(point => ids.includes(point.id));
+      if (points.length) {
         const width = sizeRef.current.width, height = sizeRef.current.height;
-        const scale = Math.max(.9, camera.current.scale);
-        const centerX = width > 750 ? (width - 320) / 2 : width / 2;
-        camera.current = { x: centerX - point.x * scale, y: height * .42 - point.y * scale, scale };
+        const availableWidth = width > 750 && props.selected ? width - 340 : width;
+        const minX = Math.min(...points.map(p => p.x)), maxX = Math.max(...points.map(p => p.x));
+        const minY = Math.min(...points.map(p => p.y)), maxY = Math.max(...points.map(p => p.y));
+        const scale = points.length === 1 ? Math.max(.9, camera.current.scale) : Math.max(.25, Math.min(1.2, availableWidth / (maxX - minX + 180), (height * (width < 520 && props.selected ? .3 : .7)) / (maxY - minY + 180)));
+        camera.current = { x: availableWidth / 2 - (minX + maxX) / 2 * scale, y: height * (width < 520 && props.selected ? .25 : .48) - (minY + maxY) / 2 * scale, scale };
+        setZoom(Math.round(scale * 100));
       }
     }
-    previousSelected.current = props.selected; invalidate.current();
-  }, [props.selected, props.lens, props.visible, props.route, props.routeStep, props.showRelations, props.expanded, props.showLabels, props.positions]);
+    previousFocus.current = key; invalidate.current();
+  }, [props.selected, props.lens, props.visible, props.route, props.routeStep, props.showRelations, props.expanded, props.showLabels, props.positions, props.highlight]);
 
   return <>
     <canvas ref={canvasRef} className="galaxy-canvas" role="img" aria-label={`餐品营养星图，当前透镜：${nutrientNames[props.lens]}。请使用左侧餐品列表进行键盘探索。`}/>

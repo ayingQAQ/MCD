@@ -14,7 +14,10 @@ test('official snapshot, search, lenses, details and PNG export', async ({ page 
   await expect(page.getByRole('button', { name: '蛋白质', exact: true })).toHaveAttribute('aria-pressed', 'true');
   const download = page.waitForEvent('download');
   await page.getByRole('button', { name: '保存星球卡片' }).click();
-  expect((await download).suggestedFilename()).toMatch(/\.png$/);
+  const card = await download;
+  expect(card.suggestedFilename()).toMatch(/\.png$/);
+  await card.saveAs(testInfo.outputPath('planet-card.png'));
+  await expect(page.getByLabel('搜索餐品')).toHaveValue('');
   await page.keyboard.press('Escape');
   await expect(page.getByRole('heading', { name: '巨无霸', exact: true })).toBeHidden();
   expect(errors).toEqual([]);
@@ -34,15 +37,19 @@ test('filters, no results, honest demo mode and no automatic official fallback',
   await expect(page.getByRole('button', { name: '使用合成演示数据' })).toBeVisible();
 });
 
-test('route steps and discoveries are usable', async ({ page }) => {
+test('route steps and discoveries are usable', async ({ page }, testInfo) => {
   await page.goto('/');
   await page.getByRole('button', { name: '规划航线', exact: true }).click();
   await page.getByLabel('航线起点').selectOption({ label: '巨无霸' });
   await page.getByLabel('航线终点').selectOption({ label: '双层吉士汉堡' });
   await page.getByRole('button', { name: '出发，连接两颗星' }).click();
   await expect(page.getByRole('status').filter({ hasText: /跳|没有可达/ })).toBeVisible();
+  await page.screenshot({ path: testInfo.outputPath('route.png'), fullPage: true });
   await page.getByRole('button', { name: '双生星', exact: true }).click();
   await expect(page.getByRole('heading', { name: '双生星发现' })).toBeVisible();
+  await page.locator('.discovery-results > button').first().click();
+  await expect(page.getByLabel('双生星连接')).toBeVisible();
+  await page.screenshot({ path: testInfo.outputPath('twins.png'), fullPage: true });
 });
 
 for (const viewport of [{ width: 1440, height: 900 }, { width: 768, height: 1024 }, { width: 390, height: 844 }]) {

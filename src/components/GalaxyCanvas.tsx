@@ -24,6 +24,7 @@ export function GalaxyCanvas(props: Props) {
   const fitRef = useRef<() => void>(() => undefined);
   const zoomRef = useRef<(factor: number) => void>(() => undefined);
   const [zoom, setZoom] = useState(100);
+  const [viewRevision,setViewRevision]=useState(0);
   const camera = useRef<Camera>({ x: 0, y: 0, scale: .65 });
   const cameraTween=useRef<{start:number;from:Camera;to:Camera}|null>(null);
   const hover = useRef<string | null>(null);
@@ -155,6 +156,7 @@ export function GalaxyCanvas(props: Props) {
       const dpr = Math.min(2, devicePixelRatio || 1); canvas.width = Math.round(width * dpr); canvas.height = Math.round(height * dpr);
       if (!initialized) { fit(); initialized = true; }
       else { camera.current.x += (width - old.width) / 2; camera.current.y += (height - old.height) / 2; requestDraw(); }
+      previousFocus.current='';setViewRevision(value=>value+1);
     });
     observer.observe(canvas);
     const coords = (event: PointerEvent | WheelEvent) => { const rect = canvas.getBoundingClientRect(); return { x: event.clientX - rect.left, y: event.clientY - rect.top }; };
@@ -211,7 +213,7 @@ export function GalaxyCanvas(props: Props) {
       }
     }
     previousFocus.current = key; invalidate.current();
-  }, [props.selected, props.lens, props.visible, props.route, props.routeStep, props.showRelations, props.expanded, props.showLabels, props.positions, props.highlight]);
+  }, [props.selected, props.lens, props.visible, props.route, props.routeStep, props.showRelations, props.expanded, props.showLabels, props.positions, props.highlight,viewRevision]);
 
   return <>
     <canvas ref={canvasRef} className="galaxy-canvas" data-lens={props.lens} role="img" aria-label={`餐品营养星图，当前透镜：${nutrientNames[props.lens]}。请使用左侧餐品列表进行键盘探索。`}/>

@@ -31,7 +31,6 @@ export default function GalaxyPage() {
   const official = dataset.meta.mode === 'official-snapshot';
   useEffect(()=>{const food=selected?foodById.get(selected):undefined;if(food){visitFood(food.id);setQuery('');setCategory(current=>current==='all'||current===food.category?current:'all');}},[selected,foodById,visitFood,setCategory]);
   useEffect(()=>{setFrom(fromParam);setTo(toParam);setRouteOpen(!!(fromParam||toParam));if(fromParam||toParam)setFiltersOpen(true);setRoute([]);setRouteMessage('');setRouteStep(0);setPlaying(false);},[fromParam,toParam]);
-  useEffect(() => { const close = (event: KeyboardEvent) => { if (event.key === 'Escape' && !overlay) setSelected(null); }; window.addEventListener('keydown', close); return () => window.removeEventListener('keydown', close); }, [overlay]);
   useEffect(() => {
     if (!route.length||!playing) return;
     const timer = setInterval(() => setRouteStep(step => { if (step >= route.length - 1) { clearInterval(timer);setPlaying(false); return step; } return step + 1; }), 900);

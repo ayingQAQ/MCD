@@ -1,6 +1,6 @@
 import { readFile } from 'node:fs/promises';
 import { expect, test, type Locator, type Page, type TestInfo } from '@playwright/test';
-import snapshot from '../../public/data/nutrition.snapshot.json';
+import snapshot from '../../public/data/nutrition.snapshot.json' with { type: 'json' };
 import { datasetSchema, nutrientKeys } from '../../src/data/schema';
 import { analyze } from '../../src/graph/analysis';
 import { layoutGraph } from '../../src/graph/layout';

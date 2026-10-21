@@ -96,6 +96,6 @@ CI 执行 `pnpm illustrations:export`，产出 `food-illustrations-svg` Artifact
 
 所有测试、类型检查、Lint、构建和浏览器运行均在 GitHub Actions 执行，没有在本地构建或跑测试。
 
-[基础完整验证 39543894701](https://github.com/ayingQAQ/MCD/actions/runs/39543894701) 已通过：31 项单元测试、13 项 Playwright 浏览器测试、类型检查、Lint、生产构建、62 份静态 SVG 导出与比赛数据验证。首次接口测试先确认失败，再实现母版与导出。
+[基础完整验证 39543894701](https://github.com/ayingQAQ/McCosmos/actions/runs/39543894701) 已通过：31 项单元测试、13 项 Playwright 浏览器测试、类型检查、Lint、生产构建、62 份静态 SVG 导出与比赛数据验证。首次接口测试先确认失败，再实现母版与导出。
 
 已人工查看 CI 提供的浅色/深色整页图库、64px 移动端甜品与导出后独立打开的 SVG 截图。最终提交继续由同一工作流验证，并补充全部 48px 无表情、160px 宇宙模式截图；截图位于 `browser-evidence` Artifact。测试覆盖稳定结构、差异化、表情、尺寸细节、回退、命名空间、无外部依赖、下载、减少动态效果及移动端无横向溢出。原有营养、筛选、图谱、航线等浏览器用例保留。

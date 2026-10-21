@@ -21,10 +21,10 @@ export default function App() {
     return () => controller.abort();
   }, [demo, reload]);
   return <div className="app">
-    <header className="site-header"><a className="brand" href="./" aria-label="McCosmos 麦门星图首页"><Star/><div><strong>McCosmos<span>麦门星图</span></strong><small>A LITTLE FOOD UNIVERSE</small></div></a><nav aria-label="主导航"><span className="nav-current">星图探索</span><a href="https://github.com/ayingQAQ/MCD" target="_blank" rel="noreferrer">项目手记 ↗</a></nav><span className="edition">VOL. 01 <i/> 星球探索手册</span></header>
+    <header className="site-header"><a className="brand" href="./" aria-label="McCosmos 麦门星图首页"><Star/><div><strong>McCosmos<span>麦门星图</span></strong><small>A LITTLE FOOD UNIVERSE</small></div></a><nav aria-label="主导航"><span className="nav-current">星图探索</span><a href="https://github.com/ayingQAQ/McCosmos" target="_blank" rel="noreferrer">项目手记 ↗</a></nav><span className="edition">VOL. 01 <i/> 星球探索手册</span></header>
     <section className="intro"><div><p className="eyebrow">把日常的一口，装进小小宇宙</p><h1>每一颗星，都有自己的<span>滋味<svg viewBox="0 0 150 12" aria-hidden="true"><path d="M3 8Q69 0 146 6M7 11Q80 4 139 10"/></svg></span>。</h1><p>跟着好奇心出发，看见餐品的营养，发现意想不到的连接。</p></div><div className="intro-sticker"><PlanetStamp/><span>今天，想探索哪一颗？</span></div></section>
     {dataset ? <Atlas key={dataset.meta.mode} dataset={dataset} onModeChange={() => setDemo(!demo)}/> : <main className="load-state paper"><PlanetStamp/><h2>{loadError ? '星图暂时没有展开' : '正在绘制你的小宇宙…'}</h2><p role={loadError ? 'alert' : 'status'}>{loadError || '读取营养快照，准备星球图鉴。'}</p>{loadError && <div className="load-actions"><button className="button" onClick={() => setReload(n => n + 1)}>重新读取快照</button><button className="button primary" onClick={() => setDemo(true)}>使用合成演示数据</button></div>}</main>}
-    <footer className="site-footer"><span><Star/> 好奇心，是最好的宇宙飞船。</span><p>本项目为独立开发的参赛作品，非麦当劳官方产品。餐品和营养信息以官方渠道为准。</p><a href="https://github.com/ayingQAQ/MCD" target="_blank" rel="noreferrer">Made with curiosity ↗</a></footer>
+    <footer className="site-footer"><span><Star/> 好奇心，是最好的宇宙飞船。</span><p>本项目为独立开发的参赛作品，非麦当劳官方产品。餐品和营养信息以官方渠道为准。</p><a href="https://github.com/ayingQAQ/McCosmos" target="_blank" rel="noreferrer">Made with curiosity ↗</a></footer>
   </div>;
 }
 

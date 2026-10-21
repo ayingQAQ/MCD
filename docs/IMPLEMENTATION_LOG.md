@@ -37,7 +37,7 @@
 | P4 发现与卡片 | 已完成，双生星成对聚焦、孤独星球、中文PNG导出 |
 | P5 Skill/CLI/文档/部署 | 已完成，静态离线包、官方原文声明、公开部署 |
 
-- 首次完整 GREEN：[Actions 39540381542](https://github.com/ayingQAQ/MCD/actions/runs/39540381542)，21项单元测试、7项浏览器测试、typecheck、lint、build、verify:contest 全部成功。
+- 首次完整 GREEN：[Actions 39540381542](https://github.com/ayingQAQ/McCosmos/actions/runs/39540381542)，21项单元测试、7项浏览器测试、typecheck、lint、build、verify:contest 全部成功。
 - 三个独立审阅问题由 Actions 39539734248 的三项失败回归测试复现，完整 GREEN 中均已通过。
 - 额外补充实际 CLI 子进程入口/退出码，以及离群值与未确认计量基准测试，随最终文档一起交由 Actions 执行。
 - 所有 build/test/typecheck/lint/浏览器测试均在 GitHub Actions，未在本机执行。

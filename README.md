@@ -4,7 +4,7 @@
 
 适合想直观看懂餐品营养、喜欢交互图鉴的用户，以及复用 MCP 分析能力的 Agent 开发者。独立参赛作品，非麦当劳官方产品；信息以官方渠道为准。
 
-[在线探索](https://mccosmos.pages.dev) · [Actions 与静态包](https://github.com/ayingQAQ/MCD/actions/workflows/ci.yml) · [实际 MCP 接入](MCP_INTEGRATION.md) · [Skill](skills/mccosmos/SKILL.md) · [实施记录](docs/IMPLEMENTATION_LOG.md)
+[在线探索](https://mccosmos.pages.dev) · [Actions 与静态包](https://github.com/ayingQAQ/McCosmos/actions/workflows/ci.yml) · [实际 MCP 接入](MCP_INTEGRATION.md) · [Skill](skills/mccosmos/SKILL.md) · [实施记录](docs/IMPLEMENTATION_LOG.md)
 
 ![麦门星图桌面界面](docs/screenshots/desktop.png)
 
@@ -28,7 +28,7 @@ pnpm dev
 
 ### 下载后离线体验
 
-从成功的 [Actions 运行](https://github.com/ayingQAQ/MCD/actions/workflows/ci.yml)下载 `mccosmos-static`，解压后运行：
+从成功的 [Actions 运行](https://github.com/ayingQAQ/McCosmos/actions/workflows/ci.yml)下载 `mccosmos-static`，解压后运行：
 
 ```sh
 node serve.mjs

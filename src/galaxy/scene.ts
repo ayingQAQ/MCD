@@ -55,14 +55,13 @@ export function createGalaxyScene(canvas:HTMLCanvasElement,read:()=>GalaxySceneI
   const positionById=new Map(initial.positions.map(p=>[p.id,p]));
   const labelTextures:THREE.Texture[]=[],labelMaterials:THREE.SpriteMaterial[]=[];
   const textureLoader=new THREE.TextureLoader(),foodTextures=new Map<string,THREE.Texture>(),foodMaterials=new Map<string,THREE.SpriteMaterial>();
-  const pickingMaterial=new THREE.MeshBasicMaterial({visible:false});
-  let loadedArt=0,failedArt=0;
+    let loadedArt=0,failedArt=0;
   function foodMaterial(presetId:string){
     const existing=foodMaterials.get(presetId);if(existing)return existing;
     const texture=textureLoader.load(`/food-planets/${presetId}.svg`,()=>{
-      if(disposed)return;loadedArt++;canvas.dataset.foodTextures=JSON.stringify({loaded:loadedArt,failed:failedArt});dirty=true;
+      if(disposed)return;loadedArt++;dirty=true;
     },undefined,()=>{
-      if(disposed)return;failedArt++;canvas.dataset.foodTextures=JSON.stringify({loaded:loadedArt,failed:failedArt});onError('餐品插画载入失败，请重新载入；餐品目录仍可使用。');
+      if(disposed)return;failedArt++;dirty=true;onError('餐品插画载入失败，请重新载入；餐品目录仍可使用。');
     });
     texture.colorSpace=THREE.SRGBColorSpace;texture.anisotropy=Math.min(4,renderer.capabilities.getMaxAnisotropy());
     const material=new THREE.SpriteMaterial({map:texture,transparent:true,alphaTest:.08,depthTest:true,depthWrite:true,fog:true});
@@ -71,8 +70,7 @@ export function createGalaxyScene(canvas:HTMLCanvasElement,read:()=>GalaxySceneI
   for(const food of initial.dataset.foods){
     const point=positionById.get(food.id)!;if(!point)continue;
     const group=new THREE.Group();group.position.set(point.x,point.y,point.z);
-    const body=new THREE.Mesh(sphere,pickingMaterial),outline=new THREE.Mesh(sphere,art.outline);
-    outline.visible=false;
+    const body=new THREE.Mesh(sphere,art.materials[food.category]),outline=new THREE.Mesh(sphere,art.outline);
     const presetId=resolveFoodIllustration(food).presetId;
     const illustration=new THREE.Sprite(foodMaterial(presetId));illustration.userData.presetId=presetId;group.add(illustration);
     body.userData.foodId=food.id;group.add(outline,body);bodies.push(body);
@@ -201,6 +199,7 @@ export function createGalaxyScene(canvas:HTMLCanvasElement,read:()=>GalaxySceneI
   function project(point:THREE.Vector3){const v=point.clone().project(camera);return {x:(v.x+1)*width/2,y:(1-v.y)*height/2,z:v.z};}
   let lastReport='';
   function publish(){
+    canvas.dataset.foodTextures=JSON.stringify({loaded:loadedArt,failed:failedArt,total:foodMaterials.size});
     const snapshot=planets.map(planet=>{
       const center=project(planet.group.position),local=planet.group.position.clone().applyMatrix4(camera.matrixWorldInverse),depth=-local.z,r=planet.radius*1.035;
       // Tangents to a camera-space sphere: conservative projected bounds also work off axis.
@@ -230,7 +229,10 @@ export function createGalaxyScene(canvas:HTMLCanvasElement,read:()=>GalaxySceneI
     for(const planet of planets){
       const target=planet.targetRadius*(hover===planet.id?1.09:1),delta=target-planet.radius;
       if(Math.abs(delta)>.02){planet.radius=reduced.matches?target:planet.radius+delta*.16;dirty=true;}
-      planet.illustration.scale.set(planet.radius*2.65,planet.radius*2.65,1);planet.body.scale.setScalar(planet.radius);planet.outline.scale.setScalar(planet.radius*1.035);planet.ring?.scale.setScalar(planet.radius);
+      // The illustration sits just above the camera-facing surface of a lit 3D planet.
+      // The visible curved rim, terminator and true occlusion retain volume in a still image.
+      planet.illustration.position.copy(camera.position).sub(planet.group.position).normalize().multiplyScalar(planet.radius*1.04);
+      planet.illustration.scale.set(planet.radius*1.9,planet.radius*1.9,1);planet.body.scale.setScalar(planet.radius);planet.outline.scale.setScalar(planet.radius*1.035);planet.ring?.scale.setScalar(planet.radius);
       const show=planet.group.visible&&(p.showLabels||p.selected===planet.id||hover===planet.id||p.route[p.routeStep]===planet.id);
       if(show&&!planet.label){const food=initial.dataset.foods.find(f=>f.id===planet.id)!;const texture=makeLabelTexture(food.name);labelTextures.push(texture);const material=new THREE.SpriteMaterial({map:texture,depthTest:true,depthWrite:false});labelMaterials.push(material);planet.label=new THREE.Sprite(material);planet.label.scale.set(125,24,1);planet.group.add(planet.label);}
       if(planet.label){planet.label.visible=show;planet.label.position.set(0,-planet.radius-20,0);}
@@ -239,7 +241,7 @@ export function createGalaxyScene(canvas:HTMLCanvasElement,read:()=>GalaxySceneI
     }
     if(controls.target.length()>8500){const displacement=controls.target.clone().setLength(8500).sub(controls.target);controls.target.add(displacement);camera.position.add(displacement);dirty=true;}
     if(dirty){
-      const distance=camera.position.distanceTo(controls.target);(scene.fog as THREE.Fog).near=Math.max(2500,distance*1.1);(scene.fog as THREE.Fog).far=Math.max(9500,distance*2.8);
+      const distance=camera.position.distanceTo(controls.target);(scene.fog as THREE.Fog).near=Math.max(1200,distance*.8);(scene.fog as THREE.Fog).far=Math.max(6500,distance*2.1);
       camera.updateMatrixWorld();scene.updateMatrixWorld(true);renderer.render(scene,camera);publish();dirty=false;
     }
     frame=requestAnimationFrame(draw);
@@ -259,7 +261,7 @@ export function createGalaxyScene(canvas:HTMLCanvasElement,read:()=>GalaxySceneI
     dispose(){
       disposed=true;cancelAnimationFrame(frame);resize.disconnect();document.removeEventListener('visibilitychange',visibility);reduced.removeEventListener('change',motion);
       canvas.removeEventListener('pointerdown',pointerDown);canvas.removeEventListener('pointermove',pointerMove);canvas.removeEventListener('pointerup',pointerEnd);canvas.removeEventListener('pointercancel',pointerEnd);canvas.removeEventListener('pointerleave',leave);canvas.removeEventListener('webglcontextlost',lost);
-      controls.removeEventListener('start',start);controls.removeEventListener('change',change);controls.dispose();clearEdges();sphere.dispose();ringGeometry.dispose();art.dispose();pickingMaterial.dispose();foodTextures.forEach(t=>t.dispose());foodMaterials.forEach(m=>m.dispose());starGeometry.dispose();starMaterial.dispose();starTexture.dispose();labelTextures.forEach(t=>t.dispose());labelMaterials.forEach(m=>m.dispose());scene.clear();renderer.dispose();renderer.forceContextLoss();
+      controls.removeEventListener('start',start);controls.removeEventListener('change',change);controls.dispose();clearEdges();sphere.dispose();ringGeometry.dispose();art.dispose();foodTextures.forEach(t=>t.dispose());foodMaterials.forEach(m=>m.dispose());starGeometry.dispose();starMaterial.dispose();starTexture.dispose();labelTextures.forEach(t=>t.dispose());labelMaterials.forEach(m=>m.dispose());scene.clear();renderer.dispose();renderer.forceContextLoss();
     }
   };
 }

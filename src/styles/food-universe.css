@@ -102,10 +102,13 @@ input:focus-visible, select:focus-visible { outline-color: var(--mc-red); }
 .galaxy-stage .map-legend>span, .galaxy-stage .legend-chip, .galaxy-stage .source-badge { border-color: #e4d3b6; background: #fffdf7e8; box-shadow: none; }
 .galaxy-stage .map-legend { gap: 6px; }
 .galaxy-stage .legend-count { color: #8b7255; }
-.galaxy-stage .map-dock { left: 360px; bottom: 76px; }
+/* Dock explanations sit above both fixed control rows, even when a narrow
+   details view leaves too little horizontal space to put them side by side. */
+.galaxy-stage .map-dock { left: 360px; bottom: 182px; max-height: max(96px,calc(100% - 270px)); overflow: auto; }
 .galaxy-stage .map-paper .planet-details { top: 20px; right: 20px; bottom: 76px; width: 360px; background: #fffdf7f5; border-color: #dfcdae; border-radius: 14px 18px 12px 16px; box-shadow: 0 8px 30px #7f5d3110; }
 .galaxy-stage .map-paper.has-details .map-dock { width: min(520px,calc(100% - 760px)); }
 .galaxy-stage .canvas-hint { left: 360px; bottom: 80px; color: #927552; text-shadow: none; font-size: 11px; }
+.galaxy-stage .has-details .canvas-hint { display: none; }
 .galaxy-stage .canvas-hint .tiny-orbit { border-color: #ba9258; }
 .galaxy-stage .zoom-tools { right: 20px; bottom: 76px; background: #fffdf7ed; border-color: #ddcaac; box-shadow: 0 2px 0 #e7d7bd; }
 .galaxy-stage .map-paper.has-details .zoom-tools, .has-details .scene-navigation { right: 400px; }
@@ -145,11 +148,18 @@ input:focus-visible, select:focus-visible { outline-color: var(--mc-red); }
   .galaxy-panel .category-filters button.all { grid-column: auto; }
   .galaxy-panel .lens-filters { grid-template-columns: repeat(5,minmax(0,1fr)); }
   .galaxy-stage .map-top, .galaxy-stage.panel-collapsed .map-top { top: auto; bottom: 68px; left: 12px; right: 12px; }
-  .galaxy-stage .map-dock, .galaxy-stage.panel-collapsed .map-dock { left: 12px; right: 12px; bottom: 110px; }
+  .galaxy-stage .map-dock, .galaxy-stage.panel-collapsed .map-dock { left: 12px; right: 12px; bottom: 212px; max-height: max(96px,calc(100% - 280px)); }
   .galaxy-stage .map-paper.has-details .map-dock, .galaxy-stage.panel-collapsed .map-paper.has-details .map-dock { width: auto; }
-  .galaxy-stage .map-paper .planet-details { top: auto; left: 12px; right: 12px; bottom: 68px!important; width: auto; max-height: 60%; }
+  /* Keep the upper 36% clear for the selected three-dimensional food. */
+  .galaxy-stage .map-paper .planet-details { top: auto; left: 12px; right: 12px; bottom: 208px!important; width: auto; max-height: calc(64% - 208px); }
+  .galaxy-stage .planet-details>.food-photo { max-width: 150px; }
+  .galaxy-stage .has-details .map-dock { display: flex; bottom: 160px; max-height: 38px; overflow: hidden; z-index: 7; }
+  .galaxy-stage .has-details .accessible-relations { width: 100%; font-size: 11px; }
+  .galaxy-stage .has-details .map-dock:has(.accessible-relations[open]),
+  .galaxy-stage .has-details .map-dock:has(.relation-note) { max-height: 180px; overflow: auto; z-index: 8; }
   .galaxy-stage .zoom-tools, .galaxy-stage .map-paper.has-details .zoom-tools { right: 12px; bottom: 110px; }
-  .scene-navigation, .has-details .scene-navigation { right: 12px; bottom: 160px; }
+  .scene-navigation, .has-details .scene-navigation { top: auto; left: 12px; right: auto; bottom: 110px; max-width: calc(100% - 200px); justify-content: flex-start; }
+  .scene-navigation>button { max-width: 100%; }
   .galaxy-stage .guide-note, .galaxy-stage.panel-collapsed .guide-note { left: 50%; }
   .galaxy-stage .stage-caption { display: none; }
   .galaxy-brand-stamp { top: 170px; right: 18px; }
@@ -170,7 +180,7 @@ input:focus-visible, select:focus-visible { outline-color: var(--mc-red); }
   .food-card-actions { padding: 5px; }
   .food-card-actions button { flex-basis: 70px; font-size: 11px; }
   .food-photo img { padding: 5px; }
-  .planet-details>.food-photo { max-width: 210px; }
+  .planet-details>.food-photo { max-width: 150px; }
   .galaxy-panel .category-filters { grid-template-columns: repeat(2,minmax(0,1fr)); }
   .galaxy-panel .category-filters button.all { grid-column: 1/-1; }
   .galaxy-panel .lens-filters { grid-template-columns: repeat(3,minmax(0,1fr)); }
@@ -180,8 +190,7 @@ input:focus-visible, select:focus-visible { outline-color: var(--mc-red); }
   .display-toggles { gap: 8px; }
   .display-toggles label { font-size: 10px; }
   .about-button { font-size: 10px; }
-  .scene-navigation { bottom: 160px; }
-  .has-details .scene-navigation { top: 66px; bottom: auto; }
+  .scene-navigation, .has-details .scene-navigation { top: auto; bottom: 110px; }
   .galaxy-brand-stamp { font-size: 11px; top: 172px; }
   .cluster-labels>button { padding: 6px 9px; }
   .cluster-labels>button small { font-size: 8px; }

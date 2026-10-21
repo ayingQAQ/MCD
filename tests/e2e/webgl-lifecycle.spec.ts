@@ -1,5 +1,13 @@
 import {expect,test} from '@playwright/test';
 import snapshot from '../../public/data/nutrition.snapshot.json' with {type:'json'};
+import type { Locator } from '@playwright/test';
+
+async function texturesReady(canvas:Locator){
+  await expect.poll(async()=>{
+    const art=JSON.parse((await canvas.getAttribute('data-food-textures'))??'{}');
+    return art.total>0&&art.loaded===art.total&&art.failed===0;
+  }).toBe(true);
+}
 
 test('mobile deep-link focus matches interactive focus and reframes after resize',async({page},info)=>{
   test.setTimeout(60_000);
@@ -29,6 +37,7 @@ test('unmount releases the real WebGL context; reopening creates a healthy scene
   await page.goto('/galaxy');
   const canvas=page.locator('canvas.galaxy-canvas');
   await expect(canvas).toHaveAttribute('data-gpu',/geometries/);
+  await texturesReady(canvas);
   const handle=(await canvas.elementHandle())!;
   const original=JSON.parse((await canvas.getAttribute('data-gpu'))!) as {geometries:number;textures:number};
   await page.getByRole('link',{name:'宇宙观测站',exact:true}).click();
@@ -37,6 +46,7 @@ test('unmount releases the real WebGL context; reopening creates a healthy scene
   await page.getByRole('link',{name:'营养星系',exact:true}).click();
   await expect(canvas).toHaveAttribute('data-gpu',/geometries/);
   expect(await canvas.evaluate(element=>(element as HTMLCanvasElement).getContext('webgl2')!.isContextLost())).toBe(false);
+  await texturesReady(canvas);
   const current=JSON.parse((await canvas.getAttribute('data-gpu'))!) as {geometries:number;textures:number};
   expect(current.geometries).toBeLessThanOrEqual(original.geometries+1);
   expect(current.textures).toBeLessThanOrEqual(original.textures+1);

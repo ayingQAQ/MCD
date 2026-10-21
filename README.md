@@ -10,6 +10,8 @@
 
 ![麦门星图 · 三维卡通美食宇宙](docs/screenshots/food-universe-desktop.png)
 
+![三维球面图案与真实商品图片](docs/screenshots/food-planet-details.png)
+
 ![清晰排版的今日任务](docs/screenshots/home-missions-1112.png)
 
 ## 食物星球与真实商品照片

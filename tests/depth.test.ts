@@ -25,5 +25,5 @@ it('keeps the pointed depth plane anchored during zoom and clamps zoom safely',(
   const next=zoomCameraAt(camera,anchor,2,viewport,point.depth),after=projectPoint(point,next,viewport);
   expect(after.x).toBeCloseTo(anchor.x,8);expect(after.y).toBeCloseTo(anchor.y,8);
   expect(zoomCameraAt(camera,anchor,100,viewport).scale).toBe(2.6);
-  expect(zoomCameraAt(camera,anchor,.0001,viewport).scale).toBe(.2);
+  expect(zoomCameraAt(camera,anchor,.0001,viewport).scale).toBe(.08);
 });

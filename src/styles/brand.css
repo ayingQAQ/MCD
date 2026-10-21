@@ -33,9 +33,9 @@
 .mission-preview .mission-number{color:#AD392C}
 .site-footer{border-top:3px solid var(--mc-yellow)}
 .site-footer .mc-brand-mark{width:34px;height:34px;border-radius:5px}
-.galaxy-brand-stamp{position:absolute;right:23px;top:76px;z-index:1;display:flex;align-items:center;gap:9px;pointer-events:none;transform:rotate(3deg);color:#A13A2C;font-family:var(--hand);font-size:15px}
+.galaxy-brand-stamp{position:absolute;right:23px;top:76px;z-index:1;display:flex;align-items:center;gap:9px;pointer-events:none;transform:rotate(3deg);color:#F0D398;font-family:var(--hand);font-size:15px}
 .galaxy-brand-stamp .mc-brand-mark{width:42px;height:42px;border-radius:7px;box-shadow:2px 3px 0 #E6BC6A}
-.galaxy-brand-stamp small{display:block;color:#9E8058;font:8px Nunito,sans-serif;letter-spacing:1px;margin-top:3px}
+.galaxy-brand-stamp small{display:block;color:#B8C1C8;font:8px Nunito,sans-serif;letter-spacing:1px;margin-top:3px}
 .has-details .galaxy-brand-stamp{display:none}
 @media(max-width:850px){.mc-delivery-satellite{width:135px;left:38%;top:24%}.page-heading>.mc-brand-tab{float:none;margin:0 0 12px}.galaxy-brand-stamp{top:68px;right:14px;font-size:12px}.galaxy-brand-stamp .mc-brand-mark{width:34px;height:34px}}
 @media(max-width:600px){.upgrade-header .mc-brand-mark{width:34px;height:34px;border-radius:6px}.upgrade-header .brand{gap:7px}.mc-brand-tab{font-size:11px;margin-bottom:14px}.mc-delivery-satellite{width:120px;left:38%;top:23%}.page-heading>.mc-brand-tab{padding:4px 9px 4px 4px;gap:7px}.page-heading>.mc-brand-tab .mc-brand-mark{width:24px;height:24px}.galaxy-brand-stamp{font-size:10px;gap:6px;top:61px}.galaxy-brand-stamp .mc-brand-mark{width:28px;height:28px}.galaxy-brand-stamp small{font-size:7px;letter-spacing:0}.upgrade-header nav a.nav-current{background:transparent;color:#A42F25}.upgrade-header nav a.nav-current:after{background:var(--mc-red)}}

@@ -19,6 +19,10 @@ for (const width of [1440, 390]) for (const reducedMotion of ['reduce', 'no-pref
     const canvas = page.locator('canvas.galaxy-canvas');
     await expect(canvas).toHaveAttribute('data-scene', 'perspective');
     await expect(canvas).toHaveAttribute('data-camera', /scale/);
+    await expect.poll(async () => Number(await canvas.getAttribute('data-rendered'))).toBeGreaterThan(0);
+    const nearby = Number(await canvas.getAttribute('data-rendered'));
+    const total = Number(await canvas.getAttribute('data-total'));
+    expect(nearby, 'the home camera must show a local window, never squeeze the whole universe into view').toBeLessThan(total / 3);
     await canvas.scrollIntoViewIfNeeded();
     const bounds = (await canvas.boundingBox())!;
     const before = JSON.parse((await canvas.getAttribute('data-camera'))!) as SceneCamera;

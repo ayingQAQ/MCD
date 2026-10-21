@@ -1,12 +1,11 @@
 import { useEffect, useRef, useState } from 'react';
 import type { Dataset, FoodPlanet, NutrientKey, NutritionGraph, SimilarityEdge } from '../data/schema';
-import { categoryNames, nutrientNames, stableHash } from '../data/schema';
+import { nutrientNames, stableHash } from '../data/schema';
 import type { PlanetPosition } from '../graph/layout';
-import { clusterBounds } from '../graph/layout';
 import { projectPoint, zoomCameraAt, frameDepthPoints } from '../graph/depth';
 import { quantile } from '../graph/analysis';
 import { focusIds, relationEdges } from '../graph/view';
-import { drawPlanet, ink, shades } from '../art/planets';
+import { drawPlanet, ink } from '../art/planets';
 import { Icon } from './Illustrations';
 
 interface Props {
@@ -40,10 +39,8 @@ export function GalaxyCanvas(props: Props) {
     const canvas = canvasRef.current!;
     const ctx = canvas.getContext('2d')!;
     const positions = new Map(props.positions.map(p => [p.id, p]));
-    const clusters = clusterBounds(props.positions);
-    const galaxyMotto: Record<string, string> = { burger: 'THE BURGER ORBIT', breakfast: 'GOOD MORNING', side: 'LITTLE BITES', drink: 'SIP & WANDER', dessert: 'SWEET DREAMS', other: 'THE UNKNOWN' };
     // Three star layers in screen space; nearer layers drift more with the camera (parallax).
-    const stars = Array.from({ length: 220 }, (_, i) => { const h = stableHash(`star-${i}`); return { x: (h % 10007) / 10007, y: (Math.floor(h / 10007) % 9973) / 9973, layer: i % 3, size: .6 + (h % 7) / 6, gold: h % 9 === 0 }; });
+    const stars = Array.from({ length: 360 }, (_, i) => { const h = stableHash(`star-${i}`); return { x: (h % 10007) / 10007, y: (Math.floor(h / 10007) % 9973) / 9973, layer: i % 3, size: .6 + (h % 7) / 6, gold: h % 9 === 0 }; });
     let frame = 0, idle = 0, destroyed = false;
     let lensStart = performance.now();
     let previousLens = latest.current.lens;
@@ -81,36 +78,22 @@ export function GalaxyCanvas(props: Props) {
       canvas.dataset.camera = JSON.stringify(c);
       const dpr = Math.min(2, window.devicePixelRatio || 1);
       ctx.setTransform(dpr, 0, 0, dpr, 0, 0); ctx.clearRect(0, 0, width, height);
-      // Deep sky: parallax stars drawn before the world transform.
+      // The universe extends beyond the viewport. Distant dust has its own slower parallax.
+      ctx.fillStyle='#172331';ctx.fillRect(0,0,width,height);
+      for(const cloud of [{x:.15,y:.35,r:.8,color:'#70523B',speed:.035},{x:.78,y:.65,r:.65,color:'#31576B',speed:.075}]){
+        const cx=width*cloud.x+c.x*cloud.speed,cy=height*cloud.y+c.y*cloud.speed,r=Math.max(width,height)*cloud.r;
+        const glow=ctx.createRadialGradient(cx,cy,0,cx,cy,r);glow.addColorStop(0,cloud.color+'66');glow.addColorStop(.6,cloud.color+'16');glow.addColorStop(1,cloud.color+'00');
+        ctx.fillStyle=glow;ctx.fillRect(0,0,width,height);
+      }
       for (const star of stars) {
-        const depth = [.04, .1, .2][star.layer], span = 1.4;
+        const depth = [.025, .09, .24][star.layer], span = 1.4;
         const sx = (((star.x * width * span + c.x * depth) % (width * span)) + width * span) % (width * span) - width * .2;
         const sy = (((star.y * height * span + c.y * depth) % (height * span)) + height * span) % (height * span) - height * .2;
-        ctx.globalAlpha = .35 + star.layer * .2; ctx.fillStyle = star.gold ? '#D9B968' : '#C9BBA2';
-        if (star.gold && star.layer === 2) { ctx.strokeStyle = '#D9B968'; ctx.lineWidth = 1; ctx.beginPath(); ctx.moveTo(sx - 4, sy); ctx.lineTo(sx + 4, sy); ctx.moveTo(sx, sy - 4); ctx.lineTo(sx, sy + 4); ctx.stroke(); }
-        else { ctx.beginPath(); ctx.arc(sx, sy, star.size * (.6 + star.layer * .3), 0, Math.PI * 2); ctx.fill(); }
+        ctx.globalAlpha = .28 + star.layer * .25; ctx.fillStyle = star.gold ? '#F1D08A' : '#D3DEDF';
+        if (star.gold && star.layer === 2) { ctx.strokeStyle = '#E5C280'; ctx.lineWidth = .8; ctx.beginPath(); ctx.moveTo(sx - 3, sy); ctx.lineTo(sx + 3, sy); ctx.moveTo(sx, sy - 3); ctx.lineTo(sx, sy + 3); ctx.stroke(); }
+        else { ctx.beginPath(); ctx.arc(sx, sy, star.size * (.45 + star.layer * .3), 0, Math.PI * 2); ctx.fill(); }
       }
       ctx.globalAlpha = 1;
-      // Tilted nebulae recede in perspective; no enclosing category discs.
-      for (const cluster of [...clusters].sort((a,b)=>b.depth-a.depth)) {
-        const shown = p.dataset.foods.some(f => f.category === cluster.category && p.visible.has(f.id));
-        const tone=shades[cluster.category], center=projectPoint(cluster,c,sizeRef.current), r=cluster.radius*c.scale*center.factor;
-        ctx.save();ctx.translate(center.x,center.y);ctx.rotate(cluster.tilt);ctx.scale(1,.65);
-        const nebula=ctx.createRadialGradient(0,0,0,0,0,r*1.2);
-        nebula.addColorStop(0,`${tone.glow}42`);nebula.addColorStop(.55,`${tone.glow}24`);nebula.addColorStop(1,`${tone.glow}00`);
-        ctx.globalAlpha=shown? .85:.18;ctx.fillStyle=nebula;ctx.beginPath();ctx.ellipse(0,0,r*1.2,r,0,0,Math.PI*2);ctx.fill();
-        // Sparse original spiral ink marks make the tilt legible without rigid borders.
-        ctx.strokeStyle=tone.dark;ctx.lineWidth=1;ctx.globalAlpha=shown?.12:.04;
-        for(let arm=0;arm<2;arm++){
-          ctx.beginPath();for(let i=0;i<=80;i++){const t=i/80,angle=t*Math.PI*2.3+arm*Math.PI,rr=r*(.12+t*.85),x=Math.cos(angle)*rr,y=Math.sin(angle)*rr*.8;if(!i)ctx.moveTo(x,y);else ctx.lineTo(x,y);}ctx.stroke();
-        }
-        ctx.restore();
-        const label=projectPoint({x:cluster.x,y:cluster.y-cluster.radius*.82,depth:cluster.depth},c,sizeRef.current);
-        ctx.globalAlpha=shown?Math.max(.55,center.factor):.25;ctx.textAlign='center';ctx.textBaseline='bottom';
-        ctx.font=`600 ${Math.max(12,15*center.factor)}px "ZCOOL KuaiLe", "Microsoft YaHei", sans-serif`;ctx.fillStyle=tone.dark;ctx.fillText(`${categoryNames[cluster.category]} · ${cluster.count}`,label.x,label.y);
-        ctx.font='600 9px Nunito, sans-serif';ctx.fillStyle='#A8987E';ctx.fillText(galaxyMotto[cluster.category],label.x,label.y-20);
-      }
-      ctx.globalAlpha=1;
       const relations = new Set(p.showRelations ? relationEdges(p.graph, p.selected, p.expanded, p.visible) : []);
       const routePairs = new Set(p.route.slice(1, Math.max(1, p.routeStep + 1)).map((id, i) => [id, p.route[i]].sort().join(':')));
       const drawingEdges = p.highlight ? [...p.graph.edges.filter(e => !([e.source, e.target].includes(p.highlight!.source) && [e.source, e.target].includes(p.highlight!.target))), p.highlight] : p.graph.edges;
@@ -123,7 +106,7 @@ export function GalaxyCanvas(props: Props) {
         const a = positions.get(e.source)!, b = positions.get(e.target)!;
         const points=Array.from({length:41},(_,i)=>{const t=i/40,u=1-t,depth=a.depth+(b.depth-a.depth)*t;return {...projectPoint({x:u*u*a.x+2*u*t*(a.x+b.x)/2+t*t*b.x,y:u*u*a.y+2*u*t*((a.y+b.y)/2-22)+t*t*b.y,depth},c,sizeRef.current),depth};});
         drawnEdges.push({edge:e,points});
-        ctx.strokeStyle = isDiscovery ? '#9276AF' : inRoute ? '#BD7043' : '#A99E89'; ctx.lineWidth = inRoute || isDiscovery ? 2.8 : 1.2; ctx.setLineDash(inRoute || isDiscovery ? [8,5] : [3,5]);
+        ctx.strokeStyle = isDiscovery ? '#9276AF' : inRoute ? '#BD7043' : '#A8B4BF'; ctx.lineWidth = inRoute || isDiscovery ? 2.8 : 1.2; ctx.setLineDash(inRoute || isDiscovery ? [8,5] : [3,5]);
         ctx.beginPath();points.forEach((point,i)=>{if(!i)ctx.moveTo(point.x,point.y);else ctx.lineTo(point.x,point.y);});ctx.stroke();
       }
       ctx.setLineDash([]);
@@ -146,6 +129,9 @@ export function GalaxyCanvas(props: Props) {
         if (food.nutrition[p.lens] === null) { ctx.font = `${Math.max(9,16*c.scale*projected.factor)}px sans-serif`; ctx.fillStyle = ink; ctx.textAlign = 'center'; ctx.fillText('?', sx, screenY + 4); }
         labels.push({ food, x: sx, y: screenY, radius:screenRadius, selected, hovered: isHover });
       }
+      canvas.dataset.rendered=String(drawnPlanets.length);
+      canvas.dataset.total=String(p.visible.size);
+      canvas.dataset.window=JSON.stringify(drawnPlanets.map(point=>point.id));
       ctx.globalAlpha = 1;
       // Labels: selected and hovered first, then larger planets; skip any that would collide on screen.
       const featured = /^(巨无霸|麦香鱼|麦香鸡|中薯条|草莓新地|猪柳蛋麦满分|可乐中杯|奥利奥麦旋风|纯牛奶（盒装）|脆薯饼)$/;
@@ -174,11 +160,9 @@ export function GalaxyCanvas(props: Props) {
     }
     function fit() {
       cameraTween.current=null;
-      const points = props.positions;
-      if (!points.length) return;
-      const {width,height}=sizeRef.current,inset=latest.current.insets?.()??{left:0,bottom:0},left=Math.min(inset.left,width*.45);
-      camera.current=frameDepthPoints(points,sizeRef.current,{left,top:65,width:width-left,height:height-65-Math.min(inset.bottom,height*.22)},1);
-      const scale=camera.current.scale;
+      // Reset returns to a human-scale exploration window, never an all-planets fit.
+      const {width,height}=sizeRef.current,left=Math.min(latest.current.insets?.().left??0,width*.45),scale=width<600?.78:.9;
+      camera.current={x:left+(width-left)/2,y:height*.5,scale};
       setZoom(Math.round(scale * 100)); requestDraw();
     }
     fitRef.current = fit;
@@ -268,7 +252,7 @@ export function GalaxyCanvas(props: Props) {
   useEffect(() => { if (firstFit.current) { firstFit.current = false; return; } if (!latest.current.selected && !latest.current.route.length && !latest.current.highlight) fitRef.current(); }, [props.fitKey]);
   return <>
     <canvas ref={canvasRef} className="galaxy-canvas" data-scene="perspective" data-lens={props.lens} role="img" aria-label={`餐品营养星图，当前透镜：${nutrientNames[props.lens]}。请使用左侧餐品列表进行键盘探索。`}/>
-    <div className="canvas-hint"><span className="tiny-orbit"/> 拖动去漫游 · 滚轮或双指缩放</div>
+    <div className="canvas-hint"><span className="tiny-orbit"/> 拖动探索远方 · 当前仅显示附近星球 · 滚轮或双指推进</div>
     <div className="zoom-tools" aria-label="画布视图控制"><button onClick={() => zoomRef.current(.8)} aria-label="缩小">−</button><span>{zoom}%</span><button onClick={() => zoomRef.current(1.25)} aria-label="放大">+</button><i/><button onClick={() => fitRef.current()} aria-label="重置视图"><Icon name="reset" size={17}/></button></div>
   </>;
 }

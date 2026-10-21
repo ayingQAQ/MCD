@@ -15,7 +15,7 @@ export function unprojectPoint(point: {x:number;y:number}, depth: number, camera
   return {x:(cx + (point.x-cx)/factor-camera.x)/camera.scale,y:(cy+(point.y-cy)/factor-camera.y)/camera.scale};
 }
 export function zoomCameraAt(camera:SceneCamera,anchor:{x:number;y:number},factor:number,viewport:Viewport,depth=0):SceneCamera {
-  const world = unprojectPoint(anchor,depth,camera,viewport), scale = Math.max(.2,Math.min(2.6,camera.scale*factor));
+  const world = unprojectPoint(anchor,depth,camera,viewport), scale = Math.max(.08,Math.min(2.6,camera.scale*factor));
   const f=depthFactor(depth),cx=viewport.width/2,cy=viewport.height/2;
   return {x:cx+(anchor.x-cx)/f-world.x*scale,y:cy+(anchor.y-cy)/f-world.y*scale,scale};
 }
@@ -31,7 +31,7 @@ export function frameDepthPoints(points:DepthPoint[],viewport:Viewport,area:{lef
     const mean=projected.reduce((s,p)=>s+p.factor,0)/projected.length;
     camera.x+=(target.x-(minX+maxX)/2)/mean;camera.y+=(target.y-(minY+maxY)/2)/mean;
     const ratio=Math.min(1,(area.width-32)/(maxX-minX),(area.height-32)/(maxY-minY));
-    if(ratio<.999)camera={...camera,scale:Math.max(.2,camera.scale*ratio)};
+    if(ratio<.999)camera={...camera,scale:Math.max(.08,camera.scale*ratio)};
   }
   return camera;
 }

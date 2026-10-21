@@ -20,4 +20,5 @@ test-results/
 *.tsbuildinfo
 artifacts/
 .wrangler/
+.playwright-mcp/
 

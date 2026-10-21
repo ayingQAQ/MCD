@@ -53,6 +53,8 @@ describe('original food illustration system', () => {
     expect(resolveFoodIllustration({ name: '大薯条' }).presetId).toBe('fries-large');
     expect(resolveFoodIllustration({ name: '巨无霸', category: 'burger' }).status).toBe('generic-example');
     expect(resolveFoodIllustration({ name: '不认识的带骨鸡翅', category: 'side' }).presetId).toBe('unknown-bag');
+    expect(resolveFoodIllustration({ name: '朱古力新地', category: 'dessert' }).presetId).toBe('dessert-plain-cup');
+    expect(resolveFoodIllustration({ name: '鲜蔬蛋沙拉卷' }).presetId).toBe('wrap-closed');
   });
   it('exports self-contained, static, transparent SVG for every preset', async () => {
     for (const preset of foodPresets) {

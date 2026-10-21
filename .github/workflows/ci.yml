@@ -27,6 +27,7 @@ jobs:
       - run: pnpm typecheck
       - run: pnpm lint
       - run: pnpm build
+      - run: pnpm illustrations:export
       - run: pnpm verify:contest
       - run: pnpm exec playwright install --with-deps chromium
       - run: pnpm test:e2e
@@ -42,4 +43,9 @@ jobs:
         with:
           name: mccosmos-static
           path: dist/
+          retention-days: 30
+      - uses: actions/upload-artifact@v4
+        with:
+          name: food-illustrations-svg
+          path: artifacts/food-illustrations/
           retention-days: 30

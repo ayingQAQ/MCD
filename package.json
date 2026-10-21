@@ -17,7 +17,8 @@
     "test:e2e": "playwright test",
     "sync:mcd": "tsx scripts/sync-nutrition.ts",
     "cosmos:cli": "tsx scripts/cosmos-cli.ts",
-    "verify:contest": "tsx scripts/verify-contest.ts"
+    "verify:contest": "tsx scripts/verify-contest.ts",
+    "illustrations:export": "tsx scripts/export-food-illustrations.ts"
   },
   "dependencies": {
     "@fontsource/nunito": "^5.3.0",

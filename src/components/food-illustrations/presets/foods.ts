@@ -1,2 +1,37 @@
 import type { FoodIllustrationPreset } from '../types';
-export const foodPresets: readonly FoodIllustrationPreset[] = [];
+import { illustrationPalette as p } from '../palette';
+type Example = Omit<FoodIllustrationPreset, 'mapping' | 'notes'>;
+const examples: Example[] = [
+  { id: 'burger-single', name: '单层牛肉小汉堡', family: 'burger', variant: 'single', ingredients: ['sauce', 'pickle', 'beef'], expression: 'curious', layoutSeed: 11, decorations: ['orbit'] },
+  { id: 'burger-double', name: '双层牛肉汉堡', family: 'burger', variant: 'double', ingredients: ['sauce', 'cheese', 'beef', 'cheese', 'beef'], expression: 'happy', layoutSeed: 22, decorations: ['orbit', 'star-pin'] },
+  { id: 'burger-cheese', name: '垂角芝士汉堡', family: 'burger', variant: 'cheese', layers: [{ kind: 'lettuce' }, { kind: 'cheese', thickness: 10 }, { kind: 'beef', thickness: 17 }], expression: 'shy', layoutSeed: 34, decorations: ['satellite'] },
+  { id: 'burger-crispy', name: '酥脆鸡排汉堡', family: 'burger', variant: 'crispy', ingredients: ['lettuce', 'sauce', 'chicken'], expression: 'excited', layoutSeed: 45, decorations: ['flag'] },
+  { id: 'burger-layered', name: '三片面包叠叠堡', family: 'burger', variant: 'layered', ingredients: ['lettuce', 'cheese', 'beef', 'middle-bun', 'pickle', 'beef'], expression: 'smile', layoutSeed: 57, decorations: ['orbit', 'satellite'] },
+  { id: 'burger-egg', name: '长面包培根蛋堡', family: 'burger', variant: 'egg', bun: 'long', ingredients: ['egg', 'bacon', 'cheese', 'beef'], expression: 'sleepy', layoutSeed: 64, decorations: ['star-pin'] },
+  { id: 'fries-small', name: '小份薯条', family: 'fries', variant: 'small', expression: 'shy', layoutSeed: 18, decorations: ['star-pin'] },
+  { id: 'fries-regular', name: '错落薯条盒', family: 'fries', variant: 'regular', expression: 'happy', layoutSeed: 27, decorations: ['satellite'] },
+  { id: 'fries-large', name: '满满大薯条', family: 'fries', variant: 'large', expression: 'excited', layoutSeed: 35, decorations: ['orbit'] },
+  { id: 'drink-cola', name: '吸管冷饮纸杯', family: 'drink', variant: 'cold-paper', colors: { container: p.blue, liquid: p.chocolate }, expression: 'curious', layoutSeed: 13, decorations: ['satellite'] },
+  { id: 'drink-lemon', name: '冰块柠檬透明杯', family: 'drink', variant: 'cold-clear', colors: { liquid: p.lemon }, expression: 'smile', layoutSeed: 24, decorations: ['orbit'] },
+  { id: 'drink-hot', name: '暖手热饮纸杯', family: 'drink', variant: 'hot-lid', expression: 'sleepy', layoutSeed: 36, decorations: ['star-pin'] },
+  { id: 'drink-latte', name: '陶杯奶咖', family: 'drink', variant: 'ceramic', colors: { container: p.green, liquid: p.coffee }, expression: 'happy', layoutSeed: 41, decorations: ['satellite'] },
+  { id: 'drink-espresso', name: '小小浓缩咖啡', family: 'drink', variant: 'espresso', colors: { container: p.cream, liquid: p.chocolate }, expression: 'neutral', layoutSeed: 52, decorations: ['star-pin'] },
+  { id: 'nugget-single', name: '弯弯酥鸡块', family: 'nugget', variant: 'single', expression: 'curious', layoutSeed: 16, decorations: ['orbit'] },
+  { id: 'nugget-box', name: '三只鸡块与蘸酱', family: 'nugget', variant: 'box', expression: 'happy', layoutSeed: 29, decorations: ['satellite'] },
+  { id: 'nugget-bag', name: '酥块小纸袋', family: 'nugget', variant: 'bag', expression: 'shy', layoutSeed: 38, decorations: ['flag'] },
+  { id: 'dessert-cone', name: '香草旋纹甜筒', family: 'dessert', variant: 'cone', expression: 'smile', layoutSeed: 15, decorations: ['satellite'] },
+  { id: 'dessert-chocolate-cone', name: '巧克力淋面甜筒', family: 'dessert', variant: 'chocolate-cone', expression: 'neutral', layoutSeed: 26, decorations: ['star-pin'] },
+  { id: 'dessert-sundae', name: '草莓高脚新地杯', family: 'dessert', variant: 'sundae', expression: 'shy', layoutSeed: 37, decorations: ['orbit'] },
+  { id: 'dessert-plain-cup', name: '原味高脚冰淇淋杯', family: 'dessert', variant: 'cup-plain', expression: 'neutral', layoutSeed: 39, decorations: ['star-pin'] },
+  { id: 'dessert-cookie', name: '曲奇旋纹小纸杯', family: 'dessert', variant: 'cookie-cup', expression: 'happy', layoutSeed: 48, decorations: ['satellite'] },
+  { id: 'dessert-pie', name: '金黄封边小派', family: 'dessert', variant: 'pie', expression: 'neutral', layoutSeed: 59, decorations: ['star-pin'] },
+  { id: 'dessert-berry-pie', name: '切口果馅小派', family: 'dessert', variant: 'berry-pie', expression: 'neutral', layoutSeed: 61, decorations: ['satellite'] },
+  { id: 'breakfast-muffin', name: '烤纹圆麦芬', family: 'breakfast', variant: 'muffin-plain', expression: 'sleepy', layoutSeed: 12, decorations: ['star-pin'] },
+  { id: 'breakfast-egg-muffin', name: '晨光鸡蛋麦芬', family: 'breakfast', variant: 'muffin-egg', expression: 'happy', layoutSeed: 23, decorations: ['satellite'] },
+  { id: 'breakfast-bacon-muffin', name: '培根蛋层麦芬', family: 'breakfast', variant: 'muffin-bacon', expression: 'smile', layoutSeed: 33, decorations: ['orbit'] },
+  { id: 'breakfast-egg-plate', name: '煎蛋与吐司小盘', family: 'breakfast', variant: 'egg-plate', expression: 'curious', layoutSeed: 44, decorations: ['satellite'] },
+  { id: 'wrap-open', name: '露馅鸡肉小卷', family: 'wrap', variant: 'open', expression: 'happy', layoutSeed: 55, decorations: ['star-pin'] },
+  { id: 'wrap-closed', name: '折角早餐卷', family: 'wrap', variant: 'closed', expression: 'curious', layoutSeed: 66, decorations: ['orbit'] },
+  { id: 'unknown-bag', name: '待确认餐品纸袋', family: 'unknown', variant: 'bag', expression: 'neutral', layoutSeed: 77, decorations: ['satellite'] },
+];
+export const foodPresets: readonly FoodIllustrationPreset[] = examples.map(example => Object.freeze({ ...example, mapping: 'generic-example' as const, notes: '原创通用类型示例，非官方商品配方或包装还原。' }));

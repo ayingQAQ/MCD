@@ -1,12 +1,15 @@
 import { useId } from 'react';
 import { palette } from '../art/planets';
 import { stableHash, type FoodPlanet } from '../data/schema';
+import { FoodIllustration } from './food-illustrations/FoodIllustration';
+import { resolveFoodIllustration } from './food-illustrations/registry';
 
 export function Star({ className = '', ...rest }: React.SVGProps<SVGSVGElement>) {
   return <svg viewBox="0 0 60 60" fill="none" className={className} aria-hidden="true" {...rest}><path d="m29 5 7 17 19 2-14 13 4 18-16-9-16 9 3-19L3 23l19-2Z" fill="#F1CB66" stroke="#51483F" strokeWidth="2" strokeLinejoin="round"/><path d="m28 9 6 16 16 1" stroke="#fff5cc" strokeWidth="2" strokeLinecap="round"/></svg>;
 }
 export function PlanetStamp({ food, className = '' }: { food?: FoodPlanet; className?: string }) {
   const id = useId().replace(/:/g, '');
+  if (food) return <FoodIllustration foodId={resolveFoodIllustration(food).presetId} size={160} className={`planet-stamp ${className}`} title={`${food.name} · 通用形态示意，非商品配方图`} decorative/>;
   const color = food ? palette[food.category] : '#F3A38C';
   const variant = food ? stableHash(food.id) % 5 : 0;
   return <svg className={`planet-stamp ${className}`} viewBox="0 0 120 110" aria-hidden="true">

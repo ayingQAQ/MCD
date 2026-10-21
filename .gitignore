@@ -18,4 +18,6 @@ playwright-report/
 test-results/
 .superpowers/
 *.tsbuildinfo
+artifacts/
+.wrangler/
 

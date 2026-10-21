@@ -1,4 +1,7 @@
 import { expect, test } from '@playwright/test';
+import snapshot from '../../public/data/nutrition.snapshot.json' with {type:'json'};
+import {datasetSchema} from '../../src/data/schema';
+import {discover} from '../../src/graph/analysis';
 
 test('official snapshot, search, lenses, details and PNG export', async ({ page }, testInfo) => {
   const errors: string[] = [];
@@ -49,6 +52,12 @@ test('route steps and discoveries are usable', async ({ page }, testInfo) => {
   await expect(page.getByRole('heading', { name: '双生星发现' })).toBeVisible();
   await page.locator('.discovery-results > button').first().click();
   await expect(page.getByRole('region', { name: '双生星连接', exact: true })).toBeVisible();
+  const twin=discover(datasetSchema.parse(snapshot).foods).twins[0];
+  await expect.poll(async()=>{
+    const value=await page.locator('canvas.galaxy-canvas').getAttribute('data-planets');
+    const planets=JSON.parse(value||'[]') as {id:string;visible:boolean}[];
+    return [twin.source,twin.target].every(id=>planets.some(p=>p.id===id&&p.visible));
+  }).toBe(true);
   await page.screenshot({ path: testInfo.outputPath('twins.png'), fullPage: true });
 });
 

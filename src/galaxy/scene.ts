@@ -129,7 +129,7 @@ export function createGalaxyScene(canvas:HTMLCanvasElement,read:()=>GalaxySceneI
       previousSelected=p.selected;
     }
     const routeKey=`${p.route.join(':')}:${p.highlight?.source??''}:${p.highlight?.target??''}`;
-    if(!p.selected&&routeKey!==previousRoute){
+    if((p.highlight||!p.selected)&&routeKey!==previousRoute){
       const ids=p.highlight?[p.highlight.source,p.highlight.target]:p.route;
       framePoints(ids.flatMap(id=>byId.has(id)?[byId.get(id)!.group.position]:[]),120);
     }

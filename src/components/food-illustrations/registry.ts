@@ -19,7 +19,9 @@ export function resolveFoodIllustration(food: FoodIdentity): IllustrationMatch {
   if (/麦满分/.test(name)) return match(/蛋/.test(name) ? 'breakfast-egg-muffin' : 'breakfast-muffin', 'name-shape');
   if (/卷/.test(name)) return match(/鸡/.test(name) ? 'wrap-open' : 'wrap-closed', 'name-shape');
   if (/双层.*(?:牛|汉堡)/.test(name)) return match('burger-double', 'name-shape');
-  if (/鸡腿.*(?:堡|汉堡)|鸡肉汉堡/.test(name)) return match('burger-crispy', 'name-shape');
+  if (/(?:脆|酥|炸).*鸡.*(?:堡|汉堡)/.test(name)) return match('burger-crispy', 'name-shape');
+  // A chicken sandwich name alone does not establish a fried coating or a beef filling.
+  if (/鸡.*(?:堡|汉堡)/.test(name)) return match('unknown-bag', 'unknown');
   if (/吉士.*汉堡/.test(name)) return match('burger-cheese', 'name-shape');
   if (/汉堡|牛堡|鸡腿堡/.test(name)) return match('burger-single', 'name-shape');
   if (/热.*(?:饮|奶|茶|咖啡)|热朱古力/.test(name)) return match('drink-hot', 'name-shape');

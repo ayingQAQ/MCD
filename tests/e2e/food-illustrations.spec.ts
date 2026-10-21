@@ -29,7 +29,7 @@ test('gallery exposes distinct families, sizes, expressions and independent SVG 
   expect(errors).toEqual([]);
 });
 
-test('food body stays identifiable without faces or cosmic decoration and respects reduced motion', async ({ page }) => {
+test('food body stays identifiable without faces or cosmic decoration and respects reduced motion', async ({ page }, testInfo) => {
   await page.emulateMedia({ reducedMotion: 'reduce' });
   await page.goto('/illustrations.html');
   await page.getByLabel('角色表情').selectOption('neutral');
@@ -40,6 +40,13 @@ test('food body stays identifiable without faces or cosmic decoration and respec
   await page.getByLabel('食物类别').selectOption('burger');
   const pattyCounts = await page.locator('.food-art-tile svg').evaluateAll(nodes => nodes.map(node => node.querySelectorAll('[data-ingredient="beef"], [data-ingredient="chicken"]').length));
   expect(pattyCounts).toContain(1); expect(pattyCounts).toContain(2);
+  await page.setViewportSize({ width: 1600, height: 1000 });
+  await page.getByLabel('食物类别').selectOption('all');
+  await page.getByLabel('插画尺寸').selectOption('48');
+  await page.screenshot({ path: testInfo.outputPath('food-sheet-48-neutral.png'), fullPage: true, animations: 'disabled' });
+  await page.getByLabel('插画尺寸').selectOption('160');
+  await page.getByRole('checkbox', { name: '宇宙角色模式', exact: true }).check();
+  await page.screenshot({ path: testInfo.outputPath('food-sheet-cosmic.png'), fullPage: true, animations: 'disabled' });
 });
 
 for (const background of ['light', 'dark', 'checker']) test(`food art evidence on ${background} background`, async ({ page }, testInfo) => {

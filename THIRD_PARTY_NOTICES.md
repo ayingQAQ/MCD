@@ -3,6 +3,7 @@
 - Rough.js — MIT, Copyright (c) 2019 Preet Shihn. Seeded sketch outlines and decoration; full license included in static package.
 - d3-force — ISC, Copyright Mike Bostock and contributors. Deterministic pre-layout.
 - React — MIT, Meta Platforms, Inc. and affiliates.
+- React Router — MIT, React Training LLC / Shopify Inc. Five-page browser routing; full license included in static package.
 - Zod — MIT, Colin McDonnell and contributors.
 - MCP TypeScript SDK — MIT, Model Context Protocol contributors. Node-only.
 - @toon-format/toon — MIT, TOON contributors. Node-only nutrition decoding.

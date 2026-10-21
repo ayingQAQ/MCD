@@ -24,3 +24,7 @@ pnpm cosmos:cli -- discover --kind=lonely
 - Never echo, log or publish the Token. This Skill does not access addresses, accounts, coupons, orders, payments or points, and gives no medical advice.
 
 For algorithm details, read `MCP_INTEGRATION.md` in the project root. Install by copying this folder to a Skill directory supported by the target client; project dependencies and working directory remain separate requirements.
+
+## Browser exploration in version 2.0
+
+The web application has `/` (observatory), `/galaxy`, `/atlas`, `/lab`, and `/quests`. Open `/atlas?food=<stable-id>` for a food dossier or `/galaxy?focus=<stable-id>` to locate it; `/galaxy?from=<id>&to=<id>` prepares endpoints and still requires the user to trigger route planning. Preserve `demo=1` on synthetic-mode links. Favorites, lab samples and daily quest progress are browser-local and mode-separated, not CLI or MCP account data. Never claim a quest completed from a suggested link alone; the UI validates actual selections or route planning before awarding a stamp.

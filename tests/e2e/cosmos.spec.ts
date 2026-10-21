@@ -6,7 +6,7 @@ test('official snapshot, search, lenses, details and PNG export', async ({ page 
   await page.goto('/galaxy');
   await expect(page.getByText('官方营养快照', { exact: true }).first()).toBeVisible();
   await expect(page.locator('canvas').first()).toBeVisible();
-  await page.getByLabel('搜索餐品').fill('巨无霸');
+  await page.getByLabel('搜索餐品', { exact: true }).fill('巨无霸');
   await page.getByRole('button', { name: '探索 巨无霸', exact: true }).click();
   await expect(page.getByRole('heading', { name: '巨无霸', exact: true })).toBeVisible();
   await expect(page.getByText('513 kcal', { exact: true }).first()).toBeVisible();
@@ -17,7 +17,7 @@ test('official snapshot, search, lenses, details and PNG export', async ({ page 
   const card = await download;
   expect(card.suggestedFilename()).toMatch(/\.png$/);
   await card.saveAs(testInfo.outputPath('planet-card.png'));
-  await expect(page.getByLabel('搜索餐品')).toHaveValue('');
+  await expect(page.getByLabel('搜索餐品', { exact: true })).toHaveValue('');
   await page.keyboard.press('Escape');
   await expect(page.getByRole('heading', { name: '巨无霸', exact: true })).toBeHidden();
   expect(errors).toEqual([]);
@@ -26,7 +26,7 @@ test('official snapshot, search, lenses, details and PNG export', async ({ page 
 test('filters, no results, honest demo mode and no automatic official fallback', async ({ page }) => {
   await page.goto('/galaxy?demo=1');
   await expect(page.getByText('合成示例数据 · 非官方营养信息', { exact: true }).first()).toBeVisible();
-  await page.getByLabel('搜索餐品').fill('不存在的星球xyz');
+  await page.getByLabel('搜索餐品', { exact: true }).fill('不存在的星球xyz');
   await expect(page.getByText('还没有找到这颗星球')).toBeVisible();
   await page.goto('/galaxy');
   await page.getByRole('button', { name: '饮品星系', exact: true }).click();
@@ -85,7 +85,7 @@ for (const viewport of [{ width: 1440, height: 900 }, { width: 768, height: 1024
     await expect(page.getByText(/正在绘制/)).toHaveCount(0);
     expect(await page.evaluate(() => document.documentElement.scrollWidth <= window.innerWidth)).toBe(true);
     await page.screenshot({ path: testInfo.outputPath(`atlas-${viewport.width}.png`), fullPage: true });
-    await page.getByLabel('搜索餐品').fill('巨无霸');
+    await page.getByLabel('搜索餐品', { exact: true }).fill('巨无霸');
     await page.getByRole('button', { name: '探索 巨无霸', exact: true }).click();
     await expect(page.getByRole('heading', { name: '巨无霸', exact: true })).toBeVisible();
     await page.screenshot({ path: testInfo.outputPath(`details-${viewport.width}.png`), fullPage: true });

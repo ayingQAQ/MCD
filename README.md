@@ -6,6 +6,8 @@
 
 [在线探索](https://mccosmos.pages.dev) · [Actions 与静态包](https://github.com/ayingQAQ/McCosmos/actions/workflows/ci.yml) · [实际 MCP 接入](MCP_INTEGRATION.md) · [Skill](skills/mccosmos/SKILL.md) · [实施记录](docs/IMPLEMENTATION_LOG.md)
 
+2.0 新增五个互通的探索站：[观测站](https://mccosmos.pages.dev/) → [营养星系](https://mccosmos.pages.dev/galaxy) → [星球图鉴](https://mccosmos.pages.dev/atlas) → [实验室](https://mccosmos.pages.dev/lab) → [探索任务](https://mccosmos.pages.dev/quests)。交互路径与验收记录见 [USER_JOURNEYS](docs/USER_JOURNEYS.md)。
+
 ![麦门星图桌面界面](docs/screenshots/desktop.png)
 
 ## 功能
@@ -13,7 +15,13 @@
 - 拖动/缩放星图、搜索、分类筛选，切换热量/蛋白质/脂肪/碳水/钠五种透镜。
 - 营养详情、前三名邻居及数字解释、最少关系跳数航线。
 - 跨类别双生星、孤独星球、中文 PNG 星球卡。
+- 独立图鉴支持中文搜索、类别/收藏筛选、完整数据筛选、数值排序及分页；收藏与最近查看跨页同步。
+- 营养实验室支持 2–3 项对照、替换/移除/交换、独立营养量尺、原值与差值、相似度解释、PNG 对照卡和返回星系规划航线。
+- 每日三类真实数据任务：双生星、营养排名、指定航线；验证后领取一次星章，可导出成果卡。任务按本地日期与数据版本固定。
+- 31 个原创 SVG 食物通用示例，支持多尺寸、表情、宇宙装饰与独立导出；[插画工坊](https://mccosmos.pages.dev/illustrations.html) 保持独立。
 - 无运行时大模型、数据库或用户登录；网页无需 Token，CLI/Skill 复用相同算法。
+
+收藏、实验台、最近查看和任务进度保存在版本化 localStorage；官方与演示模式分别存储。清除浏览器数据后消失，存储被禁用时仍能在当前会话探索。分享图包含来源和单位边界，不把未核实的原始值改写为每份 g/mg。
 
 ## 安装与启动
 

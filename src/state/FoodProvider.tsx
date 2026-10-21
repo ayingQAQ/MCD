@@ -1,6 +1,6 @@
 import { createContext, useCallback, useContext, useEffect, useMemo, useState, type ReactNode } from 'react';
 import { useSearchParams } from 'react-router';
-import type { Dataset, FoodCategory, FoodPlanet, NutrientKey } from '../data/schema';
+import { stableHash, type Dataset, type FoodCategory, type FoodPlanet, type NutrientKey } from '../data/schema';
 import { loadDataset } from '../data/loadData';
 import { analyze, discover } from '../graph/analysis';
 import { layoutGraph } from '../graph/layout';
@@ -35,15 +35,21 @@ function useFoodValue(dataset:Dataset) {
   const {state,setState,storageWarning}=useExplorer(dataset);
   const [currentLens,setCurrentLens]=useState<NutrientKey>('kcal'),[categoryFilter,setCategoryFilter]=useState<FoodCategory|'all'>('all');
   const [selectedFoodId,setSelectedFoodId]=useState<string|null>(null),[notice,setNotice]=useState('');
+  useEffect(()=>{if(!notice)return;const timer=setTimeout(()=>setNotice(''),6000);return()=>clearTimeout(timer);},[notice]);
   const [date,setDate]=useState(()=>localDateKey());
+  const [discoveryCount,setDiscoveryCount]=useState(0);
   useEffect(()=>{const timer=setInterval(()=>setDate(localDateKey()),30_000);return()=>clearInterval(timer);},[]);
   const quests=useMemo(()=>createDailyQuests(dataset,graph,date),[dataset,graph,date]);
   const notify=useCallback((message:string)=>setNotice(message),[]);
   const toggleFavorite=useCallback((id:string)=>{if(!foodById.has(id))return;setState(s=>({...s,favoriteIds:s.favoriteIds.includes(id)?s.favoriteIds.filter(x=>x!==id):[...s.favoriteIds,id]}));setNotice('收藏册已更新 · 仅保存在当前浏览器');},[foodById,setState]);
   const visitFood=useCallback((id:string)=>{if(!foodById.has(id))return;setSelectedFoodId(id);setState(s=>s.recentlyViewed[0]===id?s:{...s,recentlyViewed:[id,...s.recentlyViewed.filter(x=>x!==id)].slice(0,6)});},[foodById,setState]);
   const addToLab=useCallback((id:string,replaceId?:string)=>{
-    if(!foodById.has(id))return;setState(s=>{if(s.labSelectedIds.includes(id)){setNotice('这颗星球已经在实验台上了');return s;}if(replaceId&&s.labSelectedIds.includes(replaceId)){setNotice('实验槽位已替换');return {...s,labSelectedIds:s.labSelectedIds.map(x=>x===replaceId?id:x)};}if(s.labSelectedIds.length>=3){setNotice('实验台最多 3 颗星球，请到实验室清空或选择一个槽位替换。');return s;}setNotice('已加入实验室');return {...s,labSelectedIds:[...s.labSelectedIds,id]};});
-  },[foodById,setState]);
+    if(!foodById.has(id))return;
+    if(state.labSelectedIds.includes(id)){setNotice('这颗星球已经在实验台上了');return;}
+    if(replaceId&&state.labSelectedIds.includes(replaceId)){setState(s=>({...s,labSelectedIds:s.labSelectedIds.map(x=>x===replaceId?id:x)}));setNotice('实验槽位已替换');return;}
+    if(state.labSelectedIds.length>=3){setNotice('实验台最多 3 颗星球，请到实验室清空或选择一个槽位替换。');return;}
+    setState(s=>({...s,labSelectedIds:s.labSelectedIds.length<3&&!s.labSelectedIds.includes(id)?[...s.labSelectedIds,id]:s.labSelectedIds}));setNotice('已加入实验室');
+  },[foodById,setState,state.labSelectedIds]);
   const removeFromLab=(id:string)=>{setState(s=>({...s,labSelectedIds:s.labSelectedIds.filter(x=>x!==id)}));setNotice('实验槽位已清空');};
   const clearLab=()=>{setState(s=>({...s,labSelectedIds:[]}));setNotice('实验台已清空');};
   const swapLab=()=>{setState(s=>({...s,labSelectedIds:s.labSelectedIds.length<2?s.labSelectedIds:[s.labSelectedIds[1],s.labSelectedIds[0],...s.labSelectedIds.slice(2)]}));setNotice('前两个槽位已交换');};
@@ -51,8 +57,9 @@ function useFoodValue(dataset:Dataset) {
   function checkQuest(id:string,selection:string[],action:'check'|'route-planned'='check') {const quest=quests.find(q=>q.id===id);if(!quest||!validateQuest(quest,selection,graph,action)){setNotice('还没有符合任务条件，再看看线索吧。');return false;}setQuestStatus(id,'completed');setNotice('探索成功！回任务页领取星章。');return true;}
   function recordRoute(from:string,to:string){for(const q of quests.filter(q=>q.type==='route'))if(validateQuest(q,[from,to],graph,'route-planned')){setQuestStatus(q.id,'completed');setNotice('航线任务已完成，回探索任务领取星章。');}}
   const setSound=(sound:boolean)=>setState(s=>({...s,sound}));
+  function nextDiscovery(){const ordered=[...dataset.foods].sort((a,b)=>a.id.localeCompare(b.id));const index=(stableHash(`${date}:${datasetVersion(dataset)}`)+discoveryCount)%ordered.length;setDiscoveryCount(n=>n+1);return ordered[index]?.id;}
   const path=(pathname:string,values:Record<string,string|undefined>={})=>{const params=new URLSearchParams();if(dataset.meta.mode==='synthetic-demo')params.set('demo','1');for(const [key,value] of Object.entries(values))if(value)params.set(key,value);return `${pathname}${params.size?`?${params}`:''}`;};
-  return {dataset,graph,positions,discoveries,foodById,state,storageWarning,currentLens,setCurrentLens,categoryFilter,setCategoryFilter,selectedFoodId,setSelectedFoodId,notice,notify,toggleFavorite,visitFood,addToLab,removeFromLab,clearLab,swapLab,quests,date,version:datasetVersion(dataset),setQuestStatus,checkQuest,recordRoute,setSound,path};
+  return {dataset,graph,positions,discoveries,foodById,state,storageWarning,currentLens,setCurrentLens,categoryFilter,setCategoryFilter,selectedFoodId,setSelectedFoodId,notice,notify,toggleFavorite,visitFood,addToLab,removeFromLab,clearLab,swapLab,quests,date,version:datasetVersion(dataset),setQuestStatus,checkQuest,recordRoute,setSound,nextDiscovery,path};
 }
 type FoodContextValue=ReturnType<typeof useFoodValue>;
 const FoodContext=createContext<FoodContextValue|null>(null);

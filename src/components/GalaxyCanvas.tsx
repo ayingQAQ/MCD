@@ -25,6 +25,7 @@ export function GalaxyCanvas(props: Props) {
   const zoomRef = useRef<(factor: number) => void>(() => undefined);
   const [zoom, setZoom] = useState(100);
   const camera = useRef<Camera>({ x: 0, y: 0, scale: .65 });
+  const cameraTween=useRef<{start:number;from:Camera;to:Camera}|null>(null);
   const hover = useRef<string | null>(null);
   const radii = useRef(new Map<string, number>());
   const sizeRef = useRef({ width: 1000, height: 650 });
@@ -65,6 +66,7 @@ export function GalaxyCanvas(props: Props) {
       if (destroyed) return;
       const p = latest.current;
       if (previousLens !== p.lens) updateRadii();
+      if(cameraTween.current){const tween=cameraTween.current,t=Math.min(1,(performance.now()-tween.start)/380),ease=1-(1-t)**3;camera.current={x:tween.from.x+(tween.to.x-tween.from.x)*ease,y:tween.from.y+(tween.to.y-tween.from.y)*ease,scale:tween.from.scale+(tween.to.scale-tween.from.scale)*ease};if(t>=1)cameraTween.current=null;}
       const elapsed = reduced.matches ? 1 : Math.min(1, (performance.now() - lensStart) / 350);
       for (const [id, target] of targets) radii.current.set(id, (starts.get(id) ?? target) + (target - (starts.get(id) ?? target)) * (1 - (1 - elapsed) ** 3));
       const { width, height } = sizeRef.current, c = camera.current;
@@ -123,9 +125,10 @@ export function GalaxyCanvas(props: Props) {
       // A quiet hand-drawn comet in the margin, not a particle field.
       rc.path('M-730 -390Q-680 -405 -630 -380', { seed: 9, stroke: '#C4AE7E', strokeWidth: 1.3, roughness: .7 });
       ctx.restore();
-      if (elapsed < 1) requestDraw();
+      if (elapsed < 1 || cameraTween.current) requestDraw();
     }
     function fit() {
+      cameraTween.current=null;
       const points = props.positions;
       if (!points.length) return;
       const { width, height } = sizeRef.current;
@@ -137,6 +140,7 @@ export function GalaxyCanvas(props: Props) {
     }
     fitRef.current = fit;
     function zoomAt(factor: number, x: number, y: number) {
+      cameraTween.current=null;
       const c = camera.current, scale = Math.max(.25, Math.min(2.6, c.scale * factor));
       camera.current = { x: x - (x - c.x) * scale / c.scale, y: y - (y - c.y) * scale / c.scale, scale };
       requestDraw();
@@ -160,7 +164,7 @@ export function GalaxyCanvas(props: Props) {
       return [...foods.values()].reverse().find(f => latest.current.visible.has(f.id) && Math.hypot(positions.get(f.id)!.x - worldX, positions.get(f.id)!.y - worldY) <= (radii.current.get(f.id) ?? 30) + 5 / c.scale)?.id ?? null;
     };
     const wheel = (event: WheelEvent) => { event.preventDefault(); const point = coords(event); zoomAt(Math.exp(-event.deltaY * .0015), point.x, point.y); setZoom(Math.round(camera.current.scale * 100)); };
-    const pointerDown = (event: PointerEvent) => { canvas.setPointerCapture(event.pointerId); const point = coords(event); pointerMap.set(event.pointerId, point); if (pointerMap.size === 1) down = { ...point, moved: false }; else if (down) down.moved = true; canvas.style.cursor = 'grabbing'; };
+    const pointerDown = (event: PointerEvent) => { cameraTween.current=null;canvas.setPointerCapture(event.pointerId); const point = coords(event); pointerMap.set(event.pointerId, point); if (pointerMap.size === 1) down = { ...point, moved: false }; else if (down) down.moved = true; canvas.style.cursor = 'grabbing'; };
     const pointerMove = (event: PointerEvent) => {
       const point = coords(event), old = pointerMap.get(event.pointerId);
       if (old) {
@@ -179,7 +183,7 @@ export function GalaxyCanvas(props: Props) {
       const point=coords(event);
       if(event.type==='pointerup'&&pointerMap.size===1&&down&&!down.moved){
         const foodId=hit(point.x,point.y);let edge:SimilarityEdge|undefined;
-        if(!foodId){const c=camera.current,wx=(point.x-c.x)/c.scale,wy=(point.y-c.y)/c.scale;edge=drawnEdges.find(e=>{const a=positions.get(e.source)!,b=positions.get(e.target)!,cx=(a.x+b.x)/2,cy=(a.y+b.y)/2-22;for(let i=1;i<40;i++){const t=i/40,u=1-t;if(Math.hypot(u*u*a.x+2*u*t*cx+t*t*b.x-wx,u*u*a.y+2*u*t*cy+t*t*b.y-wy)<8/c.scale)return true;}return false;});}
+        if(!foodId){const c=camera.current,wx=(point.x-c.x)/c.scale,wy=(point.y-c.y)/c.scale;edge=drawnEdges.find(e=>{const a=positions.get(e.source)!,b=positions.get(e.target)!,cx=(a.x+b.x)/2,cy=(a.y+b.y)/2-22;let previous={x:a.x,y:a.y};for(let i=1;i<=40;i++){const t=i/40,u=1-t,next={x:u*u*a.x+2*u*t*cx+t*t*b.x,y:u*u*a.y+2*u*t*cy+t*t*b.y},dx=next.x-previous.x,dy=next.y-previous.y,length=dx*dx+dy*dy,projection=length?Math.max(0,Math.min(1,((wx-previous.x)*dx+(wy-previous.y)*dy)/length)):0;if(Math.hypot(previous.x+projection*dx-wx,previous.y+projection*dy-wy)<8/c.scale)return true;previous=next;}return false;});}
         if(edge)latest.current.onRelationSelect?.(edge);else latest.current.onSelect(foodId);
       }
       pointerMap.delete(event.pointerId);if(!pointerMap.size)down=null;else if(down)down.moved=true;canvas.style.cursor='grab';setZoom(Math.round(camera.current.scale*100));requestDraw();
@@ -200,7 +204,9 @@ export function GalaxyCanvas(props: Props) {
         const minX = Math.min(...points.map(p => p.x)), maxX = Math.max(...points.map(p => p.x));
         const minY = Math.min(...points.map(p => p.y)), maxY = Math.max(...points.map(p => p.y));
         const scale = points.length === 1 ? Math.max(.9, camera.current.scale) : Math.max(.25, Math.min(1.2, availableWidth / (maxX - minX + 180), (height * (width < 520 && props.selected ? .3 : .7)) / (maxY - minY + 180)));
-        camera.current = { x: availableWidth / 2 - (minX + maxX) / 2 * scale, y: height * (width < 520 && props.selected ? .25 : .48) - (minY + maxY) / 2 * scale, scale };
+        const nextCamera={ x: availableWidth / 2 - (minX + maxX) / 2 * scale, y: height * (width < 520 && props.selected ? .25 : .48) - (minY + maxY) / 2 * scale, scale };
+        if(matchMedia('(prefers-reduced-motion: reduce)').matches)camera.current=nextCamera;
+        else cameraTween.current={start:performance.now(),from:{...camera.current},to:nextCamera};
         setZoom(Math.round(scale * 100));
       }
     }

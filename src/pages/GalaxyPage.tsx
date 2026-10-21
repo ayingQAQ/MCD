@@ -13,6 +13,7 @@ type Overlay = 'about' | 'twins' | 'lonely' | null;
 export default function GalaxyPage() {
   const {dataset,graph,positions,discoveries,foodById,currentLens:lens,setCurrentLens:setLens,categoryFilter:category,setCategoryFilter:setCategory,visitFood,recordRoute}=useFood();
   const [params,setParams]=useSearchParams(); const navigate=useNavigate();
+  const fromParam=params.get('from')??'',toParam=params.get('to')??'';
   const selected=params.get('focus');
   function setSelected(id:string|null){const next=new URLSearchParams(params);if(id)next.set('focus',id);else next.delete('focus');setParams(next);}
   function onModeChange(){const next=new URLSearchParams();if(dataset.meta.mode==='official-snapshot')next.set('demo','1');navigate({pathname:'/galaxy',search:next.toString()});}
@@ -28,7 +29,8 @@ export default function GalaxyPage() {
   const searchResults = query.trim() ? filtered.slice(0, 40) : filtered.filter(f => /^(巨无霸|中薯条|麦香鱼|猪柳蛋麦满分)$/.test(f.name));
   const currentFood = selected ? foodById.get(selected) : undefined;
   const official = dataset.meta.mode === 'official-snapshot';
-  useEffect(()=>{if(selected&&foodById.has(selected))visitFood(selected);},[selected,foodById,visitFood]);
+  useEffect(()=>{const food=selected?foodById.get(selected):undefined;if(food){visitFood(food.id);setQuery('');setCategory(current=>current==='all'||current===food.category?current:'all');}},[selected,foodById,visitFood,setCategory]);
+  useEffect(()=>{setFrom(fromParam);setTo(toParam);setRouteOpen(!!(fromParam||toParam));if(fromParam||toParam)setFiltersOpen(true);setRoute([]);setRouteMessage('');setRouteStep(0);setPlaying(false);},[fromParam,toParam]);
   useEffect(() => { const close = (event: KeyboardEvent) => { if (event.key === 'Escape' && !overlay) setSelected(null); }; window.addEventListener('keydown', close); return () => window.removeEventListener('keydown', close); }, [overlay]);
   useEffect(() => {
     if (!route.length||!playing) return;
@@ -41,7 +43,7 @@ export default function GalaxyPage() {
     setRouteMessage(found ? `${found.length - 1} 跳 · 营养相近的最少关系路线` : !from || !to ? '请先选择两颗星球' : '暂时没有可达的营养航线');
     if (found) { recordRoute(from,to);setSelected(null); setQuery(''); setFiltersOpen(false); }
   }
-  function endpoint(which: 'from' | 'to', id: string) { if (which === 'from') setFrom(id); else setTo(id); setRouteOpen(true); setFiltersOpen(true); setSelected(null); }
+  function endpoint(which: 'from' | 'to', id: string) { if (which === 'from') setFrom(id); else setTo(id);const next=new URLSearchParams(params);if(id)next.set(which,id);else next.delete(which);next.delete('focus');setParams(next);setRouteOpen(true);setFiltersOpen(true); }
   return <>
     <header className="page-heading galaxy-heading"><div><p className="eyebrow">02 / NUTRITION GALAXY</p><h1>营养星系</h1><p>让数值变成风景，让好奇心连成航线。</p></div><span>位置是示意，连接有依据</span></header>
     {guide&&<section className="guide-note paper" aria-label="星系探索引导"><p><strong>第一次出航？</strong> 先搜索一款餐品，点开档案，再收藏或送进实验室；放大镜和列表也能帮你找到星球。</p><button className="button" onClick={()=>setGuide(false)}>知道了，开始探索</button><button onClick={()=>setGuide(false)}>跳过引导</button></section>}
@@ -57,7 +59,7 @@ export default function GalaxyPage() {
           <section className="filter-section"><h2><span>02</span> 换一副营养透镜 <small>LENS</small></h2><div className="lens-filters">{nutrientKeys.map((key, i) => <button key={key} className={lens === key ? 'active' : ''} aria-pressed={lens === key} onClick={() => setLens(key)}><span className={`lens-symbol lens-${i}`}/>{nutrientNames[key]}</button>)}</div><p className="caption">星球越大，该项数值越高 <span className="size-dots">● ● ●</span></p></section>
           <section className="filter-section discoveries"><h2><span>03</span> 跟着好奇心走 <small>DISCOVER</small></h2><button className="discovery-button" aria-label="双生星" onClick={() => setOverlay('twins')}><span className="twin-symbol">◒ ◓</span><span><strong>双生星</strong><small>不同星系，相似滋味</small></span><Icon name="arrow" size={16}/></button><button className="discovery-button" aria-label="孤独星球" onClick={() => setOverlay('lonely')}><span className="lonely-symbol">✧</span><span><strong>孤独星球</strong><small>找一颗与众不同的星</small></span><Icon name="arrow" size={16}/></button></section>
           <button className={`route-toggle button ${routeOpen ? 'active' : ''}`} aria-pressed={routeOpen} onClick={() => setRouteOpen(open => !open)}><Icon name="route"/>规划航线<Icon name="arrow" size={16}/></button>
-          {routeOpen && <form className="route-form" onSubmit={event => { event.preventDefault(); planRoute(); }}><label>从哪颗出发<select aria-label="航线起点" value={from} onChange={event => setFrom(event.target.value)}><option value="">选择起点</option>{dataset.foods.map(food => <option key={food.id} value={food.id}>{food.name}</option>)}</select></label><label>想去哪里<select aria-label="航线终点" value={to} onChange={event => setTo(event.target.value)}><option value="">选择终点</option>{dataset.foods.map(food => <option key={food.id} value={food.id}>{food.name}</option>)}</select></label><button className="button primary" type="submit">出发，连接两颗星</button></form>}
+          {routeOpen && <form className="route-form" onSubmit={event => { event.preventDefault(); planRoute(); }}><label>从哪颗出发<select aria-label="航线起点" value={from} onChange={event => endpoint('from',event.target.value)}><option value="">选择起点</option>{dataset.foods.map(food => <option key={food.id} value={food.id}>{food.name}</option>)}</select></label><label>想去哪里<select aria-label="航线终点" value={to} onChange={event => endpoint('to',event.target.value)}><option value="">选择终点</option>{dataset.foods.map(food => <option key={food.id} value={food.id}>{food.name}</option>)}</select></label><button className="button primary" type="submit">出发，连接两颗星</button></form>}
           <details className="food-directory"><summary><Icon name="list" size={16}/> 餐品图鉴 · {filtered.length} 颗星球</summary><div>{filtered.map(food => <button key={food.id} onClick={() => select(food.id)} aria-label={`探索 ${food.name}`}>{food.name}<span>↗</span></button>)}</div></details>
           <div className="sidebar-note"><Star/><span>无需目的地，<br/>好奇就可以出发。</span><svg viewBox="0 0 60 25" aria-hidden="true"><path d="M4 4q29 32 49 2m-1 0-1 11m1-11-12 3"/></svg></div>
         </div>

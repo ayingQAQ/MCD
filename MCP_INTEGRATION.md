@@ -25,6 +25,12 @@ Node 端使用 `@modelcontextprotocol/sdk` 连接 `https://mcp.mcd.cn`（Streama
 
 当前官方记录 `basis.unitsVerified=false`，不能从内部字段名推导 g/mg，也不声称每份或每100克。异常数值保留 null 并告警，合法零值保留。同名不同数值记录独立保留，完全重复项合并并记录次数。公开快照不保存 traceId、Token、账号或完整原始响应。
 
+## 2.0 多页复用与再次核验
+
+五个页面由 `FoodProvider` 统一读取同一份快照与图分析；图鉴、实验室、任务不建立第二份营养数据。实验室逐指标比较原始值，保留 0/null，单位口径不同时不绘制共同量尺或输出差值；任务从现有数据与真实 BFS 结果生成有解候选。收藏与任务仅存本地，不发送到 MCP。
+
+2026-10-21 升级期间再次只读调用已连接 MCP 的 `list-nutrition-foods`，成功返回 `success=true / code=200`，数据为 `[160]{productName,...}` TOON。该连接核验没有覆盖现有网页快照，也没有触发交易或个人信息接口；网页获取时间仍以已提交快照 meta 为准。
+
 ## 复现与失败处理
 
 按[官方指南](https://github.com/M-China/mcd-mcp-server)申请 Token，设置 `MCD_MCP_TOKEN` 或被忽略的 `.env.local`，安装依赖后执行 `pnpm sync:mcd`。成功后原子替换 `public/data/nutrition.snapshot.json`，只输出日期、数量和告警。

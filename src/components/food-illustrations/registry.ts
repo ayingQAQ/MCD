@@ -10,8 +10,11 @@ export function resolveFoodIllustration(food: FoodIdentity): IllustrationMatch {
   const match = (presetId: string, reason: IllustrationMatch['reason']): IllustrationMatch => ({ presetId, reason, status: 'generic-example', note: '按餐品形态选择的通用示意，不代表实际商品配方。' });
   if (food.id && presets.has(food.id)) return match(food.id, 'preset');
   const name = food.name.trim();
+  if (/纯牛奶[（(]盒装/.test(name)) return match('drink-carton', 'name-shape');
+  if (/^纯悦$|瓶装水/.test(name)) return match('drink-bottle', 'name-shape');
+  if (name === '巨无霸') return match('burger-layered', 'name-shape');
   if (/薯条/.test(name)) return match(/迷你|小/.test(name) ? 'fries-small' : /大/.test(name) ? 'fries-large' : 'fries-regular', 'name-shape');
-  if (/鸡块/.test(name)) return match('nugget-box', 'name-shape');
+  if (/鸡块|麦乐鸡/.test(name)) return match('nugget-box', 'name-shape');
   if (/甜筒|圆筒冰淇淋/.test(name)) return match('dessert-cone', 'name-shape');
   if (/派$/.test(name)) return match('dessert-pie', 'name-shape');
   if (/新地/.test(name)) return match(/草莓/.test(name) ? 'dessert-sundae' : 'dessert-plain-cup', 'name-shape');

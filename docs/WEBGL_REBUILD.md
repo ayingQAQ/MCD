@@ -20,3 +20,8 @@
 - 餐品插画后续可使用 `THREE.Sprite(new THREE.SpriteMaterial({map,depthTest:true}))` 挂到对应的 `planet.group`，以 `sprite.scale` 指定世界尺寸。现有标签已经采用这一真实世界坐标中的 Sprite 机制，不能另加屏幕空间食物贴图冒充三维。
 
 GitHub Actions 使用 SwiftShader 软件 WebGL2 执行原生旋转、平移、双指缩放、拾取、聚焦/返回、分类联动、移动端深链接与 GPU 清理测试；截图案例使用较长预算。软件渲染验证不代表对所有真实设备帧率的承诺。
+
+
+## 餐品视觉更新（2026-10-21）
+
+暖色浅底替换深蓝背景。原创 SVG 通过构建脚本生成本地文件，以世界坐标 Sprite 展示餐品形态，启用透视、alphaTest、深度写入和雾化；相同母版共享纹理。营养大小和三维球体拾取代理保持一致。图鉴及档案使用单独的真实菜单图片映射，参见 [FOOD_IMAGES](FOOD_IMAGES.md)。

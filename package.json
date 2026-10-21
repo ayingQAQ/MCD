@@ -8,8 +8,8 @@
     "node": ">=24"
   },
   "scripts": {
-    "dev": "vite --host 0.0.0.0",
-    "build": "vite build && node scripts/package-offline.mjs",
+    "dev": "tsx scripts/prepare-food-textures.ts && vite --host 0.0.0.0",
+    "build": "tsx scripts/prepare-food-textures.ts && vite build && node scripts/package-offline.mjs",
     "preview": "vite preview --host 0.0.0.0",
     "typecheck": "tsc --noEmit",
     "lint": "eslint .",

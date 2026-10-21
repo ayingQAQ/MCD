@@ -11,6 +11,22 @@ export function IceCubes({ detail = 'full' }: { detail?: DrawingContext['detail'
 export function CupLabel({ x = 78, y = 103 }: { x?: number; y?: number }) { return <g transform={`translate(${x} ${y})`} stroke={p.outlineSoft} fill="none" strokeWidth="1.5" strokeLinecap="round"><path d="M-9-2q6-10 16-3 6 10-8 11-12-1-8-8Z"/><path d="M-3-3q5 3 2 8"/></g>; }
 export function CupFace({ expression, x = 80, y = 102 }: { expression: Expression; x?: number; y?: number }) { return <Face expression={expression} x={x} y={y} scale={.78}/>; }
 export function DrinkIllustration({ preset, expression, detail }: DrawingContext) {
+  if (preset.variant === 'carton') return <g data-food-body="drink">
+    <Outline d="M48 47 62 24l39 2 15 22-1 88-66 2Z" fill={p.cream}/>
+    <Outline d="m62 24 1-10 38 1v11l-13 20-40 1Z" fill={p.white} strokeWidth={2.5}/>
+    <path d="m88 46 28 2-1 88-27-9Z" fill={p.blue}/><path d="m49 78 39-2v51l-39 10Z" fill={p.blue}/>
+    <SketchLine d="m88 47 1 80m-27-95 24 2m7-5 12 12" seed={71}/>
+    <Highlight d="m56 56 7-1v13l-7 2Z"/><CupFace expression={expression} x={69} y={97}/>
+    {detail !== 'compact' && <path d="m57 117 17-1m-16 6 10-1" stroke={p.white} strokeWidth={2.5} strokeLinecap="round"/>}
+  </g>;
+  if (preset.variant === 'bottle') return <g data-food-body="drink">
+    <Outline d="M66 26h29l-1 20c0 11 17 15 18 32l-1 51q-30 13-61 0l-1-51c1-17 18-22 18-32Z" fill={p.white}/>
+    <path d="M53 80q30 6 54 0v45q-26 10-53 0Z" fill={p.blue}/>
+    <Outline d="m64 15 33 1 1 13-35 1Z" fill={p.green} strokeWidth={2.4}/>
+    <path d="m53 88 54 1v28l-54-1Z" fill={p.cream}/><CupFace expression={expression} x={80} y={101}/>
+    <Highlight d="M62 57q-8 10-7 18l5 1q-1-10 7-15Z"/>
+    {detail !== 'compact' && <SketchLine d="m70 19 1 8m8-8v8m8-8v8m-28 96q22 4 43 0" seed={72}/>}
+  </g>;
   const ceramic = preset.variant === 'ceramic' || preset.variant === 'espresso', espresso = preset.variant === 'espresso';
   const hot = preset.variant === 'hot-lid', clear = preset.variant === 'cold-clear';
   const liquid = preset.colors?.liquid ?? p.chocolate;

@@ -2,6 +2,8 @@ import type { FoodIllustrationPreset } from '../types';
 import { illustrationPalette as p } from '../palette';
 type Example = Omit<FoodIllustrationPreset, 'mapping' | 'notes'>;
 const examples: Example[] = [
+  { id: 'drink-carton', name: '折角盒装牛奶', family: 'drink', variant: 'carton', expression: 'shy', layoutSeed: 71, decorations: ['star-pin'] },
+  { id: 'drink-bottle', name: '清水小瓶', family: 'drink', variant: 'bottle', expression: 'curious', layoutSeed: 72, decorations: ['satellite'] },
   { id: 'burger-single', name: '单层牛肉小汉堡', family: 'burger', variant: 'single', ingredients: ['sauce', 'pickle', 'beef'], expression: 'curious', layoutSeed: 11, decorations: ['orbit'] },
   { id: 'burger-double', name: '双层牛肉汉堡', family: 'burger', variant: 'double', ingredients: ['sauce', 'cheese', 'beef', 'cheese', 'beef'], expression: 'happy', layoutSeed: 22, decorations: ['orbit', 'star-pin'] },
   { id: 'burger-cheese', name: '垂角芝士汉堡', family: 'burger', variant: 'cheese', layers: [{ kind: 'lettuce' }, { kind: 'cheese', thickness: 10 }, { kind: 'beef', thickness: 17 }], expression: 'shy', layoutSeed: 34, decorations: ['satellite'] },

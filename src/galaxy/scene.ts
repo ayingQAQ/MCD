@@ -6,6 +6,7 @@ import { clusterVolumes, type PlanetPosition } from '../graph/layout';
 import { quantile } from '../graph/analysis';
 import { relationEdges } from '../graph/view';
 import { createPlanetMaterials, makeLabelTexture } from './materials';
+import { resolveFoodIllustration } from '../components/food-illustrations/registry';
 
 export interface GalaxySceneInput {
   dataset:Dataset; graph:NutritionGraph; positions:PlanetPosition[]; visible:Set<string>;
@@ -15,13 +16,13 @@ export interface GalaxySceneInput {
   insets?:()=>{left:number;bottom:number};
 }
 interface Pose {position:THREE.Vector3;target:THREE.Vector3}
-interface Planet {id:string;group:THREE.Group;body:THREE.Mesh;outline:THREE.Mesh;ring?:THREE.Mesh;label?:THREE.Sprite;radius:number;targetRadius:number}
+interface Planet {id:string;group:THREE.Group;body:THREE.Mesh;outline:THREE.Mesh;illustration:THREE.Sprite;ring?:THREE.Mesh;label?:THREE.Sprite;radius:number;targetRadius:number}
 export interface SceneController {sync:()=>void;home:()=>void;overview:()=>void;restore:()=>void;dolly:(factor:number)=>void;category:(category:FoodCategory)=>void;dispose:()=>void}
 
 export function createGalaxyScene(canvas:HTMLCanvasElement,read:()=>GalaxySceneInput,labels:Map<FoodCategory,HTMLButtonElement>,report:(zoom:number,focused:boolean)=>void,onError:(message:string)=>void):SceneController {
   const initial=read(),renderer=new THREE.WebGLRenderer({canvas,antialias:true,alpha:false,powerPreference:'high-performance'});
-  renderer.outputColorSpace=THREE.SRGBColorSpace;renderer.setClearColor('#243447');
-  const scene=new THREE.Scene();scene.background=new THREE.Color('#243447');scene.fog=new THREE.Fog('#52677C',2500,9500);
+  renderer.outputColorSpace=THREE.SRGBColorSpace;renderer.setClearColor('#FFF8EB');
+  const scene=new THREE.Scene();scene.background=new THREE.Color('#FFF8EB');scene.fog=new THREE.Fog('#F3E9D8',2500,9500);
   const camera=new THREE.PerspectiveCamera(55,1,2,30000);
   const controls=new OrbitControls(camera,canvas);controls.enableDamping=true;controls.dampingFactor=.075;controls.rotateSpeed=.55;controls.zoomSpeed=.85;controls.panSpeed=.75;
   controls.minDistance=45;controls.maxDistance=18000;controls.maxPolarAngle=Math.PI*.93;controls.minPolarAngle=Math.PI*.07;controls.maxTargetRadius=8500;
@@ -53,12 +54,29 @@ export function createGalaxyScene(canvas:HTMLCanvasElement,read:()=>GalaxySceneI
   const planets:Planet[]=[],byId=new Map<string,Planet>(),bodies:THREE.Mesh[]=[];
   const positionById=new Map(initial.positions.map(p=>[p.id,p]));
   const labelTextures:THREE.Texture[]=[],labelMaterials:THREE.SpriteMaterial[]=[];
+  const textureLoader=new THREE.TextureLoader(),foodTextures=new Map<string,THREE.Texture>(),foodMaterials=new Map<string,THREE.SpriteMaterial>();
+  const pickingMaterial=new THREE.MeshBasicMaterial({visible:false});
+  let loadedArt=0,failedArt=0;
+  function foodMaterial(presetId:string){
+    const existing=foodMaterials.get(presetId);if(existing)return existing;
+    const texture=textureLoader.load(`/food-planets/${presetId}.svg`,()=>{
+      if(disposed)return;loadedArt++;canvas.dataset.foodTextures=JSON.stringify({loaded:loadedArt,failed:failedArt});dirty=true;
+    },undefined,()=>{
+      if(disposed)return;failedArt++;canvas.dataset.foodTextures=JSON.stringify({loaded:loadedArt,failed:failedArt});onError('餐品插画载入失败，请重新载入；餐品目录仍可使用。');
+    });
+    texture.colorSpace=THREE.SRGBColorSpace;texture.anisotropy=Math.min(4,renderer.capabilities.getMaxAnisotropy());
+    const material=new THREE.SpriteMaterial({map:texture,transparent:true,alphaTest:.08,depthTest:true,depthWrite:true,fog:true});
+    foodTextures.set(presetId,texture);foodMaterials.set(presetId,material);return material;
+  }
   for(const food of initial.dataset.foods){
     const point=positionById.get(food.id)!;if(!point)continue;
     const group=new THREE.Group();group.position.set(point.x,point.y,point.z);
-    const body=new THREE.Mesh(sphere,art.materials[food.category]),outline=new THREE.Mesh(sphere,art.outline);
+    const body=new THREE.Mesh(sphere,pickingMaterial),outline=new THREE.Mesh(sphere,art.outline);
+    outline.visible=false;
+    const presetId=resolveFoodIllustration(food).presetId;
+    const illustration=new THREE.Sprite(foodMaterial(presetId));illustration.userData.presetId=presetId;group.add(illustration);
     body.userData.foodId=food.id;group.add(outline,body);bodies.push(body);
-    const planet:Planet={id:food.id,group,body,outline,radius:30,targetRadius:30};
+    const planet:Planet={id:food.id,group,body,outline,illustration,radius:30,targetRadius:30};
     if(food.category==='dessert'||stableHash(food.id)%5===0){const ring=new THREE.Mesh(ringGeometry,art.ring);ring.rotation.set(1.15,.22,(stableHash(food.id)%10)*.06);group.add(ring);planet.ring=ring;}
     planets.push(planet);byId.set(food.id,planet);scene.add(group);
   }
@@ -68,13 +86,13 @@ export function createGalaxyScene(canvas:HTMLCanvasElement,read:()=>GalaxySceneI
   for(let i=0;i<1300;i++){
     const a=(stableHash(`a:${i}`)%10000)/10000*Math.PI*2,z=(stableHash(`b:${i}`)%10000)/5000-1,r=4200+(stableHash(`r:${i}`)%8500),flat=Math.sqrt(1-z*z);
     starPositions.push(Math.cos(a)*flat*r,z*r,Math.sin(a)*flat*r);
-    const color=new THREE.Color(i%9===0?'#F4D58E':i%3===0?'#D9E4ED':'#B5CDD8');starColors.push(color.r,color.g,color.b);
+    const color=new THREE.Color(i%9===0?'#C79143':i%3===0?'#8FB5B5':'#B7A58D');starColors.push(color.r,color.g,color.b);
   }
   starGeometry.setAttribute('position',new THREE.Float32BufferAttribute(starPositions,3));starGeometry.setAttribute('color',new THREE.Float32BufferAttribute(starColors,3));
   const starCanvas=document.createElement('canvas');starCanvas.width=32;starCanvas.height=32;
   const starCtx=starCanvas.getContext('2d')!;starCtx.fillStyle='white';starCtx.beginPath();starCtx.arc(16,16,12,0,Math.PI*2);starCtx.fill();
   const starTexture=new THREE.CanvasTexture(starCanvas);
-  const starMaterial=new THREE.PointsMaterial({size:18,map:starTexture,vertexColors:true,transparent:true,opacity:.85,depthWrite:false,fog:false,sizeAttenuation:true});
+  const starMaterial=new THREE.PointsMaterial({size:24,map:starTexture,vertexColors:true,transparent:true,opacity:.7,depthWrite:false,fog:false,sizeAttenuation:true});
   const stars=new THREE.Points(starGeometry,starMaterial);scene.add(stars);
   const lines=new THREE.Group();scene.add(lines);
   const edgeObjects:{edge:SimilarityEdge;line:THREE.Line;points:THREE.Vector3[]}[]=[];
@@ -150,7 +168,7 @@ export function createGalaxyScene(canvas:HTMLCanvasElement,read:()=>GalaxySceneI
         if(!(displayed.has(edge)||route||highlight)||!p.visible.has(edge.source)||!p.visible.has(edge.target))continue;
         const a=byId.get(edge.source)!.group.position,b=byId.get(edge.target)!.group.position,control=a.clone().lerp(b,.5).add(new THREE.Vector3(0,80,60));
         const points=new THREE.QuadraticBezierCurve3(a,control,b).getPoints(48),geometry=new THREE.BufferGeometry().setFromPoints(points);
-        const material=new THREE.LineDashedMaterial({color:highlight?'#D6B9ED':route?'#F1C77A':'#B2C3D1',dashSize:15,gapSize:10,transparent:true,opacity:.8});
+        const material=new THREE.LineDashedMaterial({color:highlight?'#9971B7':route?'#BD7F2D':'#AF9D85',dashSize:15,gapSize:10,transparent:true,opacity:highlight ? .95 : route ? .9 : .32});
         const line=new THREE.Line(geometry,material);line.computeLineDistances();lines.add(line);edgeObjects.push({edge,line,points});
       }
       previousEdges=edgeKey;
@@ -212,7 +230,7 @@ export function createGalaxyScene(canvas:HTMLCanvasElement,read:()=>GalaxySceneI
     for(const planet of planets){
       const target=planet.targetRadius*(hover===planet.id?1.09:1),delta=target-planet.radius;
       if(Math.abs(delta)>.02){planet.radius=reduced.matches?target:planet.radius+delta*.16;dirty=true;}
-      planet.body.scale.setScalar(planet.radius);planet.outline.scale.setScalar(planet.radius*1.035);planet.ring?.scale.setScalar(planet.radius);
+      planet.illustration.scale.set(planet.radius*2.65,planet.radius*2.65,1);planet.body.scale.setScalar(planet.radius);planet.outline.scale.setScalar(planet.radius*1.035);planet.ring?.scale.setScalar(planet.radius);
       const show=planet.group.visible&&(p.showLabels||p.selected===planet.id||hover===planet.id||p.route[p.routeStep]===planet.id);
       if(show&&!planet.label){const food=initial.dataset.foods.find(f=>f.id===planet.id)!;const texture=makeLabelTexture(food.name);labelTextures.push(texture);const material=new THREE.SpriteMaterial({map:texture,depthTest:true,depthWrite:false});labelMaterials.push(material);planet.label=new THREE.Sprite(material);planet.label.scale.set(125,24,1);planet.group.add(planet.label);}
       if(planet.label){planet.label.visible=show;planet.label.position.set(0,-planet.radius-20,0);}
@@ -241,7 +259,7 @@ export function createGalaxyScene(canvas:HTMLCanvasElement,read:()=>GalaxySceneI
     dispose(){
       disposed=true;cancelAnimationFrame(frame);resize.disconnect();document.removeEventListener('visibilitychange',visibility);reduced.removeEventListener('change',motion);
       canvas.removeEventListener('pointerdown',pointerDown);canvas.removeEventListener('pointermove',pointerMove);canvas.removeEventListener('pointerup',pointerEnd);canvas.removeEventListener('pointercancel',pointerEnd);canvas.removeEventListener('pointerleave',leave);canvas.removeEventListener('webglcontextlost',lost);
-      controls.removeEventListener('start',start);controls.removeEventListener('change',change);controls.dispose();clearEdges();sphere.dispose();ringGeometry.dispose();art.dispose();starGeometry.dispose();starMaterial.dispose();starTexture.dispose();labelTextures.forEach(t=>t.dispose());labelMaterials.forEach(m=>m.dispose());scene.clear();renderer.dispose();renderer.forceContextLoss();
+      controls.removeEventListener('start',start);controls.removeEventListener('change',change);controls.dispose();clearEdges();sphere.dispose();ringGeometry.dispose();art.dispose();pickingMaterial.dispose();foodTextures.forEach(t=>t.dispose());foodMaterials.forEach(m=>m.dispose());starGeometry.dispose();starMaterial.dispose();starTexture.dispose();labelTextures.forEach(t=>t.dispose());labelMaterials.forEach(m=>m.dispose());scene.clear();renderer.dispose();renderer.forceContextLoss();
     }
   };
 }

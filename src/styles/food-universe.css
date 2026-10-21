@@ -1,0 +1,190 @@
+/* A warm food atlas: cream paper, red ink and small golden annotations.
+   Imported after the legacy layers so layout fixes stay in one place. */
+:root {
+  --bg: #fff8eb;
+  --paper: #fffdf7;
+  --paper-soft: #fff0db;
+  --ink: #513b2e;
+  --muted: #806c58;
+  --line: #e5d6bd;
+  --outline: #72523a;
+  --shadow: #eaddc5;
+  --mc-red: #c73329;
+  --mc-yellow: #ffc83d;
+  --focus-ring: #b72822;
+}
+body { background: var(--bg); }
+::selection { background: #ffe09a; color: #7b241e; }
+button:focus-visible, a:focus-visible, summary:focus-visible,
+input:focus-visible, select:focus-visible { outline-color: var(--mc-red); }
+.paper { border-color: var(--line); box-shadow: 0 4px 16px #74532908, 1px 2px 0 #eadfc9; }
+.button { border-color: #d7c4a9; box-shadow: 0 2px 0 #e8dac0; border-radius: 9px 12px 9px 11px; }
+.button.primary { border-color: var(--mc-red); box-shadow: 0 3px 0 #a92c22; }
+.button.primary:hover { background: #b52d25; box-shadow: 0 3px 0 #93241e; }
+.site-header.upgrade-header { border-bottom: 2px solid #f2c456; background: #fff8ebf5; }
+.upgrade-header .brand strong { color: var(--mc-red); }
+.upgrade-header nav a.nav-current { color: #a52520; background: #ffedc4; }
+.upgrade-header nav a:hover { background: #ffefcf; }
+.page-heading { border-bottom: 1px solid var(--line); }
+.page-heading h1, .section-title h2, .cover-title { color: #9d3027; }
+.page-heading p, .section-title>div, .cover-copy,
+.recent-food>div, .lab-slot, .quest-card, .lab-value { min-width: 0; }
+.cover-description { max-width: 36em; }
+.section-title { flex-wrap: wrap; row-gap: 12px; }
+.section-title>a { flex-shrink: 0; white-space: normal; line-height: 1.7; }
+
+/* Mission text always owns the card width; actions never compete for it. */
+.today-missions { grid-template-columns: repeat(3,minmax(0,1fr)); gap: 20px; align-items: stretch; }
+.mission-preview { display: flex; flex-direction: column; flex-wrap: nowrap; align-items: stretch; min-width: 0; gap: 14px; padding: 22px 22px 18px; border: 1px solid var(--line); border-top: 3px solid var(--mc-yellow); border-radius: 8px 15px 10px 12px; background: #fffdf7; }
+.mission-preview.mission-1 { border-top-color: #dc7861; }
+.mission-preview.mission-2 { border-top-color: #93b69b; }
+.mission-preview:hover { background: #fffaf0; }
+.mission-preview .mission-heading { display: flex; align-items: baseline; gap: 12px; flex: none; min-width: 0; }
+.mission-preview .mission-number { flex-shrink: 0; font-size: 28px; color: #bc7c41; }
+.mission-preview h3 { min-width: 0; margin: 0; font-size: 17px; line-height: 1.6; }
+.mission-preview>p { width: 100%; font-size: 14px; line-height: 1.9; color: var(--muted); }
+.mission-preview>a { align-self: flex-start; margin: auto 0 0; padding-top: 4px; font-size: 13px; color: #ab3429; min-height: 36px; }
+.recent-food { min-width: 0; }
+.recent-food strong { overflow-wrap: anywhere; }
+
+/* Photography is framed like a food sticker, with a truthful quiet fallback. */
+.food-photo { position: relative; display: grid; grid-template-rows: minmax(0,1fr) auto; place-items: center; width: 100%; margin: 0; overflow: hidden; background: #fff7e8; border-radius: 15px 20px 13px 18px; aspect-ratio: 4/3; }
+.food-photo-compact { grid-template-rows: minmax(0,1fr); }
+.food-photo img { min-height: 0; width: 100%; height: 100%; display: block; object-fit: contain; padding: 10px; mix-blend-mode: multiply; }
+.food-photo-missing, .food-photo-unavailable { color: #94714e; background: repeating-linear-gradient(-35deg,#fff8eb,#fff8eb 9px,#fcf1dd 9px,#fcf1dd 10px); }
+.food-photo-placeholder { display: grid; place-items: center; width: 100%; height: 100%; padding: 20px; font-size: 12px; line-height: 1.8; text-align: center; }
+.food-photo-missing svg { max-width: 62%; max-height: 72%; }
+.food-photo-caption { display: block; color: var(--muted); font-size: 10px; line-height: 1.6; text-align: center; margin: 0; padding: 5px 10px 8px; }
+.food-card { border: 1px solid #ead9bb; border-top: 2px solid #edc76e; border-radius: 12px 18px 12px 16px; }
+.food-card-open { background: none; padding: 16px; gap: 2px; }
+.food-card-orbit { display: none; }
+.food-card-open .food-photo { margin-bottom: 12px; }
+.food-card h2 { font-size: 18px; min-height: 3.2em; line-height: 1.6; }
+.food-card-category { color: #a66e42; font-size: 11px; }
+.food-card-open>strong { color: #ac3528; font-size: 17px; }
+.food-card-actions { background: #fff9ef; border-top: 1px solid #efe3cf; padding: 9px; flex-wrap: wrap; }
+.food-card-actions button { flex: 1 1 80px; min-width: 0; white-space: normal; }
+.food-card:hover { transform: translateY(-3px); box-shadow: 0 8px 22px #98774b12; }
+.planet-details { border-radius: 14px 18px 12px 16px; padding: 18px 22px 22px; }
+.planet-details .detail-top { top: -18px; background: var(--paper); margin: -18px -22px 12px; padding: 12px 14px 8px 22px; }
+.planet-details>.food-photo { max-width: 270px; margin: 0 auto 8px; }
+.planet-details h2 { font-size: 25px; }
+.nutrition-values>div { padding: 11px 0; border-bottom-color: #eee2d0; }
+.nutrition-values dd { color: #9d3928; }
+.detail-cross-actions { grid-template-columns: repeat(2,minmax(0,1fr)); }
+.detail-cross-actions>.button { min-width: 0; white-space: normal; }
+
+/* Leave room to read the directory and room to wander in the middle. */
+.galaxy-stage .map-paper { background: #fff8eb; }
+.galaxy-panel.sidebar { width: 320px; left: 20px; top: 20px; bottom: 76px; padding: 18px; background: #fffdf7f2; border: 1px solid #dfcdae; border-radius: 13px 19px 14px 17px; box-shadow: 0 8px 30px #7f5d3110, 2px 3px 0 #e7d6b899; }
+.panel-head { margin-bottom: 15px; }
+.panel-head h1 { font-size: 27px; color: #a33226; }
+.panel-toggle { background: #fff4dd; border: 0; }
+.galaxy-panel .search-box { border-color: #dfcfb7; background: #fffaf1; height: 44px; }
+.galaxy-panel .filter-section { padding-top: 22px; }
+.galaxy-panel .filter-section h2 { font-size: 14px; line-height: 1.6; gap: 7px; }
+.galaxy-panel .filter-section h2>small { font-size: 8px; letter-spacing: 1px; }
+.galaxy-panel .category-filters { grid-template-columns: repeat(2,minmax(0,1fr)); gap: 6px; }
+.galaxy-panel .category-filters button { display: grid; grid-template-columns: 10px minmax(0,1fr) auto; align-items: center; text-align: left; gap: 5px; min-width: 0; min-height: 39px; padding: 7px; font-size: 12px; line-height: 1.5; overflow-wrap: anywhere; border-radius: 8px; }
+.galaxy-panel .category-filters button.all { grid-column: 1/-1; display: flex; justify-content: space-between; }
+.galaxy-panel .category-filters button small { font-size: 10px; }
+.galaxy-panel .category-filters button.active { border-color: #e4ae5c; background: #ffedc4; box-shadow: none; color: #9f3025; }
+.galaxy-panel .lens-filters { grid-template-columns: repeat(3,minmax(0,1fr)); }
+.galaxy-panel .lens-filters button { min-width: 0; border-color: #ecdfcc; padding: 10px 3px; border-radius: 9px; background: #fffdf7; }
+.galaxy-panel .lens-filters button.active { background: #fff0dd; border-color: #d77853; color: #a53b2a; box-shadow: none; }
+.galaxy-panel .caption { font-size: 10px; }
+.galaxy-panel .discoveries { border-top-color: #e4d4b8; }
+.discovery-button { gap: 10px; }
+.discovery-button>span:nth-child(2) { min-width: 0; }
+.discovery-button small { line-height: 1.7; }
+.galaxy-panel .route-toggle { box-shadow: none; background: #fff4d9; border-color: #e7cf9d; }
+.galaxy-stage .map-top { top: 20px; left: 360px; right: 20px; align-items: flex-start; }
+.galaxy-stage .map-legend>span, .galaxy-stage .legend-chip, .galaxy-stage .source-badge { border-color: #e4d3b6; background: #fffdf7e8; box-shadow: none; }
+.galaxy-stage .map-legend { gap: 6px; }
+.galaxy-stage .legend-count { color: #8b7255; }
+.galaxy-stage .map-dock { left: 360px; bottom: 76px; }
+.galaxy-stage .map-paper .planet-details { top: 20px; right: 20px; bottom: 76px; width: 360px; background: #fffdf7f5; border-color: #dfcdae; border-radius: 14px 18px 12px 16px; box-shadow: 0 8px 30px #7f5d3110; }
+.galaxy-stage .map-paper.has-details .map-dock { width: min(520px,calc(100% - 760px)); }
+.galaxy-stage .canvas-hint { left: 360px; bottom: 80px; color: #927552; text-shadow: none; font-size: 11px; }
+.galaxy-stage .canvas-hint .tiny-orbit { border-color: #ba9258; }
+.galaxy-stage .zoom-tools { right: 20px; bottom: 76px; background: #fffdf7ed; border-color: #ddcaac; box-shadow: 0 2px 0 #e7d7bd; }
+.galaxy-stage .map-paper.has-details .zoom-tools, .has-details .scene-navigation { right: 400px; }
+.scene-navigation { right: 20px; bottom: 126px; }
+.scene-navigation>button { background: #fffdf7ed; border-color: #ddcaac; min-height: 36px; font-size: 12px; }
+.cluster-labels>button { background: #fff9e9f2; border: 1px solid #dab779; color: #81542c; box-shadow: 1px 2px 0 #e5cea5; border-radius: 9px 14px 9px 12px; padding: 8px 14px; }
+.cluster-labels>button:hover { background: #ffedbe; border-color: #be823f; }
+.cluster-labels>button small { color: #967752; }
+.galaxy-brand-stamp { top: 86px; right: 25px; color: #a4482e; transform: rotate(2deg); opacity: .85; }
+.galaxy-brand-stamp small { color: #9b805c; }
+.galaxy-stage .map-bottom { height: 56px; background: #fff9efef; border-top-color: #e8d8bc; padding: 0 24px; }
+.galaxy-stage .stage-caption { height: 56px; color: #8e775d; }
+.display-toggles input { accent-color: var(--mc-red); }
+.galaxy-stage .guide-note { left: calc(50% + 150px); border-color: #dfc491; background: #fffaf0f5; }
+.galaxy-stage.panel-collapsed .map-top { left: 230px; }
+.galaxy-stage.panel-collapsed .map-dock, .galaxy-stage.panel-collapsed .canvas-hint { left: 20px; }
+.galaxy-stage.panel-collapsed .map-paper.has-details .map-dock { width: min(520px,calc(100% - 420px)); }
+
+@media (max-width: 1200px) and (min-width: 851px) {
+  .galaxy-panel.sidebar { width: 290px; left: 16px; padding: 15px; }
+  .galaxy-stage .map-top, .galaxy-stage .map-dock, .galaxy-stage .canvas-hint { left: 326px; }
+  .galaxy-stage .map-paper .planet-details { width: 310px; right: 16px; }
+  .galaxy-stage .map-paper.has-details .map-dock { width: min(440px,calc(100% - 672px)); }
+  .galaxy-stage .map-paper.has-details .zoom-tools, .has-details .scene-navigation { right: 342px; }
+  .galaxy-stage .legend-count { display: none; }
+  .galaxy-stage .stage-caption { display: none; }
+  .today-missions { gap: 14px; }
+  .mission-preview { padding: 18px; }
+}
+@media (max-width: 850px) {
+  .today-missions { grid-template-columns: repeat(2,minmax(0,1fr)); }
+  .mission-preview { padding: 20px; }
+  .galaxy-panel.sidebar { top: 12px; left: 12px; right: 12px; bottom: auto; width: auto; padding: 12px 16px; max-height: calc(100% - 145px); }
+  .panel-head { margin-bottom: 9px; }
+  .panel-head h1 { font-size: 23px; }
+  .galaxy-panel .category-filters { grid-template-columns: repeat(3,minmax(0,1fr)); }
+  .galaxy-panel .category-filters button.all { grid-column: auto; }
+  .galaxy-panel .lens-filters { grid-template-columns: repeat(5,minmax(0,1fr)); }
+  .galaxy-stage .map-top, .galaxy-stage.panel-collapsed .map-top { top: auto; bottom: 68px; left: 12px; right: 12px; }
+  .galaxy-stage .map-dock, .galaxy-stage.panel-collapsed .map-dock { left: 12px; right: 12px; bottom: 110px; }
+  .galaxy-stage .map-paper.has-details .map-dock, .galaxy-stage.panel-collapsed .map-paper.has-details .map-dock { width: auto; }
+  .galaxy-stage .map-paper .planet-details { top: auto; left: 12px; right: 12px; bottom: 68px!important; width: auto; max-height: 60%; }
+  .galaxy-stage .zoom-tools, .galaxy-stage .map-paper.has-details .zoom-tools { right: 12px; bottom: 110px; }
+  .scene-navigation, .has-details .scene-navigation { right: 12px; bottom: 160px; }
+  .galaxy-stage .guide-note, .galaxy-stage.panel-collapsed .guide-note { left: 50%; }
+  .galaxy-stage .stage-caption { display: none; }
+  .galaxy-brand-stamp { top: 170px; right: 18px; }
+  .atlas-filter-row { flex-wrap: wrap; }
+  .atlas-filter-row>label { min-width: 0; flex-wrap: wrap; }
+  .lab-value { flex-wrap: wrap; }
+  .lab-result { flex-wrap: wrap; }
+}
+@media (max-width: 600px) {
+  .today-missions { grid-template-columns: minmax(0,1fr); gap: 13px; }
+  .mission-preview { display: flex; padding: 18px; gap: 11px; }
+  .mission-preview h3 { font-size: 17px; }
+  .mission-preview>p { font-size: 14px; }
+  .mission-preview>a { font-size: 13px; }
+  .food-card-open { padding: 10px; }
+  .food-card h2 { font-size: 16px; }
+  .food-card-open>strong { font-size: 15px; }
+  .food-card-actions { padding: 5px; }
+  .food-card-actions button { flex-basis: 70px; font-size: 11px; }
+  .food-photo img { padding: 5px; }
+  .planet-details>.food-photo { max-width: 210px; }
+  .galaxy-panel .category-filters { grid-template-columns: repeat(2,minmax(0,1fr)); }
+  .galaxy-panel .category-filters button.all { grid-column: 1/-1; }
+  .galaxy-panel .lens-filters { grid-template-columns: repeat(3,minmax(0,1fr)); }
+  .galaxy-stage .map-top { gap: 5px; }
+  .galaxy-stage .map-legend>span, .galaxy-stage .legend-chip, .galaxy-stage .source-badge { font-size: 10px; padding: 4px 6px; }
+  .galaxy-stage .map-bottom { padding: 0 12px; font-size: 10px; }
+  .display-toggles { gap: 8px; }
+  .display-toggles label { font-size: 10px; }
+  .about-button { font-size: 10px; }
+  .scene-navigation { bottom: 160px; }
+  .has-details .scene-navigation { top: 66px; bottom: auto; }
+  .galaxy-brand-stamp { font-size: 11px; top: 172px; }
+  .cluster-labels>button { padding: 6px 9px; }
+  .cluster-labels>button small { font-size: 8px; }
+  .upgrade-header nav a.nav-current { color: #a52520!important; }
+  .cover-actions { flex-wrap: wrap; }
+}

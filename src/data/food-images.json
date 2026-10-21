@@ -1,0 +1,717 @@
+{
+  "fetchedAt": "2026-10-21T13:19:17.785Z",
+  "tool": "query-meals",
+  "detailTool": "query-meal-detail",
+  "store": {
+    "code": "1450713",
+    "name": "麦当劳上海黄浦华旭国际大厦餐厅"
+  },
+  "images": [
+    {
+      "foodId": "food-10dkngc",
+      "foodName": "中薯条",
+      "menuName": "中薯条",
+      "code": "4810",
+      "url": "https://menu-img.mcd.cn/pcm/prod/menu/20250423/product/MS_4810_600_1745199801147.png",
+      "src": "/food-photos/4810.png",
+      "match": "exact",
+      "sourceTool": "query-meal-detail"
+    },
+    {
+      "foodId": "food-10vlyzl",
+      "foodName": "双层吉士汉堡",
+      "menuName": "双层吉士汉堡",
+      "code": "1120",
+      "url": "https://menu-img.mcd.cn/pcm/prod/menu/20260101/product/MS_1120_600.png",
+      "src": "/food-photos/1120.png",
+      "match": "exact",
+      "sourceTool": "query-meal-detail"
+    },
+    {
+      "foodId": "food-11to0ia",
+      "foodName": "冰牛奶中杯",
+      "menuName": "冰牛奶中杯",
+      "code": "510041",
+      "url": "https://menu-img.mcd.cn/pcm/prod/menu/ProductPool/product/MS_510041_600.png",
+      "src": "/food-photos/510041.png",
+      "match": "exact",
+      "sourceTool": "query-meal-detail"
+    },
+    {
+      "foodId": "food-12djhro",
+      "foodName": "培根蔬萃双层牛堡",
+      "menuName": "培根蔬萃双层牛堡",
+      "code": "1106",
+      "url": "https://menu-img.mcd.cn/pcm/prod/menu/20250804/product/MS_1106_600.png",
+      "src": "/food-photos/1106.png",
+      "match": "exact",
+      "sourceTool": "query-meal-detail"
+    },
+    {
+      "foodId": "food-13o6rcc",
+      "foodName": "猪柳炒双蛋堡",
+      "menuName": "猪柳炒双蛋堡",
+      "code": "502773",
+      "url": "https://menu-img.mcd.cn/pcm/prod/menu/ProductPool/product/MS_502773_320.png",
+      "src": "/food-photos/502773.png",
+      "match": "exact",
+      "sourceTool": "query-meals",
+      "reservationDate": "2026-10-22 08:30"
+    },
+    {
+      "foodId": "food-13p6wor",
+      "foodName": "猪柳麦满分",
+      "menuName": "猪柳麦满分",
+      "code": "5024",
+      "url": "https://menu-img.mcd.cn/pcm/prod/menu/ProductPool/product/MS_5024_320.png",
+      "src": "/food-photos/5024.png",
+      "match": "exact",
+      "sourceTool": "query-meals",
+      "reservationDate": "2026-10-22 08:30"
+    },
+    {
+      "foodId": "food-15vsijm",
+      "foodName": "冰奶铁中杯",
+      "menuName": "麦咖啡™冰奶铁中杯",
+      "code": "507409",
+      "url": "https://menu-img.mcd.cn/pcm/prod/menu/20250324/product/MS_507409_600.png",
+      "src": "/food-photos/507409.png",
+      "match": "alias",
+      "sourceTool": "query-meal-detail",
+      "note": "已核对名称、杯型或份量；保留菜单原名。"
+    },
+    {
+      "foodId": "food-17b13vo",
+      "foodName": "卡布奇诺中杯",
+      "menuName": "卡布奇诺中杯",
+      "code": "507387",
+      "url": "https://menu-img.mcd.cn/pcm/prod/menu/20250324/product/MS_507387_600.png",
+      "src": "/food-photos/507387.png",
+      "match": "exact",
+      "sourceTool": "query-meal-detail"
+    },
+    {
+      "foodId": "food-17it26w",
+      "foodName": "无糖可口可乐小杯",
+      "menuName": "无糖可口可乐小杯",
+      "code": "3021",
+      "url": "https://menu-img.mcd.cn/pcm/prod/menu/ProductPool/product/MS_3021_600.png",
+      "src": "/food-photos/3021.png",
+      "match": "exact",
+      "sourceTool": "query-meal-detail"
+    },
+    {
+      "foodId": "food-17o2v7j",
+      "foodName": "阳光柠檬红茶小杯",
+      "menuName": "阳光柠檬红茶小杯",
+      "code": "515280",
+      "url": "https://menu-img.mcd.cn/pcm/prod/menu/ProductPool/product/MS_515280_600.png",
+      "src": "/food-photos/515280.png",
+      "match": "exact",
+      "sourceTool": "query-meal-detail"
+    },
+    {
+      "foodId": "food-185zueg",
+      "foodName": "菠萝派",
+      "menuName": "菠萝派",
+      "code": "4105",
+      "url": "https://menu-img.mcd.cn/pcm/prod/menu/20260101/product/MS_4105_600.png",
+      "src": "/food-photos/4105.png",
+      "match": "exact",
+      "sourceTool": "query-meal-detail"
+    },
+    {
+      "foodId": "food-19g377",
+      "foodName": "麦香鸡",
+      "menuName": "麦香鸡",
+      "code": "1450",
+      "url": "https://menu-img.mcd.cn/pcm/prod/menu/20260520/product/MS_1450_600.png",
+      "src": "/food-photos/1450.png",
+      "match": "exact",
+      "sourceTool": "query-meal-detail"
+    },
+    {
+      "foodId": "food-19igdhx",
+      "foodName": "圆筒冰淇淋",
+      "menuName": "圆筒冰淇淋",
+      "code": "515837",
+      "url": "https://menu-img.mcd.cn/pcm/prod/menu/20250813/product/MS_515837_600.png",
+      "src": "/food-photos/515837.png",
+      "match": "exact",
+      "sourceTool": "query-meal-detail"
+    },
+    {
+      "foodId": "food-19qjqtc",
+      "foodName": "无糖可口可乐大杯",
+      "menuName": "无糖可口可乐大杯",
+      "code": "3111",
+      "url": "https://menu-img.mcd.cn/pcm/prod/menu/ProductPool/product/MS_3111_600.png",
+      "src": "/food-photos/3111.png",
+      "match": "exact",
+      "sourceTool": "query-meal-detail"
+    },
+    {
+      "foodId": "food-19t5gji",
+      "foodName": "可乐中杯",
+      "menuName": "可口可乐（中杯）",
+      "code": "3050",
+      "url": "https://menu-img.mcd.cn/pcm/prod/menu/ProductPool/product/MS_3050_600.png",
+      "src": "/food-photos/3050.png",
+      "match": "alias",
+      "sourceTool": "query-meal-detail",
+      "note": "已核对名称、杯型或份量；保留菜单原名。"
+    },
+    {
+      "foodId": "food-1ald9ss",
+      "foodName": "锡兰红茶",
+      "menuName": "锡兰红茶",
+      "code": "3505",
+      "url": "https://menu-img.mcd.cn/pcm/prod/menu/ProductPool/product/MS_3505_600.png",
+      "src": "/food-photos/3505.png",
+      "match": "exact",
+      "sourceTool": "query-meal-detail"
+    },
+    {
+      "foodId": "food-1f62hqv",
+      "foodName": "巨无霸",
+      "menuName": "巨无霸",
+      "code": "1100",
+      "url": "https://menu-img.mcd.cn/pcm/prod/menu/20250611/product/MS_1100_600_1749175370846.png",
+      "src": "/food-photos/1100.png",
+      "match": "exact",
+      "sourceTool": "query-meal-detail"
+    },
+    {
+      "foodId": "food-1g0g6bi",
+      "foodName": "火腿扒早安营养卷",
+      "menuName": "火腿扒早安营养卷",
+      "code": "513112",
+      "url": "https://menu-img.mcd.cn/pcm/prod/menu/ProductPool/product/MS_513112_320.png",
+      "src": "/food-photos/513112.png",
+      "match": "exact",
+      "sourceTool": "query-meals",
+      "reservationDate": "2026-10-22 08:30"
+    },
+    {
+      "foodId": "food-1hfn97q",
+      "foodName": "无糖可口可乐中杯",
+      "menuName": "无糖可口可乐中杯",
+      "code": "3071",
+      "url": "https://menu-img.mcd.cn/pcm/prod/menu/ProductPool/product/MS_3071_600.png",
+      "src": "/food-photos/3071.png",
+      "match": "exact",
+      "sourceTool": "query-meal-detail"
+    },
+    {
+      "foodId": "food-1hk5zm8",
+      "foodName": "火腿扒麦满分",
+      "menuName": "火腿扒麦满分",
+      "code": "1254",
+      "url": "https://menu-img.mcd.cn/pcm/prod/menu/ProductPool/product/MS_1254_320.png",
+      "src": "/food-photos/1254.png",
+      "match": "exact",
+      "sourceTool": "query-meals",
+      "reservationDate": "2026-10-22 08:30"
+    },
+    {
+      "foodId": "food-1hqsoe9",
+      "foodName": "热奶铁中杯",
+      "menuName": "麦咖啡™热奶铁中杯",
+      "code": "507328",
+      "url": "https://menu-img.mcd.cn/pcm/prod/menu/20250324/product/MS_507328_600.png",
+      "src": "/food-photos/507328.png",
+      "match": "alias",
+      "sourceTool": "query-meal-detail",
+      "note": "已核对名称、杯型或份量；保留菜单原名。"
+    },
+    {
+      "foodId": "food-1i63ic0",
+      "foodName": "咖啡阿芙佳朵",
+      "menuName": "咖啡阿芙佳朵",
+      "code": "514851",
+      "url": "https://menu-img.mcd.cn/pcm/prod/menu/20250324/product/MS_514851_600.png",
+      "src": "/food-photos/514851.png",
+      "match": "exact",
+      "sourceTool": "query-meal-detail"
+    },
+    {
+      "foodId": "food-1josqss",
+      "foodName": "浓缩咖啡",
+      "menuName": "浓缩咖啡",
+      "code": "507389",
+      "url": "https://menu-img.mcd.cn/pcm/prod/menu/20250324/product/MS_507389_600.png",
+      "src": "/food-photos/507389.png",
+      "match": "exact",
+      "sourceTool": "query-meal-detail"
+    },
+    {
+      "foodId": "food-1lx0bxu",
+      "foodName": "麦乐鸡5块",
+      "menuName": "麦乐鸡5块",
+      "code": "1401",
+      "url": "https://menu-img.mcd.cn/pcm/prod/menu/20260529/product/MS_1401_600.png",
+      "src": "/food-photos/1401.png",
+      "match": "exact",
+      "sourceTool": "query-meal-detail"
+    },
+    {
+      "foodId": "food-1n02moh",
+      "foodName": "【美汁源】“黄金橙橙”",
+      "menuName": "【美汁源】“黄金橙橙”",
+      "code": "2430",
+      "url": "https://menu-img.mcd.cn/pcm/prod/menu/20240904/product/MS_2430_600.png",
+      "src": "/food-photos/2430.png",
+      "match": "exact",
+      "sourceTool": "query-meal-detail"
+    },
+    {
+      "foodId": "food-1n3rqv2",
+      "foodName": "冰浓浓燕麦黑巧中杯",
+      "menuName": "冰浓浓燕麦黑巧中杯",
+      "code": "515955",
+      "url": "https://menu-img.mcd.cn/pcm/prod/menu/20250611/product/MS_515955_600.png",
+      "src": "/food-photos/515955.png",
+      "match": "exact",
+      "sourceTool": "query-meal-detail"
+    },
+    {
+      "foodId": "food-1n87bhk",
+      "foodName": "纯悦",
+      "menuName": "纯悦",
+      "code": "3757",
+      "url": "https://menu-img.mcd.cn/pcm/prod/menu/20240904/product/MS_3757_600.png",
+      "src": "/food-photos/3757.png",
+      "match": "exact",
+      "sourceTool": "query-meal-detail"
+    },
+    {
+      "foodId": "food-1nx8jim",
+      "foodName": "脆香油条",
+      "menuName": "脆香油条",
+      "code": "2631",
+      "url": "https://menu-img.mcd.cn/pcm/prod/menu/ProductPool/product/MS_2631_320.png",
+      "src": "/food-photos/2631.png",
+      "match": "exact",
+      "sourceTool": "query-meals",
+      "reservationDate": "2026-10-22 08:30"
+    },
+    {
+      "foodId": "food-1ol83a5",
+      "foodName": "中杯怡泉+C",
+      "menuName": "中杯怡泉+C",
+      "code": "515520",
+      "url": "https://menu-img.mcd.cn/pcm/prod/menu/ProductPool/product/MS_515520_600.png",
+      "src": "/food-photos/515520.png",
+      "match": "exact",
+      "sourceTool": "query-meal-detail"
+    },
+    {
+      "foodId": "food-1q139pw",
+      "foodName": "麦香鱼",
+      "menuName": "麦香鱼",
+      "code": "1600",
+      "url": "https://menu-img.mcd.cn/pcm/prod/menu/20260520/product/MS_1600_600.png",
+      "src": "/food-photos/1600.png",
+      "match": "exact",
+      "sourceTool": "query-meal-detail"
+    },
+    {
+      "foodId": "food-1qe7yso",
+      "foodName": "可乐大杯",
+      "menuName": "可口可乐（大杯）",
+      "code": "3100",
+      "url": "https://menu-img.mcd.cn/pcm/prod/menu/ProductPool/product/MS_3100_600.png",
+      "src": "/food-photos/3100.png",
+      "match": "alias",
+      "sourceTool": "query-meal-detail",
+      "note": "已核对名称、杯型或份量；保留菜单原名。"
+    },
+    {
+      "foodId": "food-1s2k22e",
+      "foodName": "麦旋酷阳光橙",
+      "menuName": "阳光橙麦炫酷",
+      "code": "6352",
+      "url": "https://menu-img.mcd.cn/pcm/prod/menu/ProductPool/product/MS_6352_600.png",
+      "src": "/food-photos/6352.png",
+      "match": "alias",
+      "sourceTool": "query-meal-detail",
+      "note": "已核对名称、杯型或份量；保留菜单原名。"
+    },
+    {
+      "foodId": "food-1s7bjzh",
+      "foodName": "苹果片",
+      "menuName": "苹果片",
+      "code": "6102",
+      "url": "https://menu-img.mcd.cn/pcm/prod/menu/ProductPool/product/MS_6102_600.png",
+      "src": "/food-photos/6102.png",
+      "match": "exact",
+      "sourceTool": "query-meal-detail"
+    },
+    {
+      "foodId": "food-1scd55c",
+      "foodName": "可乐小杯",
+      "menuName": "可口可乐（小杯）",
+      "code": "3000",
+      "url": "https://menu-img.mcd.cn/pcm/prod/menu/ProductPool/product/MS_3000_600.png",
+      "src": "/food-photos/3000.png",
+      "match": "alias",
+      "sourceTool": "query-meal-detail",
+      "note": "已核对名称、杯型或份量；保留菜单原名。"
+    },
+    {
+      "foodId": "food-1td5571",
+      "foodName": "芝士安格斯厚牛堡",
+      "menuName": "芝士安格斯厚牛堡",
+      "code": "511782",
+      "url": "https://menu-img.mcd.cn/pcm/prod/menu/20251022/product/MS_511782_600.png",
+      "src": "/food-photos/511782.png",
+      "match": "exact",
+      "sourceTool": "query-meal-detail"
+    },
+    {
+      "foodId": "food-1uv83i8",
+      "foodName": "麦辣鸡翅-2块",
+      "menuName": "麦辣鸡翅2块",
+      "code": "1700",
+      "url": "https://menu-img.mcd.cn/pcm/prod/menu/20260219/product/MS_1700_600.png",
+      "src": "/food-photos/1700.png",
+      "match": "alias",
+      "sourceTool": "query-meal-detail",
+      "note": "已核对名称、杯型或份量；保留菜单原名。"
+    },
+    {
+      "foodId": "food-1w8aq6",
+      "foodName": "抹茶阿芙佳朵",
+      "menuName": "抹茶阿芙佳朵",
+      "code": "514850",
+      "url": "https://menu-img.mcd.cn/pcm/prod/menu/ProductPool/product/MS_514850_600.png",
+      "src": "/food-photos/514850.png",
+      "match": "exact",
+      "sourceTool": "query-meal-detail"
+    },
+    {
+      "foodId": "food-1wtoej7",
+      "foodName": "热美式中杯",
+      "menuName": "麦咖啡™热美式中杯",
+      "code": "507368",
+      "url": "https://menu-img.mcd.cn/pcm/prod/menu/20260610/product/MS_507368_600.png",
+      "src": "/food-photos/507368.png",
+      "match": "alias",
+      "sourceTool": "query-meal-detail",
+      "note": "已核对名称、杯型或份量；保留菜单原名。"
+    },
+    {
+      "foodId": "food-1y0f7m7",
+      "foodName": "纯牛奶（盒装）",
+      "menuName": "纯牛奶(盒装)",
+      "code": "3755",
+      "url": "https://menu-img.mcd.cn/pcm/prod/menu/20240731/product/MS_3755_600.png",
+      "src": "/food-photos/3755.png",
+      "match": "alias",
+      "sourceTool": "query-meal-detail",
+      "note": "已核对名称、杯型或份量；保留菜单原名。"
+    },
+    {
+      "foodId": "food-1yj2bro",
+      "foodName": "雪碧小杯",
+      "menuName": "雪碧（小杯）",
+      "code": "3010",
+      "url": "https://menu-img.mcd.cn/pcm/prod/menu/ProductPool/product/MS_3010_600.png",
+      "src": "/food-photos/3010.png",
+      "match": "alias",
+      "sourceTool": "query-meal-detail",
+      "note": "已核对名称、杯型或份量；保留菜单原名。"
+    },
+    {
+      "foodId": "food-2vziy7",
+      "foodName": "小杯鲜萃咖啡",
+      "menuName": "小杯鲜萃咖啡",
+      "code": "520689",
+      "url": "https://menu-img.mcd.cn/pcm/prod/menu/ProductPool/product/MS_520689_600.png",
+      "src": "/food-photos/520689.png",
+      "match": "exact",
+      "sourceTool": "query-meal-detail"
+    },
+    {
+      "foodId": "food-3ahja4",
+      "foodName": "冰美式中杯",
+      "menuName": "麦咖啡™冰美式中杯",
+      "code": "507411",
+      "url": "https://menu-img.mcd.cn/pcm/prod/menu/20250804/product/MS_507411_600.png",
+      "src": "/food-photos/507411.png",
+      "match": "alias",
+      "sourceTool": "query-meal-detail",
+      "note": "已核对名称、杯型或份量；保留菜单原名。"
+    },
+    {
+      "foodId": "food-5ohq57",
+      "foodName": "图林根香肠早安营养卷",
+      "menuName": "图林根香肠早安营养卷",
+      "code": "513113",
+      "url": "https://menu-img.mcd.cn/pcm/prod/menu/ProductPool/product/MS_513113_320.png",
+      "src": "/food-photos/513113.png",
+      "match": "exact",
+      "sourceTool": "query-meals",
+      "reservationDate": "2026-10-22 08:30"
+    },
+    {
+      "foodId": "food-71ivrc",
+      "foodName": "小杯玉米杯",
+      "menuName": "小杯玉米杯",
+      "code": "4437",
+      "url": "https://menu-img.mcd.cn/pcm/prod/menu/20260101/product/MS_4437_600.png",
+      "src": "/food-photos/4437.png",
+      "match": "exact",
+      "sourceTool": "query-meal-detail"
+    },
+    {
+      "foodId": "food-c7xeq1",
+      "foodName": "香芋派",
+      "menuName": "香芋派",
+      "code": "4106",
+      "url": "https://menu-img.mcd.cn/pcm/prod/menu/20260101/product/MS_4106_600.png",
+      "src": "/food-photos/4106.png",
+      "match": "exact",
+      "sourceTool": "query-meal-detail"
+    },
+    {
+      "foodId": "food-c9naz0",
+      "foodName": "双层原味板烧鸡腿麦满分",
+      "menuName": "双层原味板烧鸡腿麦满分",
+      "code": "4989",
+      "url": "https://menu-img.mcd.cn/pcm/prod/menu/ProductPool/product/MS_4989_320.png",
+      "src": "/food-photos/4989.png",
+      "match": "exact",
+      "sourceTool": "query-meals",
+      "reservationDate": "2026-10-22 08:30"
+    },
+    {
+      "foodId": "food-ca997o",
+      "foodName": "猪柳蛋麦满分",
+      "menuName": "猪柳蛋麦满分",
+      "code": "5022",
+      "url": "https://menu-img.mcd.cn/pcm/prod/menu/20250709/product/MS_5022_320.png",
+      "src": "/food-photos/5022.png",
+      "match": "exact",
+      "sourceTool": "query-meals",
+      "reservationDate": "2026-10-22 08:30"
+    },
+    {
+      "foodId": "food-du09pj",
+      "foodName": "薄皮焦香V翅",
+      "menuName": "薄皮焦香V翅",
+      "code": "520445",
+      "url": "https://menu-img.mcd.cn/pcm/prod/menu/20241028/product/MS_520445_600.png",
+      "src": "/food-photos/520445.png",
+      "match": "exact",
+      "sourceTool": "query-meal-detail"
+    },
+    {
+      "foodId": "food-e9sudr",
+      "foodName": "培根安格斯厚牛堡",
+      "menuName": "培根安格斯厚牛堡",
+      "code": "511781",
+      "url": "https://menu-img.mcd.cn/pcm/prod/menu/20251022/product/MS_511781_600.png",
+      "src": "/food-photos/511781.png",
+      "match": "exact",
+      "sourceTool": "query-meal-detail"
+    },
+    {
+      "foodId": "food-ee2x99",
+      "foodName": "草莓新地",
+      "menuName": "草莓新地",
+      "code": "4416",
+      "url": "https://menu-img.mcd.cn/pcm/prod/menu/ProductPool/product/MS_4416_600.png",
+      "src": "/food-photos/4416.png",
+      "match": "exact",
+      "sourceTool": "query-meal-detail"
+    },
+    {
+      "foodId": "food-en2nw8",
+      "foodName": "草莓麦旋风",
+      "menuName": "草莓麦旋风",
+      "code": "4900",
+      "url": "https://menu-img.mcd.cn/pcm/prod/menu/ProductPool/product/MS_4900_600.png",
+      "src": "/food-photos/4900.png",
+      "match": "exact",
+      "sourceTool": "query-meal-detail"
+    },
+    {
+      "foodId": "food-fbofdd",
+      "foodName": "冰浓浓黑巧中杯",
+      "menuName": "冰浓浓黑巧中杯",
+      "code": "515946",
+      "url": "https://menu-img.mcd.cn/pcm/prod/menu/20250611/product/MS_515946_600.png",
+      "src": "/food-photos/515946.png",
+      "match": "exact",
+      "sourceTool": "query-meal-detail"
+    },
+    {
+      "foodId": "food-fwjmcd",
+      "foodName": "100%苹果汁",
+      "menuName": "100% 苹果汁(盒装)",
+      "code": "6362",
+      "url": "https://menu-img.mcd.cn/pcm/prod/menu/20250430/product/MS_6362_600_1745552990018.png",
+      "src": "/food-photos/6362.png",
+      "match": "alias",
+      "sourceTool": "query-meal-detail",
+      "note": "已核对名称、杯型或份量；保留菜单原名。"
+    },
+    {
+      "foodId": "food-g0jx5j",
+      "foodName": "原味板烧鸡腿炒双蛋堡",
+      "menuName": "原味板烧鸡腿炒双蛋堡",
+      "code": "514700",
+      "url": "https://menu-img.mcd.cn/pcm/prod/menu/ProductPool/product/MS_514700_320.png",
+      "src": "/food-photos/514700.png",
+      "match": "exact",
+      "sourceTool": "query-meals",
+      "reservationDate": "2026-10-22 08:30"
+    },
+    {
+      "foodId": "food-hl6o4p",
+      "foodName": "奥利奥麦旋风",
+      "menuName": "奥利奥麦旋风",
+      "code": "1217",
+      "url": "https://menu-img.mcd.cn/pcm/prod/menu/ProductPool/product/MS_1217_600.png",
+      "src": "/food-photos/1217.png",
+      "match": "exact",
+      "sourceTool": "query-meal-detail"
+    },
+    {
+      "foodId": "food-ik08hl",
+      "foodName": "双层深海鳕鱼堡",
+      "menuName": "双层深海鳕鱼堡",
+      "code": "9900003586",
+      "url": "https://menu-img.mcd.cn/pcm/prod/menu/ProductPool/product/MS_9900003586_320.png",
+      "src": "/food-photos/9900003586.png",
+      "match": "exact",
+      "sourceTool": "query-meals"
+    },
+    {
+      "foodId": "food-kha24k",
+      "foodName": "大脆鸡扒麦满分",
+      "menuName": "大脆鸡扒麦满分",
+      "code": "5889",
+      "url": "https://menu-img.mcd.cn/pcm/prod/menu/ProductPool/product/MS_5889_320.png",
+      "src": "/food-photos/5889.png",
+      "match": "exact",
+      "sourceTool": "query-meals",
+      "reservationDate": "2026-10-22 08:30"
+    },
+    {
+      "foodId": "food-kk5ttm",
+      "foodName": "脆薯饼",
+      "menuName": "脆薯饼",
+      "code": "4825",
+      "url": "https://menu-img.mcd.cn/pcm/prod/menu/20250506/product/MS_4825_320_1745825068180.png",
+      "src": "/food-photos/4825.png",
+      "match": "exact",
+      "sourceTool": "query-meals",
+      "reservationDate": "2026-10-22 08:30"
+    },
+    {
+      "foodId": "food-m7zjnv",
+      "foodName": "热燕麦奶中杯",
+      "menuName": "热燕麦奶中杯",
+      "code": "510488",
+      "url": "https://menu-img.mcd.cn/pcm/prod/menu/ProductPool/product/MS_510488_600.png",
+      "src": "/food-photos/510488.png",
+      "match": "exact",
+      "sourceTool": "query-meal-detail"
+    },
+    {
+      "foodId": "food-mhdbfy",
+      "foodName": "双层猪柳蛋麦满分",
+      "menuName": "双层猪柳蛋麦满分",
+      "code": "520830",
+      "url": "https://menu-img.mcd.cn/pcm/prod/menu/ProductPool/product/MS_520830_320_1745825365408.png",
+      "src": "/food-photos/520830.png",
+      "match": "exact",
+      "sourceTool": "query-meals",
+      "reservationDate": "2026-10-22 08:30"
+    },
+    {
+      "foodId": "food-o3ebwx",
+      "foodName": "朱古力新地",
+      "menuName": "朱古力新地",
+      "code": "4410",
+      "url": "https://menu-img.mcd.cn/pcm/prod/menu/ProductPool/product/MS_4410_600.png",
+      "src": "/food-photos/4410.png",
+      "match": "exact",
+      "sourceTool": "query-meal-detail"
+    },
+    {
+      "foodId": "food-pg1c26",
+      "foodName": "原味板烧鸡腿麦满分",
+      "menuName": "原味板烧鸡腿麦满分",
+      "code": "6800",
+      "url": "https://menu-img.mcd.cn/pcm/prod/menu/ProductPool/product/MS_6800_320.png",
+      "src": "/food-photos/6800.png",
+      "match": "exact",
+      "sourceTool": "query-meals",
+      "reservationDate": "2026-10-22 08:30"
+    },
+    {
+      "foodId": "food-pgcvpd",
+      "foodName": "冰燕麦奶铁中杯",
+      "menuName": "冰燕麦奶铁中杯",
+      "code": "510479",
+      "url": "https://menu-img.mcd.cn/pcm/prod/menu/20250324/product/MS_510479_600.png",
+      "src": "/food-photos/510479.png",
+      "match": "exact",
+      "sourceTool": "query-meal-detail"
+    },
+    {
+      "foodId": "food-pt0iz8",
+      "foodName": "麦辣鸡腿汉堡",
+      "menuName": "麦辣鸡腿汉堡",
+      "code": "1440",
+      "url": "https://menu-img.mcd.cn/pcm/prod/menu/20250420/product/MS_1440_600_0_1744772198163.png",
+      "src": "/food-photos/1440.png",
+      "match": "exact",
+      "sourceTool": "query-meal-detail"
+    },
+    {
+      "foodId": "food-tiq45p",
+      "foodName": "热牛奶中杯",
+      "menuName": "热牛奶中杯",
+      "code": "507394",
+      "url": "https://menu-img.mcd.cn/pcm/prod/menu/ProductPool/product/MS_507394_600.png",
+      "src": "/food-photos/507394.png",
+      "match": "exact",
+      "sourceTool": "query-meal-detail"
+    },
+    {
+      "foodId": "food-ucbnh6",
+      "foodName": "德式图林根香肠",
+      "menuName": "德式图林根香肠",
+      "code": "505235",
+      "url": "https://menu-img.mcd.cn/pcm/prod/menu/ProductPool/product/MS_505235_320.png",
+      "src": "/food-photos/505235.png",
+      "match": "exact",
+      "sourceTool": "query-meals",
+      "reservationDate": "2026-10-22 08:30"
+    },
+    {
+      "foodId": "food-urmp92",
+      "foodName": "板烧鸡腿堡",
+      "menuName": "板烧鸡腿堡",
+      "code": "1406",
+      "url": "https://menu-img.mcd.cn/pcm/prod/menu/20241008/product/MS_1406_600.png",
+      "src": "/food-photos/1406.png",
+      "match": "exact",
+      "sourceTool": "query-meal-detail"
+    },
+    {
+      "foodId": "food-vp7nt5",
+      "foodName": "不素之霸双层牛堡",
+      "menuName": "不素之霸双层牛堡",
+      "code": "4648",
+      "url": "https://menu-img.mcd.cn/pcm/prod/menu/20250611/product/MS_4648_600_1749175329279.png",
+      "src": "/food-photos/4648.png",
+      "match": "exact",
+      "sourceTool": "query-meal-detail"
+    }
+  ]
+}

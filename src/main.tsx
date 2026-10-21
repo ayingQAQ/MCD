@@ -10,5 +10,6 @@ import './styles/upgrade.css';
 import './styles/flow.css';
 import './styles/galaxy-stage.css';
 import './styles/brand.css';
+import './styles/food-universe.css';
 
 ReactDOM.createRoot(document.getElementById('root')!).render(<React.StrictMode><App/></React.StrictMode>);

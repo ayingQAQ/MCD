@@ -85,3 +85,14 @@ html[data-route=galaxy] .live-feedback{bottom:76px}
 /* The viewport is a window into deep space, not a diagram fitted to the page. */
 .galaxy-stage .canvas-hint{color:#CDD3CF;text-shadow:0 1px 3px #101C2C}
 .galaxy-stage .canvas-hint .tiny-orbit{border-color:#DDBF83}
+.cluster-labels{position:absolute;inset:0;z-index:2;pointer-events:none;overflow:hidden}
+.cluster-labels>button{position:absolute;left:0;top:0;pointer-events:auto;background:#FFF4D6E8;color:#6C4D34;border:1px solid #D7B981;border-radius:8px 12px 8px 10px;padding:6px 12px;box-shadow:2px 3px 0 #10223733;font-family:var(--hand);font-size:14px;white-space:nowrap}
+.cluster-labels>button[hidden]{display:none}
+.cluster-labels>button small{display:block;font:9px Nunito,sans-serif;color:#887454;margin-top:3px}
+.scene-navigation{position:absolute;z-index:4;right:16px;bottom:108px;display:flex;gap:8px;flex-wrap:wrap;justify-content:flex-end}
+.scene-navigation>button{background:#FFFCF5E8;border:1px solid #C8B38C;border-radius:7px 11px 8px 9px;padding:5px 10px;font-size:11px;color:#775834}
+.has-details .scene-navigation{right:382px}
+.webgl-error,.webgl-loading{position:absolute;z-index:3;left:50%;top:40%;transform:translate(-50%,-50%);background:#FFF8E9;color:#684536;border:1px solid #D9BE87;border-radius:12px;padding:24px;max-width:450px;width:calc(100% - 40px);font-size:14px;line-height:1.8}
+.webgl-error h2{font:24px var(--hand);margin-bottom:12px}.webgl-error button{margin-top:16px}
+@media(max-width:850px){.scene-navigation,.has-details .scene-navigation{right:16px;bottom:115px}.cluster-labels>button{font-size:12px;padding:5px 9px}.webgl-error,.webgl-loading{top:48%;max-width:330px}}
+@media(max-width:600px){.scene-navigation,.has-details .scene-navigation{bottom:150px}.cluster-labels>button small{font-size:8px}.cluster-labels>button{font-size:11px}}

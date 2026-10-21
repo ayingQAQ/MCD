@@ -3,8 +3,6 @@ import { expect, test, type Locator, type Page, type TestInfo } from '@playwrigh
 import snapshot from '../../public/data/nutrition.snapshot.json' with { type: 'json' };
 import { datasetSchema, nutrientKeys } from '../../src/data/schema';
 import { analyze } from '../../src/graph/analysis';
-import { layoutGraph } from '../../src/graph/layout';
-import { projectPoint, type DepthPoint, type SceneCamera } from '../../src/graph/depth';
 import { createDailyQuests } from '../../src/core/quests';
 
 const dataset = datasetSchema.parse(snapshot);
@@ -36,10 +34,20 @@ async function addSample(page: Page, name: string) {
   await page.getByLabel('实验室搜索').fill(name);
   await page.getByRole('button', { name: `添加 ${name}`, exact: true }).click();
 }
+type SceneCamera = { position: [number, number, number]; target: [number, number, number]; distance: number };
+type ProjectedPlanet = { id: string; x: number; y: number; radius: number; z: number; visible: boolean };
+type ProjectedEdge = { source: string; target: string; points: { x: number; y: number; z: number }[] };
 async function canvasScene(canvas: Locator) {
-  await expect(canvas).toHaveAttribute('data-scene', 'perspective');
-  await expect(canvas).toHaveAttribute('data-camera', /scale/);
+  await expect(canvas).toHaveAttribute('data-scene', 'webgl-3d');
+  await expect(canvas).toHaveAttribute('data-camera', /distance/);
   return { camera: JSON.parse((await canvas.getAttribute('data-camera'))!) as SceneCamera, bounds: (await canvas.boundingBox())! };
+}
+async function visiblePlanet(canvas: Locator, ids: string[]) {
+  const planets = JSON.parse((await canvas.getAttribute('data-planets'))!) as ProjectedPlanet[];
+  const candidates = planets.filter(point => point.visible && ids.includes(point.id))
+    .filter(point => planets.every(other => !other.visible || other.id === point.id || other.z > point.z || Math.hypot(other.x - point.x, other.y - point.y) > other.radius + 3))
+    .sort((a, b) => a.z - b.z);
+  return openCanvasPoint(canvas, candidates);
 }
 async function openCanvasPoint(canvas: Locator, candidates: { x: number; y: number; id?: string }[]) {
   return canvas.evaluate((element, points) => {
@@ -176,13 +184,12 @@ test('discovery advances across home visits and cross-category focus remains dra
   await search.fill('');
   await page.getByRole('button', { name: '关闭星球档案', exact: true }).click();
   const food = dataset.foods.find(item => item.name === '巨无霸')!;
-  const point = layoutGraph(graph).find(item => item.id === food.id)!;
   const canvas = page.locator('canvas.galaxy-canvas');
   await canvas.scrollIntoViewIfNeeded();
-  await expect(canvas).toHaveAttribute('data-camera', /scale/);
-  const { camera, bounds } = await canvasScene(canvas);
-  const projected = projectPoint(point, camera, bounds);
-  await canvas.click({ position: { x: projected.x, y: projected.y } });
+  await canvasScene(canvas);
+  const projected = await visiblePlanet(canvas, [food.id]);
+  expect(projected, 'focused planet must have an uncovered actual projected center').not.toBeNull();
+  await canvas.click({ position: { x: projected!.x, y: projected!.y } });
   await expect(page.getByRole('heading', { name: food.name, exact: true })).toBeVisible();
 });
 
@@ -354,27 +361,34 @@ test('canvas pointer drag, zoom reset, actual planet hit and accessible relation
   await page.goto('/galaxy'); await ready(page, 1);
   const canvas = page.locator('canvas.galaxy-canvas');
   await canvas.scrollIntoViewIfNeeded();
-  await expect(canvas).toHaveAttribute('data-camera', /scale/);
+  await expect(canvas).toHaveAttribute('data-camera', /distance/);
   const initial = await canvas.getAttribute('data-camera');
-  const box = (await canvas.boundingBox())!;
-  await page.mouse.move(box.x + box.width * .4, box.y + box.height * .6);
+  const anchor = await canvas.evaluate(element => {
+    const rect = element.getBoundingClientRect();
+    for (const fx of [.5, .65, .8]) for (const fy of [.4, .55, .7]) {
+      const x = rect.left + rect.width * fx, y = rect.top + rect.height * fy;
+      if (document.elementFromPoint(x, y) === element && document.elementFromPoint(x + 65, y + 30) === element) return { x, y };
+    }
+    return null;
+  });
+  expect(anchor, 'orbit must start and finish on uncovered canvas').not.toBeNull();
+  await page.mouse.move(anchor!.x, anchor!.y);
   await page.mouse.down();
-  await page.mouse.move(box.x + box.width * .4 + 65, box.y + box.height * .6 + 30, { steps: 6 });
+  await page.mouse.move(anchor!.x + 65, anchor!.y + 30, { steps: 6 });
   await page.mouse.up();
   await expect(canvas).not.toHaveAttribute('data-camera', initial!);
   expect(new URL(page.url()).searchParams.has('focus')).toBe(false);
   const zoom = await page.locator('.zoom-tools span').innerText();
-  await canvas.hover(); await page.mouse.wheel(0, -180);
+  const beforeDolly = (await canvasScene(canvas)).camera.distance;
+  await page.mouse.move(anchor!.x, anchor!.y); await page.mouse.wheel(0, -180);
   await expect(page.locator('.zoom-tools span')).not.toHaveText(zoom);
+  await expect.poll(async () => (await canvasScene(canvas)).camera.distance).toBeLessThan(beforeDolly);
   await page.getByRole('button', { name: '缩小', exact: true }).click();
   await page.getByRole('button', { name: '放大', exact: true }).click();
   await page.getByRole('button', { name: '重置视图', exact: true }).click();
   await expect(canvas).toHaveAttribute('data-camera', initial!);
-  const { camera, bounds } = await canvasScene(canvas);
-  const positions = layoutGraph(graph);
-  // The directory floats over the sky, so only planets on open canvas are clickable.
-  const candidates = positions.map(point => ({ ...projectPoint(point, camera, bounds), id: point.id })).filter(point => point.y > 120 && point.y < bounds.height - 110 && graph.edges.some(edge => edge.source === point.id || edge.target === point.id)).sort((a, b) => b.factor - a.factor);
-  const target = await openCanvasPoint(canvas, candidates);
+  await canvasScene(canvas);
+  const target = await visiblePlanet(canvas, graph.edges.flatMap(edge => [edge.source, edge.target]));
   expect(target).not.toBeNull();
   await canvas.click({ position: { x: target!.x, y: target!.y } });
   const food = dataset.foods.find(item => item.id === target!.id)!;
@@ -392,15 +406,56 @@ test('canvas pointer drag, zoom reset, actual planet hit and accessible relation
   await expect(page.getByRole('heading', { name: food.name, exact: true })).toHaveCount(0);
 });
 
+test('lens and category changes preserve the world; category controls fly and food focus restores roaming', async ({ page }) => {
+  await page.setViewportSize({ width: 1440, height: 1000 });
+  await page.emulateMedia({ reducedMotion: 'reduce' });
+  await page.goto('/galaxy'); await ready(page, 1);
+  const canvas = page.locator('canvas.galaxy-canvas');
+  const { camera: home } = await canvasScene(canvas);
+  const world = await canvas.getAttribute('data-world');
+  await page.getByRole('button', { name: '蛋白质', exact: true }).click();
+  await expect(canvas).toHaveAttribute('data-lens', 'proteinG');
+  expect(await canvas.getAttribute('data-world')).toBe(world);
+  await page.getByRole('button', { name: '饮品星系', exact: true }).click();
+  await expect.poll(async () => (await canvasScene(canvas)).camera.target).not.toEqual(home.target);
+  expect(await canvas.getAttribute('data-world')).toBe(world);
+  await page.getByRole('button', { name: '重置视图', exact: true }).click();
+  // Clear the directory filter before entering another cluster through its sky label.
+  await page.locator('.category-filters > button').first().click();
+  await page.getByRole('button', { name: '返回星系全景', exact: true }).click();
+  const overview = (await canvasScene(canvas)).camera;
+  const cluster = page.getByRole('button', { name: '进入汉堡星系', exact: true });
+  await expect(cluster).toBeVisible();
+  await cluster.click();
+  await expect.poll(async () => (await canvasScene(canvas)).camera.target).not.toEqual(overview.target);
+  expect(await canvas.getAttribute('data-world')).toBe(world);
+  const roaming = (await canvasScene(canvas)).camera;
+  const search = page.getByLabel('搜索餐品', { exact: true });
+  await search.fill('巨无霸');
+  await page.getByRole('button', { name: '探索 巨无霸', exact: true }).click();
+  await expect(page.getByRole('heading', { name: '巨无霸', exact: true })).toBeVisible();
+  await expect.poll(async () => (await canvasScene(canvas)).camera.target).not.toEqual(roaming.target);
+  const focusId = dataset.foods.find(food => food.name === '巨无霸')!.id;
+  await expect.poll(async () => {
+    const projected = JSON.parse((await canvas.getAttribute('data-planets'))!) as ProjectedPlanet[];
+    return projected.some(planet => planet.id === focusId && planet.visible && planet.radius > 0);
+  }).toBe(true);
+  await page.getByRole('button', { name: '返回漫游视角', exact: true }).click();
+  await expect.poll(async () => (await canvasScene(canvas)).camera).toEqual(roaming);
+  expect(await canvas.getAttribute('data-world')).toBe(world);
+});
+
 test('clicking a visible canvas relationship opens its real explanation', async ({ page }) => {
   await page.setViewportSize({ width: 1440, height: 1000 });
   await page.emulateMedia({ reducedMotion: 'reduce' });
-  const positions = layoutGraph(graph);
-  const byId = new Map(positions.map(point => [point.id, point]));
-  const edge = [...graph.edges].sort((a, b) => {
-    const length = (item: typeof a) => Math.hypot(byId.get(item.source)!.x - byId.get(item.target)!.x, byId.get(item.source)!.y - byId.get(item.target)!.y);
-    return length(b) - length(a);
-  })[0];
+  await page.goto('/galaxy'); await ready(page, 1);
+  const world = JSON.parse((await page.locator('canvas.galaxy-canvas').getAttribute('data-world'))!) as { id: string; x: number; y: number; z: number }[];
+  const byId = new Map(world.map(point => [point.id, point]));
+  const length = (edge: typeof graph.edges[number]) => {
+    const a = byId.get(edge.source)!, b = byId.get(edge.target)!;
+    return Math.hypot(a.x - b.x, a.y - b.y, a.z - b.z);
+  };
+  const edge = [...graph.edges].sort((a, b) => length(b) - length(a))[0];
   // Fit both real endpoints through the route UI: focusing one dense cluster
   // hid the long edge behind the archive or outside the initial viewport.
   await page.goto(`/galaxy?from=${encodeURIComponent(edge.source)}&to=${encodeURIComponent(edge.target)}`); await ready(page, 1);
@@ -410,27 +465,28 @@ test('clicking a visible canvas relationship opens its real explanation', async 
   await expect(page.locator('.route-playback > span')).toContainText('2 / 2');
   const canvas = page.locator('canvas.galaxy-canvas');
   await canvas.scrollIntoViewIfNeeded();
-  await expect(canvas).toHaveAttribute('data-camera', /scale/);
-  // Reconstruct the rendered 40-segment projected curve, including its
-  // interpolated depth. Use segment midpoints, away from projected planets.
+  await expect(canvas).toHaveAttribute('data-camera', /distance/);
+  // Hit the actual projected polyline; exclude every visible planet and floating UI.
   async function visibleEdgePoint() {
-    const { camera, bounds } = await canvasScene(canvas);
-    const a: DepthPoint = byId.get(edge.source)!, b: DepthPoint = byId.get(edge.target)!;
-    const curve = Array.from({ length: 41 }, (_, index) => {
-      const t = index / 40, u = 1 - t;
-      return projectPoint({ x: u * u * a.x + 2 * u * t * ((a.x + b.x) / 2) + t * t * b.x, y: u * u * a.y + 2 * u * t * ((a.y + b.y) / 2 - 22) + t * t * b.y, depth: (a.depth ?? 0) * u + (b.depth ?? 0) * t }, camera, bounds);
-    });
-    const planets = positions.map(point => projectPoint(point, camera, bounds));
-    const candidates = curve.slice(1).map((point, index) => ({ x: (point.x + curve[index].x) / 2, y: (point.y + curve[index].y) / 2 })).filter(point => planets.every(planet => Math.hypot(planet.x - point.x, planet.y - point.y) > 41 * camera.scale * planet.factor + 6));
+    await canvasScene(canvas);
+    const edges = JSON.parse((await canvas.getAttribute('data-edges'))!) as ProjectedEdge[];
+    const rendered = edges.find(item => (item.source === edge.source && item.target === edge.target) || (item.source === edge.target && item.target === edge.source));
+    expect(rendered, 'planned relationship must be present in the actual renderer').toBeDefined();
+    const curve = rendered!.points;
+    const planets = JSON.parse((await canvas.getAttribute('data-planets'))!) as ProjectedPlanet[];
+    const candidates = curve.slice(1).flatMap((point, index) => {
+      const previous = curve[index];
+      return [.25, .5, .75].map(t => ({ x: previous.x + (point.x - previous.x) * t, y: previous.y + (point.y - previous.y) * t, z: previous.z + (point.z - previous.z) * t }));
+    }).filter(point => point.z >= -1 && point.z <= 1 && planets.every(planet => !planet.visible || Math.hypot(planet.x - point.x, planet.y - point.y) > planet.radius + 7));
     return openCanvasPoint(canvas, candidates);
   }
   const point = await visibleEdgePoint();
   expect(point, 'a visible relationship segment must be available for pointer hit testing').not.toBeNull();
   const bounds = (await canvas.boundingBox())!;
   await page.mouse.move(bounds.x + point!.x, bounds.y + point!.y);
-  const beforeZoom = (await canvasScene(canvas)).camera.scale;
+  const beforeZoom = (await canvasScene(canvas)).camera.distance;
   await page.mouse.wheel(0, -240);
-  await expect.poll(async () => (await canvasScene(canvas)).camera.scale).toBeGreaterThan(beforeZoom);
+  await expect.poll(async () => (await canvasScene(canvas)).camera.distance).toBeLessThan(beforeZoom);
   const afterZoom = await visibleEdgePoint();
   expect(afterZoom, 'the projected edge must remain visible after depth-aware wheel zoom').not.toBeNull();
   await canvas.click({ position: afterZoom! });

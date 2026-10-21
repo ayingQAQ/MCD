@@ -31,6 +31,7 @@
     "react-dom": "^19.3.1",
     "react-router": "^8.5.0",
     "roughjs": "^4.6.6",
+    "three": "^0.186.1",
     "zod": "^4.1.12"
   },
   "devDependencies": {
@@ -40,6 +41,7 @@
     "@types/node": "^24.10.0",
     "@types/react": "^19.2.2",
     "@types/react-dom": "^19.2.2",
+    "@types/three": "^0.186.0",
     "@vitejs/plugin-react": "latest",
     "eslint": "^9.39.0",
     "globals": "^16.5.0",

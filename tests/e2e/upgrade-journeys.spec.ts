@@ -359,9 +359,11 @@ test('canvas pointer drag, zoom reset, actual planet hit and accessible relation
   await expect(canvas).toHaveAttribute('data-camera', initial!);
   const camera = JSON.parse((await canvas.getAttribute('data-camera'))!) as { x: number; y: number; scale: number };
   const positions = layoutGraph(graph);
+  // The directory floats over the sky, so only planets on open canvas are clickable.
+  const panelRight = await page.locator('.galaxy-panel').evaluate(element => element.getBoundingClientRect().right);
   const target = positions.find(point => {
     const x = point.x * camera.scale + camera.x, y = point.y * camera.scale + camera.y;
-    return x > 70 && x < box.width - 70 && y > 170 && y < box.height - 90 && graph.edges.some(edge => edge.source === point.id || edge.target === point.id);
+    return x > panelRight + 40 && x < box.width - 70 && y > 120 && y < box.height - 110 && graph.edges.some(edge => edge.source === point.id || edge.target === point.id);
   })!;
   expect(target).toBeDefined();
   await canvas.click({ position: { x: target.x * camera.scale + camera.x, y: target.y * camera.scale + camera.y } });

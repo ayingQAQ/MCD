@@ -1,12 +1,11 @@
 import { useEffect, useRef, useState } from 'react';
-import rough from 'roughjs';
 import type { Dataset, FoodPlanet, NutrientKey, NutritionGraph, SimilarityEdge } from '../data/schema';
-import { nutrientNames, stableHash } from '../data/schema';
+import { categoryNames, nutrientNames, stableHash } from '../data/schema';
 import type { PlanetPosition } from '../graph/layout';
-import { centers } from '../graph/layout';
+import { clusterBounds } from '../graph/layout';
 import { quantile } from '../graph/analysis';
 import { focusIds, relationEdges } from '../graph/view';
-import { drawPlanet, ink } from '../art/planets';
+import { drawPlanet, ink, shades } from '../art/planets';
 import { Icon } from './Illustrations';
 
 interface Props {
@@ -15,8 +14,10 @@ interface Props {
   route: string[]; routeStep: number; showRelations: boolean; expanded: boolean; showLabels: boolean;
   highlight: SimilarityEdge | null;
   onRelationSelect?: (edge: SimilarityEdge) => void;
-  /** Height covered by in-map panels at the bottom, kept clear when framing a focus. */
-  bottomInset?: () => number;
+  /** Screen area covered by floating panels (left sidebar, bottom dock), kept clear when framing. */
+  insets?: () => { left: number; bottom: number };
+  /** Changing this value re-frames the whole sky (e.g. after the side panel collapses). */
+  fitKey?: string | number | boolean;
 }
 interface Camera { x: number; y: number; scale: number }
 export function GalaxyCanvas(props: Props) {
@@ -39,8 +40,11 @@ export function GalaxyCanvas(props: Props) {
     const ctx = canvas.getContext('2d')!;
     const positions = new Map(props.positions.map(p => [p.id, p]));
     const foods = new Map(props.dataset.foods.map(f => [f.id, f]));
-    const rc = rough.canvas(canvas);
-    let frame = 0, destroyed = false;
+    const clusters = clusterBounds(props.positions);
+    const galaxyMotto: Record<string, string> = { burger: 'THE BURGER ORBIT', breakfast: 'GOOD MORNING', side: 'LITTLE BITES', drink: 'SIP & WANDER', dessert: 'SWEET DREAMS', other: 'THE UNKNOWN' };
+    // Three star layers in screen space; nearer layers drift more with the camera (parallax).
+    const stars = Array.from({ length: 220 }, (_, i) => { const h = stableHash(`star-${i}`); return { x: (h % 10007) / 10007, y: (Math.floor(h / 10007) % 9973) / 9973, layer: i % 3, size: .6 + (h % 7) / 6, gold: h % 9 === 0 }; });
+    let frame = 0, idle = 0, destroyed = false;
     let lensStart = performance.now();
     let previousLens = latest.current.lens;
     let targets = new Map<string, number>();
@@ -76,19 +80,35 @@ export function GalaxyCanvas(props: Props) {
       canvas.dataset.camera = JSON.stringify(c);
       const dpr = Math.min(2, window.devicePixelRatio || 1);
       ctx.setTransform(dpr, 0, 0, dpr, 0, 0); ctx.clearRect(0, 0, width, height);
-      // Doodles use stable seeds; the drawing sleeps when nothing changes.
+      // Deep sky: parallax stars drawn before the world transform.
+      for (const star of stars) {
+        const depth = [.04, .1, .2][star.layer], span = 1.4;
+        const sx = (((star.x * width * span + c.x * depth) % (width * span)) + width * span) % (width * span) - width * .2;
+        const sy = (((star.y * height * span + c.y * depth) % (height * span)) + height * span) % (height * span) - height * .2;
+        ctx.globalAlpha = .35 + star.layer * .2; ctx.fillStyle = star.gold ? '#D9B968' : '#C9BBA2';
+        if (star.gold && star.layer === 2) { ctx.strokeStyle = '#D9B968'; ctx.lineWidth = 1; ctx.beginPath(); ctx.moveTo(sx - 4, sy); ctx.lineTo(sx + 4, sy); ctx.moveTo(sx, sy - 4); ctx.lineTo(sx, sy + 4); ctx.stroke(); }
+        else { ctx.beginPath(); ctx.arc(sx, sy, star.size * (.6 + star.layer * .3), 0, Math.PI * 2); ctx.fill(); }
+      }
+      ctx.globalAlpha = 1;
       ctx.save(); ctx.translate(c.x, c.y); ctx.scale(c.scale, c.scale);
-      for (let i = 0; i < 80; i++) {
-        const h = stableHash(`sky-${i}`), x = (h % 2400) - 1200, y = (Math.floor(h / 2400) % 1800) - 900;
-        ctx.strokeStyle = i % 3 ? '#D4C9B6' : '#D9B968'; ctx.lineWidth = 1 / c.scale;
-        ctx.beginPath(); ctx.moveTo(x - 3, y); ctx.lineTo(x + 3, y); ctx.moveTo(x, y - 3); ctx.lineTo(x, y + 3); ctx.stroke();
+      // Each category is its own galaxy: a soft nebula, a dashed orbit and a name.
+      for (const cluster of clusters) {
+        const shown = p.dataset.foods.some(f => f.category === cluster.category && p.visible.has(f.id));
+        const tone = shades[cluster.category];
+        ctx.globalAlpha = shown ? 1 : .25;
+        const nebula = ctx.createRadialGradient(cluster.x, cluster.y, cluster.radius * .1, cluster.x, cluster.y, cluster.radius * 1.15);
+        nebula.addColorStop(0, `${tone.glow}38`); nebula.addColorStop(.6, `${tone.glow}1C`); nebula.addColorStop(1, `${tone.glow}00`);
+        ctx.fillStyle = nebula; ctx.beginPath(); ctx.arc(cluster.x, cluster.y, cluster.radius * 1.15, 0, Math.PI * 2); ctx.fill();
+        ctx.strokeStyle = tone.dark; ctx.globalAlpha = (shown ? .28 : .1); ctx.lineWidth = 1.2 / c.scale; ctx.setLineDash([6 / c.scale, 9 / c.scale]);
+        ctx.beginPath(); ctx.ellipse(cluster.x, cluster.y, cluster.radius * 1.04, cluster.radius * .98, -.12, 0, Math.PI * 2); ctx.stroke(); ctx.setLineDash([]);
+        ctx.globalAlpha = shown ? 1 : .35;
+        ctx.save(); ctx.translate(cluster.x, cluster.y - cluster.radius * 1.04 - 14 / c.scale); ctx.scale(1 / c.scale, 1 / c.scale);
+        ctx.textAlign = 'center'; ctx.textBaseline = 'bottom';
+        ctx.font = '600 15px "ZCOOL KuaiLe", "Microsoft YaHei", sans-serif'; ctx.fillStyle = tone.dark; ctx.fillText(`${categoryNames[cluster.category]} · ${cluster.count}`, 0, 0);
+        ctx.font = '600 9px Nunito, sans-serif'; ctx.fillStyle = '#A8987E'; ctx.fillText(galaxyMotto[cluster.category], 0, -20);
+        ctx.restore();
       }
-      for (const [category, [cx, cy]] of Object.entries(centers)) {
-        const count = p.dataset.foods.filter(f => f.category === category && p.visible.has(f.id)).length;
-        if (!count) continue;
-        ctx.font = '13px "Cosmos Hand", sans-serif'; ctx.fillStyle = '#9F9482'; ctx.textAlign = 'center';
-        ctx.fillText(({ burger: 'THE BURGER ORBIT', breakfast: 'GOOD MORNING', side: 'LITTLE BITES', drink: 'SIP & WANDER', dessert: 'SWEET DREAMS', other: 'THE UNKNOWN' } as Record<string, string>)[category], cx, cy - 180);
-      }
+      ctx.globalAlpha = 1;
       const relations = new Set(p.showRelations ? relationEdges(p.graph, p.selected, p.expanded, p.visible) : []);
       const routePairs = new Set(p.route.slice(1, Math.max(1, p.routeStep + 1)).map((id, i) => [id, p.route[i]].sort().join(':')));
       const drawingEdges = p.highlight ? [...p.graph.edges.filter(e => !([e.source, e.target].includes(p.highlight!.source) && [e.source, e.target].includes(p.highlight!.target))), p.highlight] : p.graph.edges;
@@ -105,6 +125,8 @@ export function GalaxyCanvas(props: Props) {
       }
       ctx.setLineDash([]);
       const visibleFoods: FoodPlanet[] = p.dataset.foods.filter(f => p.visible.has(f.id));
+      const now = performance.now(), floating = !reduced.matches && !pointerMap.size;
+      const labels: { food: FoodPlanet; x: number; y: number; radius: number; selected: boolean; hovered: boolean }[] = [];
       for (const food of visibleFoods) {
         const pos = positions.get(food.id)!;
         const sx = pos.x * c.scale + c.x, sy = pos.y * c.scale + c.y;
@@ -112,39 +134,54 @@ export function GalaxyCanvas(props: Props) {
         const selected = p.selected === food.id || p.highlight?.target === food.id || p.route[p.routeStep] === food.id, isHover = hover.current === food.id;
         ctx.globalAlpha = p.route.length && !p.route.includes(food.id) ? .35 : 1;
         const radius = (radii.current.get(food.id) ?? 30) * (selected || isHover ? 1.12 : 1);
-        drawPlanet(ctx, food, pos.x, pos.y, radius, selected);
-        if (food.nutrition[p.lens] === null) { ctx.font = '16px sans-serif'; ctx.fillStyle = ink; ctx.textAlign = 'center'; ctx.fillText('?', pos.x, pos.y + 5); }
-        const featured = /^(巨无霸|麦香鱼|麦香鸡|中薯条|草莓新地|猪柳蛋麦满分|可乐中杯|奥利奥麦旋风|纯牛奶（盒装）|脆薯饼)$/.test(food.name);
-        if (selected || isHover || p.showLabels || featured || visibleFoods.length <= 24) {
-          ctx.save(); ctx.translate(pos.x, pos.y + radius + 17 / c.scale); ctx.scale(1 / c.scale, 1 / c.scale);
-          ctx.font = `${selected ? '600' : '400'} 12px "Cosmos Body", sans-serif`; ctx.textAlign = 'center'; ctx.textBaseline = 'middle';
-          const text = food.name.length > 13 ? `${food.name.slice(0, 12)}…` : food.name;
-          const tw = ctx.measureText(text).width;
-          ctx.fillStyle = selected ? '#FFF0CA' : '#FFF9EDEB'; ctx.beginPath(); ctx.roundRect(-tw / 2 - 6, -9, tw + 12, 19, 5); ctx.fill();
-          ctx.fillStyle = ink; ctx.fillText(text, 0, 0); ctx.restore();
-        }
+        // A slow, per-planet bob keeps the sky alive without moving hit targets noticeably.
+        const phase = (stableHash(food.id) % 628) / 100, bob = floating ? Math.sin(now / 1400 + phase) * 2.2 : 0;
+        drawPlanet(ctx, food, pos.x, pos.y + bob, radius, selected);
+        if (food.nutrition[p.lens] === null) { ctx.font = '16px sans-serif'; ctx.fillStyle = ink; ctx.textAlign = 'center'; ctx.fillText('?', pos.x, pos.y + bob + 5); }
+        labels.push({ food, x: pos.x, y: pos.y + bob, radius, selected, hovered: isHover });
       }
       ctx.globalAlpha = 1;
-      // A quiet hand-drawn comet in the margin, not a particle field.
-      rc.path('M-730 -390Q-680 -405 -630 -380', { seed: 9, stroke: '#C4AE7E', strokeWidth: 1.3, roughness: .7 });
+      // Labels: selected and hovered first, then larger planets; skip any that would collide on screen.
+      const featured = /^(巨无霸|麦香鱼|麦香鸡|中薯条|草莓新地|猪柳蛋麦满分|可乐中杯|奥利奥麦旋风|纯牛奶（盒装）|脆薯饼)$/;
+      const placed: [number, number, number, number][] = [];
+      const showAll = p.showLabels || visibleFoods.length <= 24 || c.scale >= .95;
+      labels.sort((a, b) => Number(b.selected) - Number(a.selected) || Number(b.hovered) - Number(a.hovered) || Number(featured.test(b.food.name)) - Number(featured.test(a.food.name)) || b.radius - a.radius);
+      ctx.font = '400 12px Nunito, "Microsoft YaHei", sans-serif';
+      for (const label of labels) {
+        const wanted = label.selected || label.hovered || showAll || featured.test(label.food.name) || c.scale >= .6 && label.radius >= 34;
+        if (!wanted) continue;
+        const text = label.food.name.length > 13 ? `${label.food.name.slice(0, 12)}…` : label.food.name;
+        const tw = ctx.measureText(text).width + 12;
+        const lx = label.x * c.scale + c.x, ly = (label.y + label.radius) * c.scale + c.y + 15;
+        const box: [number, number, number, number] = [lx - tw / 2, ly - 10, lx + tw / 2, ly + 10];
+        if (!label.selected && !label.hovered && placed.some(o => box[0] < o[2] && box[2] > o[0] && box[1] < o[3] && box[3] > o[1])) continue;
+        placed.push(box);
+        ctx.save(); ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+        ctx.font = `${label.selected ? '700' : '400'} 12px Nunito, "Microsoft YaHei", sans-serif`; ctx.textAlign = 'center'; ctx.textBaseline = 'middle';
+        ctx.fillStyle = label.selected ? '#FFF0CA' : '#FFFBF2E6'; ctx.strokeStyle = label.selected ? '#C18544' : '#DCD0BA'; ctx.lineWidth = 1;
+        ctx.beginPath(); ctx.roundRect(box[0], box[1], tw, 20, 6); ctx.fill(); ctx.stroke();
+        ctx.fillStyle = ink; ctx.fillText(text, lx, ly + .5); ctx.restore();
+      }
+      ctx.globalAlpha = 1;
       ctx.restore();
       if (elapsed < 1 || cameraTween.current) requestDraw();
+      else if (floating && !idle) idle = window.setTimeout(() => { idle = 0; requestDraw(); }, 33);
     }
     function fit() {
       cameraTween.current=null;
       const points = props.positions;
       if (!points.length) return;
-      const { width, height } = sizeRef.current;
+      const { width, height } = sizeRef.current, left = Math.min(latest.current.insets?.().left ?? 0, width * .45), usable = width - left;
       const minX = Math.min(...points.map(p => p.x)) - 80, maxX = Math.max(...points.map(p => p.x)) + 80;
       const minY = Math.min(...points.map(p => p.y)) - 80, maxY = Math.max(...points.map(p => p.y)) + 80;
-      const scale = Math.max(.25, Math.min(1, width / (maxX - minX), height / (maxY - minY)));
-      camera.current = { x: width / 2 - (minX + maxX) / 2 * scale, y: height / 2 - (minY + maxY) / 2 * scale, scale };
+      const scale = Math.max(.2, Math.min(1, usable / (maxX - minX), height / (maxY - minY)));
+      camera.current = { x: left + usable / 2 - (minX + maxX) / 2 * scale, y: height / 2 - (minY + maxY) / 2 * scale, scale };
       setZoom(Math.round(scale * 100)); requestDraw();
     }
     fitRef.current = fit;
     function zoomAt(factor: number, x: number, y: number) {
       cameraTween.current=null;
-      const c = camera.current, scale = Math.max(.25, Math.min(2.6, c.scale * factor));
+      const c = camera.current, scale = Math.max(.2, Math.min(2.6, c.scale * factor));
       camera.current = { x: x - (x - c.x) * scale / c.scale, y: y - (y - c.y) * scale / c.scale, scale };
       requestDraw();
     }
@@ -195,7 +232,7 @@ export function GalaxyCanvas(props: Props) {
     const leave = () => { hover.current = null; requestDraw(); };
     const visibility = () => { if (!document.hidden) requestDraw(); };
     canvas.addEventListener('wheel', wheel, { passive: false }); canvas.addEventListener('pointerdown', pointerDown); canvas.addEventListener('pointermove', pointerMove); canvas.addEventListener('pointerup', pointerEnd); canvas.addEventListener('pointercancel', pointerEnd); canvas.addEventListener('pointerleave', leave); document.addEventListener('visibilitychange', visibility);
-    return () => { destroyed = true; cancelAnimationFrame(frame); observer.disconnect(); canvas.removeEventListener('wheel', wheel); canvas.removeEventListener('pointerdown', pointerDown); canvas.removeEventListener('pointermove', pointerMove); canvas.removeEventListener('pointerup', pointerEnd); canvas.removeEventListener('pointercancel', pointerEnd); canvas.removeEventListener('pointerleave', leave); document.removeEventListener('visibilitychange', visibility); };
+    return () => { destroyed = true; cancelAnimationFrame(frame); clearTimeout(idle); observer.disconnect(); canvas.removeEventListener('wheel', wheel); canvas.removeEventListener('pointerdown', pointerDown); canvas.removeEventListener('pointermove', pointerMove); canvas.removeEventListener('pointerup', pointerEnd); canvas.removeEventListener('pointercancel', pointerEnd); canvas.removeEventListener('pointerleave', leave); document.removeEventListener('visibilitychange', visibility); };
   }, [props.positions, props.dataset]);
 
   useEffect(() => {
@@ -203,14 +240,15 @@ export function GalaxyCanvas(props: Props) {
     if (ids.length && key !== previousFocus.current) {
       const points = props.positions.filter(point => ids.includes(point.id));
       if (points.length) {
-        const bottom = props.bottomInset?.() ?? 0;
+        const inset = props.insets?.() ?? { left: 0, bottom: 0 }, bottom = inset.bottom;
         const width = sizeRef.current.width, height = sizeRef.current.height;
-        const availableWidth = width > 750 && props.selected ? width - 340 : width;
+        const left = width > 850 ? Math.min(inset.left, width * .45) : 0;
+        const availableWidth = (width > 750 && props.selected ? width - 360 : width) - left;
         const minX = Math.min(...points.map(p => p.x)), maxX = Math.max(...points.map(p => p.x));
         const minY = Math.min(...points.map(p => p.y)), maxY = Math.max(...points.map(p => p.y));
-        const scale = points.length === 1 ? Math.max(.9, camera.current.scale) : Math.max(.25, Math.min(1.2, availableWidth / (maxX - minX + 180), ((height - Math.min(bottom, height * .4)) * (width < 520 && props.selected ? .3 : .75)) / (maxY - minY + 180)));
-        const inset = width < 520 && props.selected ? 0 : Math.min(bottom, height * .4), framed = height - inset;
-        const nextCamera={ x: availableWidth / 2 - (minX + maxX) / 2 * scale, y: (width < 520 && props.selected ? height * .25 : framed * .5) - (minY + maxY) / 2 * scale, scale };
+        const scale = points.length === 1 ? Math.max(.9, camera.current.scale) : Math.max(.2, Math.min(1.2, availableWidth / (maxX - minX + 180), ((height - Math.min(bottom, height * .4)) * (width < 520 && props.selected ? .3 : .75)) / (maxY - minY + 180)));
+        const covered = width < 520 && props.selected ? 0 : Math.min(bottom, height * .4), framed = height - covered;
+        const nextCamera={ x: left + availableWidth / 2 - (minX + maxX) / 2 * scale, y: (width < 520 && props.selected ? height * .25 : framed * .5) - (minY + maxY) / 2 * scale, scale };
         if(matchMedia('(prefers-reduced-motion: reduce)').matches)camera.current=nextCamera;
         else cameraTween.current={start:performance.now(),from:{...camera.current},to:nextCamera};
         setZoom(Math.round(scale * 100));
@@ -219,6 +257,8 @@ export function GalaxyCanvas(props: Props) {
     previousFocus.current = key; invalidate.current();
   }, [props.selected, props.lens, props.visible, props.route, props.routeStep, props.showRelations, props.expanded, props.showLabels, props.positions, props.highlight,viewRevision]);
 
+  const firstFit = useRef(true);
+  useEffect(() => { if (firstFit.current) { firstFit.current = false; return; } if (!latest.current.selected && !latest.current.route.length && !latest.current.highlight) fitRef.current(); }, [props.fitKey]);
   return <>
     <canvas ref={canvasRef} className="galaxy-canvas" data-lens={props.lens} role="img" aria-label={`餐品营养星图，当前透镜：${nutrientNames[props.lens]}。请使用左侧餐品列表进行键盘探索。`}/>
     <div className="canvas-hint"><span className="tiny-orbit"/> 拖动去漫游 · 滚轮或双指缩放</div>

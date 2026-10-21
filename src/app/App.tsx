@@ -33,6 +33,7 @@ function AppShell(){
   const {dataset,state,notice,storageWarning,path}=useFood();const [sourceOpen,setSourceOpen]=useState(false);const location=useLocation();const navigate=useNavigate();
   const official=dataset.meta.mode==='official-snapshot';
   const fetched=dataset.meta.fetchedAt?new Date(dataset.meta.fetchedAt).toLocaleString('zh-CN',{hour12:false}):'显式演示模式';
+  useEffect(()=>{document.documentElement.dataset.route=location.pathname.slice(1)||'home';return()=>{delete document.documentElement.dataset.route;};},[location.pathname]);
   useEffect(()=>{window.scrollTo({top:0,behavior:'instant'});const page=navigation.find(([href])=>href===location.pathname);document.title=`${page?.[1]??'迷路了'} · McCosmos 麦门星图`;},[location.pathname]);
   return <>
     <header className="site-header upgrade-header"><Link className="brand" to={path('/')} aria-label="McCosmos 麦门星图首页"><Star/><div><strong>McCosmos<span>麦门星图</span></strong><small>A LITTLE FOOD UNIVERSE</small></div></Link><nav aria-label="主导航">{navigation.map(([href,title],i)=><NavLink key={href} aria-label={title} end={href==='/'} to={path(href)} className={({isActive})=>isActive?'nav-current':''}><small>0{i+1}</small>{title}{href==='/lab'&&state.labSelectedIds.length>0&&<b>{state.labSelectedIds.length}</b>}</NavLink>)}</nav>

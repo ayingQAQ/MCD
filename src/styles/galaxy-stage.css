@@ -1,0 +1,86 @@
+/* McCosmos 2.1 — the galaxy is the whole screen.
+   The map breaks out of the page column and fills the viewport under the header;
+   the directory, legend, zoom and panels float above the sky like stickers. */
+html[data-route=galaxy] body{overflow:hidden}
+html[data-route=galaxy] .site-footer{display:none}
+.galaxy-stage .accessible-relations{margin:0!important;padding:4px 14px;background:#FFFCF5EE;border:1px solid var(--line);border-radius:10px;max-height:220px;overflow:auto;font-size:12px}
+.galaxy-stage .accessible-relations:not([open]){align-self:flex-start;padding:0 12px}
+.galaxy-stage .accessible-relations summary{padding:8px 0}
+html[data-route=galaxy] .live-feedback{bottom:76px}
+
+.galaxy-stage.workspace{display:block;position:fixed;inset:var(--header-h) 0 0 0;z-index:1;margin:0}
+.galaxy-stage .map-paper{position:absolute;inset:0;height:auto!important;min-height:0;max-height:none;border:0;border-radius:0;box-shadow:none;
+  background-color:#FBF4E4;
+  background-image:
+    radial-gradient(ellipse 60% 50% at 18% 20%,#F7E3D366,transparent 70%),
+    radial-gradient(ellipse 55% 45% at 85% 75%,#DCEBF066,transparent 70%),
+    radial-gradient(ellipse 80% 70% at 50% 50%,#FFFCF5,#F6EDDB 100%)}
+.galaxy-stage .galaxy-canvas{z-index:0}
+
+/* Floating directory */
+.galaxy-panel.sidebar{position:absolute;z-index:5;top:14px;left:16px;bottom:62px;width:272px;max-height:none;overflow:auto;padding:14px 16px 16px;
+  background:#FFFCF5E8;backdrop-filter:blur(8px);border:1.5px solid #CDBF9F;border-radius:14px 10px 16px 9px/11px 15px 10px 15px;
+  box-shadow:3px 4px 0 #E5DAC5AA,0 10px 30px #6C553418;scrollbar-width:thin;transition:transform .25s ease,opacity .2s}
+.panel-head{display:flex;align-items:center;justify-content:space-between;gap:8px;margin-bottom:12px}
+.panel-head h1{font-family:var(--hand);font-size:24px;line-height:1.2;font-weight:400}
+.panel-toggle{border:1px solid var(--line);background:var(--paper)}
+.galaxy-stage.panel-collapsed .galaxy-panel{bottom:auto;width:auto;overflow:visible;padding:8px 10px 8px 16px}
+.galaxy-stage.panel-collapsed .galaxy-panel>:not(.panel-head){display:none}
+.galaxy-stage.panel-collapsed .panel-head{margin:0;gap:14px}
+.galaxy-panel .sidebar-body{display:block}
+.galaxy-panel .filter-section:first-child{padding-top:14px}
+.galaxy-panel .mobile-filter{display:none}
+
+/* Legend and source float top-right of the panel */
+.galaxy-stage .map-top{left:304px;right:16px;top:14px}
+.galaxy-stage.panel-collapsed .map-top{left:220px}
+.galaxy-stage .map-legend>span,.galaxy-stage .legend-chip,.galaxy-stage .source-badge{backdrop-filter:blur(6px);box-shadow:0 3px 12px #6C553412}
+.galaxy-stage .map-dock{left:304px;bottom:62px}
+.galaxy-stage.panel-collapsed .map-dock{left:16px}
+.galaxy-stage .map-paper.has-details .map-dock{width:min(520px,calc(100% - 304px - 380px))}
+.galaxy-stage .map-paper .planet-details{top:14px;right:16px;bottom:62px;width:350px;background:#FFFCF5F2;backdrop-filter:blur(8px);border-radius:14px 10px 16px 10px}
+.galaxy-stage .zoom-tools{right:16px;bottom:62px;background:#FFFCF5E8;backdrop-filter:blur(6px)}
+.galaxy-stage .map-paper.has-details .zoom-tools{right:382px}
+.galaxy-stage .canvas-hint{left:304px;bottom:66px}
+.galaxy-stage.panel-collapsed .canvas-hint{left:20px}
+.galaxy-stage .guide-note{left:calc(50% + 140px)}
+.galaxy-stage.panel-collapsed .guide-note{left:50%}
+
+/* Bottom bar: toggles, caption and help on one quiet strip */
+.galaxy-stage .map-bottom{z-index:4;height:48px;background:#FFFCF5D9;backdrop-filter:blur(6px);border-top:1px solid #E3D8C3}
+.galaxy-stage .stage-caption{position:absolute;z-index:5;bottom:0;left:50%;transform:translateX(-50%);height:48px;margin:0;display:flex;align-items:center;gap:16px;font-size:11px;pointer-events:none;white-space:nowrap}
+.galaxy-stage .stage-caption>span:last-child{color:#A8987E}
+
+@media(max-width:1280px){.galaxy-stage .stage-caption>span:last-child{display:none}}
+@media(max-width:1100px){
+  .galaxy-panel.sidebar{width:240px}
+  .galaxy-stage .map-top,.galaxy-stage .map-dock,.galaxy-stage .canvas-hint{left:272px}
+  .galaxy-stage .map-paper.has-details .map-dock{width:min(520px,calc(100% - 272px - 330px))}
+  .galaxy-stage .map-paper .planet-details{width:300px}
+  .galaxy-stage .map-paper.has-details .zoom-tools{right:332px}
+  .galaxy-stage .stage-caption{display:none}
+}
+/* Tablet and phone: the panel becomes a collapsible sheet at the top-left */
+@media(max-width:850px){
+  .galaxy-panel.sidebar{position:absolute;display:block;top:12px;left:12px;right:12px;bottom:auto;width:auto;max-height:calc(100% - 140px);padding:10px 12px}
+  .galaxy-panel .sidebar-body{display:none;max-height:none;border:0;padding:0;background:none;overflow:visible}
+  .galaxy-stage.filters-open .galaxy-panel .sidebar-body{display:block}
+  .galaxy-panel .mobile-filter{display:flex;margin-top:8px;width:100%;justify-content:center}
+  .galaxy-panel .panel-toggle{display:none}
+  .panel-head{margin-bottom:8px}.panel-head h1{font-size:20px}
+  .galaxy-panel .search-results{position:static}
+  .galaxy-stage .map-top{left:12px;right:12px;top:auto;bottom:62px;flex-direction:row;justify-content:space-between}
+  .galaxy-stage .map-dock{left:12px;right:12px;width:auto;bottom:100px}
+  .galaxy-stage .canvas-hint{display:none}
+  .galaxy-stage .guide-note,.galaxy-stage.panel-collapsed .guide-note{left:50%;top:58%}
+  .galaxy-stage .zoom-tools{bottom:100px;right:12px}
+  .galaxy-stage .map-paper.has-details .zoom-tools{right:12px}
+  .galaxy-stage .map-paper .planet-details{position:absolute;top:auto!important;left:12px;right:12px;bottom:60px!important;width:auto;max-height:62%;z-index:6}
+}
+@media(max-width:600px){
+  .galaxy-stage.workspace{bottom:64px}
+  .galaxy-stage .map-top .map-legend .legend-count{display:none}
+  .galaxy-stage .map-paper .planet-details{bottom:72px!important}
+  html[data-route=galaxy] .live-feedback{bottom:130px}
+}
+@media(prefers-reduced-motion:reduce){.galaxy-panel.sidebar{transition:none}}

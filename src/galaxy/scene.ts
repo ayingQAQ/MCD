@@ -31,7 +31,9 @@ export function createGalaxyScene(canvas:HTMLCanvasElement,read:()=>GalaxySceneI
   const home:Pose={position:new THREE.Vector3(-260,330,1120),target:new THREE.Vector3(-600,50,150)};
   const copy=(pose:Pose):Pose=>({position:pose.position.clone(),target:pose.target.clone()});
   const pose=():Pose=>({position:camera.position.clone(),target:controls.target.clone()});
-  let width=1000,height=800,frame=0,dirty=true,disposed=false,hover:string|null=null,saved:Pose|null=null;
+  const initialBounds=canvas.getBoundingClientRect();
+  let width=initialBounds.width||1000,height=initialBounds.height||800,frame=0,dirty=true,disposed=false,hover:string|null=null,saved:Pose|null=null;
+  camera.aspect=width/height;camera.updateProjectionMatrix();
   let flight:{start:number;from:Pose;to:Pose}|null=null;
   let previousSelected:string|null=null,previousLens:NutrientKey|null=null,previousCategory:FoodCategory|'all'|undefined,previousRoute='',previousEdges='';
   let previousCategoryFocusKey:number|undefined;
@@ -84,6 +86,11 @@ export function createGalaxyScene(canvas:HTMLCanvasElement,read:()=>GalaxySceneI
     if(reduced.matches){flight=null;apply(next);}else flight={start:performance.now(),from:pose(),to:copy(next)};
     dirty=true;
   }
+  function focusFood(planet:Planet){
+    const direction=camera.position.clone().sub(controls.target).normalize(),target=planet.group.position.clone();
+    const distance=width<600?Math.max(380,planet.targetRadius*12):Math.max(240,planet.targetRadius*7);
+    fly({target,position:target.clone().addScaledVector(direction,distance)});
+  }
   function framePoints(points:THREE.Vector3[],padding=150){
     if(!points.length)return;
     const box=new THREE.Box3().setFromPoints(points),center=box.getCenter(new THREE.Vector3()),extent=box.getSize(new THREE.Vector3()).length()/2+padding;
@@ -117,7 +124,7 @@ export function createGalaxyScene(canvas:HTMLCanvasElement,read:()=>GalaxySceneI
       if(p.selected){
         if(!previousSelected&&!saved)saved=pose();
         const planet=byId.get(p.selected);
-        if(planet){const direction=camera.position.clone().sub(controls.target).normalize(),target=planet.group.position.clone();fly({target,position:target.clone().addScaledVector(direction,width<600?Math.max(380,planet.targetRadius*12):Math.max(240,planet.targetRadius*7))});}
+        if(planet)focusFood(planet);
       }else if(saved){const previous=saved;saved=null;fly(previous);}
       previousSelected=p.selected;
     }
@@ -217,7 +224,7 @@ export function createGalaxyScene(canvas:HTMLCanvasElement,read:()=>GalaxySceneI
     }
     frame=requestAnimationFrame(draw);
   }
-  const resize=new ResizeObserver(entries=>{const bounds=entries[0].contentRect;if(!bounds.width||!bounds.height)return;width=bounds.width;height=bounds.height;renderer.setPixelRatio(Math.min(devicePixelRatio||1,width<600?1.25:1.5));renderer.setSize(width,height,false);updateView();});resize.observe(canvas);
+  const resize=new ResizeObserver(entries=>{const bounds=entries[0].contentRect;if(!bounds.width||!bounds.height)return;const changed=width!==bounds.width||height!==bounds.height;width=bounds.width;height=bounds.height;renderer.setPixelRatio(Math.min(devicePixelRatio||1,width<600?1.25:1.5));renderer.setSize(width,height,false);updateView();const selected=read().selected;if(changed&&selected&&byId.has(selected))focusFood(byId.get(selected)!);});resize.observe(canvas);
   const visibility=()=>{if(document.hidden){cancelAnimationFrame(frame);frame=0;}else{dirty=true;if(!frame)frame=requestAnimationFrame(draw);}};document.addEventListener('visibilitychange',visibility);
   const motion=()=>{stopInertia();if(reduced.matches&&flight){const target=flight.to;flight=null;apply(target);}dirty=true;};reduced.addEventListener('change',motion);
   canvas.dataset.world=JSON.stringify(initial.positions.map(({id,x,y,z})=>({id,x,y,z})));

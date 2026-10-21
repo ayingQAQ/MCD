@@ -1,4 +1,28 @@
 import {expect,test} from '@playwright/test';
+import snapshot from '../../public/data/nutrition.snapshot.json' with {type:'json'};
+
+test('mobile deep-link focus matches interactive focus and reframes after resize',async({page},info)=>{
+  test.setTimeout(60_000);
+  await page.setViewportSize({width:390,height:844});
+  await page.emulateMedia({reducedMotion:'reduce'});
+  const food=snapshot.foods.find(item=>item.name==='巨无霸')!;
+  await page.goto(`/galaxy?focus=${encodeURIComponent(food.id)}`);
+  const canvas=page.locator('canvas.galaxy-canvas');
+  await expect(canvas).toHaveAttribute('data-camera',/distance/);
+  const camera=async()=>JSON.parse((await canvas.getAttribute('data-camera'))!) as {distance:number;target:number[]};
+  const initial=await camera(),world=await canvas.getAttribute('data-world');
+  await page.screenshot({path:info.outputPath('focus-mobile-deep-link.png'),fullPage:true});
+  await page.getByRole('button',{name:'关闭星球档案',exact:true}).click();
+  await page.getByLabel('全局搜索餐品').fill('巨无霸');
+  await page.getByLabel('全局搜索餐品').press('Enter');
+  await expect(page.getByRole('heading',{name:'巨无霸',exact:true})).toBeVisible();
+  await expect.poll(async()=>(await camera()).distance).toBeCloseTo(initial.distance,3);
+  await page.setViewportSize({width:1440,height:1000});
+  await expect.poll(async()=>(await camera()).distance).toBeLessThan(initial.distance);
+  expect((await camera()).target).toEqual(initial.target);
+  expect(await canvas.getAttribute('data-world')).toBe(world);
+  await page.screenshot({path:info.outputPath('focus-after-desktop-resize.png'),fullPage:true});
+});
 
 test('unmount releases the real WebGL context; reopening creates a healthy scene',async({page})=>{
   await page.emulateMedia({reducedMotion:'reduce'});

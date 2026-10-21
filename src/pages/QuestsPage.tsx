@@ -1,5 +1,5 @@
-import { useState } from 'react';
-import { Link } from 'react-router';
+import { useEffect, useState } from 'react';
+import { Link, useSearchParams } from 'react-router';
 import { useFood } from '../state/FoodProvider';
 import type { DailyQuest } from '../core/quests';
 import { formatNutrient } from '../data/schema';
@@ -22,10 +22,11 @@ async function playStamp() {
   } catch { /* Sound is optional; claiming remains available. */ }
 }
 function QuestCard({ quest, index }: {quest: DailyQuest; index: number}) {
-  const { dataset, foodById, state, checkQuest, setQuestStatus, path, notify } = useFood();
+  const { dataset, foodById, state, checkQuest, setQuestStatus, path, notify,quests } = useFood();
   const [clue, setClue] = useState(false), [first, setFirst] = useState(''), [second, setSecond] = useState(''), [feedback, setFeedback] = useState('');
   const status = Object.hasOwn(state.questProgress, quest.id) ? state.questProgress[quest.id] : 'notstarted';
   const finished = status === 'completed' || status === 'claimed';
+  const nextQuest=quests.find(item=>item.available&&item.id!==quest.id&&state.questProgress[item.id]!=='claimed');
   const previewId = quest.type === 'route' ? quest.pair?.[0] : first || quest.pair?.[0];
   const preview = previewId ? foodById.get(previewId) : undefined;
   function check() {
@@ -39,7 +40,7 @@ function QuestCard({ quest, index }: {quest: DailyQuest; index: number}) {
     if (state.sound) void playStamp();
   }
   const options = <><option value="">请选择一颗星球</option>{dataset.foods.map(food => <option key={food.id} value={food.id}>{food.name}</option>)}</>;
-  return <article className={`quest-card paper quest-${status}`} aria-labelledby={`quest-title-${index}`}>
+  return <article id={`mission-${quest.type}`} className={`quest-card paper quest-${status}`} aria-labelledby={`quest-title-${index}`}>
     <div className="quest-card-heading"><p className="eyebrow">MISSION {String(index + 1).padStart(2, '0')}</p><span className="quest-status">{quest.available ? statusText[status] : '暂不可用'}</span></div>
     {preview && <FoodIllustration foodId={resolveFoodIllustration(preview).presetId} cosmic size={96} decorative/>}
     <h2 id={`quest-title-${index}`}>{quest.title}</h2><p>{quest.description}</p>
@@ -51,6 +52,7 @@ function QuestCard({ quest, index }: {quest: DailyQuest; index: number}) {
       {quest.type === 'route' && quest.pair && <div className="quest-route"><p>指定航线：{foodById.get(quest.pair[0])?.name} → {foodById.get(quest.pair[1])?.name}</p><p>进入星系后点击「规划航线」，得到有效路线才会完成任务。</p><Link className="button" to={path('/galaxy', {from: quest.pair[0], to: quest.pair[1]})} onClick={() => { if (status === 'notstarted') setQuestStatus(quest.id, 'started'); }}>前往规划航线</Link></div>}
       {status === 'completed' && <button className="button primary quest-claim" onClick={claim}>领取星章</button>}
       {status === 'claimed' && <button className="button quest-stamp" disabled>星章已领取</button>}
+      {status==='claimed'&&(nextQuest?<Link className="text-link quest-next" to={path('/quests',{quest:nextQuest.id})} onClick={()=>{if(!state.questProgress[nextQuest.id])setQuestStatus(nextQuest.id,'started');}}>继续下一项发现 ↗</Link>:<Link className="text-link quest-next" to={path('/')}>回观测站记录足迹 ↗</Link>)}
       {finished && <p className="quest-success">{status === 'claimed' ? '今日探索已记录。明天再来寻找新发现。' : '任务验证已通过，领取星章将其记入今日成果。'}</p>}
       {feedback && <p className="quest-feedback" role="status">{feedback}</p>}
     </>}
@@ -59,6 +61,8 @@ function QuestCard({ quest, index }: {quest: DailyQuest; index: number}) {
 
 export default function QuestsPage() {
   const { quests, date, state, dataset, setSound, path, notify, foodById } = useFood();
+  const [params]=useSearchParams();const targetId=params.get('quest');
+  useEffect(()=>{const target=quests.find(quest=>quest.id===targetId);if(target)document.getElementById(`mission-${target.type}`)?.scrollIntoView({block:'start',behavior:matchMedia('(prefers-reduced-motion: reduce)').matches?'instant':'smooth'});},[targetId,quests]);
   const [exporting, setExporting] = useState(false);
   const claimed = quests.filter(quest => quest.available && state.questProgress[quest.id] === 'claimed').length;
   const available = quests.filter(quest => quest.available).length;

@@ -216,7 +216,8 @@ test('all available daily quests require real answers and explicit route plannin
     await card.getByRole('button', { name: '查看线索', exact: true }).click();
     await expect(card.locator('.quest-clue')).toBeVisible();
     await card.getByRole('button', { name: '收起线索', exact: true }).click();
-    await card.getByRole('button', { name: '开始任务', exact: true }).click();
+    const start=card.getByRole('button', { name: '开始任务', exact: true });
+    if(await start.count())await start.click();
     await expect(card.locator('.quest-status')).toHaveText('进行中');
     if (quest.type === 'twins') {
       await card.getByLabel('双生星第一颗').selectOption(quest.pair![0]);
@@ -234,6 +235,7 @@ test('all available daily quests require real answers and explicit route plannin
     await expect(card.locator('.quest-status')).toHaveText('已完成 · 待领取');
     await card.getByRole('button', { name: '领取星章', exact: true }).click();
     await expect(card.getByRole('button', { name: '星章已领取', exact: true })).toBeDisabled();
+    await card.getByRole('link',{name:'继续下一项发现 ↗',exact:true}).click();
   }
   const routeCard = page.locator('.quest-card').filter({ has: page.getByRole('heading', { name: '打通星际航线', exact: true }) });
   await routeCard.getByRole('link', { name: '前往规划航线' }).click();
@@ -244,6 +246,10 @@ test('all available daily quests require real answers and explicit route plannin
   await expect(routeCard.getByRole('button', { name: '领取星章', exact: true })).toHaveCount(0);
   await routeCard.getByRole('link', { name: '前往规划航线' }).click();
   await page.getByRole('button', { name: '出发，连接两颗星', exact: true }).click();
+  await expect(page.locator('.route-playback')).toBeVisible();
+  const plannedUrl=page.url();
+  await page.keyboard.press('Escape');
+  await expect(page).toHaveURL(plannedUrl);
   await expect(page.locator('.route-playback')).toBeVisible();
   await expect(page.getByRole('button', { name: '上一站', exact: true })).toBeDisabled();
   await page.getByRole('button', { name: '下一站', exact: true }).click();
@@ -382,8 +388,13 @@ test('clicking a visible canvas relationship opens its real explanation', async 
     const length = (item: typeof a) => Math.hypot(byId.get(item.source)!.x - byId.get(item.target)!.x, byId.get(item.source)!.y - byId.get(item.target)!.y);
     return length(b) - length(a);
   })[0];
-  const source = byId.get(edge.source)!.x > byId.get(edge.target)!.x ? edge.source : edge.target;
-  await page.goto(`/galaxy?focus=${encodeURIComponent(source)}`); await ready(page, 1);
+  // Fit both real endpoints through the route UI: focusing one dense cluster
+  // hid the long edge behind the archive or outside the initial viewport.
+  await page.goto(`/galaxy?from=${encodeURIComponent(edge.source)}&to=${encodeURIComponent(edge.target)}`); await ready(page, 1);
+  await page.getByRole('button', { name: '出发，连接两颗星', exact: true }).click();
+  await expect(page.locator('.route-playback')).toBeVisible();
+  await page.getByRole('button', { name: '下一站', exact: true }).click();
+  await expect(page.locator('.route-playback > span')).toContainText('2 / 2');
   const canvas = page.locator('canvas.galaxy-canvas');
   await canvas.scrollIntoViewIfNeeded();
   await expect(canvas).toHaveAttribute('data-camera', /scale/);
@@ -399,7 +410,9 @@ test('clicking a visible canvas relationship opens its real explanation', async 
       const wx = u * u * a.x + 2 * u * t * ((a.x + b.x) / 2) + t * t * b.x;
       const wy = u * u * a.y + 2 * u * t * ((a.y + b.y) / 2 - 22) + t * t * b.y;
       const x = wx * c.scale + c.x, y = wy * c.scale + c.y;
-      if (input.positions.some(item => Math.hypot(item.x - wx, item.y - wy) <= 47 + 5 / c.scale)) continue;
+      // Planet hit testing uses the base radius (at most 41 world units),
+      // and the actual click occurs after zooming to 2.6, not at this fit.
+      if (input.positions.some(item => Math.hypot(item.x - wx, item.y - wy) <= 41 + 5 / 2.6 + .5)) continue;
       if (x < 10 || y < 10 || x > rect.width - 10 || y > rect.height - 10) continue;
       // Half-way between the former 39 isolated samples: at maximum zoom
       // their eight-pixel hit discs must miss this continuous curve point.

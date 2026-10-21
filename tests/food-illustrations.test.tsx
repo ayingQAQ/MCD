@@ -57,6 +57,8 @@ describe('original food illustration system', () => {
     expect(resolveFoodIllustration({ name: '鲜蔬蛋沙拉卷' }).presetId).toBe('wrap-closed');
     expect(resolveFoodIllustration({ name: '板烧鸡腿堡', category: 'burger' }).presetId).toBe('unknown-bag');
     expect(resolveFoodIllustration({ name: '香脆鸡腿堡', category: 'burger' }).presetId).toBe('burger-crispy');
+    expect(resolveFoodIllustration({ name: '麦香鱼', category: 'burger' }).presetId).toBe('unknown-bag');
+    expect(resolveFoodIllustration({ name: '麦香鸡', category: 'burger' }).presetId).toBe('unknown-bag');
   });
   it('exports self-contained, static, transparent SVG for every preset', async () => {
     for (const preset of foodPresets) {

@@ -153,9 +153,10 @@ test('discovery advances across home visits and cross-category focus remains dra
   await page.getByRole('button', { name: '关闭星球档案', exact: true }).click();
   await page.getByRole('button', { name: '饮品星系', exact: true }).click();
   await page.getByLabel('全局搜索餐品').fill('巨无霸');
+  // Inside the galaxy the header search locates the planet on the map instead of leaving for the atlas.
   await page.getByLabel('全局搜索餐品').press('Enter');
-  await page.getByRole('button', { name: '在星图中寻找 ↗', exact: true }).click();
   await ready(page, 1);
+  await expect(page).toHaveURL(/\/galaxy\?focus=/);
   await expect(page.locator('.category-filters > button').first()).toHaveAttribute('aria-pressed', 'true');
   const search = page.getByLabel('搜索餐品', { exact: true });
   await search.pressSequentially('麦香');
@@ -462,3 +463,41 @@ for (const width of [1440, 768, 390, 360]) {
     expect(errors).toEqual([]);
   });
 }
+
+test('flow: slash search, in-map route feedback, atlas typing history and lab shortcuts', async ({ page }) => {
+  await page.setViewportSize({ width: 1440, height: 900 });
+  await page.emulateMedia({ reducedMotion: 'reduce' });
+  await page.goto('/galaxy?guide=1'); await ready(page, 1);
+  const map = page.getByRole('region', { name: '互动餐品星图' });
+  await expect(map.getByRole('region', { name: '星系探索引导' })).toBeVisible();
+  // The working surface starts above the fold.
+  expect((await map.boundingBox())!.y).toBeLessThan(250);
+  await page.keyboard.press('/');
+  await expect(page.getByLabel('全局搜索餐品')).toBeFocused();
+  await page.keyboard.type('巨无霸'); await page.keyboard.press('Enter');
+  await expect(page.getByRole('heading', { name: '巨无霸', exact: true })).toBeVisible();
+  await expect(page.getByRole('region', { name: '星系探索引导' })).toHaveCount(0);
+  await expect(page).not.toHaveURL(/guide=/);
+  await page.getByRole('button', { name: '设为终点', exact: true }).click();
+  await expect(page.getByRole('status').filter({ hasText: '再选一颗起点' })).toBeVisible();
+  await page.getByLabel('航线起点').selectOption({ label: '麦香鱼' });
+  await page.getByRole('button', { name: '出发，连接两颗星', exact: true }).click();
+  // Route result and playback render inside the map, not below the fold.
+  await expect(map.getByRole('region', { name: '航线结果' })).toBeInViewport();
+  await expect(map.getByLabel('航线播放控制')).toBeVisible();
+  await page.goto('/atlas'); await ready(page, 2);
+  const before = await page.evaluate(() => history.length);
+  await page.getByLabel('图鉴搜索').pressSequentially('麦香');
+  expect(await page.evaluate(() => history.length)).toBe(before);
+  await page.getByRole('button', { name: '实验室添加 麦香鱼', exact: true }).click();
+  await expect(page.getByRole('button', { name: '实验室移除 麦香鱼', exact: true })).toHaveAttribute('aria-pressed', 'true');
+  await page.getByRole('button', { name: '查看 麦香鸡', exact: true }).click();
+  await page.getByRole('button', { name: '加入实验室', exact: true }).click();
+  await page.getByRole('button', { name: /去实验室比较/ }).click();
+  await ready(page, 3);
+  await expect(page.locator('.lab-slot h2').first()).toHaveText('麦香鱼');
+  await page.getByRole('button', { name: /等待一颗星球/ }).click();
+  await expect(page.getByLabel('实验室搜索')).toBeFocused();
+  await page.getByLabel('收藏与最近查看').getByRole('button', { name: '＋ 巨无霸' }).click();
+  await expect(page.locator('.lab-slot h2')).toHaveText(['麦香鱼', '麦香鸡', '巨无霸']);
+});

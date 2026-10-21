@@ -15,6 +15,8 @@ interface Props {
   route: string[]; routeStep: number; showRelations: boolean; expanded: boolean; showLabels: boolean;
   highlight: SimilarityEdge | null;
   onRelationSelect?: (edge: SimilarityEdge) => void;
+  /** Height covered by in-map panels at the bottom, kept clear when framing a focus. */
+  bottomInset?: () => number;
 }
 interface Camera { x: number; y: number; scale: number }
 export function GalaxyCanvas(props: Props) {
@@ -201,12 +203,14 @@ export function GalaxyCanvas(props: Props) {
     if (ids.length && key !== previousFocus.current) {
       const points = props.positions.filter(point => ids.includes(point.id));
       if (points.length) {
+        const bottom = props.bottomInset?.() ?? 0;
         const width = sizeRef.current.width, height = sizeRef.current.height;
         const availableWidth = width > 750 && props.selected ? width - 340 : width;
         const minX = Math.min(...points.map(p => p.x)), maxX = Math.max(...points.map(p => p.x));
         const minY = Math.min(...points.map(p => p.y)), maxY = Math.max(...points.map(p => p.y));
-        const scale = points.length === 1 ? Math.max(.9, camera.current.scale) : Math.max(.25, Math.min(1.2, availableWidth / (maxX - minX + 180), (height * (width < 520 && props.selected ? .3 : .7)) / (maxY - minY + 180)));
-        const nextCamera={ x: availableWidth / 2 - (minX + maxX) / 2 * scale, y: height * (width < 520 && props.selected ? .25 : .48) - (minY + maxY) / 2 * scale, scale };
+        const scale = points.length === 1 ? Math.max(.9, camera.current.scale) : Math.max(.25, Math.min(1.2, availableWidth / (maxX - minX + 180), ((height - Math.min(bottom, height * .4)) * (width < 520 && props.selected ? .3 : .75)) / (maxY - minY + 180)));
+        const inset = width < 520 && props.selected ? 0 : Math.min(bottom, height * .4), framed = height - inset;
+        const nextCamera={ x: availableWidth / 2 - (minX + maxX) / 2 * scale, y: (width < 520 && props.selected ? height * .25 : framed * .5) - (minY + maxY) / 2 * scale, scale };
         if(matchMedia('(prefers-reduced-motion: reduce)').matches)camera.current=nextCamera;
         else cameraTween.current={start:performance.now(),from:{...camera.current},to:nextCamera};
         setZoom(Math.round(scale * 100));

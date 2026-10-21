@@ -1,0 +1,305 @@
+/* McCosmos 2.1 — flow layer.
+   Loaded last. Keeps the notebook look, but gives every page one predictable rhythm:
+   a compact sticky header, the working surface above the fold, feedback beside the
+   thing it explains, and text sizes that can be read without leaning in. */
+:root{--muted:#7A6E5C;--header-h:68px;--focus-ring:#A75A36}
+
+/* ---------- Shell: one sticky row for brand, nav, search and source ---------- */
+.site-header.upgrade-header{position:sticky;top:0;z-index:30;height:var(--header-h);min-height:0;padding:0;gap:22px;flex-wrap:nowrap;background:color-mix(in srgb,var(--bg) 92%,transparent);backdrop-filter:blur(6px);border-bottom:1px solid var(--line)}
+.upgrade-header .brand>svg{width:36px;height:36px}.upgrade-header .brand strong{font-size:21px}.upgrade-header .brand small{font-size:8px;letter-spacing:2.2px}
+.upgrade-header nav{margin-left:0;gap:4px;font-size:13px}
+.upgrade-header nav a{min-height:38px;padding:0 11px;border-radius:8px 11px 8px 10px;transition:background .15s,color .15s}
+.upgrade-header nav a:hover{background:#F5EAD3;color:var(--ink)}
+.upgrade-header nav a.nav-current{background:#F8E5C4;color:var(--ink)}
+.upgrade-header nav a.nav-current:after{display:none}
+.upgrade-header nav small{font-size:10px;color:#A8936F}
+.upgrade-header nav b{color:#3E3027;font-size:10px;line-height:18px}
+.header-tools{display:flex;align-items:center;gap:12px;margin-left:auto;min-width:0}
+.header-tools .global-search{width:250px}
+.global-search>label{background:#FFFDF8;min-height:38px}
+.global-search input{min-height:36px;font-size:13px}
+.global-search kbd,.search-box kbd{font:11px Nunito,sans-serif;padding:1px 6px;border:1px solid var(--line);border-radius:4px;color:var(--muted);background:var(--bg)}
+.global-search:focus-within kbd{display:none}
+.global-suggestions{top:44px;min-width:300px;z-index:40}
+.suggestion-heading{font-size:11px}
+.global-suggestions>button{gap:9px;font-size:13px;justify-content:flex-start}
+.global-suggestions>button small{margin-left:auto;font-size:11px;color:var(--muted)}
+.global-suggestions>button.is-active{background:#F9EACD}
+.global-suggestions .close-suggestions{font-size:11px;justify-content:center}
+.global-source{flex-wrap:nowrap;white-space:nowrap;font-size:12px;border:1px solid transparent;border-radius:8px;padding:4px 8px;min-height:36px}
+.global-source:hover{border-color:var(--line);background:var(--paper)}
+.global-source>strong{font-weight:600}
+.global-source>span{font-size:11px}
+.app-toolbar{display:none}
+
+/* ---------- Shared rhythm ---------- */
+.page-heading{margin:26px 0 20px}
+.page-heading h1{font-size:32px;line-height:1.3;margin:6px 0 6px}
+.page-heading>p:last-child,.page-heading>div>p:last-child{font-size:14px}
+.eyebrow{font-size:11px}
+.text-link{display:inline-flex;align-items:center;gap:4px;font-size:13px}
+.button{font-size:13px}
+.live-feedback{font-size:13px;bottom:28px}
+.site-footer,.site-footer p{font-size:11px}.site-footer>a{font-size:12px}
+.chip{display:inline-flex;align-items:center;gap:5px;border:1px solid var(--line);border-radius:999px;padding:4px 11px;font-size:12px;background:#FFFDF8;min-height:32px}
+.chip:hover:not(:disabled){border-color:#A8916E;background:#F8E7C4}
+button:disabled{cursor:not-allowed}
+
+/* ---------- Observatory ---------- */
+.observatory-cover{min-height:0;padding:8px 22px 18px}
+.cover-copy>h1{font-size:12px}
+.cover-description{font-size:15px;line-height:1.9}
+.cover-footnote{font-size:11px}
+.observatory-numbers{margin-bottom:34px}
+.observatory-numbers span{font-size:13px}
+.mission-preview{padding:18px 12px 14px;border-radius:0 0 10px 10px;transition:background .15s}
+.mission-preview:hover{background:#FBF1DE}
+.mission-preview h3{font-size:16px}
+.mission-preview p{font-size:13px}
+.mission-preview>a{font-size:13px}
+.section-title>a{font-size:13px}
+.recent-food strong{font-size:15px}.recent-food small{font-size:12px}
+.recent-empty{font-size:14px}
+.observatory-planet>span{font-size:13px}
+
+/* ---------- Galaxy: the map is the page ---------- */
+.galaxy-heading.page-heading{display:flex;align-items:baseline;gap:22px;margin:18px 0 14px}
+.galaxy-heading h1{margin:4px 0 0}
+.galaxy-heading>p{font-size:14px;color:var(--muted);line-height:1.8}
+.galaxy-heading>p>span{display:inline-block;margin-left:12px;padding-left:12px;border-left:1px solid var(--line);font-size:12px}
+.workspace{grid-template-columns:250px minmax(0,1fr);gap:22px}
+.sidebar{position:sticky;top:calc(var(--header-h) + 14px);max-height:calc(100dvh - var(--header-h) - 28px);overflow:auto;padding:0 6px 12px 0;scrollbar-width:thin}
+.search-box{height:40px}
+.search-box input{font-size:13px}
+.search-box input::-webkit-search-cancel-button{cursor:pointer}
+.filter-section{padding-top:20px}
+.filter-section h2{font-size:14px}
+.filter-section h2>small{font-size:9px}
+.category-filters button{font-size:13px;padding:8px 9px}
+.category-filters button small{font-size:11px}
+.category-filters button:hover:not(.active){background:#F7EEDC}
+.lens-filters button{font-size:12px;padding:10px 0}
+.lens-filters button:hover:not(.active){background:#FBF1E5}
+.caption{font-size:11px;color:var(--muted)}
+.discovery-button strong{font-size:14px}
+.discovery-button small{font-size:11px}
+.route-form label{font-size:12px}
+.route-form select{font-size:13px;min-height:38px}
+.route-form .button{font-size:13px}
+.food-directory{font-size:13px}
+.food-directory button{font-size:13px}
+.search-results button{font-size:13px}
+.map-paper{height:calc(100dvh - var(--header-h) - 120px);min-height:520px;max-height:none}
+.map-top{top:14px;left:16px;right:16px;align-items:flex-start}
+.map-legend{display:flex;flex-wrap:wrap;align-items:center;gap:8px;pointer-events:auto}
+.map-legend>span,.legend-chip{display:inline-flex;align-items:center;gap:6px;font-size:12px;background:#FFFCF5E6;border:1px solid var(--line);border-radius:7px 10px 7px 9px;padding:4px 9px;min-height:30px}
+.map-legend b{font-weight:700;color:#8C6A4C}
+.legend-chip{min-height:30px;cursor:pointer}
+.legend-chip:hover{border-color:#A8916E}
+.source-badge{font-size:12px}
+.canvas-hint{font-size:11px;bottom:66px;left:16px}
+.map-paper:has(.map-dock>*) .canvas-hint{display:none}
+.zoom-tools{bottom:64px;right:16px}
+.zoom-tools span{font-size:11px}
+.zoom-tools button{width:34px;height:34px;min-height:34px}
+.map-bottom{height:50px;font-size:12px;padding:0 16px}
+.display-toggles{gap:16px}
+.display-toggles input{width:14px;height:14px}
+.display-toggles button,.about-button{font-size:12px}
+/* Archive floats inside the map, right side, below the top badges. */
+.map-paper .planet-details{position:absolute;top:56px;right:14px;bottom:62px;width:340px;max-height:none;z-index:4}
+/* Contextual panels live on the map, bottom-left, so feedback appears where the eye already is. */
+.map-dock{position:absolute;left:16px;bottom:62px;z-index:3;display:flex;flex-direction:column;gap:10px;width:min(560px,calc(100% - 32px));max-height:calc(100% - 140px);overflow:auto;pointer-events:none;scrollbar-width:thin}
+.map-dock:empty{display:none}
+.map-dock>*{pointer-events:auto;margin:0!important;box-shadow:3px 4px 0 #E5DAC5,0 6px 24px #6C553418;animation:paper-in .2s ease-out}
+.map-paper.has-details .map-dock{width:min(560px,calc(100% - 32px - 360px))}
+.dock-head{display:flex;align-items:center;gap:10px}
+.dock-head>h2{font-size:15px;font-weight:700;flex:1;min-width:0}
+.dock-head>b{font-size:20px;color:#B17C56;font-weight:600}
+.dock-head>b small{font-size:11px;color:var(--muted);font-weight:400}
+.dock-head>button{margin-left:auto}
+.relation-note{padding:14px 18px;line-height:1.8}
+.relation-note p{font-size:13px;margin:6px 0}
+.relation-note .dock-meta{font-size:12px;color:var(--muted)}
+.discovery-focus{padding:14px 18px}
+.discovery-focus>div>span{font-size:12px}.discovery-focus strong{font-size:14px}.discovery-focus b{font-size:13px}
+.discovery-focus p{font-size:12px}
+.route-result{padding:14px 18px}
+.route-result>div{font-size:14px}
+.route-result ol{padding:10px 0 6px}
+.route-result li button{font-size:12px;min-height:32px}
+.route-result li button[aria-current=step]{outline:2px solid #C18E63;outline-offset:1px}
+.route-result>p{font-size:12px;margin:6px 0 4px}
+.route-result .route-playback{display:flex;align-items:center;gap:8px;flex-wrap:wrap;padding:8px 0;border-top:1px dashed var(--line);border-bottom:1px dashed var(--line);font-size:12px}
+.route-result .route-playback span{flex:1;min-width:120px}
+.route-result .route-playback .button{font-size:12px;padding:6px 11px;box-shadow:none}
+.guide-note{position:absolute;z-index:3;left:50%;top:50%;transform:translate(-50%,-50%);display:block;width:min(380px,calc(100% - 40px));margin:0;padding:20px 24px;background:#FFF9EC;box-shadow:4px 5px 0 #DCCBAA,0 10px 40px #6C553425;animation:paper-in .25s ease-out}
+.guide-note>.eyebrow{margin-bottom:8px}
+.guide-note ol{margin:0 0 16px;padding-left:20px;font-size:14px;line-height:2}
+.guide-note ol b{color:#8C5A3A}
+.guide-note .button{width:100%}
+.atlas-caption{margin-left:272px;font-size:11px}
+.accessible-relations{margin:12px 0 0 272px;font-size:13px}
+.map-empty p{font-size:14px}
+
+/* ---------- Archive panel ---------- */
+.planet-details{animation:paper-in .22s ease-out}
+.planet-details .detail-top{position:sticky;top:-15px;z-index:1;background:var(--paper);margin:-15px -19px 0;padding:10px 12px 6px 19px}
+.detail-top .eyebrow{font-size:10px}
+.category-tag{font-size:11px}
+.detail-basis{font-size:11px}
+.nutrition-values>div{font-size:13px}
+.nutrition-values dd{font-size:15px}
+.unit-note{font-size:11px}
+.detail-section h3{font-size:14px}
+.neighbor button{font-size:13px;min-height:40px;border-radius:6px;padding:2px 4px}
+.neighbor button:hover{background:#F6EBD5}
+.neighbor p{font-size:11px}
+.endpoint-actions button{font-size:12px;min-height:38px}
+.endpoint-actions button:hover{background:#F6EBD5}
+.detail-cross-actions>.button{font-size:13px}
+.detail-cross-actions>.button.is-on{background:#F8E7C4;border-color:#A8916E}
+.detail-cross-actions>.text-link{font-size:12px}
+.planet-details .source-note,.source-note{font-size:10px}
+
+/* ---------- Atlas: grid on the left, archive drawer on the right ---------- */
+.atlas-controls{position:sticky;top:calc(var(--header-h) + 8px);z-index:20;padding:14px 18px;margin-bottom:20px}
+.atlas-search-row{display:flex;align-items:center;gap:14px;flex-wrap:wrap}
+.atlas-search{display:flex;align-items:center;gap:8px;flex:1 1 260px;max-width:420px;border:1px solid #CABB9F;border-radius:7px 11px 8px 6px;background:#FFFDF8;padding:0 12px}
+.atlas-search:focus-within{border-color:#9D7254}
+.atlas-controls .atlas-search input[type=search]{border:0;background:none;min-height:40px;max-width:none;padding:0;outline:none;font-size:13px}
+.atlas-sort,.atlas-complete{display:flex;align-items:center;gap:8px;font-size:13px}
+.atlas-sort select{background:#FFFCF5;border:1px solid var(--line);border-radius:6px;padding:6px 10px;min-height:38px;font-size:13px}
+.atlas-complete input{accent-color:#B18C56;width:15px;height:15px;min-height:0}
+.atlas-tabs{margin:12px 0 8px;gap:6px}
+.atlas-tabs .button{font-size:13px;padding:6px 12px;gap:6px}
+.atlas-tabs .button small{font-size:11px;color:var(--muted)}
+.atlas-count{display:flex;align-items:center;gap:12px;margin-top:6px;font-size:12px}
+.atlas-count .text-link{min-height:0;font-size:12px}
+.atlas-grid{gap:20px}
+.food-card.is-current{outline:2.5px solid #C18E63;outline-offset:2px}
+.food-card-category{font-size:11px;letter-spacing:1.5px}
+.food-card-open>small{font-size:12px}
+.food-card-actions button{font-size:12px;border-radius:5px;flex:1}
+.food-card-actions button:hover{background:#F6EBD5}
+.food-card-actions button[aria-pressed=true]{color:#8C5A3A}
+.food-card-note{display:none}
+.atlas-more{flex-direction:column;gap:0}.atlas-more small{font-size:11px;color:var(--muted)}
+.atlas-notes,.lab-notes,.quest-notes{font-size:12px}
+.atlas-page .planet-details{top:calc(var(--header-h) + 14px);bottom:16px;max-height:none;width:370px}
+@media(min-width:1101px){.atlas-page.has-details{padding-right:390px}.atlas-page.has-details .atlas-grid{grid-template-columns:repeat(3,minmax(0,1fr))}}
+@media(min-width:1650px){.atlas-page.has-details .atlas-grid{grid-template-columns:repeat(4,minmax(0,1fr))}}
+
+/* ---------- Lab ---------- */
+.lab-slot>.eyebrow{font-size:10px}
+.lab-slot>p{font-size:13px}
+.lab-slot>.button{font-size:12px}
+.lab-slot>a{font-size:12px}
+.lab-slot-empty{display:flex;flex-direction:column;align-items:center;justify-content:center;gap:6px;width:100%;flex:1;border-radius:8px;padding:12px;color:var(--muted)}
+.lab-slot-empty>span{font-size:30px;line-height:1;width:52px;height:52px;display:grid;place-items:center;border:1.5px dashed #C8B596;border-radius:50%;color:#A8916E;transition:transform .15s}
+.lab-slot-empty:hover>span{transform:scale(1.08) rotate(8deg);border-color:#A8916E}
+.lab-slot-empty p{font-size:13px}
+.lab-actions>span{font-size:12px}
+.lab-search>label{font-size:13px}
+.lab-search input[type=search]{font-size:13px}
+.lab-replacing{background:#FFF0D5;border-left:3px solid #A97043;padding:8px 12px;border-radius:0 7px 7px 0;font-size:13px!important}
+.lab-quick{display:flex;flex-wrap:wrap;align-items:center;gap:8px;margin-top:14px}
+.lab-quick>span{font-size:12px;color:var(--muted);margin-right:4px}
+.lab-result{font-size:13px}
+.lab-result .button{font-size:12px}
+.lab-comparison>p,.lab-similarity p{font-size:13px}
+.lab-value>span{font-size:12px}
+.lab-value>small{font-size:11px}
+.lab-comparison-row>p{font-size:12px}
+.lab-similarity summary{font-size:13px}
+
+/* ---------- Quests ---------- */
+.quest-journal p{font-size:13px}
+.quest-actions>label,.quest-actions .button{font-size:12px}
+.quest-card .eyebrow{font-size:10px}
+.quest-status{font-size:11px}
+.quest-card>p,.quest-route p{font-size:13px}
+.quest-card>.button,.quest-route .button{font-size:12px}
+.quest-answer label{font-size:12px}
+.quest-answer select{font-size:13px}
+.quest-clue{font-size:13px}
+
+/* ---------- Modal ---------- */
+.about-content{font-size:13px}
+.discovery-results>p{font-size:13px}
+.discovery-results strong{font-size:14px}
+.discovery-results small{font-size:11px}
+.discovery-results>button{border-radius:6px;padding:12px 6px}
+.discovery-results>button:hover{background:#F6EBD5}
+
+/* ---------- Responsive ---------- */
+@media(max-width:1280px){.header-tools .global-source>span{display:none}.header-tools .global-search{width:210px}}
+@media(max-width:1100px){
+  .upgrade-header nav small{display:none}
+  .upgrade-header nav a{padding:0 8px;font-size:13px}
+  .header-tools .global-source>strong{display:none}
+  .header-tools .global-source{padding:4px}
+  .workspace{grid-template-columns:220px minmax(0,1fr);gap:18px}
+  .atlas-caption,.accessible-relations{margin-left:238px}
+  .map-paper .planet-details{width:300px}
+  .map-paper.has-details .map-dock{width:min(560px,calc(100% - 32px - 316px))}
+  .atlas-page .planet-details{width:340px}
+}
+@media(max-width:850px){
+  :root{--header-h:104px}
+  .site-header.upgrade-header{flex-wrap:wrap;height:auto;min-height:var(--header-h);padding:10px 0 6px;row-gap:6px}
+  .upgrade-header nav{order:3;flex-basis:100%;justify-content:space-between;margin:0}
+  .header-tools{margin-left:auto}
+  .header-tools .global-search{width:220px}
+  .galaxy-heading.page-heading{display:block;margin:14px 0 12px}
+  .galaxy-heading>p>span{display:none}
+  .sidebar{position:relative;top:0;max-height:none;overflow:visible;padding:0 0 12px}
+  .map-paper{height:calc(100dvh - var(--header-h) - 150px);min-height:480px}
+  .atlas-caption,.accessible-relations{margin-left:0}
+  .map-paper.has-details .map-dock{display:none}
+  .guide-note ol{font-size:13px}
+  .atlas-controls{position:static}
+}
+@media(max-width:600px){
+  :root{--header-h:62px}
+  /* No backdrop-filter here: it would turn the header into the containing block of the fixed bottom nav. */
+  .site-header.upgrade-header{flex-wrap:nowrap;min-height:var(--header-h);padding:0;gap:10px;backdrop-filter:none;background:var(--bg)}
+  .upgrade-header nav{position:fixed!important;top:auto!important;bottom:0}
+  .eyebrow,.section-title .eyebrow,.cover-copy>.eyebrow{font-size:11px}
+  .cover-actions .button{font-size:13px}
+  .upgrade-header .brand small{display:none}
+  .upgrade-header .brand strong{font-size:19px}
+  .header-tools{gap:6px}
+  .header-tools .global-search{width:auto;flex:1;min-width:0}
+  .header-tools .global-search kbd{display:none}
+  .global-suggestions{position:fixed;left:12px;right:12px;top:calc(var(--header-h) + 4px);min-width:0}
+  .upgrade-header nav{order:0;flex-basis:auto;background:#FFF9ED}
+  .upgrade-header nav a{padding:0;border-radius:0;font-size:11px!important}
+  .upgrade-header nav a.nav-current{background:transparent}
+  .upgrade-header nav a.nav-current:after{display:block}
+  .page-heading{margin:16px 0}
+  .page-heading h1{font-size:27px}
+  .page-heading>p:last-child,.page-heading>div>p:last-child,.galaxy-heading>p{font-size:13px}
+  .map-paper{height:calc(100svh - var(--header-h) - 210px);min-height:440px}
+  .map-legend>span,.legend-chip,.source-badge{font-size:11px}
+  .map-top{flex-direction:column;gap:6px}
+  .map-dock{left:10px;right:10px;width:auto;bottom:56px;max-height:55%}
+  .map-dock .route-result,.map-dock .relation-note,.map-dock .discovery-focus{padding:12px 14px}
+  .canvas-hint{display:none}
+  .map-bottom{font-size:11px}
+  .display-toggles button,.about-button{font-size:11px}
+  .guide-note{padding:16px 18px}
+  .planet-details,.map-paper .planet-details,.atlas-page .planet-details{position:fixed;z-index:38;top:auto!important;left:8px;right:8px;bottom:78px!important;width:auto;max-height:66dvh}
+  .atlas-search-row{gap:10px}
+  .atlas-search{flex-basis:100%;max-width:none}
+  .atlas-tabs{flex-wrap:nowrap;overflow-x:auto;scrollbar-width:none;margin-right:-16px;padding-right:16px}
+  .atlas-tabs .button{flex-shrink:0;font-size:12px}
+  .food-card-open>small,.food-card-category{font-size:11px}
+  .food-card-actions button{font-size:11px}
+  .live-feedback{bottom:84px;font-size:12px}
+  .cover-description{font-size:14px}
+  .mission-preview p{font-size:13px}
+  .lab-slot-empty{flex-direction:row;justify-content:flex-start;text-align:left}
+  .lab-slot-empty>span{width:42px;height:42px;font-size:24px}
+}
+@media(prefers-reduced-motion:reduce){.map-dock>*,.guide-note,.planet-details{animation:none!important}}

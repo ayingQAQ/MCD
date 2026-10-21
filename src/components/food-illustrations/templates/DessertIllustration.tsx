@@ -5,7 +5,7 @@ import { Face } from '../primitives/Face';
 import type { DrawingContext } from '../types';
 export function IceCreamSwirl({ short = false }: { short?: boolean }) { return <g transform={short ? 'translate(7 24) scale(.91 .76)' : undefined}>
   <Outline d="M42 95c-13-8-9-19 5-22-6-9-1-17 13-21-3-9 8-14 15-25 9 3 9 12 17 16 12 3 17 12 9 21 19 1 26 15 14 23 13 5 12 16 1 21-26 9-65 6-74-1-6-4-6-8 0-12Z" fill={p.white}/>
-  <Shadow d="M75 27q8 12 4 19 23 1 16 15 21 3 12 16 17 11 4 20-31 12-70 0-4 17 39 15 47 4 39-14-4-11-9-12 16-9-2-21-4-7-15-7 7-10-5-19-10-4-11-9-11-13Z" color={p.cream}/>
+  <Shadow d="M75 27q8 12 4 19 23 1 16 15 21 3 12 16 17 11 4 20-31 12-70 0-4 17 39 15 47 4 39-14-4-11-9-12 16-9-2-21-4-7-15-7 7-10-5-19-10-4-11-9Z" color={p.cream}/>
   <path d="M57 53q13 5 37-3M48 73q27 10 56-4M43 94q32 10 65-4" fill="none" stroke={p.outlineSoft} strokeWidth="2" strokeLinecap="round"/>
   <Highlight d="M67 44q5-8 9-9l-2 8-7 5ZM43 82l8-3 5 2-9 5Z"/>
   </g>; }

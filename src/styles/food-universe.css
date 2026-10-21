@@ -14,6 +14,22 @@
   --focus-ring: #b72822;
 }
 body { background: var(--bg); }
+
+/* One predictable control strip; no separated floating targets to hunt for. */
+.scene-controls { position: absolute; z-index: 7; right: 20px; bottom: 76px; display: flex; align-items: center; gap: 8px; max-width: calc(100% - 40px); padding: 6px; border: 1px solid #ddcaac; background: #fffdf7f5; border-radius: 12px; box-shadow: 0 3px 12px #80623d10; }
+.scene-controls .scene-navigation, .scene-controls .zoom-tools { position: static!important; inset: auto!important; max-width: none!important; margin: 0; flex-wrap: nowrap; border: 0; background: none; box-shadow: none; padding: 0; }
+.scene-controls .scene-navigation { display: flex; gap: 6px; }
+.scene-controls .scene-navigation>button { min-height: 38px; white-space: nowrap; }
+.scene-controls .zoom-tools button { width: 38px; min-width: 38px; min-height: 38px; }
+.has-details .scene-controls { right: 400px; }
+.planet-hover-card { position: absolute; z-index: 9; transform: translate(-50%,calc(-100% - 22px)); pointer-events: none; max-width: 220px; padding: 9px 13px; border: 1px solid #cfa969; border-radius: 9px 12px 9px 11px; background: #fffdf6fa; box-shadow: 0 3px 12px #65402116; color: #67462d; }
+.planet-hover-card strong { display: block; font-size: 13px; line-height: 1.5; }
+.planet-hover-card small { display: block; margin-top: 3px; font-size: 10px; color: #95704c; }
+.galaxy-canvas:focus-visible { outline: 2px solid #c18e52; outline-offset: -3px; }
+.galaxy-stage.panel-collapsed .galaxy-panel { left: 16px; right: auto; max-width: calc(100% - 32px); transform: none; padding: 6px 8px; }
+.panel-collapsed .panel-head h1 { display: none; }
+.panel-collapsed .panel-head .panel-toggle { display: inline-flex; align-items: center; gap: 8px; padding: 0 10px; width: auto; }
+.panel-collapsed .panel-toggle::after { content: '筛选餐品'; font-size: 13px; }
 ::selection { background: #ffe09a; color: #7b241e; }
 button:focus-visible, a:focus-visible, summary:focus-visible,
 input:focus-visible, select:focus-visible { outline-color: var(--mc-red); }
@@ -114,7 +130,7 @@ input:focus-visible, select:focus-visible { outline-color: var(--mc-red); }
 .galaxy-stage .map-paper.has-details .zoom-tools, .has-details .scene-navigation { right: 400px; }
 .scene-navigation { right: 20px; bottom: 126px; }
 .scene-navigation>button { background: #fffdf7ed; border-color: #ddcaac; min-height: 36px; font-size: 12px; }
-.cluster-labels>button { background: #fff9e9f2; border: 1px solid #dab779; color: #81542c; box-shadow: 1px 2px 0 #e5cea5; border-radius: 9px 14px 9px 12px; padding: 8px 14px; }
+.cluster-labels>button { width: 110px; min-height: 40px; background: #fff9e9f2; border: 1px solid #dab779; color: #81542c; box-shadow: 1px 2px 0 #e5cea5; border-radius: 9px 14px 9px 12px; padding: 5px 10px; font-size: 12px; }
 .cluster-labels>button:hover { background: #ffedbe; border-color: #be823f; }
 .cluster-labels>button small { color: #967752; }
 .galaxy-brand-stamp { top: 86px; right: 25px; color: #a4482e; transform: rotate(2deg); opacity: .85; }
@@ -128,6 +144,8 @@ input:focus-visible, select:focus-visible { outline-color: var(--mc-red); }
 .galaxy-stage.panel-collapsed .map-paper.has-details .map-dock { width: min(520px,calc(100% - 420px)); }
 
 @media (max-width: 1200px) and (min-width: 851px) {
+  .scene-controls, .has-details .scene-controls { left: auto; right: 16px; bottom: 76px; max-width: calc(100% - 32px); }
+  .galaxy-stage .galaxy-panel.sidebar, .galaxy-stage .map-paper .planet-details { bottom: 140px; }
   .galaxy-panel.sidebar { width: 290px; left: 16px; padding: 15px; }
   .galaxy-stage .map-top, .galaxy-stage .map-dock, .galaxy-stage .canvas-hint { left: 326px; }
   .galaxy-stage .map-paper .planet-details { width: 310px; right: 16px; }
@@ -139,6 +157,10 @@ input:focus-visible, select:focus-visible { outline-color: var(--mc-red); }
   .mission-preview { padding: 18px; }
 }
 @media (max-width: 850px) {
+  .scene-controls, .has-details .scene-controls { left: 12px; right: 12px; bottom: 110px; justify-content: space-between; gap: 4px; padding: 4px; }
+  .scene-controls .scene-navigation>button { padding: 5px 8px; font-size: 11px; }
+  .scene-controls .zoom-tools button { width: 34px; min-width: 34px; }
+  .galaxy-stage.panel-collapsed .galaxy-panel { left: 12px; top: 12px; }
   .today-missions { grid-template-columns: repeat(2,minmax(0,1fr)); }
   .mission-preview { padding: 20px; }
   .galaxy-panel.sidebar { top: 12px; left: 12px; right: 12px; bottom: auto; width: auto; padding: 12px 16px; max-height: calc(100% - 145px); }

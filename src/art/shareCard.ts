@@ -2,7 +2,7 @@ import { drawPlanet, ink } from './planets';
 import { formatNutrient, nutrientKeys, nutrientNames, type Dataset, type FoodPlanet } from '../data/schema';
 
 export async function exportPlanetCard(food: FoodPlanet, dataset: Dataset): Promise<void> {
-  await document.fonts.load('24px "ZCOOL KuaiLe"', food.name + "营养热量蛋白质脂肪碳水钠来源原始值独立参赛非官方信息");
+  await document.fonts.load('24px "ZCOOL KuaiLe"', food.name + food.basis.description + '营养热量蛋白质脂肪碳水钠来源麦当劳快照星球观察笔记合成示例数据非官方信息接口未声明计量基准及部分单位原始值不代表每克独立开发的参赛作品产品以渠道为准暂无');
   await document.fonts.ready;
   const canvas = document.createElement('canvas'); canvas.width = 1080; canvas.height = 1350;
   const ctx = canvas.getContext('2d');

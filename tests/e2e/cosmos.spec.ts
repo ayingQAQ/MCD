@@ -48,8 +48,31 @@ test('route steps and discoveries are usable', async ({ page }, testInfo) => {
   await page.getByRole('button', { name: '双生星', exact: true }).click();
   await expect(page.getByRole('heading', { name: '双生星发现' })).toBeVisible();
   await page.locator('.discovery-results > button').first().click();
-  await expect(page.getByLabel('双生星连接')).toBeVisible();
+  await expect(page.getByRole('region', { name: '双生星连接', exact: true })).toBeVisible();
   await page.screenshot({ path: testInfo.outputPath('twins.png'), fullPage: true });
+});
+
+test('native wheel and mobile two-finger gestures change the camera zoom', async ({ page, browser }) => {
+  await page.goto('/');
+  const canvas = page.locator('canvas').first();
+  await expect(canvas).toBeVisible();
+  const before = await page.locator('.zoom-tools span').textContent();
+  await canvas.hover();
+  await page.mouse.wheel(0, -180);
+  await expect(page.locator('.zoom-tools span')).not.toHaveText(before!);
+  const context = await browser.newContext({ viewport: { width: 390, height: 844 }, isMobile: true, hasTouch: true, baseURL: 'http://127.0.0.1:4173' });
+  try {
+    const mobile = await context.newPage(); await mobile.goto('/');
+    const mobileCanvas = mobile.locator('canvas').first(); await expect(mobileCanvas).toBeVisible();
+    const bounds = (await mobileCanvas.boundingBox())!;
+    const x = bounds.x + bounds.width / 2, y = bounds.y + Math.min(210, bounds.height / 2);
+    const initial = await mobile.locator('.zoom-tools span').textContent();
+    const session = await context.newCDPSession(mobile);
+    await session.send('Input.dispatchTouchEvent', { type: 'touchStart', touchPoints: [{ x: x - 35, y, id: 1 }, { x: x + 35, y, id: 2 }] });
+    await session.send('Input.dispatchTouchEvent', { type: 'touchMove', touchPoints: [{ x: x - 75, y, id: 1 }, { x: x + 75, y, id: 2 }] });
+    await session.send('Input.dispatchTouchEvent', { type: 'touchEnd', touchPoints: [] });
+    await expect(mobile.locator('.zoom-tools span')).not.toHaveText(initial!);
+  } finally { await context.close(); }
 });
 
 for (const viewport of [{ width: 1440, height: 900 }, { width: 768, height: 1024 }, { width: 390, height: 844 }]) {

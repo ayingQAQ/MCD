@@ -17,6 +17,9 @@ async function dragAnchor(canvas: Locator) {
 }
 
 test('native right drag reveals another region; reset is local and universe overview fits more planets', async ({ page }, info) => {
+  // Six native pans and GPU screenshots can exceed 30s on CI's software driver.
+  // Keep the same camera/visibility assertions and allow the render to finish.
+  test.setTimeout(90_000);
   await page.setViewportSize({ width: 1440, height: 1000 });
   await page.emulateMedia({ reducedMotion: 'reduce' });
   await page.goto('/galaxy');

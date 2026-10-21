@@ -14,6 +14,7 @@ interface Props {
   lens: NutrientKey; selected: string | null; onSelect: (id: string | null) => void;
   route: string[]; routeStep: number; showRelations: boolean; expanded: boolean; showLabels: boolean;
   highlight: SimilarityEdge | null;
+  onRelationSelect?: (edge: SimilarityEdge) => void;
 }
 interface Camera { x: number; y: number; scale: number }
 export function GalaxyCanvas(props: Props) {
@@ -39,6 +40,7 @@ export function GalaxyCanvas(props: Props) {
     let lensStart = performance.now();
     let previousLens = latest.current.lens;
     let targets = new Map<string, number>();
+    let drawnEdges: SimilarityEdge[] = [];
     let starts = new Map<string, number>();
     const pointerMap = new Map<number, { x: number; y: number }>();
     let down: { x: number; y: number; moved: boolean } | null = null;
@@ -66,6 +68,7 @@ export function GalaxyCanvas(props: Props) {
       const elapsed = reduced.matches ? 1 : Math.min(1, (performance.now() - lensStart) / 350);
       for (const [id, target] of targets) radii.current.set(id, (starts.get(id) ?? target) + (target - (starts.get(id) ?? target)) * (1 - (1 - elapsed) ** 3));
       const { width, height } = sizeRef.current, c = camera.current;
+      canvas.dataset.camera = JSON.stringify(c);
       const dpr = Math.min(2, window.devicePixelRatio || 1);
       ctx.setTransform(dpr, 0, 0, dpr, 0, 0); ctx.clearRect(0, 0, width, height);
       // Doodles use stable seeds; the drawing sleeps when nothing changes.
@@ -84,11 +87,13 @@ export function GalaxyCanvas(props: Props) {
       const relations = new Set(p.showRelations ? relationEdges(p.graph, p.selected, p.expanded, p.visible) : []);
       const routePairs = new Set(p.route.slice(1, Math.max(1, p.routeStep + 1)).map((id, i) => [id, p.route[i]].sort().join(':')));
       const drawingEdges = p.highlight ? [...p.graph.edges.filter(e => !([e.source, e.target].includes(p.highlight!.source) && [e.source, e.target].includes(p.highlight!.target))), p.highlight] : p.graph.edges;
+      drawnEdges = [];
       for (const e of drawingEdges) {
         const inRoute = routePairs.has([e.source, e.target].sort().join(':'));
         const isDiscovery = e === p.highlight;
         const show = inRoute || isDiscovery || relations.has(e);
         if (!show || !p.visible.has(e.source) || !p.visible.has(e.target)) continue;
+        drawnEdges.push(e);
         const a = positions.get(e.source)!, b = positions.get(e.target)!;
         ctx.strokeStyle = isDiscovery ? '#9276AF' : inRoute ? '#BD7043' : '#A99E89'; ctx.lineWidth = (inRoute || isDiscovery ? 2.8 : 1.2) / c.scale; ctx.setLineDash(inRoute || isDiscovery ? [8 / c.scale, 5 / c.scale] : [3 / c.scale, 5 / c.scale]);
         ctx.beginPath(); ctx.moveTo(a.x, a.y); ctx.quadraticCurveTo((a.x + b.x) / 2, (a.y + b.y) / 2 - 22, b.x, b.y); ctx.stroke();
@@ -99,7 +104,7 @@ export function GalaxyCanvas(props: Props) {
         const pos = positions.get(food.id)!;
         const sx = pos.x * c.scale + c.x, sy = pos.y * c.scale + c.y;
         if (sx < -90 || sx > width + 90 || sy < -90 || sy > height + 90) continue;
-        const selected = p.selected === food.id || p.highlight?.target === food.id, isHover = hover.current === food.id;
+        const selected = p.selected === food.id || p.highlight?.target === food.id || p.route[p.routeStep] === food.id, isHover = hover.current === food.id;
         ctx.globalAlpha = p.route.length && !p.route.includes(food.id) ? .35 : 1;
         const radius = (radii.current.get(food.id) ?? 30) * (selected || isHover ? 1.12 : 1);
         drawPlanet(ctx, food, pos.x, pos.y, radius, selected);
@@ -170,7 +175,15 @@ export function GalaxyCanvas(props: Props) {
       } else { hover.current = hit(point.x, point.y); canvas.style.cursor = hover.current ? 'pointer' : 'grab'; }
       requestDraw();
     };
-    const pointerEnd = (event: PointerEvent) => { const point = coords(event); if (event.type === 'pointerup' && pointerMap.size === 1 && down && !down.moved) latest.current.onSelect(hit(point.x, point.y)); pointerMap.delete(event.pointerId); if (!pointerMap.size) down = null; else if (down) down.moved = true; canvas.style.cursor = 'grab'; setZoom(Math.round(camera.current.scale * 100)); requestDraw(); };
+    const pointerEnd = (event: PointerEvent) => {
+      const point=coords(event);
+      if(event.type==='pointerup'&&pointerMap.size===1&&down&&!down.moved){
+        const foodId=hit(point.x,point.y);let edge:SimilarityEdge|undefined;
+        if(!foodId){const c=camera.current,wx=(point.x-c.x)/c.scale,wy=(point.y-c.y)/c.scale;edge=drawnEdges.find(e=>{const a=positions.get(e.source)!,b=positions.get(e.target)!,cx=(a.x+b.x)/2,cy=(a.y+b.y)/2-22;for(let i=1;i<40;i++){const t=i/40,u=1-t;if(Math.hypot(u*u*a.x+2*u*t*cx+t*t*b.x-wx,u*u*a.y+2*u*t*cy+t*t*b.y-wy)<8/c.scale)return true;}return false;});}
+        if(edge)latest.current.onRelationSelect?.(edge);else latest.current.onSelect(foodId);
+      }
+      pointerMap.delete(event.pointerId);if(!pointerMap.size)down=null;else if(down)down.moved=true;canvas.style.cursor='grab';setZoom(Math.round(camera.current.scale*100));requestDraw();
+    };
     const leave = () => { hover.current = null; requestDraw(); };
     const visibility = () => { if (!document.hidden) requestDraw(); };
     canvas.addEventListener('wheel', wheel, { passive: false }); canvas.addEventListener('pointerdown', pointerDown); canvas.addEventListener('pointermove', pointerMove); canvas.addEventListener('pointerup', pointerEnd); canvas.addEventListener('pointercancel', pointerEnd); canvas.addEventListener('pointerleave', leave); document.addEventListener('visibilitychange', visibility);
@@ -195,7 +208,7 @@ export function GalaxyCanvas(props: Props) {
   }, [props.selected, props.lens, props.visible, props.route, props.routeStep, props.showRelations, props.expanded, props.showLabels, props.positions, props.highlight]);
 
   return <>
-    <canvas ref={canvasRef} className="galaxy-canvas" role="img" aria-label={`餐品营养星图，当前透镜：${nutrientNames[props.lens]}。请使用左侧餐品列表进行键盘探索。`}/>
+    <canvas ref={canvasRef} className="galaxy-canvas" data-lens={props.lens} role="img" aria-label={`餐品营养星图，当前透镜：${nutrientNames[props.lens]}。请使用左侧餐品列表进行键盘探索。`}/>
     <div className="canvas-hint"><span className="tiny-orbit"/> 拖动去漫游 · 滚轮或双指缩放</div>
     <div className="zoom-tools" aria-label="画布视图控制"><button onClick={() => zoomRef.current(.8)} aria-label="缩小">−</button><span>{zoom}%</span><button onClick={() => zoomRef.current(1.25)} aria-label="放大">+</button><i/><button onClick={() => fitRef.current()} aria-label="重置视图"><Icon name="reset" size={17}/></button></div>
   </>;

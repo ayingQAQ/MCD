@@ -3,7 +3,7 @@ import { expect, test } from '@playwright/test';
 test('official snapshot, search, lenses, details and PNG export', async ({ page }, testInfo) => {
   const errors: string[] = [];
   page.on('pageerror', error => errors.push(error.message));
-  await page.goto('/');
+  await page.goto('/galaxy');
   await expect(page.getByText('官方营养快照', { exact: true }).first()).toBeVisible();
   await expect(page.locator('canvas').first()).toBeVisible();
   await page.getByLabel('搜索餐品').fill('巨无霸');
@@ -24,11 +24,11 @@ test('official snapshot, search, lenses, details and PNG export', async ({ page 
 });
 
 test('filters, no results, honest demo mode and no automatic official fallback', async ({ page }) => {
-  await page.goto('/?demo=1');
+  await page.goto('/galaxy?demo=1');
   await expect(page.getByText('合成示例数据 · 非官方营养信息', { exact: true }).first()).toBeVisible();
   await page.getByLabel('搜索餐品').fill('不存在的星球xyz');
   await expect(page.getByText('还没有找到这颗星球')).toBeVisible();
-  await page.goto('/');
+  await page.goto('/galaxy');
   await page.getByRole('button', { name: '饮品星系', exact: true }).click();
   await expect(page.getByRole('button', { name: '饮品星系', exact: true })).toHaveAttribute('aria-pressed', 'true');
   await page.route('**/data/nutrition.snapshot.json', route => route.fulfill({ status: 500, body: 'failed' }));
@@ -38,7 +38,7 @@ test('filters, no results, honest demo mode and no automatic official fallback',
 });
 
 test('route steps and discoveries are usable', async ({ page }, testInfo) => {
-  await page.goto('/');
+  await page.goto('/galaxy');
   await page.getByRole('button', { name: '规划航线', exact: true }).click();
   await page.getByLabel('航线起点').selectOption({ label: '巨无霸' });
   await page.getByLabel('航线终点').selectOption({ label: '双层吉士汉堡' });
@@ -53,7 +53,7 @@ test('route steps and discoveries are usable', async ({ page }, testInfo) => {
 });
 
 test('native wheel and mobile two-finger gestures change the camera zoom', async ({ page, browser }) => {
-  await page.goto('/');
+  await page.goto('/galaxy');
   const canvas = page.locator('canvas').first();
   await expect(canvas).toBeVisible();
   const before = await page.locator('.zoom-tools span').textContent();
@@ -62,7 +62,7 @@ test('native wheel and mobile two-finger gestures change the camera zoom', async
   await expect(page.locator('.zoom-tools span')).not.toHaveText(before!);
   const context = await browser.newContext({ viewport: { width: 390, height: 844 }, isMobile: true, hasTouch: true, baseURL: 'http://127.0.0.1:4173' });
   try {
-    const mobile = await context.newPage(); await mobile.goto('/');
+    const mobile = await context.newPage(); await mobile.goto('/galaxy');
     const mobileCanvas = mobile.locator('canvas').first(); await expect(mobileCanvas).toBeVisible();
     const bounds = (await mobileCanvas.boundingBox())!;
     const x = bounds.x + bounds.width / 2, y = bounds.y + Math.min(210, bounds.height / 2);
@@ -79,7 +79,7 @@ for (const viewport of [{ width: 1440, height: 900 }, { width: 768, height: 1024
   test(`visual evidence ${viewport.width}x${viewport.height}`, async ({ page }, testInfo) => {
     await page.setViewportSize(viewport);
     await page.emulateMedia({ reducedMotion: 'reduce' });
-    await page.goto('/');
+    await page.goto('/galaxy');
     await expect(page.locator('canvas').first()).toBeVisible();
     await page.evaluate(() => document.fonts.ready);
     await expect(page.getByText(/正在绘制/)).toHaveCount(0);

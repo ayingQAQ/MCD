@@ -7,7 +7,9 @@ const mime = { '.html': 'text/html; charset=utf-8', '.js': 'text/javascript; cha
 const server = http.createServer(async (req, res) => {
   try {
     const pathname = decodeURIComponent(new URL(req.url, 'http://127.0.0.1').pathname);
-    const target = resolve(root, `.${pathname === '/' ? '/index.html' : pathname}`);
+    // Only declared product pages fall back to the SPA. Missing assets remain 404.
+    const spaRoutes = new Set(['/', '/galaxy', '/atlas', '/lab', '/quests']);
+    const target = resolve(root, `.${spaRoutes.has(pathname.replace(/\/$/, '') || '/') ? '/index.html' : pathname}`);
     if (!target.startsWith(root + sep) || !(await stat(target)).isFile()) { res.writeHead(404); res.end('Not found'); return; }
     res.writeHead(200, { 'Content-Type': mime[extname(target)] || 'application/octet-stream', 'Cache-Control': 'no-store' }); res.end(await readFile(target));
   } catch { res.writeHead(404); res.end('Not found'); }

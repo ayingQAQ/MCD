@@ -1,0 +1,4125 @@
+{
+  "meta": {
+    "mode": "official-snapshot",
+    "source": "https://mcp.mcd.cn · list-nutrition-foods",
+    "fetchedAt": "2026-10-21T03:20:35.542Z",
+    "schemaVersion": "1.0",
+    "rawCount": 160,
+    "count": 158,
+    "algorithmVersion": "1.0"
+  },
+  "foods": [
+    {
+      "id": "food-10dkngc",
+      "name": "中薯条",
+      "category": "side",
+      "categorySource": "inferred",
+      "nutrition": {
+        "kcal": 289,
+        "proteinG": 4,
+        "fatG": 12,
+        "carbsG": 38,
+        "sodiumMg": 165,
+        "calciumMg": 18
+      },
+      "basis": {
+        "status": "unverified",
+        "description": "接口所列餐品规格；计量基准未声明",
+        "unitsVerified": false
+      },
+      "provenance": {
+        "provider": "mcd-mcp",
+        "tool": "list-nutrition-foods",
+        "fetchedAt": "2026-10-21T03:20:35.542Z",
+        "originalName": "中薯条",
+        "duplicateCount": 1
+      }
+    },
+    {
+      "id": "food-10vlyzl",
+      "name": "双层吉士汉堡",
+      "category": "burger",
+      "categorySource": "inferred",
+      "nutrition": {
+        "kcal": 429,
+        "proteinG": 27,
+        "fatG": 22,
+        "carbsG": 31,
+        "sodiumMg": 1017,
+        "calciumMg": 232
+      },
+      "basis": {
+        "status": "unverified",
+        "description": "接口所列餐品规格；计量基准未声明",
+        "unitsVerified": false
+      },
+      "provenance": {
+        "provider": "mcd-mcp",
+        "tool": "list-nutrition-foods",
+        "fetchedAt": "2026-10-21T03:20:35.542Z",
+        "originalName": "双层吉士汉堡",
+        "duplicateCount": 1
+      }
+    },
+    {
+      "id": "food-11to0ia",
+      "name": "冰牛奶中杯",
+      "category": "drink",
+      "categorySource": "inferred",
+      "nutrition": {
+        "kcal": 224,
+        "proteinG": 13,
+        "fatG": 11,
+        "carbsG": 19,
+        "sodiumMg": 128,
+        "calciumMg": 406
+      },
+      "basis": {
+        "status": "unverified",
+        "description": "接口所列餐品规格；计量基准未声明",
+        "unitsVerified": false
+      },
+      "provenance": {
+        "provider": "mcd-mcp",
+        "tool": "list-nutrition-foods",
+        "fetchedAt": "2026-10-21T03:20:35.542Z",
+        "originalName": "冰牛奶中杯",
+        "duplicateCount": 1
+      }
+    },
+    {
+      "id": "food-122drbu",
+      "name": "果然多肉",
+      "category": "other",
+      "categorySource": "unknown",
+      "nutrition": {
+        "kcal": 478,
+        "proteinG": 36,
+        "fatG": 17,
+        "carbsG": 44,
+        "sodiumMg": 1343,
+        "calciumMg": 190
+      },
+      "basis": {
+        "status": "unverified",
+        "description": "接口所列餐品规格；计量基准未声明",
+        "unitsVerified": false
+      },
+      "provenance": {
+        "provider": "mcd-mcp",
+        "tool": "list-nutrition-foods",
+        "fetchedAt": "2026-10-21T03:20:35.542Z",
+        "originalName": "果然多肉",
+        "duplicateCount": 1
+      }
+    },
+    {
+      "id": "food-1242dmy",
+      "name": "热浓浓黑巧中杯",
+      "category": "drink",
+      "categorySource": "inferred",
+      "nutrition": {
+        "kcal": 176,
+        "proteinG": 10,
+        "fatG": 8,
+        "carbsG": 15,
+        "sodiumMg": 101,
+        "calciumMg": 319
+      },
+      "basis": {
+        "status": "unverified",
+        "description": "接口所列餐品规格；计量基准未声明",
+        "unitsVerified": false
+      },
+      "provenance": {
+        "provider": "mcd-mcp",
+        "tool": "list-nutrition-foods",
+        "fetchedAt": "2026-10-21T03:20:35.542Z",
+        "originalName": "热浓浓黑巧中杯",
+        "duplicateCount": 1
+      }
+    },
+    {
+      "id": "food-12djhro",
+      "name": "培根蔬萃双层牛堡",
+      "category": "burger",
+      "categorySource": "inferred",
+      "nutrition": {
+        "kcal": 442,
+        "proteinG": 24,
+        "fatG": 23,
+        "carbsG": 34,
+        "sodiumMg": 728,
+        "calciumMg": 73
+      },
+      "basis": {
+        "status": "unverified",
+        "description": "接口所列餐品规格；计量基准未声明",
+        "unitsVerified": false
+      },
+      "provenance": {
+        "provider": "mcd-mcp",
+        "tool": "list-nutrition-foods",
+        "fetchedAt": "2026-10-21T03:20:35.542Z",
+        "originalName": "培根蔬萃双层牛堡",
+        "duplicateCount": 1
+      }
+    },
+    {
+      "id": "food-130tlzv",
+      "name": "热牛奶小杯",
+      "category": "drink",
+      "categorySource": "inferred",
+      "nutrition": {
+        "kcal": 147,
+        "proteinG": 8,
+        "fatG": 7,
+        "carbsG": 13,
+        "sodiumMg": 84,
+        "calciumMg": 267
+      },
+      "basis": {
+        "status": "unverified",
+        "description": "接口所列餐品规格；计量基准未声明",
+        "unitsVerified": false
+      },
+      "provenance": {
+        "provider": "mcd-mcp",
+        "tool": "list-nutrition-foods",
+        "fetchedAt": "2026-10-21T03:20:35.542Z",
+        "originalName": "热牛奶小杯",
+        "duplicateCount": 1
+      }
+    },
+    {
+      "id": "food-13o6rcc",
+      "name": "猪柳炒双蛋堡",
+      "category": "breakfast",
+      "categorySource": "inferred",
+      "nutrition": {
+        "kcal": 437,
+        "proteinG": 25,
+        "fatG": 24,
+        "carbsG": 29,
+        "sodiumMg": 705,
+        "calciumMg": 116
+      },
+      "basis": {
+        "status": "unverified",
+        "description": "接口所列餐品规格；计量基准未声明",
+        "unitsVerified": false
+      },
+      "provenance": {
+        "provider": "mcd-mcp",
+        "tool": "list-nutrition-foods",
+        "fetchedAt": "2026-10-21T03:20:35.542Z",
+        "originalName": "猪柳炒双蛋堡",
+        "duplicateCount": 1
+      }
+    },
+    {
+      "id": "food-13p6wor",
+      "name": "猪柳麦满分",
+      "category": "breakfast",
+      "categorySource": "inferred",
+      "nutrition": {
+        "kcal": 308,
+        "proteinG": 16,
+        "fatG": 16,
+        "carbsG": 24,
+        "sodiumMg": 781,
+        "calciumMg": 213
+      },
+      "basis": {
+        "status": "unverified",
+        "description": "接口所列餐品规格；计量基准未声明",
+        "unitsVerified": false
+      },
+      "provenance": {
+        "provider": "mcd-mcp",
+        "tool": "list-nutrition-foods",
+        "fetchedAt": "2026-10-21T03:20:35.542Z",
+        "originalName": "猪柳麦满分",
+        "duplicateCount": 1
+      }
+    },
+    {
+      "id": "food-15vsijm",
+      "name": "冰奶铁中杯",
+      "category": "drink",
+      "categorySource": "inferred",
+      "nutrition": {
+        "kcal": 148,
+        "proteinG": 8,
+        "fatG": 7,
+        "carbsG": 13,
+        "sodiumMg": 77,
+        "calciumMg": 251
+      },
+      "basis": {
+        "status": "unverified",
+        "description": "接口所列餐品规格；计量基准未声明",
+        "unitsVerified": false
+      },
+      "provenance": {
+        "provider": "mcd-mcp",
+        "tool": "list-nutrition-foods",
+        "fetchedAt": "2026-10-21T03:20:35.542Z",
+        "originalName": "冰奶铁中杯",
+        "duplicateCount": 1
+      }
+    },
+    {
+      "id": "food-168jsxi",
+      "name": "迷你草莓新地",
+      "category": "dessert",
+      "categorySource": "inferred",
+      "nutrition": {
+        "kcal": 122,
+        "proteinG": 2,
+        "fatG": 3,
+        "carbsG": 21,
+        "sodiumMg": 42,
+        "calciumMg": 78
+      },
+      "basis": {
+        "status": "unverified",
+        "description": "接口所列餐品规格；计量基准未声明",
+        "unitsVerified": false
+      },
+      "provenance": {
+        "provider": "mcd-mcp",
+        "tool": "list-nutrition-foods",
+        "fetchedAt": "2026-10-21T03:20:35.542Z",
+        "originalName": "迷你草莓新地",
+        "duplicateCount": 1
+      }
+    },
+    {
+      "id": "food-17b13vo",
+      "name": "卡布奇诺中杯",
+      "category": "drink",
+      "categorySource": "inferred",
+      "nutrition": {
+        "kcal": 167,
+        "proteinG": 9,
+        "fatG": 7,
+        "carbsG": 15,
+        "sodiumMg": 88,
+        "calciumMg": 285
+      },
+      "basis": {
+        "status": "unverified",
+        "description": "接口所列餐品规格；计量基准未声明",
+        "unitsVerified": false
+      },
+      "provenance": {
+        "provider": "mcd-mcp",
+        "tool": "list-nutrition-foods",
+        "fetchedAt": "2026-10-21T03:20:35.542Z",
+        "originalName": "卡布奇诺中杯",
+        "duplicateCount": 1
+      }
+    },
+    {
+      "id": "food-17it26w",
+      "name": "无糖可口可乐小杯",
+      "category": "drink",
+      "categorySource": "inferred",
+      "nutrition": {
+        "kcal": 0,
+        "proteinG": 0,
+        "fatG": 0,
+        "carbsG": 0,
+        "sodiumMg": 25,
+        "calciumMg": 0
+      },
+      "basis": {
+        "status": "unverified",
+        "description": "接口所列餐品规格；计量基准未声明",
+        "unitsVerified": false
+      },
+      "provenance": {
+        "provider": "mcd-mcp",
+        "tool": "list-nutrition-foods",
+        "fetchedAt": "2026-10-21T03:20:35.542Z",
+        "originalName": "无糖可口可乐小杯",
+        "duplicateCount": 1
+      }
+    },
+    {
+      "id": "food-17o2v7j",
+      "name": "阳光柠檬红茶小杯",
+      "category": "drink",
+      "categorySource": "inferred",
+      "nutrition": {
+        "kcal": 85,
+        "proteinG": 0,
+        "fatG": 0,
+        "carbsG": 21,
+        "sodiumMg": 12,
+        "calciumMg": 0
+      },
+      "basis": {
+        "status": "unverified",
+        "description": "接口所列餐品规格；计量基准未声明",
+        "unitsVerified": false
+      },
+      "provenance": {
+        "provider": "mcd-mcp",
+        "tool": "list-nutrition-foods",
+        "fetchedAt": "2026-10-21T03:20:35.542Z",
+        "originalName": "阳光柠檬红茶小杯",
+        "duplicateCount": 1
+      }
+    },
+    {
+      "id": "food-185zueg",
+      "name": "菠萝派",
+      "category": "dessert",
+      "categorySource": "inferred",
+      "nutrition": {
+        "kcal": 221,
+        "proteinG": 2,
+        "fatG": 11,
+        "carbsG": 27,
+        "sodiumMg": 147,
+        "calciumMg": 5
+      },
+      "basis": {
+        "status": "unverified",
+        "description": "接口所列餐品规格；计量基准未声明",
+        "unitsVerified": false
+      },
+      "provenance": {
+        "provider": "mcd-mcp",
+        "tool": "list-nutrition-foods",
+        "fetchedAt": "2026-10-21T03:20:35.542Z",
+        "originalName": "菠萝派",
+        "duplicateCount": 1
+      }
+    },
+    {
+      "id": "food-19g377",
+      "name": "麦香鸡",
+      "category": "burger",
+      "categorySource": "inferred",
+      "nutrition": {
+        "kcal": 369,
+        "proteinG": 15,
+        "fatG": 17,
+        "carbsG": 39,
+        "sodiumMg": 731,
+        "calciumMg": 73
+      },
+      "basis": {
+        "status": "unverified",
+        "description": "接口所列餐品规格；计量基准未声明",
+        "unitsVerified": false
+      },
+      "provenance": {
+        "provider": "mcd-mcp",
+        "tool": "list-nutrition-foods",
+        "fetchedAt": "2026-10-21T03:20:35.542Z",
+        "originalName": "麦香鸡",
+        "duplicateCount": 1
+      }
+    },
+    {
+      "id": "food-19hu4p0",
+      "name": "那么大鸡排",
+      "category": "side",
+      "categorySource": "inferred",
+      "nutrition": {
+        "kcal": 385,
+        "proteinG": 24,
+        "fatG": 21,
+        "carbsG": 24,
+        "sodiumMg": 996,
+        "calciumMg": 13
+      },
+      "basis": {
+        "status": "unverified",
+        "description": "接口所列餐品规格；计量基准未声明",
+        "unitsVerified": false
+      },
+      "provenance": {
+        "provider": "mcd-mcp",
+        "tool": "list-nutrition-foods",
+        "fetchedAt": "2026-10-21T03:20:35.542Z",
+        "originalName": "那么大鸡排",
+        "duplicateCount": 1
+      }
+    },
+    {
+      "id": "food-19i3jra",
+      "name": "吉士汉堡包",
+      "category": "burger",
+      "categorySource": "inferred",
+      "nutrition": {
+        "kcal": 294,
+        "proteinG": 16,
+        "fatG": 12,
+        "carbsG": 30,
+        "sodiumMg": 673,
+        "calciumMg": 144
+      },
+      "basis": {
+        "status": "unverified",
+        "description": "接口所列餐品规格；计量基准未声明",
+        "unitsVerified": false
+      },
+      "provenance": {
+        "provider": "mcd-mcp",
+        "tool": "list-nutrition-foods",
+        "fetchedAt": "2026-10-21T03:20:35.542Z",
+        "originalName": "吉士汉堡包",
+        "duplicateCount": 1
+      }
+    },
+    {
+      "id": "food-19igdhx",
+      "name": "圆筒冰淇淋",
+      "category": "dessert",
+      "categorySource": "inferred",
+      "nutrition": {
+        "kcal": 93,
+        "proteinG": 2,
+        "fatG": 3,
+        "carbsG": 14,
+        "sodiumMg": 36,
+        "calciumMg": 77
+      },
+      "basis": {
+        "status": "unverified",
+        "description": "接口所列餐品规格；计量基准未声明",
+        "unitsVerified": false
+      },
+      "provenance": {
+        "provider": "mcd-mcp",
+        "tool": "list-nutrition-foods",
+        "fetchedAt": "2026-10-21T03:20:35.542Z",
+        "originalName": "圆筒冰淇淋",
+        "duplicateCount": 1
+      }
+    },
+    {
+      "id": "food-19qjqtc",
+      "name": "无糖可口可乐大杯",
+      "category": "drink",
+      "categorySource": "inferred",
+      "nutrition": {
+        "kcal": 0,
+        "proteinG": 0,
+        "fatG": 0,
+        "carbsG": 1,
+        "sodiumMg": 53,
+        "calciumMg": 0
+      },
+      "basis": {
+        "status": "unverified",
+        "description": "接口所列餐品规格；计量基准未声明",
+        "unitsVerified": false
+      },
+      "provenance": {
+        "provider": "mcd-mcp",
+        "tool": "list-nutrition-foods",
+        "fetchedAt": "2026-10-21T03:20:35.542Z",
+        "originalName": "无糖可口可乐大杯",
+        "duplicateCount": 1
+      }
+    },
+    {
+      "id": "food-19t5gji",
+      "name": "可乐中杯",
+      "category": "drink",
+      "categorySource": "inferred",
+      "nutrition": {
+        "kcal": 147,
+        "proteinG": 0,
+        "fatG": 0,
+        "carbsG": 36,
+        "sodiumMg": 0,
+        "calciumMg": 10
+      },
+      "basis": {
+        "status": "unverified",
+        "description": "接口所列餐品规格；计量基准未声明",
+        "unitsVerified": false
+      },
+      "provenance": {
+        "provider": "mcd-mcp",
+        "tool": "list-nutrition-foods",
+        "fetchedAt": "2026-10-21T03:20:35.542Z",
+        "originalName": "可乐中杯",
+        "duplicateCount": 1
+      }
+    },
+    {
+      "id": "food-1a6m51o",
+      "name": "冰奶铁大杯",
+      "category": "drink",
+      "categorySource": "inferred",
+      "nutrition": {
+        "kcal": 162,
+        "proteinG": 9,
+        "fatG": 7,
+        "carbsG": 15,
+        "sodiumMg": 85,
+        "calciumMg": 275
+      },
+      "basis": {
+        "status": "unverified",
+        "description": "接口所列餐品规格；计量基准未声明",
+        "unitsVerified": false
+      },
+      "provenance": {
+        "provider": "mcd-mcp",
+        "tool": "list-nutrition-foods",
+        "fetchedAt": "2026-10-21T03:20:35.542Z",
+        "originalName": "冰奶铁大杯",
+        "duplicateCount": 1
+      }
+    },
+    {
+      "id": "food-1ald9ss",
+      "name": "锡兰红茶",
+      "category": "drink",
+      "categorySource": "inferred",
+      "nutrition": {
+        "kcal": 2,
+        "proteinG": 0,
+        "fatG": 0,
+        "carbsG": 0,
+        "sodiumMg": 0,
+        "calciumMg": 5
+      },
+      "basis": {
+        "status": "unverified",
+        "description": "接口所列餐品规格；计量基准未声明",
+        "unitsVerified": false
+      },
+      "provenance": {
+        "provider": "mcd-mcp",
+        "tool": "list-nutrition-foods",
+        "fetchedAt": "2026-10-21T03:20:35.542Z",
+        "originalName": "锡兰红茶",
+        "duplicateCount": 1
+      }
+    },
+    {
+      "id": "food-1b5lovp",
+      "name": "热燕麦奶大杯",
+      "category": "drink",
+      "categorySource": "inferred",
+      "nutrition": {
+        "kcal": 213,
+        "proteinG": 4,
+        "fatG": 8,
+        "carbsG": 28,
+        "sodiumMg": 156,
+        "calciumMg": 469
+      },
+      "basis": {
+        "status": "unverified",
+        "description": "接口所列餐品规格；计量基准未声明",
+        "unitsVerified": false
+      },
+      "provenance": {
+        "provider": "mcd-mcp",
+        "tool": "list-nutrition-foods",
+        "fetchedAt": "2026-10-21T03:20:35.542Z",
+        "originalName": "热燕麦奶大杯",
+        "duplicateCount": 1
+      }
+    },
+    {
+      "id": "food-1efqpvo",
+      "name": "冰牛奶小杯",
+      "category": "drink",
+      "categorySource": "inferred",
+      "nutrition": {
+        "kcal": 147,
+        "proteinG": 8,
+        "fatG": 7,
+        "carbsG": 13,
+        "sodiumMg": 84,
+        "calciumMg": 267
+      },
+      "basis": {
+        "status": "unverified",
+        "description": "接口所列餐品规格；计量基准未声明",
+        "unitsVerified": false
+      },
+      "provenance": {
+        "provider": "mcd-mcp",
+        "tool": "list-nutrition-foods",
+        "fetchedAt": "2026-10-21T03:20:35.542Z",
+        "originalName": "冰牛奶小杯",
+        "duplicateCount": 1
+      }
+    },
+    {
+      "id": "food-1f62hqv",
+      "name": "巨无霸",
+      "category": "burger",
+      "categorySource": "inferred",
+      "nutrition": {
+        "kcal": 513,
+        "proteinG": 27,
+        "fatG": 26,
+        "carbsG": 42,
+        "sodiumMg": 961,
+        "calciumMg": 171
+      },
+      "basis": {
+        "status": "unverified",
+        "description": "接口所列餐品规格；计量基准未声明",
+        "unitsVerified": false
+      },
+      "provenance": {
+        "provider": "mcd-mcp",
+        "tool": "list-nutrition-foods",
+        "fetchedAt": "2026-10-21T03:20:35.542Z",
+        "originalName": "巨无霸",
+        "duplicateCount": 1
+      }
+    },
+    {
+      "id": "food-1fh5v2s",
+      "name": "冰奶铁小杯",
+      "category": "drink",
+      "categorySource": "inferred",
+      "nutrition": {
+        "kcal": 86,
+        "proteinG": 5,
+        "fatG": 4,
+        "carbsG": 8,
+        "sodiumMg": 44,
+        "calciumMg": 144
+      },
+      "basis": {
+        "status": "unverified",
+        "description": "接口所列餐品规格；计量基准未声明",
+        "unitsVerified": false
+      },
+      "provenance": {
+        "provider": "mcd-mcp",
+        "tool": "list-nutrition-foods",
+        "fetchedAt": "2026-10-21T03:20:35.542Z",
+        "originalName": "冰奶铁小杯",
+        "duplicateCount": 1
+      }
+    },
+    {
+      "id": "food-1g0g6bi",
+      "name": "火腿扒早安营养卷",
+      "category": "breakfast",
+      "categorySource": "inferred",
+      "nutrition": {
+        "kcal": 444,
+        "proteinG": 16,
+        "fatG": 24,
+        "carbsG": 39,
+        "sodiumMg": 1065,
+        "calciumMg": 108
+      },
+      "basis": {
+        "status": "unverified",
+        "description": "接口所列餐品规格；计量基准未声明",
+        "unitsVerified": false
+      },
+      "provenance": {
+        "provider": "mcd-mcp",
+        "tool": "list-nutrition-foods",
+        "fetchedAt": "2026-10-21T03:20:35.542Z",
+        "originalName": "火腿扒早安营养卷",
+        "duplicateCount": 1
+      }
+    },
+    {
+      "id": "food-1gbnc3e",
+      "name": "儿童鱼排堡",
+      "category": "burger",
+      "categorySource": "inferred",
+      "nutrition": {
+        "kcal": 269,
+        "proteinG": 15,
+        "fatG": 6,
+        "carbsG": 36,
+        "sodiumMg": 442,
+        "calciumMg": 58
+      },
+      "basis": {
+        "status": "unverified",
+        "description": "接口所列餐品规格；计量基准未声明",
+        "unitsVerified": false
+      },
+      "provenance": {
+        "provider": "mcd-mcp",
+        "tool": "list-nutrition-foods",
+        "fetchedAt": "2026-10-21T03:20:35.542Z",
+        "originalName": "儿童鱼排堡",
+        "duplicateCount": 1
+      }
+    },
+    {
+      "id": "food-1h4zga9",
+      "name": "蒜了吧黄油风味薄皮脆汁鸡-带骨里脊",
+      "category": "side",
+      "categorySource": "inferred",
+      "nutrition": {
+        "kcal": 126,
+        "proteinG": 19,
+        "fatG": 2,
+        "carbsG": 4,
+        "sodiumMg": 750,
+        "calciumMg": 59
+      },
+      "basis": {
+        "status": "unverified",
+        "description": "接口所列餐品规格；计量基准未声明",
+        "unitsVerified": false
+      },
+      "provenance": {
+        "provider": "mcd-mcp",
+        "tool": "list-nutrition-foods",
+        "fetchedAt": "2026-10-21T03:20:35.542Z",
+        "originalName": "蒜了吧黄油风味薄皮脆汁鸡-带骨里脊",
+        "duplicateCount": 1
+      }
+    },
+    {
+      "id": "food-1h9awck",
+      "name": "迷你朱古力新地",
+      "category": "dessert",
+      "categorySource": "inferred",
+      "nutrition": {
+        "kcal": 140,
+        "proteinG": 3,
+        "fatG": 4,
+        "carbsG": 22,
+        "sodiumMg": 63,
+        "calciumMg": 90
+      },
+      "basis": {
+        "status": "unverified",
+        "description": "接口所列餐品规格；计量基准未声明",
+        "unitsVerified": false
+      },
+      "provenance": {
+        "provider": "mcd-mcp",
+        "tool": "list-nutrition-foods",
+        "fetchedAt": "2026-10-21T03:20:35.542Z",
+        "originalName": "迷你朱古力新地",
+        "duplicateCount": 1
+      }
+    },
+    {
+      "id": "food-1h9g7qp",
+      "name": "阳光柠檬红茶中杯",
+      "category": "drink",
+      "categorySource": "inferred",
+      "nutrition": {
+        "kcal": 117,
+        "proteinG": 0,
+        "fatG": 0,
+        "carbsG": 29,
+        "sodiumMg": 17,
+        "calciumMg": 0
+      },
+      "basis": {
+        "status": "unverified",
+        "description": "接口所列餐品规格；计量基准未声明",
+        "unitsVerified": false
+      },
+      "provenance": {
+        "provider": "mcd-mcp",
+        "tool": "list-nutrition-foods",
+        "fetchedAt": "2026-10-21T03:20:35.542Z",
+        "originalName": "阳光柠檬红茶中杯",
+        "duplicateCount": 1
+      }
+    },
+    {
+      "id": "food-1hcnnu6",
+      "name": "汉堡包",
+      "category": "burger",
+      "categorySource": "inferred",
+      "nutrition": {
+        "kcal": 248,
+        "proteinG": 13,
+        "fatG": 8,
+        "carbsG": 29,
+        "sodiumMg": 492,
+        "calciumMg": 61
+      },
+      "basis": {
+        "status": "unverified",
+        "description": "接口所列餐品规格；计量基准未声明",
+        "unitsVerified": false
+      },
+      "provenance": {
+        "provider": "mcd-mcp",
+        "tool": "list-nutrition-foods",
+        "fetchedAt": "2026-10-21T03:20:35.542Z",
+        "originalName": "汉堡包",
+        "duplicateCount": 1
+      }
+    },
+    {
+      "id": "food-1hfn97q",
+      "name": "无糖可口可乐中杯",
+      "category": "drink",
+      "categorySource": "inferred",
+      "nutrition": {
+        "kcal": 0,
+        "proteinG": 0,
+        "fatG": 0,
+        "carbsG": 1,
+        "sodiumMg": 35,
+        "calciumMg": 0
+      },
+      "basis": {
+        "status": "unverified",
+        "description": "接口所列餐品规格；计量基准未声明",
+        "unitsVerified": false
+      },
+      "provenance": {
+        "provider": "mcd-mcp",
+        "tool": "list-nutrition-foods",
+        "fetchedAt": "2026-10-21T03:20:35.542Z",
+        "originalName": "无糖可口可乐中杯",
+        "duplicateCount": 1
+      }
+    },
+    {
+      "id": "food-1hhcvw0",
+      "name": "浓浓抹茶雪冰大杯",
+      "category": "drink",
+      "categorySource": "inferred",
+      "nutrition": {
+        "kcal": 339,
+        "proteinG": 8,
+        "fatG": 12,
+        "carbsG": 48,
+        "sodiumMg": 194,
+        "calciumMg": 270
+      },
+      "basis": {
+        "status": "unverified",
+        "description": "接口所列餐品规格；计量基准未声明",
+        "unitsVerified": false
+      },
+      "provenance": {
+        "provider": "mcd-mcp",
+        "tool": "list-nutrition-foods",
+        "fetchedAt": "2026-10-21T03:20:35.542Z",
+        "originalName": "浓浓抹茶雪冰大杯",
+        "duplicateCount": 1
+      }
+    },
+    {
+      "id": "food-1hjkebx",
+      "name": "培根双层安格斯厚牛堡",
+      "category": "burger",
+      "categorySource": "inferred",
+      "nutrition": {
+        "kcal": 987,
+        "proteinG": 55,
+        "fatG": 64,
+        "carbsG": 46,
+        "sodiumMg": 1191,
+        "calciumMg": 226
+      },
+      "basis": {
+        "status": "unverified",
+        "description": "接口所列餐品规格；计量基准未声明",
+        "unitsVerified": false
+      },
+      "provenance": {
+        "provider": "mcd-mcp",
+        "tool": "list-nutrition-foods",
+        "fetchedAt": "2026-10-21T03:20:35.542Z",
+        "originalName": "培根双层安格斯厚牛堡",
+        "duplicateCount": 1
+      }
+    },
+    {
+      "id": "food-1hk5zm8",
+      "name": "火腿扒麦满分",
+      "category": "breakfast",
+      "categorySource": "inferred",
+      "nutrition": {
+        "kcal": 261,
+        "proteinG": 14,
+        "fatG": 12,
+        "carbsG": 24,
+        "sodiumMg": 608,
+        "calciumMg": 131
+      },
+      "basis": {
+        "status": "unverified",
+        "description": "接口所列餐品规格；计量基准未声明",
+        "unitsVerified": false
+      },
+      "provenance": {
+        "provider": "mcd-mcp",
+        "tool": "list-nutrition-foods",
+        "fetchedAt": "2026-10-21T03:20:35.542Z",
+        "originalName": "火腿扒麦满分",
+        "duplicateCount": 1
+      }
+    },
+    {
+      "id": "food-1hqsoe9",
+      "name": "热奶铁中杯",
+      "category": "drink",
+      "categorySource": "inferred",
+      "nutrition": {
+        "kcal": 186,
+        "proteinG": 11,
+        "fatG": 8,
+        "carbsG": 17,
+        "sodiumMg": 99,
+        "calciumMg": 320
+      },
+      "basis": {
+        "status": "unverified",
+        "description": "接口所列餐品规格；计量基准未声明",
+        "unitsVerified": false
+      },
+      "provenance": {
+        "provider": "mcd-mcp",
+        "tool": "list-nutrition-foods",
+        "fetchedAt": "2026-10-21T03:20:35.542Z",
+        "originalName": "热奶铁中杯",
+        "duplicateCount": 1
+      }
+    },
+    {
+      "id": "food-1hso1w7",
+      "name": "热奶铁大杯",
+      "category": "drink",
+      "categorySource": "inferred",
+      "nutrition": {
+        "kcal": 249,
+        "proteinG": 14,
+        "fatG": 11,
+        "carbsG": 22,
+        "sodiumMg": 134,
+        "calciumMg": 431
+      },
+      "basis": {
+        "status": "unverified",
+        "description": "接口所列餐品规格；计量基准未声明",
+        "unitsVerified": false
+      },
+      "provenance": {
+        "provider": "mcd-mcp",
+        "tool": "list-nutrition-foods",
+        "fetchedAt": "2026-10-21T03:20:35.542Z",
+        "originalName": "热奶铁大杯",
+        "duplicateCount": 1
+      }
+    },
+    {
+      "id": "food-1i63ic0",
+      "name": "咖啡阿芙佳朵",
+      "category": "dessert",
+      "categorySource": "inferred",
+      "nutrition": {
+        "kcal": 139,
+        "proteinG": 4,
+        "fatG": 4,
+        "carbsG": 21,
+        "sodiumMg": 49,
+        "calciumMg": 111
+      },
+      "basis": {
+        "status": "unverified",
+        "description": "接口所列餐品规格；计量基准未声明",
+        "unitsVerified": false
+      },
+      "provenance": {
+        "provider": "mcd-mcp",
+        "tool": "list-nutrition-foods",
+        "fetchedAt": "2026-10-21T03:20:35.542Z",
+        "originalName": "咖啡阿芙佳朵",
+        "duplicateCount": 1
+      }
+    },
+    {
+      "id": "food-1jnmxz0",
+      "name": "冰牛奶大杯",
+      "category": "drink",
+      "categorySource": "inferred",
+      "nutrition": {
+        "kcal": 269,
+        "proteinG": 15,
+        "fatG": 13,
+        "carbsG": 23,
+        "sodiumMg": 154,
+        "calciumMg": 487
+      },
+      "basis": {
+        "status": "unverified",
+        "description": "接口所列餐品规格；计量基准未声明",
+        "unitsVerified": false
+      },
+      "provenance": {
+        "provider": "mcd-mcp",
+        "tool": "list-nutrition-foods",
+        "fetchedAt": "2026-10-21T03:20:35.542Z",
+        "originalName": "冰牛奶大杯",
+        "duplicateCount": 1
+      }
+    },
+    {
+      "id": "food-1josqss",
+      "name": "浓缩咖啡",
+      "category": "drink",
+      "categorySource": "inferred",
+      "nutrition": {
+        "kcal": 13,
+        "proteinG": 1,
+        "fatG": 0,
+        "carbsG": 2,
+        "sodiumMg": 0,
+        "calciumMg": 7
+      },
+      "basis": {
+        "status": "unverified",
+        "description": "接口所列餐品规格；计量基准未声明",
+        "unitsVerified": false
+      },
+      "provenance": {
+        "provider": "mcd-mcp",
+        "tool": "list-nutrition-foods",
+        "fetchedAt": "2026-10-21T03:20:35.542Z",
+        "originalName": "浓缩咖啡",
+        "duplicateCount": 1
+      }
+    },
+    {
+      "id": "food-1k25ds7",
+      "name": "阳光柠檬红茶大杯",
+      "category": "drink",
+      "categorySource": "inferred",
+      "nutrition": {
+        "kcal": 178,
+        "proteinG": 0,
+        "fatG": 0,
+        "carbsG": 43,
+        "sodiumMg": 25,
+        "calciumMg": 0
+      },
+      "basis": {
+        "status": "unverified",
+        "description": "接口所列餐品规格；计量基准未声明",
+        "unitsVerified": false
+      },
+      "provenance": {
+        "provider": "mcd-mcp",
+        "tool": "list-nutrition-foods",
+        "fetchedAt": "2026-10-21T03:20:35.542Z",
+        "originalName": "阳光柠檬红茶大杯",
+        "duplicateCount": 1
+      }
+    },
+    {
+      "id": "food-1kfvcdc",
+      "name": "大杯玉米杯",
+      "category": "side",
+      "categorySource": "inferred",
+      "nutrition": {
+        "kcal": 87,
+        "proteinG": 4,
+        "fatG": 1,
+        "carbsG": 12,
+        "sodiumMg": 2,
+        "calciumMg": 10
+      },
+      "basis": {
+        "status": "unverified",
+        "description": "接口所列餐品规格；计量基准未声明",
+        "unitsVerified": false
+      },
+      "provenance": {
+        "provider": "mcd-mcp",
+        "tool": "list-nutrition-foods",
+        "fetchedAt": "2026-10-21T03:20:35.542Z",
+        "originalName": "大杯玉米杯",
+        "duplicateCount": 1
+      }
+    },
+    {
+      "id": "food-1ks83t5",
+      "name": "蜜汁BBQ风味薄皮脆汁鸡-琵琶腿",
+      "category": "side",
+      "categorySource": "inferred",
+      "nutrition": {
+        "kcal": 173,
+        "proteinG": 18,
+        "fatG": 9,
+        "carbsG": 5,
+        "sodiumMg": 547,
+        "calciumMg": 15
+      },
+      "basis": {
+        "status": "unverified",
+        "description": "接口所列餐品规格；计量基准未声明",
+        "unitsVerified": false
+      },
+      "provenance": {
+        "provider": "mcd-mcp",
+        "tool": "list-nutrition-foods",
+        "fetchedAt": "2026-10-21T03:20:35.542Z",
+        "originalName": "蜜汁BBQ风味薄皮脆汁鸡-琵琶腿",
+        "duplicateCount": 1
+      }
+    },
+    {
+      "id": "food-1luvmgk",
+      "name": "专“薯鱼”你",
+      "category": "other",
+      "categorySource": "unknown",
+      "nutrition": {
+        "kcal": 463,
+        "proteinG": 18,
+        "fatG": 17,
+        "carbsG": 57,
+        "sodiumMg": 652,
+        "calciumMg": 123
+      },
+      "basis": {
+        "status": "unverified",
+        "description": "接口所列餐品规格；计量基准未声明",
+        "unitsVerified": false
+      },
+      "provenance": {
+        "provider": "mcd-mcp",
+        "tool": "list-nutrition-foods",
+        "fetchedAt": "2026-10-21T03:20:35.542Z",
+        "originalName": "专“薯鱼”你",
+        "duplicateCount": 1
+      }
+    },
+    {
+      "id": "food-1lx0bxu",
+      "name": "麦乐鸡5块",
+      "category": "side",
+      "categorySource": "inferred",
+      "nutrition": {
+        "kcal": 213,
+        "proteinG": 12,
+        "fatG": 12,
+        "carbsG": 13,
+        "sodiumMg": 422,
+        "calciumMg": 9
+      },
+      "basis": {
+        "status": "unverified",
+        "description": "接口所列餐品规格；计量基准未声明",
+        "unitsVerified": false
+      },
+      "provenance": {
+        "provider": "mcd-mcp",
+        "tool": "list-nutrition-foods",
+        "fetchedAt": "2026-10-21T03:20:35.542Z",
+        "originalName": "麦乐鸡5块",
+        "duplicateCount": 1
+      }
+    },
+    {
+      "id": "food-1m4zt70",
+      "name": "雪碧大杯",
+      "category": "drink",
+      "categorySource": "inferred",
+      "nutrition": {
+        "kcal": 160,
+        "proteinG": 0,
+        "fatG": 0,
+        "carbsG": 39,
+        "sodiumMg": 45,
+        "calciumMg": 0
+      },
+      "basis": {
+        "status": "unverified",
+        "description": "接口所列餐品规格；计量基准未声明",
+        "unitsVerified": false
+      },
+      "provenance": {
+        "provider": "mcd-mcp",
+        "tool": "list-nutrition-foods",
+        "fetchedAt": "2026-10-21T03:20:35.542Z",
+        "originalName": "雪碧大杯",
+        "duplicateCount": 1
+      }
+    },
+    {
+      "id": "food-1n02moh",
+      "name": "【美汁源】“黄金橙橙”",
+      "category": "drink",
+      "categorySource": "inferred",
+      "nutrition": {
+        "kcal": 165,
+        "proteinG": 0,
+        "fatG": 0,
+        "carbsG": 41,
+        "sodiumMg": 53,
+        "calciumMg": 0
+      },
+      "basis": {
+        "status": "unverified",
+        "description": "接口所列餐品规格；计量基准未声明",
+        "unitsVerified": false
+      },
+      "provenance": {
+        "provider": "mcd-mcp",
+        "tool": "list-nutrition-foods",
+        "fetchedAt": "2026-10-21T03:20:35.542Z",
+        "originalName": "【美汁源】“黄金橙橙”",
+        "duplicateCount": 1
+      }
+    },
+    {
+      "id": "food-1n3rqv2",
+      "name": "冰浓浓燕麦黑巧中杯",
+      "category": "drink",
+      "categorySource": "inferred",
+      "nutrition": {
+        "kcal": 120,
+        "proteinG": 2,
+        "fatG": 5,
+        "carbsG": 16,
+        "sodiumMg": 87,
+        "calciumMg": 263
+      },
+      "basis": {
+        "status": "unverified",
+        "description": "接口所列餐品规格；计量基准未声明",
+        "unitsVerified": false
+      },
+      "provenance": {
+        "provider": "mcd-mcp",
+        "tool": "list-nutrition-foods",
+        "fetchedAt": "2026-10-21T03:20:35.542Z",
+        "originalName": "冰浓浓燕麦黑巧中杯",
+        "duplicateCount": 1
+      }
+    },
+    {
+      "id": "food-1n7welu",
+      "name": "热朱古力",
+      "category": "drink",
+      "categorySource": "inferred",
+      "nutrition": {
+        "kcal": 125,
+        "proteinG": 2,
+        "fatG": 2,
+        "carbsG": 22,
+        "sodiumMg": 107,
+        "calciumMg": 36
+      },
+      "basis": {
+        "status": "unverified",
+        "description": "接口所列餐品规格；计量基准未声明",
+        "unitsVerified": false
+      },
+      "provenance": {
+        "provider": "mcd-mcp",
+        "tool": "list-nutrition-foods",
+        "fetchedAt": "2026-10-21T03:20:35.542Z",
+        "originalName": "热朱古力",
+        "duplicateCount": 1
+      }
+    },
+    {
+      "id": "food-1n842q9",
+      "name": "酥酥多笋卷",
+      "category": "other",
+      "categorySource": "unknown",
+      "nutrition": {
+        "kcal": 342,
+        "proteinG": 14,
+        "fatG": 15,
+        "carbsG": 36,
+        "sodiumMg": 1044,
+        "calciumMg": 41
+      },
+      "basis": {
+        "status": "unverified",
+        "description": "接口所列餐品规格；计量基准未声明",
+        "unitsVerified": false
+      },
+      "provenance": {
+        "provider": "mcd-mcp",
+        "tool": "list-nutrition-foods",
+        "fetchedAt": "2026-10-21T03:20:35.542Z",
+        "originalName": "酥酥多笋卷",
+        "duplicateCount": 1
+      }
+    },
+    {
+      "id": "food-1n87bhk",
+      "name": "纯悦",
+      "category": "drink",
+      "categorySource": "inferred",
+      "nutrition": {
+        "kcal": 0,
+        "proteinG": 0,
+        "fatG": 0,
+        "carbsG": 0,
+        "sodiumMg": 0,
+        "calciumMg": 0
+      },
+      "basis": {
+        "status": "unverified",
+        "description": "接口所列餐品规格；计量基准未声明",
+        "unitsVerified": false
+      },
+      "provenance": {
+        "provider": "mcd-mcp",
+        "tool": "list-nutrition-foods",
+        "fetchedAt": "2026-10-21T03:20:35.542Z",
+        "originalName": "纯悦",
+        "duplicateCount": 1
+      }
+    },
+    {
+      "id": "food-1nm8091",
+      "name": "热美式小杯",
+      "category": "drink",
+      "categorySource": "inferred",
+      "nutrition": {
+        "kcal": 10,
+        "proteinG": 1,
+        "fatG": 0,
+        "carbsG": 1,
+        "sodiumMg": 0,
+        "calciumMg": 6
+      },
+      "basis": {
+        "status": "unverified",
+        "description": "接口所列餐品规格；计量基准未声明",
+        "unitsVerified": false
+      },
+      "provenance": {
+        "provider": "mcd-mcp",
+        "tool": "list-nutrition-foods",
+        "fetchedAt": "2026-10-21T03:20:35.542Z",
+        "originalName": "热美式小杯",
+        "duplicateCount": 1
+      }
+    },
+    {
+      "id": "food-1nvga25",
+      "name": "雪菜脆笋鸡肉粥",
+      "category": "breakfast",
+      "categorySource": "inferred",
+      "nutrition": {
+        "kcal": 120,
+        "proteinG": 4,
+        "fatG": 2,
+        "carbsG": 22,
+        "sodiumMg": 552,
+        "calciumMg": 14
+      },
+      "basis": {
+        "status": "unverified",
+        "description": "接口所列餐品规格；计量基准未声明",
+        "unitsVerified": false
+      },
+      "provenance": {
+        "provider": "mcd-mcp",
+        "tool": "list-nutrition-foods",
+        "fetchedAt": "2026-10-21T03:20:35.542Z",
+        "originalName": "雪菜脆笋鸡肉粥",
+        "duplicateCount": 1
+      }
+    },
+    {
+      "id": "food-1nx8jim",
+      "name": "脆香油条",
+      "category": "breakfast",
+      "categorySource": "inferred",
+      "nutrition": {
+        "kcal": 202,
+        "proteinG": 5,
+        "fatG": 12,
+        "carbsG": 19,
+        "sodiumMg": 230,
+        "calciumMg": 18
+      },
+      "basis": {
+        "status": "unverified",
+        "description": "接口所列餐品规格；计量基准未声明",
+        "unitsVerified": false
+      },
+      "provenance": {
+        "provider": "mcd-mcp",
+        "tool": "list-nutrition-foods",
+        "fetchedAt": "2026-10-21T03:20:35.542Z",
+        "originalName": "脆香油条",
+        "duplicateCount": 1
+      }
+    },
+    {
+      "id": "food-1ol83a5",
+      "name": "中杯怡泉+C",
+      "category": "drink",
+      "categorySource": "inferred",
+      "nutrition": {
+        "kcal": 110,
+        "proteinG": 0,
+        "fatG": 0,
+        "carbsG": 27,
+        "sodiumMg": 0,
+        "calciumMg": 0
+      },
+      "basis": {
+        "status": "unverified",
+        "description": "接口所列餐品规格；计量基准未声明",
+        "unitsVerified": false
+      },
+      "provenance": {
+        "provider": "mcd-mcp",
+        "tool": "list-nutrition-foods",
+        "fetchedAt": "2026-10-21T03:20:35.542Z",
+        "originalName": "中杯怡泉+C",
+        "duplicateCount": 1
+      }
+    },
+    {
+      "id": "food-1prb5cj",
+      "name": "蜜汁BBQ风味薄皮脆汁鸡-带骨里脊",
+      "category": "side",
+      "categorySource": "inferred",
+      "nutrition": {
+        "kcal": 152,
+        "proteinG": 20,
+        "fatG": 5,
+        "carbsG": 6,
+        "sodiumMg": 635,
+        "calciumMg": 28
+      },
+      "basis": {
+        "status": "unverified",
+        "description": "接口所列餐品规格；计量基准未声明",
+        "unitsVerified": false
+      },
+      "provenance": {
+        "provider": "mcd-mcp",
+        "tool": "list-nutrition-foods",
+        "fetchedAt": "2026-10-21T03:20:35.542Z",
+        "originalName": "蜜汁BBQ风味薄皮脆汁鸡-带骨里脊",
+        "duplicateCount": 1
+      }
+    },
+    {
+      "id": "food-1q139pw",
+      "name": "麦香鱼",
+      "category": "burger",
+      "categorySource": "inferred",
+      "nutrition": {
+        "kcal": 325,
+        "proteinG": 16,
+        "fatG": 13,
+        "carbsG": 35,
+        "sodiumMg": 556,
+        "calciumMg": 99
+      },
+      "basis": {
+        "status": "unverified",
+        "description": "接口所列餐品规格；计量基准未声明",
+        "unitsVerified": false
+      },
+      "provenance": {
+        "provider": "mcd-mcp",
+        "tool": "list-nutrition-foods",
+        "fetchedAt": "2026-10-21T03:20:35.542Z",
+        "originalName": "麦香鱼",
+        "duplicateCount": 1
+      }
+    },
+    {
+      "id": "food-1qe7yso",
+      "name": "可乐大杯",
+      "category": "drink",
+      "categorySource": "inferred",
+      "nutrition": {
+        "kcal": 224,
+        "proteinG": 0,
+        "fatG": 0,
+        "carbsG": 55,
+        "sodiumMg": 0,
+        "calciumMg": 15
+      },
+      "basis": {
+        "status": "unverified",
+        "description": "接口所列餐品规格；计量基准未声明",
+        "unitsVerified": false
+      },
+      "provenance": {
+        "provider": "mcd-mcp",
+        "tool": "list-nutrition-foods",
+        "fetchedAt": "2026-10-21T03:20:35.542Z",
+        "originalName": "可乐大杯",
+        "duplicateCount": 1
+      }
+    },
+    {
+      "id": "food-1quxity",
+      "name": "热浓浓抹茶牛奶大杯",
+      "category": "drink",
+      "categorySource": "inferred",
+      "nutrition": {
+        "kcal": 333,
+        "proteinG": 14,
+        "fatG": 12,
+        "carbsG": 41,
+        "sodiumMg": 142,
+        "calciumMg": 482
+      },
+      "basis": {
+        "status": "unverified",
+        "description": "接口所列餐品规格；计量基准未声明",
+        "unitsVerified": false
+      },
+      "provenance": {
+        "provider": "mcd-mcp",
+        "tool": "list-nutrition-foods",
+        "fetchedAt": "2026-10-21T03:20:35.542Z",
+        "originalName": "热浓浓抹茶牛奶大杯",
+        "duplicateCount": 1
+      }
+    },
+    {
+      "id": "food-1r7ikr4",
+      "name": "yeyeyeye奶冻款",
+      "category": "drink",
+      "categorySource": "inferred",
+      "nutrition": {
+        "kcal": 223,
+        "proteinG": 1,
+        "fatG": 4,
+        "carbsG": 43,
+        "sodiumMg": 37,
+        "calciumMg": 64
+      },
+      "basis": {
+        "status": "unverified",
+        "description": "接口所列餐品规格；计量基准未声明",
+        "unitsVerified": false
+      },
+      "provenance": {
+        "provider": "mcd-mcp",
+        "tool": "list-nutrition-foods",
+        "fetchedAt": "2026-10-21T03:20:35.542Z",
+        "originalName": "yeyeyeye奶冻款",
+        "duplicateCount": 1
+      }
+    },
+    {
+      "id": "food-1r8ja1n",
+      "name": "烟肉蛋麦满分",
+      "category": "breakfast",
+      "categorySource": "inferred",
+      "nutrition": {
+        "kcal": 260,
+        "proteinG": 16,
+        "fatG": 10,
+        "carbsG": 24,
+        "sodiumMg": 483,
+        "calciumMg": 238
+      },
+      "basis": {
+        "status": "unverified",
+        "description": "接口所列餐品规格；计量基准未声明",
+        "unitsVerified": false
+      },
+      "provenance": {
+        "provider": "mcd-mcp",
+        "tool": "list-nutrition-foods",
+        "fetchedAt": "2026-10-21T03:20:35.542Z",
+        "originalName": "烟肉蛋麦满分",
+        "duplicateCount": 1
+      }
+    },
+    {
+      "id": "food-1s2k22e",
+      "name": "麦旋酷阳光橙",
+      "category": "drink",
+      "categorySource": "inferred",
+      "nutrition": {
+        "kcal": 228,
+        "proteinG": 1,
+        "fatG": 2,
+        "carbsG": 50,
+        "sodiumMg": 77,
+        "calciumMg": 52
+      },
+      "basis": {
+        "status": "unverified",
+        "description": "接口所列餐品规格；计量基准未声明",
+        "unitsVerified": false
+      },
+      "provenance": {
+        "provider": "mcd-mcp",
+        "tool": "list-nutrition-foods",
+        "fetchedAt": "2026-10-21T03:20:35.542Z",
+        "originalName": "麦旋酷阳光橙",
+        "duplicateCount": 1
+      }
+    },
+    {
+      "id": "food-1s7bjzh",
+      "name": "苹果片",
+      "category": "side",
+      "categorySource": "inferred",
+      "nutrition": {
+        "kcal": 32,
+        "proteinG": 0,
+        "fatG": 0,
+        "carbsG": 7,
+        "sodiumMg": 0,
+        "calciumMg": 18
+      },
+      "basis": {
+        "status": "unverified",
+        "description": "接口所列餐品规格；计量基准未声明",
+        "unitsVerified": false
+      },
+      "provenance": {
+        "provider": "mcd-mcp",
+        "tool": "list-nutrition-foods",
+        "fetchedAt": "2026-10-21T03:20:35.542Z",
+        "originalName": "苹果片",
+        "duplicateCount": 1
+      }
+    },
+    {
+      "id": "food-1scd55c",
+      "name": "可乐小杯",
+      "category": "drink",
+      "categorySource": "inferred",
+      "nutrition": {
+        "kcal": 107,
+        "proteinG": 0,
+        "fatG": 0,
+        "carbsG": 26,
+        "sodiumMg": 0,
+        "calciumMg": 7
+      },
+      "basis": {
+        "status": "unverified",
+        "description": "接口所列餐品规格；计量基准未声明",
+        "unitsVerified": false
+      },
+      "provenance": {
+        "provider": "mcd-mcp",
+        "tool": "list-nutrition-foods",
+        "fetchedAt": "2026-10-21T03:20:35.542Z",
+        "originalName": "可乐小杯",
+        "duplicateCount": 1
+      }
+    },
+    {
+      "id": "food-1szbhg7",
+      "name": "川宁伯爵红茶",
+      "category": "drink",
+      "categorySource": "inferred",
+      "nutrition": {
+        "kcal": 2,
+        "proteinG": 0,
+        "fatG": 0,
+        "carbsG": 0,
+        "sodiumMg": 0,
+        "calciumMg": 0
+      },
+      "basis": {
+        "status": "unverified",
+        "description": "接口所列餐品规格；计量基准未声明",
+        "unitsVerified": false
+      },
+      "provenance": {
+        "provider": "mcd-mcp",
+        "tool": "list-nutrition-foods",
+        "fetchedAt": "2026-10-21T03:20:35.542Z",
+        "originalName": "川宁伯爵红茶",
+        "duplicateCount": 1
+      }
+    },
+    {
+      "id": "food-1t806bi",
+      "name": "热燕麦奶铁中杯",
+      "category": "drink",
+      "categorySource": "inferred",
+      "nutrition": {
+        "kcal": 167,
+        "proteinG": 4,
+        "fatG": 6,
+        "carbsG": 22,
+        "sodiumMg": 112,
+        "calciumMg": 345
+      },
+      "basis": {
+        "status": "unverified",
+        "description": "接口所列餐品规格；计量基准未声明",
+        "unitsVerified": false
+      },
+      "provenance": {
+        "provider": "mcd-mcp",
+        "tool": "list-nutrition-foods",
+        "fetchedAt": "2026-10-21T03:20:35.542Z",
+        "originalName": "热燕麦奶铁中杯",
+        "duplicateCount": 1
+      }
+    },
+    {
+      "id": "food-1td5571",
+      "name": "芝士安格斯厚牛堡",
+      "category": "burger",
+      "categorySource": "inferred",
+      "nutrition": {
+        "kcal": 696,
+        "proteinG": 32,
+        "fatG": 44,
+        "carbsG": 43,
+        "sodiumMg": 897,
+        "calciumMg": 150
+      },
+      "basis": {
+        "status": "unverified",
+        "description": "接口所列餐品规格；计量基准未声明",
+        "unitsVerified": false
+      },
+      "provenance": {
+        "provider": "mcd-mcp",
+        "tool": "list-nutrition-foods",
+        "fetchedAt": "2026-10-21T03:20:35.542Z",
+        "originalName": "芝士安格斯厚牛堡",
+        "duplicateCount": 1
+      }
+    },
+    {
+      "id": "food-1ttr0zz",
+      "name": "热奶铁小杯",
+      "category": "drink",
+      "categorySource": "inferred",
+      "nutrition": {
+        "kcal": 134,
+        "proteinG": 8,
+        "fatG": 6,
+        "carbsG": 12,
+        "sodiumMg": 72,
+        "calciumMg": 231
+      },
+      "basis": {
+        "status": "unverified",
+        "description": "接口所列餐品规格；计量基准未声明",
+        "unitsVerified": false
+      },
+      "provenance": {
+        "provider": "mcd-mcp",
+        "tool": "list-nutrition-foods",
+        "fetchedAt": "2026-10-21T03:20:35.542Z",
+        "originalName": "热奶铁小杯",
+        "duplicateCount": 1
+      }
+    },
+    {
+      "id": "food-1ubqih9",
+      "name": "热美式大杯",
+      "category": "drink",
+      "categorySource": "inferred",
+      "nutrition": {
+        "kcal": 14,
+        "proteinG": 1,
+        "fatG": 0,
+        "carbsG": 2,
+        "sodiumMg": 0,
+        "calciumMg": 8
+      },
+      "basis": {
+        "status": "unverified",
+        "description": "接口所列餐品规格；计量基准未声明",
+        "unitsVerified": false
+      },
+      "provenance": {
+        "provider": "mcd-mcp",
+        "tool": "list-nutrition-foods",
+        "fetchedAt": "2026-10-21T03:20:35.542Z",
+        "originalName": "热美式大杯",
+        "duplicateCount": 1
+      }
+    },
+    {
+      "id": "food-1uk86h2",
+      "name": "小薯条",
+      "category": "side",
+      "categorySource": "inferred",
+      "nutrition": {
+        "kcal": 210,
+        "proteinG": 3,
+        "fatG": 9,
+        "carbsG": 28,
+        "sodiumMg": 120,
+        "calciumMg": 13
+      },
+      "basis": {
+        "status": "unverified",
+        "description": "接口所列餐品规格；计量基准未声明",
+        "unitsVerified": false
+      },
+      "provenance": {
+        "provider": "mcd-mcp",
+        "tool": "list-nutrition-foods",
+        "fetchedAt": "2026-10-21T03:20:35.542Z",
+        "originalName": "小薯条",
+        "duplicateCount": 1
+      }
+    },
+    {
+      "id": "food-1ukhqae",
+      "name": "浓浓抹茶雪冰中杯",
+      "category": "drink",
+      "categorySource": "inferred",
+      "nutrition": {
+        "kcal": 289,
+        "proteinG": 7,
+        "fatG": 11,
+        "carbsG": 39,
+        "sodiumMg": 181,
+        "calciumMg": 220
+      },
+      "basis": {
+        "status": "unverified",
+        "description": "接口所列餐品规格；计量基准未声明",
+        "unitsVerified": false
+      },
+      "provenance": {
+        "provider": "mcd-mcp",
+        "tool": "list-nutrition-foods",
+        "fetchedAt": "2026-10-21T03:20:35.542Z",
+        "originalName": "浓浓抹茶雪冰中杯",
+        "duplicateCount": 1
+      }
+    },
+    {
+      "id": "food-1uv83i8",
+      "name": "麦辣鸡翅-2块",
+      "category": "side",
+      "categorySource": "inferred",
+      "nutrition": {
+        "kcal": 224,
+        "proteinG": 13,
+        "fatG": 15,
+        "carbsG": 9,
+        "sodiumMg": 537,
+        "calciumMg": 13
+      },
+      "basis": {
+        "status": "unverified",
+        "description": "接口所列餐品规格；计量基准未声明",
+        "unitsVerified": false
+      },
+      "provenance": {
+        "provider": "mcd-mcp",
+        "tool": "list-nutrition-foods",
+        "fetchedAt": "2026-10-21T03:20:35.542Z",
+        "originalName": "麦辣鸡翅-2块",
+        "duplicateCount": 1
+      }
+    },
+    {
+      "id": "food-1w4nnrw",
+      "name": "柠萌风味薄皮焦香V翅",
+      "category": "side",
+      "categorySource": "inferred",
+      "nutrition": {
+        "kcal": 204,
+        "proteinG": 18,
+        "fatG": 11,
+        "carbsG": 6,
+        "sodiumMg": 768,
+        "calciumMg": 22
+      },
+      "basis": {
+        "status": "unverified",
+        "description": "接口所列餐品规格；计量基准未声明",
+        "unitsVerified": false
+      },
+      "provenance": {
+        "provider": "mcd-mcp",
+        "tool": "list-nutrition-foods",
+        "fetchedAt": "2026-10-21T03:20:35.542Z",
+        "originalName": "柠萌风味薄皮焦香V翅",
+        "duplicateCount": 1
+      }
+    },
+    {
+      "id": "food-1w8aq6",
+      "name": "抹茶阿芙佳朵",
+      "category": "dessert",
+      "categorySource": "inferred",
+      "nutrition": {
+        "kcal": 147,
+        "proteinG": 3,
+        "fatG": 4,
+        "carbsG": 23,
+        "sodiumMg": 50,
+        "calciumMg": 136
+      },
+      "basis": {
+        "status": "unverified",
+        "description": "接口所列餐品规格；计量基准未声明",
+        "unitsVerified": false
+      },
+      "provenance": {
+        "provider": "mcd-mcp",
+        "tool": "list-nutrition-foods",
+        "fetchedAt": "2026-10-21T03:20:35.542Z",
+        "originalName": "抹茶阿芙佳朵",
+        "duplicateCount": 1
+      }
+    },
+    {
+      "id": "food-1wtoej7",
+      "name": "热美式中杯",
+      "category": "drink",
+      "categorySource": "inferred",
+      "nutrition": {
+        "kcal": 13,
+        "proteinG": 1,
+        "fatG": 0,
+        "carbsG": 2,
+        "sodiumMg": 0,
+        "calciumMg": 7
+      },
+      "basis": {
+        "status": "unverified",
+        "description": "接口所列餐品规格；计量基准未声明",
+        "unitsVerified": false
+      },
+      "provenance": {
+        "provider": "mcd-mcp",
+        "tool": "list-nutrition-foods",
+        "fetchedAt": "2026-10-21T03:20:35.542Z",
+        "originalName": "热美式中杯",
+        "duplicateCount": 1
+      }
+    },
+    {
+      "id": "food-1y0f7m7",
+      "name": "纯牛奶（盒装）",
+      "category": "drink",
+      "categorySource": "inferred",
+      "nutrition": {
+        "kcal": 129,
+        "proteinG": 7,
+        "fatG": 7,
+        "carbsG": 10,
+        "sodiumMg": 73,
+        "calciumMg": 231
+      },
+      "basis": {
+        "status": "unverified",
+        "description": "接口所列餐品规格；计量基准未声明",
+        "unitsVerified": false
+      },
+      "provenance": {
+        "provider": "mcd-mcp",
+        "tool": "list-nutrition-foods",
+        "fetchedAt": "2026-10-21T03:20:35.542Z",
+        "originalName": "纯牛奶（盒装）",
+        "duplicateCount": 2
+      }
+    },
+    {
+      "id": "food-1yj2bro",
+      "name": "雪碧小杯",
+      "category": "drink",
+      "categorySource": "inferred",
+      "nutrition": {
+        "kcal": 76,
+        "proteinG": 0,
+        "fatG": 0,
+        "carbsG": 19,
+        "sodiumMg": 21,
+        "calciumMg": 0
+      },
+      "basis": {
+        "status": "unverified",
+        "description": "接口所列餐品规格；计量基准未声明",
+        "unitsVerified": false
+      },
+      "provenance": {
+        "provider": "mcd-mcp",
+        "tool": "list-nutrition-foods",
+        "fetchedAt": "2026-10-21T03:20:35.542Z",
+        "originalName": "雪碧小杯",
+        "duplicateCount": 1
+      }
+    },
+    {
+      "id": "food-1yppnpf",
+      "name": "草莓拉明顿",
+      "category": "dessert",
+      "categorySource": "inferred",
+      "nutrition": {
+        "kcal": 121,
+        "proteinG": 2,
+        "fatG": 8,
+        "carbsG": 11,
+        "sodiumMg": 34,
+        "calciumMg": 17
+      },
+      "basis": {
+        "status": "unverified",
+        "description": "接口所列餐品规格；计量基准未声明",
+        "unitsVerified": false
+      },
+      "provenance": {
+        "provider": "mcd-mcp",
+        "tool": "list-nutrition-foods",
+        "fetchedAt": "2026-10-21T03:20:35.542Z",
+        "originalName": "草莓拉明顿",
+        "duplicateCount": 1
+      }
+    },
+    {
+      "id": "food-2aaahz",
+      "name": "浓浓黑巧雪冰大杯",
+      "category": "drink",
+      "categorySource": "inferred",
+      "nutrition": {
+        "kcal": 444,
+        "proteinG": 11,
+        "fatG": 14,
+        "carbsG": 65,
+        "sodiumMg": 258,
+        "calciumMg": 251
+      },
+      "basis": {
+        "status": "unverified",
+        "description": "接口所列餐品规格；计量基准未声明",
+        "unitsVerified": false
+      },
+      "provenance": {
+        "provider": "mcd-mcp",
+        "tool": "list-nutrition-foods",
+        "fetchedAt": "2026-10-21T03:20:35.542Z",
+        "originalName": "浓浓黑巧雪冰大杯",
+        "duplicateCount": 1
+      }
+    },
+    {
+      "id": "food-2tjgic",
+      "name": "冰焦糖玛奇朵",
+      "category": "drink",
+      "categorySource": "inferred",
+      "nutrition": {
+        "kcal": 148,
+        "proteinG": 8,
+        "fatG": 7,
+        "carbsG": 13,
+        "sodiumMg": 77,
+        "calciumMg": 251
+      },
+      "basis": {
+        "status": "unverified",
+        "description": "接口所列餐品规格；计量基准未声明",
+        "unitsVerified": false
+      },
+      "provenance": {
+        "provider": "mcd-mcp",
+        "tool": "list-nutrition-foods",
+        "fetchedAt": "2026-10-21T03:20:35.542Z",
+        "originalName": "冰焦糖玛奇朵",
+        "duplicateCount": 1
+      }
+    },
+    {
+      "id": "food-2vziy7",
+      "name": "小杯鲜萃咖啡",
+      "category": "drink",
+      "categorySource": "inferred",
+      "nutrition": {
+        "kcal": 15,
+        "proteinG": 1,
+        "fatG": 0,
+        "carbsG": 3,
+        "sodiumMg": 2,
+        "calciumMg": 6
+      },
+      "basis": {
+        "status": "unverified",
+        "description": "接口所列餐品规格；计量基准未声明",
+        "unitsVerified": false
+      },
+      "provenance": {
+        "provider": "mcd-mcp",
+        "tool": "list-nutrition-foods",
+        "fetchedAt": "2026-10-21T03:20:35.542Z",
+        "originalName": "小杯鲜萃咖啡",
+        "duplicateCount": 1
+      }
+    },
+    {
+      "id": "food-3ahja4",
+      "name": "冰美式中杯",
+      "category": "drink",
+      "categorySource": "inferred",
+      "nutrition": {
+        "kcal": 13,
+        "proteinG": 1,
+        "fatG": 0,
+        "carbsG": 2,
+        "sodiumMg": 0,
+        "calciumMg": 7
+      },
+      "basis": {
+        "status": "unverified",
+        "description": "接口所列餐品规格；计量基准未声明",
+        "unitsVerified": false
+      },
+      "provenance": {
+        "provider": "mcd-mcp",
+        "tool": "list-nutrition-foods",
+        "fetchedAt": "2026-10-21T03:20:35.542Z",
+        "originalName": "冰美式中杯",
+        "duplicateCount": 1
+      }
+    },
+    {
+      "id": "food-3ri8ti",
+      "name": "绝代双翅",
+      "category": "side",
+      "categorySource": "inferred",
+      "nutrition": {
+        "kcal": 469,
+        "proteinG": 32,
+        "fatG": 27,
+        "carbsG": 23,
+        "sodiumMg": 1167,
+        "calciumMg": 34
+      },
+      "basis": {
+        "status": "unverified",
+        "description": "接口所列餐品规格；计量基准未声明",
+        "unitsVerified": false
+      },
+      "provenance": {
+        "provider": "mcd-mcp",
+        "tool": "list-nutrition-foods",
+        "fetchedAt": "2026-10-21T03:20:35.542Z",
+        "originalName": "绝代双翅",
+        "duplicateCount": 1
+      }
+    },
+    {
+      "id": "food-4numco",
+      "name": "冰浓浓燕麦黑巧大杯",
+      "category": "drink",
+      "categorySource": "inferred",
+      "nutrition": {
+        "kcal": 131,
+        "proteinG": 3,
+        "fatG": 5,
+        "carbsG": 17,
+        "sodiumMg": 95,
+        "calciumMg": 388
+      },
+      "basis": {
+        "status": "unverified",
+        "description": "接口所列餐品规格；计量基准未声明",
+        "unitsVerified": false
+      },
+      "provenance": {
+        "provider": "mcd-mcp",
+        "tool": "list-nutrition-foods",
+        "fetchedAt": "2026-10-21T03:20:35.542Z",
+        "originalName": "冰浓浓燕麦黑巧大杯",
+        "duplicateCount": 1
+      }
+    },
+    {
+      "id": "food-4yy568",
+      "name": "热浓浓抹茶牛奶中杯",
+      "category": "drink",
+      "categorySource": "inferred",
+      "nutrition": {
+        "kcal": 238,
+        "proteinG": 11,
+        "fatG": 8,
+        "carbsG": 29,
+        "sodiumMg": 104,
+        "calciumMg": 351
+      },
+      "basis": {
+        "status": "unverified",
+        "description": "接口所列餐品规格；计量基准未声明",
+        "unitsVerified": false
+      },
+      "provenance": {
+        "provider": "mcd-mcp",
+        "tool": "list-nutrition-foods",
+        "fetchedAt": "2026-10-21T03:20:35.542Z",
+        "originalName": "热浓浓抹茶牛奶中杯",
+        "duplicateCount": 1
+      }
+    },
+    {
+      "id": "food-4zfycf",
+      "name": "鸡肉蛋沙拉叠叠卷",
+      "category": "side",
+      "categorySource": "inferred",
+      "nutrition": {
+        "kcal": 387,
+        "proteinG": 17,
+        "fatG": 21,
+        "carbsG": 31,
+        "sodiumMg": 842,
+        "calciumMg": 67
+      },
+      "basis": {
+        "status": "unverified",
+        "description": "接口所列餐品规格；计量基准未声明",
+        "unitsVerified": false
+      },
+      "provenance": {
+        "provider": "mcd-mcp",
+        "tool": "list-nutrition-foods",
+        "fetchedAt": "2026-10-21T03:20:35.542Z",
+        "originalName": "鸡肉蛋沙拉叠叠卷",
+        "duplicateCount": 1
+      }
+    },
+    {
+      "id": "food-5jded4",
+      "name": "特浓奶香雪冰大杯",
+      "category": "drink",
+      "categorySource": "inferred",
+      "nutrition": {
+        "kcal": 309,
+        "proteinG": 7,
+        "fatG": 12,
+        "carbsG": 42,
+        "sodiumMg": 192,
+        "calciumMg": 223
+      },
+      "basis": {
+        "status": "unverified",
+        "description": "接口所列餐品规格；计量基准未声明",
+        "unitsVerified": false
+      },
+      "provenance": {
+        "provider": "mcd-mcp",
+        "tool": "list-nutrition-foods",
+        "fetchedAt": "2026-10-21T03:20:35.542Z",
+        "originalName": "特浓奶香雪冰大杯",
+        "duplicateCount": 1
+      }
+    },
+    {
+      "id": "food-5lxxqd",
+      "name": "脆脆薯条",
+      "category": "side",
+      "categorySource": "inferred",
+      "nutrition": {
+        "kcal": 279,
+        "proteinG": 4,
+        "fatG": 14,
+        "carbsG": 32,
+        "sodiumMg": 540,
+        "calciumMg": 13
+      },
+      "basis": {
+        "status": "unverified",
+        "description": "接口所列餐品规格；计量基准未声明",
+        "unitsVerified": false
+      },
+      "provenance": {
+        "provider": "mcd-mcp",
+        "tool": "list-nutrition-foods",
+        "fetchedAt": "2026-10-21T03:20:35.542Z",
+        "originalName": "脆脆薯条",
+        "duplicateCount": 1
+      }
+    },
+    {
+      "id": "food-5ohq57",
+      "name": "图林根香肠早安营养卷",
+      "category": "breakfast",
+      "categorySource": "inferred",
+      "nutrition": {
+        "kcal": 425,
+        "proteinG": 14,
+        "fatG": 23,
+        "carbsG": 38,
+        "sodiumMg": 977,
+        "calciumMg": 68
+      },
+      "basis": {
+        "status": "unverified",
+        "description": "接口所列餐品规格；计量基准未声明",
+        "unitsVerified": false
+      },
+      "provenance": {
+        "provider": "mcd-mcp",
+        "tool": "list-nutrition-foods",
+        "fetchedAt": "2026-10-21T03:20:35.542Z",
+        "originalName": "图林根香肠早安营养卷",
+        "duplicateCount": 1
+      }
+    },
+    {
+      "id": "food-6ia769",
+      "name": "浓浓黑巧雪冰中杯",
+      "category": "drink",
+      "categorySource": "inferred",
+      "nutrition": {
+        "kcal": 359,
+        "proteinG": 8,
+        "fatG": 12,
+        "carbsG": 51,
+        "sodiumMg": 224,
+        "calciumMg": 207
+      },
+      "basis": {
+        "status": "unverified",
+        "description": "接口所列餐品规格；计量基准未声明",
+        "unitsVerified": false
+      },
+      "provenance": {
+        "provider": "mcd-mcp",
+        "tool": "list-nutrition-foods",
+        "fetchedAt": "2026-10-21T03:20:35.542Z",
+        "originalName": "浓浓黑巧雪冰中杯",
+        "duplicateCount": 1
+      }
+    },
+    {
+      "id": "food-6wb0cq",
+      "name": "冰美式小杯",
+      "category": "drink",
+      "categorySource": "inferred",
+      "nutrition": {
+        "kcal": 10,
+        "proteinG": 1,
+        "fatG": 0,
+        "carbsG": 1,
+        "sodiumMg": 0,
+        "calciumMg": 6
+      },
+      "basis": {
+        "status": "unverified",
+        "description": "接口所列餐品规格；计量基准未声明",
+        "unitsVerified": false
+      },
+      "provenance": {
+        "provider": "mcd-mcp",
+        "tool": "list-nutrition-foods",
+        "fetchedAt": "2026-10-21T03:20:35.542Z",
+        "originalName": "冰美式小杯",
+        "duplicateCount": 1
+      }
+    },
+    {
+      "id": "food-71ivrc",
+      "name": "小杯玉米杯",
+      "category": "side",
+      "categorySource": "inferred",
+      "nutrition": {
+        "kcal": 53,
+        "proteinG": 2,
+        "fatG": 1,
+        "carbsG": 7,
+        "sodiumMg": 1,
+        "calciumMg": 6
+      },
+      "basis": {
+        "status": "unverified",
+        "description": "接口所列餐品规格；计量基准未声明",
+        "unitsVerified": false
+      },
+      "provenance": {
+        "provider": "mcd-mcp",
+        "tool": "list-nutrition-foods",
+        "fetchedAt": "2026-10-21T03:20:35.542Z",
+        "originalName": "小杯玉米杯",
+        "duplicateCount": 2
+      }
+    },
+    {
+      "id": "food-8pgvoi",
+      "name": "雪碧中杯",
+      "category": "drink",
+      "categorySource": "inferred",
+      "nutrition": {
+        "kcal": 105,
+        "proteinG": 0,
+        "fatG": 0,
+        "carbsG": 26,
+        "sodiumMg": 29,
+        "calciumMg": 0
+      },
+      "basis": {
+        "status": "unverified",
+        "description": "接口所列餐品规格；计量基准未声明",
+        "unitsVerified": false
+      },
+      "provenance": {
+        "provider": "mcd-mcp",
+        "tool": "list-nutrition-foods",
+        "fetchedAt": "2026-10-21T03:20:35.542Z",
+        "originalName": "雪碧中杯",
+        "duplicateCount": 1
+      }
+    },
+    {
+      "id": "food-9366dn",
+      "name": "麦乐鸡4块",
+      "category": "side",
+      "categorySource": "inferred",
+      "nutrition": {
+        "kcal": 170,
+        "proteinG": 10,
+        "fatG": 10,
+        "carbsG": 11,
+        "sodiumMg": 337,
+        "calciumMg": 7
+      },
+      "basis": {
+        "status": "unverified",
+        "description": "接口所列餐品规格；计量基准未声明",
+        "unitsVerified": false
+      },
+      "provenance": {
+        "provider": "mcd-mcp",
+        "tool": "list-nutrition-foods",
+        "fetchedAt": "2026-10-21T03:20:35.542Z",
+        "originalName": "麦乐鸡4块",
+        "duplicateCount": 1
+      }
+    },
+    {
+      "id": "food-9any2j",
+      "name": "大杯怡泉+C",
+      "category": "drink",
+      "categorySource": "inferred",
+      "nutrition": {
+        "kcal": 168,
+        "proteinG": 0,
+        "fatG": 0,
+        "carbsG": 41,
+        "sodiumMg": 0,
+        "calciumMg": 0
+      },
+      "basis": {
+        "status": "unverified",
+        "description": "接口所列餐品规格；计量基准未声明",
+        "unitsVerified": false
+      },
+      "provenance": {
+        "provider": "mcd-mcp",
+        "tool": "list-nutrition-foods",
+        "fetchedAt": "2026-10-21T03:20:35.542Z",
+        "originalName": "大杯怡泉+C",
+        "duplicateCount": 1
+      }
+    },
+    {
+      "id": "food-a49rzm",
+      "name": "冰美式大杯",
+      "category": "drink",
+      "categorySource": "inferred",
+      "nutrition": {
+        "kcal": 14,
+        "proteinG": 1,
+        "fatG": 0,
+        "carbsG": 2,
+        "sodiumMg": 0,
+        "calciumMg": 8
+      },
+      "basis": {
+        "status": "unverified",
+        "description": "接口所列餐品规格；计量基准未声明",
+        "unitsVerified": false
+      },
+      "provenance": {
+        "provider": "mcd-mcp",
+        "tool": "list-nutrition-foods",
+        "fetchedAt": "2026-10-21T03:20:35.542Z",
+        "originalName": "冰美式大杯",
+        "duplicateCount": 1
+      }
+    },
+    {
+      "id": "food-ac8jqg",
+      "name": "热燕麦奶铁大杯",
+      "category": "drink",
+      "categorySource": "inferred",
+      "nutrition": {
+        "kcal": 222,
+        "proteinG": 5,
+        "fatG": 8,
+        "carbsG": 29,
+        "sodiumMg": 152,
+        "calciumMg": 464
+      },
+      "basis": {
+        "status": "unverified",
+        "description": "接口所列餐品规格；计量基准未声明",
+        "unitsVerified": false
+      },
+      "provenance": {
+        "provider": "mcd-mcp",
+        "tool": "list-nutrition-foods",
+        "fetchedAt": "2026-10-21T03:20:35.542Z",
+        "originalName": "热燕麦奶铁大杯",
+        "duplicateCount": 1
+      }
+    },
+    {
+      "id": "food-aryrvr",
+      "name": "大杯鲜萃咖啡",
+      "category": "drink",
+      "categorySource": "inferred",
+      "nutrition": {
+        "kcal": 13,
+        "proteinG": 1,
+        "fatG": 0,
+        "carbsG": 0,
+        "sodiumMg": 3,
+        "calciumMg": 8
+      },
+      "basis": {
+        "status": "unverified",
+        "description": "接口所列餐品规格；计量基准未声明",
+        "unitsVerified": false
+      },
+      "provenance": {
+        "provider": "mcd-mcp",
+        "tool": "list-nutrition-foods",
+        "fetchedAt": "2026-10-21T03:20:35.542Z",
+        "originalName": "大杯鲜萃咖啡",
+        "duplicateCount": 1
+      }
+    },
+    {
+      "id": "food-c7xeq1",
+      "name": "香芋派",
+      "category": "dessert",
+      "categorySource": "inferred",
+      "nutrition": {
+        "kcal": 232,
+        "proteinG": 2,
+        "fatG": 12,
+        "carbsG": 28,
+        "sodiumMg": 159,
+        "calciumMg": 7
+      },
+      "basis": {
+        "status": "unverified",
+        "description": "接口所列餐品规格；计量基准未声明",
+        "unitsVerified": false
+      },
+      "provenance": {
+        "provider": "mcd-mcp",
+        "tool": "list-nutrition-foods",
+        "fetchedAt": "2026-10-21T03:20:35.542Z",
+        "originalName": "香芋派",
+        "duplicateCount": 1
+      }
+    },
+    {
+      "id": "food-c9naz0",
+      "name": "双层原味板烧鸡腿麦满分",
+      "category": "breakfast",
+      "categorySource": "inferred",
+      "nutrition": {
+        "kcal": 355,
+        "proteinG": 23,
+        "fatG": 17,
+        "carbsG": 27,
+        "sodiumMg": 984,
+        "calciumMg": 138
+      },
+      "basis": {
+        "status": "unverified",
+        "description": "接口所列餐品规格；计量基准未声明",
+        "unitsVerified": false
+      },
+      "provenance": {
+        "provider": "mcd-mcp",
+        "tool": "list-nutrition-foods",
+        "fetchedAt": "2026-10-21T03:20:35.542Z",
+        "originalName": "双层原味板烧鸡腿麦满分",
+        "duplicateCount": 1
+      }
+    },
+    {
+      "id": "food-ca997o",
+      "name": "猪柳蛋麦满分",
+      "category": "breakfast",
+      "categorySource": "inferred",
+      "nutrition": {
+        "kcal": 387,
+        "proteinG": 23,
+        "fatG": 21,
+        "carbsG": 25,
+        "sodiumMg": 846,
+        "calciumMg": 243
+      },
+      "basis": {
+        "status": "unverified",
+        "description": "接口所列餐品规格；计量基准未声明",
+        "unitsVerified": false
+      },
+      "provenance": {
+        "provider": "mcd-mcp",
+        "tool": "list-nutrition-foods",
+        "fetchedAt": "2026-10-21T03:20:35.542Z",
+        "originalName": "猪柳蛋麦满分",
+        "duplicateCount": 1
+      }
+    },
+    {
+      "id": "food-cadq34",
+      "name": "热燕麦奶铁小杯",
+      "category": "drink",
+      "categorySource": "inferred",
+      "nutrition": {
+        "kcal": 120,
+        "proteinG": 3,
+        "fatG": 5,
+        "carbsG": 16,
+        "sodiumMg": 81,
+        "calciumMg": 248
+      },
+      "basis": {
+        "status": "unverified",
+        "description": "接口所列餐品规格；计量基准未声明",
+        "unitsVerified": false
+      },
+      "provenance": {
+        "provider": "mcd-mcp",
+        "tool": "list-nutrition-foods",
+        "fetchedAt": "2026-10-21T03:20:35.542Z",
+        "originalName": "热燕麦奶铁小杯",
+        "duplicateCount": 1
+      }
+    },
+    {
+      "id": "food-cpz2a7",
+      "name": "热浓浓燕麦黑巧大杯",
+      "category": "drink",
+      "categorySource": "inferred",
+      "nutrition": {
+        "kcal": 213,
+        "proteinG": 4,
+        "fatG": 8,
+        "carbsG": 28,
+        "sodiumMg": 156,
+        "calciumMg": 469
+      },
+      "basis": {
+        "status": "unverified",
+        "description": "接口所列餐品规格；计量基准未声明",
+        "unitsVerified": false
+      },
+      "provenance": {
+        "provider": "mcd-mcp",
+        "tool": "list-nutrition-foods",
+        "fetchedAt": "2026-10-21T03:20:35.542Z",
+        "originalName": "热浓浓燕麦黑巧大杯",
+        "duplicateCount": 1
+      }
+    },
+    {
+      "id": "food-dhl8fo",
+      "name": "优品豆浆小杯",
+      "category": "drink",
+      "categorySource": "inferred",
+      "nutrition": {
+        "kcal": 151,
+        "proteinG": 6,
+        "fatG": 3,
+        "carbsG": 25,
+        "sodiumMg": 32,
+        "calciumMg": 15
+      },
+      "basis": {
+        "status": "unverified",
+        "description": "接口所列餐品规格；计量基准未声明",
+        "unitsVerified": false
+      },
+      "provenance": {
+        "provider": "mcd-mcp",
+        "tool": "list-nutrition-foods",
+        "fetchedAt": "2026-10-21T03:20:35.542Z",
+        "originalName": "优品豆浆小杯",
+        "duplicateCount": 1
+      }
+    },
+    {
+      "id": "food-diqww2",
+      "name": "双层火腿扒麦满分",
+      "category": "breakfast",
+      "categorySource": "inferred",
+      "nutrition": {
+        "kcal": 385,
+        "proteinG": 21,
+        "fatG": 22,
+        "carbsG": 26,
+        "sodiumMg": 979,
+        "calciumMg": 134
+      },
+      "basis": {
+        "status": "unverified",
+        "description": "接口所列餐品规格；计量基准未声明",
+        "unitsVerified": false
+      },
+      "provenance": {
+        "provider": "mcd-mcp",
+        "tool": "list-nutrition-foods",
+        "fetchedAt": "2026-10-21T03:20:35.542Z",
+        "originalName": "双层火腿扒麦满分",
+        "duplicateCount": 1
+      }
+    },
+    {
+      "id": "food-du09pj",
+      "name": "薄皮焦香V翅",
+      "category": "side",
+      "categorySource": "inferred",
+      "nutrition": {
+        "kcal": 192,
+        "proteinG": 17,
+        "fatG": 11,
+        "carbsG": 6,
+        "sodiumMg": 594,
+        "calciumMg": 15
+      },
+      "basis": {
+        "status": "unverified",
+        "description": "接口所列餐品规格；计量基准未声明",
+        "unitsVerified": false
+      },
+      "provenance": {
+        "provider": "mcd-mcp",
+        "tool": "list-nutrition-foods",
+        "fetchedAt": "2026-10-21T03:20:35.542Z",
+        "originalName": "薄皮焦香V翅",
+        "duplicateCount": 1
+      }
+    },
+    {
+      "id": "food-e9sudr",
+      "name": "培根安格斯厚牛堡",
+      "category": "burger",
+      "categorySource": "inferred",
+      "nutrition": {
+        "kcal": 707,
+        "proteinG": 34,
+        "fatG": 44,
+        "carbsG": 43,
+        "sodiumMg": 1037,
+        "calciumMg": 161
+      },
+      "basis": {
+        "status": "unverified",
+        "description": "接口所列餐品规格；计量基准未声明",
+        "unitsVerified": false
+      },
+      "provenance": {
+        "provider": "mcd-mcp",
+        "tool": "list-nutrition-foods",
+        "fetchedAt": "2026-10-21T03:20:35.542Z",
+        "originalName": "培根安格斯厚牛堡",
+        "duplicateCount": 1
+      }
+    },
+    {
+      "id": "food-ee2x99",
+      "name": "草莓新地",
+      "category": "dessert",
+      "categorySource": "inferred",
+      "nutrition": {
+        "kcal": 245,
+        "proteinG": 4,
+        "fatG": 6,
+        "carbsG": 43,
+        "sodiumMg": 84,
+        "calciumMg": 158
+      },
+      "basis": {
+        "status": "unverified",
+        "description": "接口所列餐品规格；计量基准未声明",
+        "unitsVerified": false
+      },
+      "provenance": {
+        "provider": "mcd-mcp",
+        "tool": "list-nutrition-foods",
+        "fetchedAt": "2026-10-21T03:20:35.542Z",
+        "originalName": "草莓新地",
+        "duplicateCount": 1
+      }
+    },
+    {
+      "id": "food-en2nw8",
+      "name": "草莓麦旋风",
+      "category": "dessert",
+      "categorySource": "inferred",
+      "nutrition": {
+        "kcal": 295,
+        "proteinG": 6,
+        "fatG": 9,
+        "carbsG": 47,
+        "sodiumMg": 122,
+        "calciumMg": 186
+      },
+      "basis": {
+        "status": "unverified",
+        "description": "接口所列餐品规格；计量基准未声明",
+        "unitsVerified": false
+      },
+      "provenance": {
+        "provider": "mcd-mcp",
+        "tool": "list-nutrition-foods",
+        "fetchedAt": "2026-10-21T03:20:35.542Z",
+        "originalName": "草莓麦旋风",
+        "duplicateCount": 1
+      }
+    },
+    {
+      "id": "food-fbofdd",
+      "name": "冰浓浓黑巧中杯",
+      "category": "drink",
+      "categorySource": "inferred",
+      "nutrition": {
+        "kcal": 135,
+        "proteinG": 8,
+        "fatG": 6,
+        "carbsG": 12,
+        "sodiumMg": 77,
+        "calciumMg": 244
+      },
+      "basis": {
+        "status": "unverified",
+        "description": "接口所列餐品规格；计量基准未声明",
+        "unitsVerified": false
+      },
+      "provenance": {
+        "provider": "mcd-mcp",
+        "tool": "list-nutrition-foods",
+        "fetchedAt": "2026-10-21T03:20:35.542Z",
+        "originalName": "冰浓浓黑巧中杯",
+        "duplicateCount": 1
+      }
+    },
+    {
+      "id": "food-flo1sg",
+      "name": "牛气满满",
+      "category": "other",
+      "categorySource": "unknown",
+      "nutrition": {
+        "kcal": 495,
+        "proteinG": 26,
+        "fatG": 24,
+        "carbsG": 42,
+        "sodiumMg": 764,
+        "calciumMg": 79
+      },
+      "basis": {
+        "status": "unverified",
+        "description": "接口所列餐品规格；计量基准未声明",
+        "unitsVerified": false
+      },
+      "provenance": {
+        "provider": "mcd-mcp",
+        "tool": "list-nutrition-foods",
+        "fetchedAt": "2026-10-21T03:20:35.542Z",
+        "originalName": "牛气满满",
+        "duplicateCount": 1
+      }
+    },
+    {
+      "id": "food-fwjmcd",
+      "name": "100%苹果汁",
+      "category": "drink",
+      "categorySource": "inferred",
+      "nutrition": {
+        "kcal": 88,
+        "proteinG": 0,
+        "fatG": 0,
+        "carbsG": 21,
+        "sodiumMg": 0,
+        "calciumMg": 0
+      },
+      "basis": {
+        "status": "unverified",
+        "description": "接口所列餐品规格；计量基准未声明",
+        "unitsVerified": false
+      },
+      "provenance": {
+        "provider": "mcd-mcp",
+        "tool": "list-nutrition-foods",
+        "fetchedAt": "2026-10-21T03:20:35.542Z",
+        "originalName": "100%苹果汁",
+        "duplicateCount": 1
+      }
+    },
+    {
+      "id": "food-g0jx5j",
+      "name": "原味板烧鸡腿炒双蛋堡",
+      "category": "breakfast",
+      "categorySource": "inferred",
+      "nutrition": {
+        "kcal": 419,
+        "proteinG": 27,
+        "fatG": 21,
+        "carbsG": 30,
+        "sodiumMg": 715,
+        "calciumMg": 116
+      },
+      "basis": {
+        "status": "unverified",
+        "description": "接口所列餐品规格；计量基准未声明",
+        "unitsVerified": false
+      },
+      "provenance": {
+        "provider": "mcd-mcp",
+        "tool": "list-nutrition-foods",
+        "fetchedAt": "2026-10-21T03:20:35.542Z",
+        "originalName": "原味板烧鸡腿炒双蛋堡",
+        "duplicateCount": 1
+      }
+    },
+    {
+      "id": "food-h5mjyp",
+      "name": "热焦糖玛奇朵",
+      "category": "drink",
+      "categorySource": "inferred",
+      "nutrition": {
+        "kcal": 167,
+        "proteinG": 9,
+        "fatG": 7,
+        "carbsG": 15,
+        "sodiumMg": 88,
+        "calciumMg": 284
+      },
+      "basis": {
+        "status": "unverified",
+        "description": "接口所列餐品规格；计量基准未声明",
+        "unitsVerified": false
+      },
+      "provenance": {
+        "provider": "mcd-mcp",
+        "tool": "list-nutrition-foods",
+        "fetchedAt": "2026-10-21T03:20:35.542Z",
+        "originalName": "热焦糖玛奇朵",
+        "duplicateCount": 1
+      }
+    },
+    {
+      "id": "food-hl6o4p",
+      "name": "奥利奥麦旋风",
+      "category": "dessert",
+      "categorySource": "inferred",
+      "nutrition": {
+        "kcal": 266,
+        "proteinG": 5,
+        "fatG": 9,
+        "carbsG": 40,
+        "sodiumMg": 116,
+        "calciumMg": 185
+      },
+      "basis": {
+        "status": "unverified",
+        "description": "接口所列餐品规格；计量基准未声明",
+        "unitsVerified": false
+      },
+      "provenance": {
+        "provider": "mcd-mcp",
+        "tool": "list-nutrition-foods",
+        "fetchedAt": "2026-10-21T03:20:35.542Z",
+        "originalName": "奥利奥麦旋风",
+        "duplicateCount": 1
+      }
+    },
+    {
+      "id": "food-ik08hl",
+      "name": "双层深海鳕鱼堡",
+      "category": "burger",
+      "categorySource": "inferred",
+      "nutrition": {
+        "kcal": 485,
+        "proteinG": 28,
+        "fatG": 21,
+        "carbsG": 46,
+        "sodiumMg": 917,
+        "calciumMg": 147
+      },
+      "basis": {
+        "status": "unverified",
+        "description": "接口所列餐品规格；计量基准未声明",
+        "unitsVerified": false
+      },
+      "provenance": {
+        "provider": "mcd-mcp",
+        "tool": "list-nutrition-foods",
+        "fetchedAt": "2026-10-21T03:20:35.542Z",
+        "originalName": "双层深海鳕鱼堡",
+        "duplicateCount": 1
+      }
+    },
+    {
+      "id": "food-j3hdcq",
+      "name": "麦麦脆汁鸡-琵琶腿",
+      "category": "side",
+      "categorySource": "inferred",
+      "nutrition": {
+        "kcal": 328,
+        "proteinG": 21,
+        "fatG": 20,
+        "carbsG": 16,
+        "sodiumMg": 905,
+        "calciumMg": 24
+      },
+      "basis": {
+        "status": "unverified",
+        "description": "接口所列餐品规格；计量基准未声明",
+        "unitsVerified": false
+      },
+      "provenance": {
+        "provider": "mcd-mcp",
+        "tool": "list-nutrition-foods",
+        "fetchedAt": "2026-10-21T03:20:35.542Z",
+        "originalName": "麦麦脆汁鸡-琵琶腿",
+        "duplicateCount": 1
+      }
+    },
+    {
+      "id": "food-jk78m5",
+      "name": "蜜汁快乐",
+      "category": "other",
+      "categorySource": "unknown",
+      "nutrition": {
+        "kcal": 258,
+        "proteinG": 22,
+        "fatG": 9,
+        "carbsG": 20,
+        "sodiumMg": 721,
+        "calciumMg": 34
+      },
+      "basis": {
+        "status": "unverified",
+        "description": "接口所列餐品规格；计量基准未声明",
+        "unitsVerified": false
+      },
+      "provenance": {
+        "provider": "mcd-mcp",
+        "tool": "list-nutrition-foods",
+        "fetchedAt": "2026-10-21T03:20:35.542Z",
+        "originalName": "蜜汁快乐",
+        "duplicateCount": 1
+      }
+    },
+    {
+      "id": "food-kha24k",
+      "name": "大脆鸡扒麦满分",
+      "category": "breakfast",
+      "categorySource": "inferred",
+      "nutrition": {
+        "kcal": 361,
+        "proteinG": 16,
+        "fatG": 17,
+        "carbsG": 35,
+        "sodiumMg": 804,
+        "calciumMg": 130
+      },
+      "basis": {
+        "status": "unverified",
+        "description": "接口所列餐品规格；计量基准未声明",
+        "unitsVerified": false
+      },
+      "provenance": {
+        "provider": "mcd-mcp",
+        "tool": "list-nutrition-foods",
+        "fetchedAt": "2026-10-21T03:20:35.542Z",
+        "originalName": "大脆鸡扒麦满分",
+        "duplicateCount": 1
+      }
+    },
+    {
+      "id": "food-kk5ttm",
+      "name": "脆薯饼",
+      "category": "breakfast",
+      "categorySource": "inferred",
+      "nutrition": {
+        "kcal": 146,
+        "proteinG": 1,
+        "fatG": 9,
+        "carbsG": 14,
+        "sodiumMg": 311,
+        "calciumMg": 7
+      },
+      "basis": {
+        "status": "unverified",
+        "description": "接口所列餐品规格；计量基准未声明",
+        "unitsVerified": false
+      },
+      "provenance": {
+        "provider": "mcd-mcp",
+        "tool": "list-nutrition-foods",
+        "fetchedAt": "2026-10-21T03:20:35.542Z",
+        "originalName": "脆薯饼",
+        "duplicateCount": 1
+      }
+    },
+    {
+      "id": "food-lqtsa1",
+      "name": "热浓浓燕麦黑巧中杯",
+      "category": "drink",
+      "categorySource": "inferred",
+      "nutrition": {
+        "kcal": 157,
+        "proteinG": 3,
+        "fatG": 6,
+        "carbsG": 21,
+        "sodiumMg": 114,
+        "calciumMg": 344
+      },
+      "basis": {
+        "status": "unverified",
+        "description": "接口所列餐品规格；计量基准未声明",
+        "unitsVerified": false
+      },
+      "provenance": {
+        "provider": "mcd-mcp",
+        "tool": "list-nutrition-foods",
+        "fetchedAt": "2026-10-21T03:20:35.542Z",
+        "originalName": "热浓浓燕麦黑巧中杯",
+        "duplicateCount": 1
+      }
+    },
+    {
+      "id": "food-m7zjnv",
+      "name": "热燕麦奶中杯",
+      "category": "drink",
+      "categorySource": "inferred",
+      "nutrition": {
+        "kcal": 157,
+        "proteinG": 3,
+        "fatG": 6,
+        "carbsG": 21,
+        "sodiumMg": 114,
+        "calciumMg": 344
+      },
+      "basis": {
+        "status": "unverified",
+        "description": "接口所列餐品规格；计量基准未声明",
+        "unitsVerified": false
+      },
+      "provenance": {
+        "provider": "mcd-mcp",
+        "tool": "list-nutrition-foods",
+        "fetchedAt": "2026-10-21T03:20:35.542Z",
+        "originalName": "热燕麦奶中杯",
+        "duplicateCount": 1
+      }
+    },
+    {
+      "id": "food-mhdbfy",
+      "name": "双层猪柳蛋麦满分",
+      "category": "breakfast",
+      "categorySource": "inferred",
+      "nutrition": {
+        "kcal": 513,
+        "proteinG": 29,
+        "fatG": 32,
+        "carbsG": 26,
+        "sodiumMg": 1210,
+        "calciumMg": 249
+      },
+      "basis": {
+        "status": "unverified",
+        "description": "接口所列餐品规格；计量基准未声明",
+        "unitsVerified": false
+      },
+      "provenance": {
+        "provider": "mcd-mcp",
+        "tool": "list-nutrition-foods",
+        "fetchedAt": "2026-10-21T03:20:35.542Z",
+        "originalName": "双层猪柳蛋麦满分",
+        "duplicateCount": 1
+      }
+    },
+    {
+      "id": "food-o3ebwx",
+      "name": "朱古力新地",
+      "category": "dessert",
+      "categorySource": "inferred",
+      "nutrition": {
+        "kcal": 282,
+        "proteinG": 5,
+        "fatG": 9,
+        "carbsG": 44,
+        "sodiumMg": 126,
+        "calciumMg": 182
+      },
+      "basis": {
+        "status": "unverified",
+        "description": "接口所列餐品规格；计量基准未声明",
+        "unitsVerified": false
+      },
+      "provenance": {
+        "provider": "mcd-mcp",
+        "tool": "list-nutrition-foods",
+        "fetchedAt": "2026-10-21T03:20:35.542Z",
+        "originalName": "朱古力新地",
+        "duplicateCount": 1
+      }
+    },
+    {
+      "id": "food-o7em1q",
+      "name": "大薯条",
+      "category": "side",
+      "categorySource": "inferred",
+      "nutrition": {
+        "kcal": 379,
+        "proteinG": 6,
+        "fatG": 16,
+        "carbsG": 50,
+        "sodiumMg": 216,
+        "calciumMg": 23
+      },
+      "basis": {
+        "status": "unverified",
+        "description": "接口所列餐品规格；计量基准未声明",
+        "unitsVerified": false
+      },
+      "provenance": {
+        "provider": "mcd-mcp",
+        "tool": "list-nutrition-foods",
+        "fetchedAt": "2026-10-21T03:20:35.542Z",
+        "originalName": "大薯条",
+        "duplicateCount": 1
+      }
+    },
+    {
+      "id": "food-o8f7sp",
+      "name": "冰浓浓抹茶牛奶大杯",
+      "category": "drink",
+      "categorySource": "inferred",
+      "nutrition": {
+        "kcal": 240,
+        "proteinG": 9,
+        "fatG": 7,
+        "carbsG": 33,
+        "sodiumMg": 89,
+        "calciumMg": 314
+      },
+      "basis": {
+        "status": "unverified",
+        "description": "接口所列餐品规格；计量基准未声明",
+        "unitsVerified": false
+      },
+      "provenance": {
+        "provider": "mcd-mcp",
+        "tool": "list-nutrition-foods",
+        "fetchedAt": "2026-10-21T03:20:35.542Z",
+        "originalName": "冰浓浓抹茶牛奶大杯",
+        "duplicateCount": 1
+      }
+    },
+    {
+      "id": "food-occ6mv",
+      "name": "冰燕麦奶铁大杯",
+      "category": "drink",
+      "categorySource": "inferred",
+      "nutrition": {
+        "kcal": 145,
+        "proteinG": 4,
+        "fatG": 5,
+        "carbsG": 19,
+        "sodiumMg": 96,
+        "calciumMg": 296
+      },
+      "basis": {
+        "status": "unverified",
+        "description": "接口所列餐品规格；计量基准未声明",
+        "unitsVerified": false
+      },
+      "provenance": {
+        "provider": "mcd-mcp",
+        "tool": "list-nutrition-foods",
+        "fetchedAt": "2026-10-21T03:20:35.542Z",
+        "originalName": "冰燕麦奶铁大杯",
+        "duplicateCount": 1
+      }
+    },
+    {
+      "id": "food-oroi8y",
+      "name": "迷你薯条",
+      "category": "side",
+      "categorySource": "inferred",
+      "nutrition": {
+        "kcal": 106,
+        "proteinG": 2,
+        "fatG": 4,
+        "carbsG": 14,
+        "sodiumMg": 61,
+        "calciumMg": 6
+      },
+      "basis": {
+        "status": "unverified",
+        "description": "接口所列餐品规格；计量基准未声明",
+        "unitsVerified": false
+      },
+      "provenance": {
+        "provider": "mcd-mcp",
+        "tool": "list-nutrition-foods",
+        "fetchedAt": "2026-10-21T03:20:35.542Z",
+        "originalName": "迷你薯条",
+        "duplicateCount": 1
+      }
+    },
+    {
+      "id": "food-pg1c26",
+      "name": "原味板烧鸡腿麦满分",
+      "category": "breakfast",
+      "categorySource": "inferred",
+      "nutrition": {
+        "kcal": 246,
+        "proteinG": 15,
+        "fatG": 9,
+        "carbsG": 25,
+        "sodiumMg": 611,
+        "calciumMg": 133
+      },
+      "basis": {
+        "status": "unverified",
+        "description": "接口所列餐品规格；计量基准未声明",
+        "unitsVerified": false
+      },
+      "provenance": {
+        "provider": "mcd-mcp",
+        "tool": "list-nutrition-foods",
+        "fetchedAt": "2026-10-21T03:20:35.542Z",
+        "originalName": "原味板烧鸡腿麦满分",
+        "duplicateCount": 1
+      }
+    },
+    {
+      "id": "food-pgcvpd",
+      "name": "冰燕麦奶铁中杯",
+      "category": "drink",
+      "categorySource": "inferred",
+      "nutrition": {
+        "kcal": 132,
+        "proteinG": 3,
+        "fatG": 5,
+        "carbsG": 17,
+        "sodiumMg": 87,
+        "calciumMg": 270
+      },
+      "basis": {
+        "status": "unverified",
+        "description": "接口所列餐品规格；计量基准未声明",
+        "unitsVerified": false
+      },
+      "provenance": {
+        "provider": "mcd-mcp",
+        "tool": "list-nutrition-foods",
+        "fetchedAt": "2026-10-21T03:20:35.542Z",
+        "originalName": "冰燕麦奶铁中杯",
+        "duplicateCount": 1
+      }
+    },
+    {
+      "id": "food-pt0iz8",
+      "name": "麦辣鸡腿汉堡",
+      "category": "burger",
+      "categorySource": "inferred",
+      "nutrition": {
+        "kcal": 485,
+        "proteinG": 24,
+        "fatG": 24,
+        "carbsG": 42,
+        "sodiumMg": 1208,
+        "calciumMg": 154
+      },
+      "basis": {
+        "status": "unverified",
+        "description": "接口所列餐品规格；计量基准未声明",
+        "unitsVerified": false
+      },
+      "provenance": {
+        "provider": "mcd-mcp",
+        "tool": "list-nutrition-foods",
+        "fetchedAt": "2026-10-21T03:20:35.542Z",
+        "originalName": "麦辣鸡腿汉堡",
+        "duplicateCount": 1
+      }
+    },
+    {
+      "id": "food-qly037",
+      "name": "蒜了吧黄油风味薄皮脆汁鸡-琵琶腿",
+      "category": "side",
+      "categorySource": "inferred",
+      "nutrition": {
+        "kcal": 164,
+        "proteinG": 19,
+        "fatG": 6,
+        "carbsG": 6,
+        "sodiumMg": 867,
+        "calciumMg": 9
+      },
+      "basis": {
+        "status": "unverified",
+        "description": "接口所列餐品规格；计量基准未声明",
+        "unitsVerified": false
+      },
+      "provenance": {
+        "provider": "mcd-mcp",
+        "tool": "list-nutrition-foods",
+        "fetchedAt": "2026-10-21T03:20:35.542Z",
+        "originalName": "蒜了吧黄油风味薄皮脆汁鸡-琵琶腿",
+        "duplicateCount": 1
+      }
+    },
+    {
+      "id": "food-rt7k14",
+      "name": "冰燕麦奶大杯",
+      "category": "drink",
+      "categorySource": "inferred",
+      "nutrition": {
+        "kcal": 239,
+        "proteinG": 5,
+        "fatG": 9,
+        "carbsG": 32,
+        "sodiumMg": 174,
+        "calciumMg": 525
+      },
+      "basis": {
+        "status": "unverified",
+        "description": "接口所列餐品规格；计量基准未声明",
+        "unitsVerified": false
+      },
+      "provenance": {
+        "provider": "mcd-mcp",
+        "tool": "list-nutrition-foods",
+        "fetchedAt": "2026-10-21T03:20:35.542Z",
+        "originalName": "冰燕麦奶大杯",
+        "duplicateCount": 1
+      }
+    },
+    {
+      "id": "food-rw8uqs",
+      "name": "热浓浓黑巧大杯",
+      "category": "drink",
+      "categorySource": "inferred",
+      "nutrition": {
+        "kcal": 240,
+        "proteinG": 13,
+        "fatG": 11,
+        "carbsG": 21,
+        "sodiumMg": 137,
+        "calciumMg": 435
+      },
+      "basis": {
+        "status": "unverified",
+        "description": "接口所列餐品规格；计量基准未声明",
+        "unitsVerified": false
+      },
+      "provenance": {
+        "provider": "mcd-mcp",
+        "tool": "list-nutrition-foods",
+        "fetchedAt": "2026-10-21T03:20:35.542Z",
+        "originalName": "热浓浓黑巧大杯",
+        "duplicateCount": 1
+      }
+    },
+    {
+      "id": "food-stn8i6",
+      "name": "特浓奶香雪冰中杯",
+      "category": "drink",
+      "categorySource": "inferred",
+      "nutrition": {
+        "kcal": 269,
+        "proteinG": 6,
+        "fatG": 11,
+        "carbsG": 36,
+        "sodiumMg": 180,
+        "calciumMg": 188
+      },
+      "basis": {
+        "status": "unverified",
+        "description": "接口所列餐品规格；计量基准未声明",
+        "unitsVerified": false
+      },
+      "provenance": {
+        "provider": "mcd-mcp",
+        "tool": "list-nutrition-foods",
+        "fetchedAt": "2026-10-21T03:20:35.542Z",
+        "originalName": "特浓奶香雪冰中杯",
+        "duplicateCount": 1
+      }
+    },
+    {
+      "id": "food-sw2ua2",
+      "name": "卡布奇诺大杯",
+      "category": "drink",
+      "categorySource": "inferred",
+      "nutrition": {
+        "kcal": 223,
+        "proteinG": 13,
+        "fatG": 10,
+        "carbsG": 20,
+        "sodiumMg": 120,
+        "calciumMg": 385
+      },
+      "basis": {
+        "status": "unverified",
+        "description": "接口所列餐品规格；计量基准未声明",
+        "unitsVerified": false
+      },
+      "provenance": {
+        "provider": "mcd-mcp",
+        "tool": "list-nutrition-foods",
+        "fetchedAt": "2026-10-21T03:20:35.542Z",
+        "originalName": "卡布奇诺大杯",
+        "duplicateCount": 1
+      }
+    },
+    {
+      "id": "food-tfk68g",
+      "name": "冰燕麦奶小杯",
+      "category": "drink",
+      "categorySource": "inferred",
+      "nutrition": {
+        "kcal": 131,
+        "proteinG": 3,
+        "fatG": 5,
+        "carbsG": 17,
+        "sodiumMg": 95,
+        "calciumMg": 288
+      },
+      "basis": {
+        "status": "unverified",
+        "description": "接口所列餐品规格；计量基准未声明",
+        "unitsVerified": false
+      },
+      "provenance": {
+        "provider": "mcd-mcp",
+        "tool": "list-nutrition-foods",
+        "fetchedAt": "2026-10-21T03:20:35.542Z",
+        "originalName": "冰燕麦奶小杯",
+        "duplicateCount": 1
+      }
+    },
+    {
+      "id": "food-tiq45p",
+      "name": "热牛奶中杯",
+      "category": "drink",
+      "categorySource": "inferred",
+      "nutrition": {
+        "kcal": 176,
+        "proteinG": 10,
+        "fatG": 8,
+        "carbsG": 15,
+        "sodiumMg": 101,
+        "calciumMg": 319
+      },
+      "basis": {
+        "status": "unverified",
+        "description": "接口所列餐品规格；计量基准未声明",
+        "unitsVerified": false
+      },
+      "provenance": {
+        "provider": "mcd-mcp",
+        "tool": "list-nutrition-foods",
+        "fetchedAt": "2026-10-21T03:20:35.542Z",
+        "originalName": "热牛奶中杯",
+        "duplicateCount": 1
+      }
+    },
+    {
+      "id": "food-uabsmf",
+      "name": "冰浓浓黑巧大杯",
+      "category": "drink",
+      "categorySource": "inferred",
+      "nutrition": {
+        "kcal": 147,
+        "proteinG": 8,
+        "fatG": 7,
+        "carbsG": 13,
+        "sodiumMg": 84,
+        "calciumMg": 267
+      },
+      "basis": {
+        "status": "unverified",
+        "description": "接口所列餐品规格；计量基准未声明",
+        "unitsVerified": false
+      },
+      "provenance": {
+        "provider": "mcd-mcp",
+        "tool": "list-nutrition-foods",
+        "fetchedAt": "2026-10-21T03:20:35.542Z",
+        "originalName": "冰浓浓黑巧大杯",
+        "duplicateCount": 1
+      }
+    },
+    {
+      "id": "food-ucbnh6",
+      "name": "德式图林根香肠",
+      "category": "breakfast",
+      "categorySource": "inferred",
+      "nutrition": {
+        "kcal": 87,
+        "proteinG": 5,
+        "fatG": 6,
+        "carbsG": 2,
+        "sodiumMg": 293,
+        "calciumMg": 5
+      },
+      "basis": {
+        "status": "unverified",
+        "description": "接口所列餐品规格；计量基准未声明",
+        "unitsVerified": false
+      },
+      "provenance": {
+        "provider": "mcd-mcp",
+        "tool": "list-nutrition-foods",
+        "fetchedAt": "2026-10-21T03:20:35.542Z",
+        "originalName": "德式图林根香肠",
+        "duplicateCount": 1
+      }
+    },
+    {
+      "id": "food-uhqgqm",
+      "name": "冰燕麦奶中杯",
+      "category": "drink",
+      "categorySource": "inferred",
+      "nutrition": {
+        "kcal": 199,
+        "proteinG": 4,
+        "fatG": 8,
+        "carbsG": 26,
+        "sodiumMg": 145,
+        "calciumMg": 438
+      },
+      "basis": {
+        "status": "unverified",
+        "description": "接口所列餐品规格；计量基准未声明",
+        "unitsVerified": false
+      },
+      "provenance": {
+        "provider": "mcd-mcp",
+        "tool": "list-nutrition-foods",
+        "fetchedAt": "2026-10-21T03:20:35.542Z",
+        "originalName": "冰燕麦奶中杯",
+        "duplicateCount": 1
+      }
+    },
+    {
+      "id": "food-uno36e",
+      "name": "麦麦脆汁鸡-带骨里脊",
+      "category": "side",
+      "categorySource": "inferred",
+      "nutrition": {
+        "kcal": 332,
+        "proteinG": 22,
+        "fatG": 18,
+        "carbsG": 16,
+        "sodiumMg": 812,
+        "calciumMg": 25
+      },
+      "basis": {
+        "status": "unverified",
+        "description": "接口所列餐品规格；计量基准未声明",
+        "unitsVerified": false
+      },
+      "provenance": {
+        "provider": "mcd-mcp",
+        "tool": "list-nutrition-foods",
+        "fetchedAt": "2026-10-21T03:20:35.542Z",
+        "originalName": "麦麦脆汁鸡-带骨里脊",
+        "duplicateCount": 1
+      }
+    },
+    {
+      "id": "food-urmp92",
+      "name": "板烧鸡腿堡",
+      "category": "burger",
+      "categorySource": "inferred",
+      "nutrition": {
+        "kcal": 391,
+        "proteinG": 23,
+        "fatG": 17,
+        "carbsG": 35,
+        "sodiumMg": 1041,
+        "calciumMg": 93
+      },
+      "basis": {
+        "status": "unverified",
+        "description": "接口所列餐品规格；计量基准未声明",
+        "unitsVerified": false
+      },
+      "provenance": {
+        "provider": "mcd-mcp",
+        "tool": "list-nutrition-foods",
+        "fetchedAt": "2026-10-21T03:20:35.542Z",
+        "originalName": "板烧鸡腿堡",
+        "duplicateCount": 1
+      }
+    },
+    {
+      "id": "food-v2hdcf",
+      "name": "芝士双层安格斯厚牛堡",
+      "category": "burger",
+      "categorySource": "inferred",
+      "nutrition": {
+        "kcal": 1003,
+        "proteinG": 58,
+        "fatG": 65,
+        "carbsG": 46,
+        "sodiumMg": 1373,
+        "calciumMg": 251
+      },
+      "basis": {
+        "status": "unverified",
+        "description": "接口所列餐品规格；计量基准未声明",
+        "unitsVerified": false
+      },
+      "provenance": {
+        "provider": "mcd-mcp",
+        "tool": "list-nutrition-foods",
+        "fetchedAt": "2026-10-21T03:20:35.542Z",
+        "originalName": "芝士双层安格斯厚牛堡",
+        "duplicateCount": 1
+      }
+    },
+    {
+      "id": "food-vp7nt5",
+      "name": "不素之霸双层牛堡",
+      "category": "burger",
+      "categorySource": "inferred",
+      "nutrition": {
+        "kcal": 493,
+        "proteinG": 28,
+        "fatG": 27,
+        "carbsG": 34,
+        "sodiumMg": 1012,
+        "calciumMg": 75
+      },
+      "basis": {
+        "status": "unverified",
+        "description": "接口所列餐品规格；计量基准未声明",
+        "unitsVerified": false
+      },
+      "provenance": {
+        "provider": "mcd-mcp",
+        "tool": "list-nutrition-foods",
+        "fetchedAt": "2026-10-21T03:20:35.542Z",
+        "originalName": "不素之霸双层牛堡",
+        "duplicateCount": 1
+      }
+    },
+    {
+      "id": "food-vuzmft",
+      "name": "“苹板”支撑Pro",
+      "category": "other",
+      "categorySource": "unknown",
+      "nutrition": {
+        "kcal": 476,
+        "proteinG": 25,
+        "fatG": 18,
+        "carbsG": 50,
+        "sodiumMg": 1077,
+        "calciumMg": 117
+      },
+      "basis": {
+        "status": "unverified",
+        "description": "接口所列餐品规格；计量基准未声明",
+        "unitsVerified": false
+      },
+      "provenance": {
+        "provider": "mcd-mcp",
+        "tool": "list-nutrition-foods",
+        "fetchedAt": "2026-10-21T03:20:35.542Z",
+        "originalName": "“苹板”支撑Pro",
+        "duplicateCount": 1
+      }
+    },
+    {
+      "id": "food-waokxn",
+      "name": "皮蛋鸡肉粥",
+      "category": "breakfast",
+      "categorySource": "inferred",
+      "nutrition": {
+        "kcal": 133,
+        "proteinG": 6,
+        "fatG": 3,
+        "carbsG": 20,
+        "sodiumMg": 611,
+        "calciumMg": 20
+      },
+      "basis": {
+        "status": "unverified",
+        "description": "接口所列餐品规格；计量基准未声明",
+        "unitsVerified": false
+      },
+      "provenance": {
+        "provider": "mcd-mcp",
+        "tool": "list-nutrition-foods",
+        "fetchedAt": "2026-10-21T03:20:35.542Z",
+        "originalName": "皮蛋鸡肉粥",
+        "duplicateCount": 1
+      }
+    },
+    {
+      "id": "food-wc52dr",
+      "name": "柠檬拉明顿",
+      "category": "dessert",
+      "categorySource": "inferred",
+      "nutrition": {
+        "kcal": 121,
+        "proteinG": 2,
+        "fatG": 7,
+        "carbsG": 12,
+        "sodiumMg": 35,
+        "calciumMg": 17
+      },
+      "basis": {
+        "status": "unverified",
+        "description": "接口所列餐品规格；计量基准未声明",
+        "unitsVerified": false
+      },
+      "provenance": {
+        "provider": "mcd-mcp",
+        "tool": "list-nutrition-foods",
+        "fetchedAt": "2026-10-21T03:20:35.542Z",
+        "originalName": "柠檬拉明顿",
+        "duplicateCount": 1
+      }
+    },
+    {
+      "id": "food-xbwkqv",
+      "name": "yeyeyeye爆珠款",
+      "category": "drink",
+      "categorySource": "inferred",
+      "nutrition": {
+        "kcal": 212,
+        "proteinG": 1,
+        "fatG": 3,
+        "carbsG": 42,
+        "sodiumMg": 122,
+        "calciumMg": 124
+      },
+      "basis": {
+        "status": "unverified",
+        "description": "接口所列餐品规格；计量基准未声明",
+        "unitsVerified": false
+      },
+      "provenance": {
+        "provider": "mcd-mcp",
+        "tool": "list-nutrition-foods",
+        "fetchedAt": "2026-10-21T03:20:35.542Z",
+        "originalName": "yeyeyeye爆珠款",
+        "duplicateCount": 1
+      }
+    },
+    {
+      "id": "food-xops1x",
+      "name": "鲜蔬蛋沙拉叠叠卷",
+      "category": "other",
+      "categorySource": "unknown",
+      "nutrition": {
+        "kcal": 266,
+        "proteinG": 11,
+        "fatG": 14,
+        "carbsG": 24,
+        "sodiumMg": 518,
+        "calciumMg": 62
+      },
+      "basis": {
+        "status": "unverified",
+        "description": "接口所列餐品规格；计量基准未声明",
+        "unitsVerified": false
+      },
+      "provenance": {
+        "provider": "mcd-mcp",
+        "tool": "list-nutrition-foods",
+        "fetchedAt": "2026-10-21T03:20:35.542Z",
+        "originalName": "鲜蔬蛋沙拉叠叠卷",
+        "duplicateCount": 1
+      }
+    },
+    {
+      "id": "food-xqc3kj",
+      "name": "热牛奶大杯",
+      "category": "drink",
+      "categorySource": "inferred",
+      "nutrition": {
+        "kcal": 240,
+        "proteinG": 13,
+        "fatG": 11,
+        "carbsG": 21,
+        "sodiumMg": 137,
+        "calciumMg": 435
+      },
+      "basis": {
+        "status": "unverified",
+        "description": "接口所列餐品规格；计量基准未声明",
+        "unitsVerified": false
+      },
+      "provenance": {
+        "provider": "mcd-mcp",
+        "tool": "list-nutrition-foods",
+        "fetchedAt": "2026-10-21T03:20:35.542Z",
+        "originalName": "热牛奶大杯",
+        "duplicateCount": 1
+      }
+    },
+    {
+      "id": "food-y93qk",
+      "name": "优品豆浆大杯",
+      "category": "drink",
+      "categorySource": "inferred",
+      "nutrition": {
+        "kcal": 202,
+        "proteinG": 8,
+        "fatG": 4,
+        "carbsG": 33,
+        "sodiumMg": 43,
+        "calciumMg": 21
+      },
+      "basis": {
+        "status": "unverified",
+        "description": "接口所列餐品规格；计量基准未声明",
+        "unitsVerified": false
+      },
+      "provenance": {
+        "provider": "mcd-mcp",
+        "tool": "list-nutrition-foods",
+        "fetchedAt": "2026-10-21T03:20:35.542Z",
+        "originalName": "优品豆浆大杯",
+        "duplicateCount": 1
+      }
+    },
+    {
+      "id": "food-yec665",
+      "name": "热燕麦奶小杯",
+      "category": "drink",
+      "categorySource": "inferred",
+      "nutrition": {
+        "kcal": 131,
+        "proteinG": 3,
+        "fatG": 5,
+        "carbsG": 17,
+        "sodiumMg": 95,
+        "calciumMg": 288
+      },
+      "basis": {
+        "status": "unverified",
+        "description": "接口所列餐品规格；计量基准未声明",
+        "unitsVerified": false
+      },
+      "provenance": {
+        "provider": "mcd-mcp",
+        "tool": "list-nutrition-foods",
+        "fetchedAt": "2026-10-21T03:20:35.542Z",
+        "originalName": "热燕麦奶小杯",
+        "duplicateCount": 1
+      }
+    },
+    {
+      "id": "food-yg6j33",
+      "name": "冰浓浓抹茶牛奶中杯",
+      "category": "drink",
+      "categorySource": "inferred",
+      "nutrition": {
+        "kcal": 196,
+        "proteinG": 8,
+        "fatG": 6,
+        "carbsG": 25,
+        "sodiumMg": 80,
+        "calciumMg": 275
+      },
+      "basis": {
+        "status": "unverified",
+        "description": "接口所列餐品规格；计量基准未声明",
+        "unitsVerified": false
+      },
+      "provenance": {
+        "provider": "mcd-mcp",
+        "tool": "list-nutrition-foods",
+        "fetchedAt": "2026-10-21T03:20:35.542Z",
+        "originalName": "冰浓浓抹茶牛奶中杯",
+        "duplicateCount": 1
+      }
+    },
+    {
+      "id": "food-z3lkgf",
+      "name": "冰燕麦奶铁小杯",
+      "category": "drink",
+      "categorySource": "inferred",
+      "nutrition": {
+        "kcal": 77,
+        "proteinG": 2,
+        "fatG": 3,
+        "carbsG": 10,
+        "sodiumMg": 50,
+        "calciumMg": 155
+      },
+      "basis": {
+        "status": "unverified",
+        "description": "接口所列餐品规格；计量基准未声明",
+        "unitsVerified": false
+      },
+      "provenance": {
+        "provider": "mcd-mcp",
+        "tool": "list-nutrition-foods",
+        "fetchedAt": "2026-10-21T03:20:35.542Z",
+        "originalName": "冰燕麦奶铁小杯",
+        "duplicateCount": 1
+      }
+    },
+    {
+      "id": "food-zb3zzq",
+      "name": "麦麦趣鸡球",
+      "category": "side",
+      "categorySource": "inferred",
+      "nutrition": {
+        "kcal": 266,
+        "proteinG": 17,
+        "fatG": 13,
+        "carbsG": 19,
+        "sodiumMg": 789,
+        "calciumMg": 13
+      },
+      "basis": {
+        "status": "unverified",
+        "description": "接口所列餐品规格；计量基准未声明",
+        "unitsVerified": false
+      },
+      "provenance": {
+        "provider": "mcd-mcp",
+        "tool": "list-nutrition-foods",
+        "fetchedAt": "2026-10-21T03:20:35.542Z",
+        "originalName": "麦麦趣鸡球",
+        "duplicateCount": 1
+      }
+    }
+  ],
+  "warnings": [
+    "已合并 2 条完全重复记录",
+    "除 energyKcal/energyKj 外，接口未显式声明营养字段单位；未确认每份或每 100 克基准"
+  ]
+}

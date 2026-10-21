@@ -7,6 +7,30 @@ import { projectPoint, type DepthPoint, type SceneCamera } from '../../src/graph
 
 const positions: (DepthPoint & { id: string })[] = layoutGraph(analyze(datasetSchema.parse(snapshot).foods));
 
+test('roaming reveals planets outside the initial window and reset stays local', async ({page}, info) => {
+  await page.setViewportSize({width:1440,height:1000});
+  await page.emulateMedia({reducedMotion:'reduce'});
+  await page.goto('/galaxy');
+  const canvas=page.locator('canvas.galaxy-canvas');
+  await expect(canvas).toHaveAttribute('data-window', /food-/);
+  const initial=JSON.parse((await canvas.getAttribute('data-window'))!) as string[];
+  const bounds=(await canvas.boundingBox())!;
+  for(let step=0;step<2;step++){
+    await page.mouse.move(bounds.x+750,bounds.y+bounds.height*.42);
+    await page.mouse.down();
+    await page.mouse.move(bounds.x+1350,bounds.y+bounds.height*.42,{steps:12});
+    await page.mouse.up();
+  }
+  await expect.poll(async()=>{
+    const next=JSON.parse((await canvas.getAttribute('data-window'))!) as string[];
+    return next.some(id=>!initial.includes(id));
+  }).toBe(true);
+  await page.screenshot({path:info.outputPath('universe-distant-region.png'),fullPage:true});
+  await page.getByRole('button',{name:'重置视图',exact:true}).click();
+  await expect.poll(async()=>JSON.parse((await canvas.getAttribute('data-window'))!)).toEqual(initial);
+  expect(initial.length).toBeLessThan(positions.length/3);
+});
+
 for (const width of [1440, 390]) for (const reducedMotion of ['reduce', 'no-preference'] as const) {
   test(`perspective sky retains depth through native pan and resize at ${width}px, motion ${reducedMotion}`, async ({ page }, info) => {
     await page.setViewportSize({ width, height: width > 1000 ? 1000 : 844 });

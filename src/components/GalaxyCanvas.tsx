@@ -161,7 +161,7 @@ export function GalaxyCanvas(props: Props) {
     function fit() {
       cameraTween.current=null;
       // Reset returns to a human-scale exploration window, never an all-planets fit.
-      const {width,height}=sizeRef.current,left=Math.min(latest.current.insets?.().left??0,width*.45),scale=width<600?.78:.9;
+      const {width,height}=sizeRef.current,left=width>850?Math.min(latest.current.insets?.().left??0,width*.45):0,scale=width<600?.78:.9;
       camera.current={x:left+(width-left)/2,y:height*.5,scale};
       setZoom(Math.round(scale * 100)); requestDraw();
     }

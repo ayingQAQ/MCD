@@ -1,6 +1,5 @@
 import { useId } from 'react';
-import { palette } from '../art/planets';
-import { stableHash, type FoodPlanet } from '../data/schema';
+import type { FoodPlanet } from '../data/schema';
 import { FoodIllustration } from './food-illustrations/FoodIllustration';
 import { resolveFoodIllustration } from './food-illustrations/registry';
 
@@ -10,8 +9,8 @@ export function Star({ className = '', ...rest }: React.SVGProps<SVGSVGElement>)
 export function PlanetStamp({ food, className = '' }: { food?: FoodPlanet; className?: string }) {
   const id = useId().replace(/:/g, '');
   if (food) return <FoodIllustration foodId={resolveFoodIllustration(food).presetId} size={160} className={`planet-stamp ${className}`} title={`${food.name} · 通用形态示意，非商品配方图`} decorative/>;
-  const color = food ? palette[food.category] : '#F3A38C';
-  const variant = food ? stableHash(food.id) % 5 : 0;
+  const color = '#F3A38C';
+  const variant = 0;
   return <svg className={`planet-stamp ${className}`} viewBox="0 0 120 110" aria-hidden="true">
     <defs><clipPath id={id}><ellipse cx="60" cy="54" rx="36" ry="34" transform="rotate(-9 60 54)"/></clipPath></defs>
     <ellipse cx="61" cy="59" rx="36" ry="34" fill="#e7daca"/>

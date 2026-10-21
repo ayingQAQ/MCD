@@ -4,6 +4,7 @@ import snapshot from '../../public/data/nutrition.snapshot.json' with { type: 'j
 import { datasetSchema, nutrientKeys } from '../../src/data/schema';
 import { analyze } from '../../src/graph/analysis';
 import { layoutGraph } from '../../src/graph/layout';
+import { projectPoint, type DepthPoint, type SceneCamera } from '../../src/graph/depth';
 import { createDailyQuests } from '../../src/core/quests';
 
 const dataset = datasetSchema.parse(snapshot);
@@ -34,6 +35,17 @@ async function savePng(page: Page, button: Locator, info: TestInfo, name: string
 async function addSample(page: Page, name: string) {
   await page.getByLabel('实验室搜索').fill(name);
   await page.getByRole('button', { name: `添加 ${name}`, exact: true }).click();
+}
+async function canvasScene(canvas: Locator) {
+  await expect(canvas).toHaveAttribute('data-scene', 'perspective');
+  await expect(canvas).toHaveAttribute('data-camera', /scale/);
+  return { camera: JSON.parse((await canvas.getAttribute('data-camera'))!) as SceneCamera, bounds: (await canvas.boundingBox())! };
+}
+async function openCanvasPoint(canvas: Locator, candidates: { x: number; y: number; id?: string }[]) {
+  return canvas.evaluate((element, points) => {
+    const rect = element.getBoundingClientRect();
+    return points.find(point => point.x > 12 && point.y > 12 && point.x < rect.width - 12 && point.y < rect.height - 12 && document.elementFromPoint(rect.left + point.x, rect.top + point.y) === element) ?? null;
+  }, candidates);
 }
 
 test('random discovery opens an actual food; recent history, global keyboard search and deep links work', async ({ page }) => {
@@ -168,8 +180,9 @@ test('discovery advances across home visits and cross-category focus remains dra
   const canvas = page.locator('canvas.galaxy-canvas');
   await canvas.scrollIntoViewIfNeeded();
   await expect(canvas).toHaveAttribute('data-camera', /scale/);
-  const camera = JSON.parse((await canvas.getAttribute('data-camera'))!) as { x: number; y: number; scale: number };
-  await canvas.click({ position: { x: point.x * camera.scale + camera.x, y: point.y * camera.scale + camera.y } });
+  const { camera, bounds } = await canvasScene(canvas);
+  const projected = projectPoint(point, camera, bounds);
+  await canvas.click({ position: { x: projected.x, y: projected.y } });
   await expect(page.getByRole('heading', { name: food.name, exact: true })).toBeVisible();
 });
 
@@ -357,17 +370,14 @@ test('canvas pointer drag, zoom reset, actual planet hit and accessible relation
   await page.getByRole('button', { name: '放大', exact: true }).click();
   await page.getByRole('button', { name: '重置视图', exact: true }).click();
   await expect(canvas).toHaveAttribute('data-camera', initial!);
-  const camera = JSON.parse((await canvas.getAttribute('data-camera'))!) as { x: number; y: number; scale: number };
+  const { camera, bounds } = await canvasScene(canvas);
   const positions = layoutGraph(graph);
   // The directory floats over the sky, so only planets on open canvas are clickable.
-  const panelRight = await page.locator('.galaxy-panel').evaluate(element => element.getBoundingClientRect().right);
-  const target = positions.find(point => {
-    const x = point.x * camera.scale + camera.x, y = point.y * camera.scale + camera.y;
-    return x > panelRight + 40 && x < box.width - 70 && y > 120 && y < box.height - 110 && graph.edges.some(edge => edge.source === point.id || edge.target === point.id);
-  })!;
-  expect(target).toBeDefined();
-  await canvas.click({ position: { x: target.x * camera.scale + camera.x, y: target.y * camera.scale + camera.y } });
-  const food = dataset.foods.find(item => item.id === target.id)!;
+  const candidates = positions.map(point => ({ ...projectPoint(point, camera, bounds), id: point.id })).filter(point => point.y > 120 && point.y < bounds.height - 110 && graph.edges.some(edge => edge.source === point.id || edge.target === point.id)).sort((a, b) => b.factor - a.factor);
+  const target = await openCanvasPoint(canvas, candidates);
+  expect(target).not.toBeNull();
+  await canvas.click({ position: { x: target!.x, y: target!.y } });
+  const food = dataset.foods.find(item => item.id === target!.id)!;
   await expect(page.getByRole('heading', { name: food.name, exact: true })).toBeVisible();
   await page.getByLabel('显示名称', { exact: true }).check();
   await page.getByRole('button', { name: '查看更多关系', exact: true }).click();
@@ -401,38 +411,29 @@ test('clicking a visible canvas relationship opens its real explanation', async 
   const canvas = page.locator('canvas.galaxy-canvas');
   await canvas.scrollIntoViewIfNeeded();
   await expect(canvas).toHaveAttribute('data-camera', /scale/);
-  // The focused camera is published by the drawing code. Sample the same
-  // quadratic curve, avoiding every food's hit radius and overlaid controls.
-  const point = await canvas.evaluate((element, input) => {
-    const c = JSON.parse((element as HTMLCanvasElement).dataset.camera!) as { x: number; y: number; scale: number };
-    const rect = element.getBoundingClientRect();
-    const a = input.positions.find(item => item.id === input.source)!;
-    const b = input.positions.find(item => item.id === input.target)!;
-    for (let i = 2; i < 38; i++) {
-      const t = (i + .5) / 40, u = 1 - t;
-      const wx = u * u * a.x + 2 * u * t * ((a.x + b.x) / 2) + t * t * b.x;
-      const wy = u * u * a.y + 2 * u * t * ((a.y + b.y) / 2 - 22) + t * t * b.y;
-      const x = wx * c.scale + c.x, y = wy * c.scale + c.y;
-      // Planet hit testing uses the base radius (at most 41 world units),
-      // and the actual click occurs after zooming to 2.6, not at this fit.
-      if (input.positions.some(item => Math.hypot(item.x - wx, item.y - wy) <= 41 + 5 / 2.6 + .5)) continue;
-      if (x < 10 || y < 10 || x > rect.width - 10 || y > rect.height - 10) continue;
-      // Half-way between the former 39 isolated samples: at maximum zoom
-      // their eight-pixel hit discs must miss this continuous curve point.
-      const oldDistance = Math.min(...Array.from({ length: 39 }, (_, index) => {
-        const oldT = (index + 1) / 40, oldU = 1 - oldT;
-        return Math.hypot(oldU * oldU * a.x + 2 * oldU * oldT * ((a.x + b.x) / 2) + oldT * oldT * b.x - wx, oldU * oldU * a.y + 2 * oldU * oldT * ((a.y + b.y) / 2 - 22) + oldT * oldT * b.y - wy);
-      }));
-      if (oldDistance * 2.6 > 8 && document.elementFromPoint(rect.left + x, rect.top + y) === element) return { x, y };
-    }
-    return null;
-  }, { positions: positions.map(({ id, x, y }) => ({ id, x, y })), source: edge.source, target: edge.target });
+  // Reconstruct the rendered 40-segment projected curve, including its
+  // interpolated depth. Use segment midpoints, away from projected planets.
+  async function visibleEdgePoint() {
+    const { camera, bounds } = await canvasScene(canvas);
+    const a: DepthPoint = byId.get(edge.source)!, b: DepthPoint = byId.get(edge.target)!;
+    const curve = Array.from({ length: 41 }, (_, index) => {
+      const t = index / 40, u = 1 - t;
+      return projectPoint({ x: u * u * a.x + 2 * u * t * ((a.x + b.x) / 2) + t * t * b.x, y: u * u * a.y + 2 * u * t * ((a.y + b.y) / 2 - 22) + t * t * b.y, depth: (a.depth ?? 0) * u + (b.depth ?? 0) * t }, camera, bounds);
+    });
+    const planets = positions.map(point => projectPoint(point, camera, bounds));
+    const candidates = curve.slice(1).map((point, index) => ({ x: (point.x + curve[index].x) / 2, y: (point.y + curve[index].y) / 2 })).filter(point => planets.every(planet => Math.hypot(planet.x - point.x, planet.y - point.y) > 41 * camera.scale * planet.factor + 6));
+    return openCanvasPoint(canvas, candidates);
+  }
+  const point = await visibleEdgePoint();
   expect(point, 'a visible relationship segment must be available for pointer hit testing').not.toBeNull();
   const bounds = (await canvas.boundingBox())!;
   await page.mouse.move(bounds.x + point!.x, bounds.y + point!.y);
-  await page.mouse.wheel(0, -2000);
-  await expect.poll(async () => JSON.parse((await canvas.getAttribute('data-camera'))!).scale).toBe(2.6);
-  await canvas.click({ position: point! });
+  const beforeZoom = (await canvasScene(canvas)).camera.scale;
+  await page.mouse.wheel(0, -240);
+  await expect.poll(async () => (await canvasScene(canvas)).camera.scale).toBeGreaterThan(beforeZoom);
+  const afterZoom = await visibleEdgePoint();
+  expect(afterZoom, 'the projected edge must remain visible after depth-aware wheel zoom').not.toBeNull();
+  await canvas.click({ position: afterZoom! });
   await expect(page.getByRole('region', { name: '关系解释', exact: true })).toContainText(edge.explanation);
 });
 

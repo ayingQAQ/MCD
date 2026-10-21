@@ -1,12 +1,14 @@
 import { forceCollide, forceSimulation, forceX, forceY, type SimulationNodeDatum } from 'd3-force';
 import { stableHash, type NutritionGraph, type FoodCategory } from '../data/schema';
 
-export interface PlanetPosition extends SimulationNodeDatum { id: string; x: number; y: number; category: FoodCategory }
-export interface ClusterBounds { category: FoodCategory; x: number; y: number; radius: number; count: number }
+export interface PlanetPosition extends SimulationNodeDatum { id: string; x: number; y: number; category: FoodCategory; depth: number }
+export interface ClusterBounds { category: FoodCategory; x: number; y: number; radius: number; count: number; depth: number; tilt: number }
 
 const order: FoodCategory[] = ['burger', 'side', 'breakfast', 'dessert', 'other', 'drink'];
 // Satellite galaxies sit around the largest one, spread wide to suit landscape screens.
-const slots: [number, number][] = [[-1, -.46], [1, -.46], [-1, .52], [1, .52], [0, 1]];
+const slots: [number, number][] = [[-1, .45], [1, -.48], [-.72, -.9], [.85, .75], [.2, -1.1]];
+const depths: Record<FoodCategory, number> = { burger: -.35, side: .5, breakfast: .12, dessert: -.1, other: 1.25, drink: .85 };
+const tilts: Record<FoodCategory, number> = { burger: -.32, side: -.6, breakfast: .25, dessert: -.4, other: .45, drink: -.24 };
 const golden = Math.PI * (3 - Math.sqrt(5));
 const spacing = 46;
 const clusterRadius = (count: number) => spacing * Math.sqrt(count + .5) * 1.18 + 40;
@@ -51,9 +53,10 @@ export function layoutGraph(graph: NutritionGraph): PlanetPosition[] {
       const r = spacing * Math.sqrt(index + .5) * (1 + .18 * index / Math.max(1, members.length));
       const angle = index * golden + twist + r * .0035;
       const jitter = (stableHash(food.id) % 1000) / 1000 - .5;
-      const tx = cx + Math.cos(angle) * r * 1.18 + jitter * 10, ty = cy + Math.sin(angle) * r + jitter * 8;
+      const u = Math.cos(angle)*r*1.18, v = Math.sin(angle)*r*.64, tilt=tilts[category];
+      const tx = cx + u*Math.cos(tilt)-v*Math.sin(tilt)+jitter*10, ty = cy + u*Math.sin(tilt)+v*Math.cos(tilt)+jitter*8;
       targets.set(food.id, [tx, ty]);
-      nodes.push({ id: food.id, category: food.category, x: tx, y: ty });
+      nodes.push({ id: food.id, category: food.category, x: tx, y: ty, depth: depths[category] + Math.sin(angle)*.14 + jitter*.12 });
     });
   }
   forceSimulation(nodes)
@@ -71,6 +74,6 @@ export function clusterBounds(positions: PlanetPosition[]): ClusterBounds[] {
   for (const point of positions) groups.set(point.category, [...(groups.get(point.category) ?? []), point]);
   return [...groups].map(([category, points]) => {
     const x = points.reduce((sum, p) => sum + p.x, 0) / points.length, y = points.reduce((sum, p) => sum + p.y, 0) / points.length;
-    return { category, x, y, count: points.length, radius: Math.max(70, ...points.map(p => Math.hypot(p.x - x, p.y - y))) + 55 };
+    return { category, x, y, depth: depths[category], tilt: tilts[category], count: points.length, radius: Math.max(70, ...points.map(p => Math.hypot(p.x - x, p.y - y))) + 55 };
   });
 }

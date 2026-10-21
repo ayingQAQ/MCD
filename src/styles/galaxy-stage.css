@@ -11,6 +11,7 @@ html[data-route=galaxy] .live-feedback{bottom:76px}
 .galaxy-stage.workspace{display:block;position:fixed;inset:var(--header-h) 0 0 0;z-index:1;margin:0}
 .galaxy-stage .map-paper{position:absolute;inset:0;height:auto!important;min-height:0;max-height:none;border:0;border-radius:0;box-shadow:none;
   background-color:#FBF4E4;
+  background-size:100% 100%;background-repeat:no-repeat;
   background-image:
     radial-gradient(ellipse 60% 50% at 18% 20%,#F7E3D366,transparent 70%),
     radial-gradient(ellipse 55% 45% at 85% 75%,#DCEBF066,transparent 70%),

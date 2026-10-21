@@ -16,11 +16,10 @@ function ProductPhoto({ name, image, compact }: { name: string; image?: FoodImag
     ? <img src={image.src} alt={`${image.menuName}商品图片`} loading={compact ? 'lazy' : 'eager'} decoding="async" onError={() => setFailed(true)}/>
     : <span className="food-photo-placeholder" role="img" aria-label={`${name}：${unavailable}`}><span aria-hidden="true">{unavailable}</span></span>;
   const className = `food-photo${compact ? ' food-photo-compact' : ''}${available ? '' : ' food-photo-unavailable'}`;
-  if (compact) return <span className={className}>{content}</span>;
+  const reference = available && image.match === 'family-reference' ? image.referenceLabel : undefined;
+  if (compact) return <span className={className}>{content}{reference && <small className="food-photo-reference">{reference}</small>}</span>;
   return <figure className={className}>
     {content}
-    <figcaption className="food-photo-caption">{available
-      ? <>商品图片 · {image.menuName}{image.match === 'alias' ? '（已核实名称对应）' : ''}{image.note && <span> · {image.note}</span>}</>
-      : unavailable}</figcaption>
+    {available && <figcaption className="food-photo-caption">{reference ?? `${image.sourceTool === 'official-product-page' ? '官网' : '菜单'}商品图 · ${image.menuName}`}</figcaption>}
   </figure>;
 }

@@ -3,6 +3,7 @@ import { renderToStaticMarkup } from 'react-dom/server';
 import { createFoodImageLookup, type FoodImageManifest } from '../src/data/foodImages';
 import * as foodImages from '../src/data/foodImages';
 import { FoodPhoto } from '../src/components/FoodPhoto';
+import { readFileSync } from 'node:fs';
 
 const source: FoodImageManifest = {
   fetchedAt: '2026-10-21T00:00:00Z', tool: 'query-meals', store: { code: 'test', name: '测试门店' },
@@ -13,6 +14,16 @@ const source: FoodImageManifest = {
 };
 
 describe('verified product photos', () => {
+  it('ships the actual image bytes for every reviewed match and labels every size reference', () => {
+    const manifest = foodImages.foodImageManifest;
+    for (const image of manifest.images) {
+      expect(image.src).toMatch(/^\/food-photos\/[a-z0-9_-]+\.(png|gif|jpe?g|webp)$/i);
+      const bytes = readFileSync(new URL(`../public${image.src}`, import.meta.url));
+      expect(bytes.length).toBeGreaterThan(1000);
+      expect(createFoodImageLookup(manifest)(image.foodId)).toEqual(image);
+      if (image.match === 'family-reference') expect(image.referenceLabel).toMatch(/参考图/);
+    }
+  });
   it('uses reviewed exact and alias entries by food ID without guessing missing products', () => {
     const lookup = createFoodImageLookup(source);
     expect(lookup('burger')).toEqual(source.images[0]);
@@ -30,6 +41,20 @@ describe('verified product photos', () => {
     expect(lookup('alias')).toBeUndefined();
   });
 
+  it('only exposes a reviewed size reference with a public reference label', () => {
+    const reference = { ...source.images[0], match: 'family-reference' as const, referenceLabel: '同款中杯参考图 · 当前为大杯' };
+    expect(createFoodImageLookup({ ...source, images: [reference] })('burger')).toEqual(reference);
+    expect(createFoodImageLookup({ ...source, images: [{ ...reference, referenceLabel: '' }] })('burger')).toBeUndefined();
+    const lookup = vi.spyOn(foodImages, 'getFoodImage').mockReturnValue(reference);
+    try {
+      for (const compact of [true, false]) {
+        const markup = renderToStaticMarkup(<FoodPhoto food={{ id: 'burger', name: '大杯饮品' }} compact={compact}/>);
+        expect(markup).toContain(reference.referenceLabel);
+        expect(markup).not.toContain('暂无已核实商品图片');
+      }
+    } finally { lookup.mockRestore(); }
+  });
+
   it('renders a neutral, accessible missing-photo state with no illustration', () => {
     const markup = renderToStaticMarkup(<FoodPhoto food={{ id: 'unmatched-test-food', name: '待核实餐品' }}/>);
     expect(markup).toContain('暂无已核实商品图片');
@@ -39,14 +64,14 @@ describe('verified product photos', () => {
     expect(markup).not.toContain('<img');
   });
 
-  it('labels verified aliases with their menu name and review note', () => {
+  it('labels verified aliases with their original menu name', () => {
     const lookup = vi.spyOn(foodImages, 'getFoodImage').mockReturnValue(source.images[1]);
     try {
       const markup = renderToStaticMarkup(<FoodPhoto food={{ id: 'alias', name: '中薯条' }}/>);
       expect(markup).toContain('src="/food-photos/2200.png"');
       expect(markup).toContain('alt="薯条（中）商品图片"');
-      expect(markup).toContain('已核实名称对应');
-      expect(markup).toContain('人工核对规格');
+      expect(markup).toContain('菜单商品图');
+      expect(markup).not.toContain('人工核对规格');
       expect(markup).not.toContain('暂无已核实商品图片');
     } finally {
       lookup.mockRestore();

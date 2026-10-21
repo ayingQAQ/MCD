@@ -103,10 +103,22 @@ test.describe('comfortable galaxy pointer navigation', () => {
 
   test('a small distant planet has a forgiving hover and click target outside its sphere', async ({ page }, info) => {
     const canvas = await openGalaxy(page);
-    const point = await canvasPoint(canvas, 'small-planet');
+    const world = await canvas.getAttribute('data-world');
+    // The home view looks through a crowded drink cluster. Browse the sparse
+    // seven-food category, then back away using the real toolbar until its
+    // projected spheres are small enough to exercise the forgiving hit area.
+    await page.getByRole('button', { name: '未知星域', exact: true }).click();
+    await expect(canvas).toHaveAttribute('data-total', String(snapshot.foods.filter(food => food.category === 'other').length));
+    let point = await canvasPoint(canvas, 'small-planet');
+    for (let step = 0; !point && step < 10; step++) {
+      const before = (await camera(canvas)).distance;
+      await page.getByRole('button', { name: '缩小', exact: true }).click();
+      await expect.poll(async () => (await camera(canvas)).distance).toBeGreaterThan(before);
+      point = await canvasPoint(canvas, 'small-planet');
+    }
     expect(point, 'an isolated small sphere with an exposed point four pixels beyond its conservative projection').not.toBeNull();
     const food = snapshot.foods.find(item => item.id === point!.id)!;
-    const world = await canvas.getAttribute('data-world');
+    expect(food.category).toBe('other');
     await page.mouse.move(point!.x, point!.y);
     await expect(page.locator('.planet-hover-card')).toContainText(food.name);
     await expect(page.locator('.planet-hover-card')).toBeVisible();

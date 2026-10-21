@@ -1,5 +1,5 @@
 {
-  "fetchedAt": "2026-10-21T13:19:17.785Z",
+  "fetchedAt": "2026-10-21T17:13:37.611Z",
   "tool": "query-meals",
   "detailTool": "query-meal-detail",
   "store": {
@@ -38,6 +38,16 @@
       "sourceTool": "query-meal-detail"
     },
     {
+      "foodId": "food-1242dmy",
+      "foodName": "热浓浓黑巧中杯",
+      "menuName": "热浓浓黑巧中杯",
+      "code": "515945",
+      "url": "https://menu-img.mcd.cn/pcm/prod/menu/20250611/product/MS_515945_600.png",
+      "src": "/food-photos/515945.png",
+      "match": "exact",
+      "sourceTool": "query-meal-detail"
+    },
+    {
       "foodId": "food-12djhro",
       "foodName": "培根蔬萃双层牛堡",
       "menuName": "培根蔬萃双层牛堡",
@@ -46,6 +56,18 @@
       "src": "/food-photos/1106.png",
       "match": "exact",
       "sourceTool": "query-meal-detail"
+    },
+    {
+      "foodId": "food-130tlzv",
+      "foodName": "热牛奶小杯",
+      "menuName": "热牛奶中杯",
+      "code": "507394",
+      "url": "https://menu-img.mcd.cn/pcm/prod/menu/ProductPool/product/MS_507394_600.png",
+      "src": "/food-photos/507394.png",
+      "match": "family-reference",
+      "sourceTool": "query-meal-detail",
+      "referenceLabel": "同款中杯参考图 · 当前为小杯",
+      "note": "仅作为同冰热、同口味、同奶基底的商品参考；当前规格外观尚未由接口核实。"
     },
     {
       "foodId": "food-13o6rcc",
@@ -131,6 +153,16 @@
       "sourceTool": "query-meal-detail"
     },
     {
+      "foodId": "food-19i3jra",
+      "foodName": "吉士汉堡包",
+      "menuName": "吉士汉堡包",
+      "code": "1010",
+      "url": "https://menu-img.mcd.cn/pcm/prod/menu/ProductPool/product/MS_1010_600.png",
+      "src": "/food-photos/1010.png",
+      "match": "exact",
+      "sourceTool": "query-meal-detail"
+    },
+    {
       "foodId": "food-19igdhx",
       "foodName": "圆筒冰淇淋",
       "menuName": "圆筒冰淇淋",
@@ -162,6 +194,18 @@
       "note": "已核对名称、杯型或份量；保留菜单原名。"
     },
     {
+      "foodId": "food-1a6m51o",
+      "foodName": "冰奶铁大杯",
+      "menuName": "麦咖啡™冰奶铁中杯",
+      "code": "507409",
+      "url": "https://menu-img.mcd.cn/pcm/prod/menu/20250324/product/MS_507409_600.png",
+      "src": "/food-photos/507409.png",
+      "match": "family-reference",
+      "sourceTool": "query-meal-detail",
+      "note": "仅作为同冰热、同口味、同奶基底的商品参考；当前规格外观尚未由接口核实。",
+      "referenceLabel": "同款中杯参考图 · 当前为大杯"
+    },
+    {
       "foodId": "food-1ald9ss",
       "foodName": "锡兰红茶",
       "menuName": "锡兰红茶",
@@ -170,6 +214,30 @@
       "src": "/food-photos/3505.png",
       "match": "exact",
       "sourceTool": "query-meal-detail"
+    },
+    {
+      "foodId": "food-1b5lovp",
+      "foodName": "热燕麦奶大杯",
+      "menuName": "热燕麦奶中杯",
+      "code": "510488",
+      "url": "https://menu-img.mcd.cn/pcm/prod/menu/ProductPool/product/MS_510488_600.png",
+      "src": "/food-photos/510488.png",
+      "match": "family-reference",
+      "sourceTool": "query-meal-detail",
+      "referenceLabel": "同款中杯参考图 · 当前为大杯",
+      "note": "仅作为同冰热、同口味、同奶基底的商品参考；当前规格外观尚未由接口核实。"
+    },
+    {
+      "foodId": "food-1efqpvo",
+      "foodName": "冰牛奶小杯",
+      "menuName": "冰牛奶中杯",
+      "code": "510041",
+      "url": "https://menu-img.mcd.cn/pcm/prod/menu/ProductPool/product/MS_510041_600.png",
+      "src": "/food-photos/510041.png",
+      "match": "family-reference",
+      "sourceTool": "query-meal-detail",
+      "referenceLabel": "同款中杯参考图 · 当前为小杯",
+      "note": "仅作为同冰热、同口味、同奶基底的商品参考；当前规格外观尚未由接口核实。"
     },
     {
       "foodId": "food-1f62hqv",
@@ -182,6 +250,18 @@
       "sourceTool": "query-meal-detail"
     },
     {
+      "foodId": "food-1fh5v2s",
+      "foodName": "冰奶铁小杯",
+      "menuName": "麦咖啡™冰奶铁中杯",
+      "code": "507409",
+      "url": "https://menu-img.mcd.cn/pcm/prod/menu/20250324/product/MS_507409_600.png",
+      "src": "/food-photos/507409.png",
+      "match": "family-reference",
+      "sourceTool": "query-meal-detail",
+      "note": "仅作为同冰热、同口味、同奶基底的商品参考；当前规格外观尚未由接口核实。",
+      "referenceLabel": "同款中杯参考图 · 当前为小杯"
+    },
+    {
       "foodId": "food-1g0g6bi",
       "foodName": "火腿扒早安营养卷",
       "menuName": "火腿扒早安营养卷",
@@ -191,6 +271,38 @@
       "match": "exact",
       "sourceTool": "query-meals",
       "reservationDate": "2026-10-22 08:30"
+    },
+    {
+      "foodId": "food-1gbnc3e",
+      "foodName": "儿童鱼排堡",
+      "menuName": "鱼排堡",
+      "code": "504642",
+      "url": "https://menu-img.mcd.cn/pcm/prod/menu/ProductPool/product/MS_504642_600.png",
+      "src": "/food-photos/504642.png",
+      "match": "alias",
+      "sourceTool": "query-meal-detail",
+      "reservationDate": "2026-10-22 15:00",
+      "note": "鱼排堡编码来自鱼排堡开心乐园餐的单品轮次，核对为儿童鱼排堡。"
+    },
+    {
+      "foodId": "food-1h9g7qp",
+      "foodName": "阳光柠檬红茶中杯",
+      "menuName": "阳光柠檬红茶中杯",
+      "code": "515281",
+      "url": "https://menu-img.mcd.cn/pcm/prod/menu/ProductPool/product/MS_515281_600.png",
+      "src": "/food-photos/515281.png",
+      "match": "exact",
+      "sourceTool": "query-meal-detail"
+    },
+    {
+      "foodId": "food-1hcnnu6",
+      "foodName": "汉堡包",
+      "menuName": "汉堡包",
+      "code": "1000",
+      "url": "https://menu-img.mcd.cn/pcm/prod/menu/ProductPool/product/MS_1000_600.png",
+      "src": "/food-photos/1000.png",
+      "match": "exact",
+      "sourceTool": "query-meal-detail"
     },
     {
       "foodId": "food-1hfn97q",
@@ -225,6 +337,18 @@
       "note": "已核对名称、杯型或份量；保留菜单原名。"
     },
     {
+      "foodId": "food-1hso1w7",
+      "foodName": "热奶铁大杯",
+      "menuName": "麦咖啡™热奶铁中杯",
+      "code": "507328",
+      "url": "https://menu-img.mcd.cn/pcm/prod/menu/20250324/product/MS_507328_600.png",
+      "src": "/food-photos/507328.png",
+      "match": "family-reference",
+      "sourceTool": "query-meal-detail",
+      "note": "仅作为同冰热、同口味、同奶基底的商品参考；当前规格外观尚未由接口核实。",
+      "referenceLabel": "同款中杯参考图 · 当前为大杯"
+    },
+    {
       "foodId": "food-1i63ic0",
       "foodName": "咖啡阿芙佳朵",
       "menuName": "咖啡阿芙佳朵",
@@ -233,6 +357,18 @@
       "src": "/food-photos/514851.png",
       "match": "exact",
       "sourceTool": "query-meal-detail"
+    },
+    {
+      "foodId": "food-1jnmxz0",
+      "foodName": "冰牛奶大杯",
+      "menuName": "冰牛奶中杯",
+      "code": "510041",
+      "url": "https://menu-img.mcd.cn/pcm/prod/menu/ProductPool/product/MS_510041_600.png",
+      "src": "/food-photos/510041.png",
+      "match": "family-reference",
+      "sourceTool": "query-meal-detail",
+      "referenceLabel": "同款中杯参考图 · 当前为大杯",
+      "note": "仅作为同冰热、同口味、同奶基底的商品参考；当前规格外观尚未由接口核实。"
     },
     {
       "foodId": "food-1josqss",
@@ -245,6 +381,28 @@
       "sourceTool": "query-meal-detail"
     },
     {
+      "foodId": "food-1k25ds7",
+      "foodName": "阳光柠檬红茶大杯",
+      "menuName": "阳光柠檬红茶大杯",
+      "code": "515282",
+      "url": "https://menu-img.mcd.cn/pcm/prod/menu/ProductPool/product/MS_515282_600.png",
+      "src": "/food-photos/515282.png",
+      "match": "exact",
+      "sourceTool": "query-meal-detail"
+    },
+    {
+      "foodId": "food-1kfvcdc",
+      "foodName": "大杯玉米杯",
+      "menuName": "小杯玉米杯",
+      "code": "4437",
+      "url": "https://menu-img.mcd.cn/pcm/prod/menu/20260101/product/MS_4437_600.png",
+      "src": "/food-photos/4437.png",
+      "match": "family-reference",
+      "sourceTool": "query-meal-detail",
+      "referenceLabel": "同款小杯参考图 · 当前为大杯",
+      "note": "仅作为同款不同容量/份量的商品参考；当前规格外观尚未由接口核实。"
+    },
+    {
       "foodId": "food-1lx0bxu",
       "foodName": "麦乐鸡5块",
       "menuName": "麦乐鸡5块",
@@ -253,6 +411,17 @@
       "src": "/food-photos/1401.png",
       "match": "exact",
       "sourceTool": "query-meal-detail"
+    },
+    {
+      "foodId": "food-1m4zt70",
+      "foodName": "雪碧大杯",
+      "menuName": "雪碧（大杯）",
+      "code": "3110",
+      "url": "https://menu-img.mcd.cn/pcm/prod/menu/ProductPool/product/MS_3110_600.png",
+      "src": "/food-photos/3110.png",
+      "match": "alias",
+      "sourceTool": "query-meal-detail",
+      "note": "已核对菜单单品名称、杯型与营养餐品名称对应。"
     },
     {
       "foodId": "food-1n02moh",
@@ -283,6 +452,29 @@
       "src": "/food-photos/3757.png",
       "match": "exact",
       "sourceTool": "query-meal-detail"
+    },
+    {
+      "foodId": "food-1nm8091",
+      "foodName": "热美式小杯",
+      "menuName": "麦咖啡™热美式中杯",
+      "code": "507368",
+      "url": "https://menu-img.mcd.cn/pcm/prod/menu/20260610/product/MS_507368_600.png",
+      "src": "/food-photos/507368.png",
+      "match": "family-reference",
+      "sourceTool": "query-meal-detail",
+      "note": "仅作为同冰热、同口味、同奶基底的商品参考；当前规格外观尚未由接口核实。",
+      "referenceLabel": "同款中杯参考图 · 当前为小杯"
+    },
+    {
+      "foodId": "food-1nvga25",
+      "foodName": "雪菜脆笋鸡肉粥",
+      "menuName": "雪菜脆笋鸡肉粥",
+      "code": "513606",
+      "url": "https://menu-img.mcd.cn/pcm/prod/menu/ProductPool/product/MS_513606_600.png",
+      "src": "/food-photos/513606.png",
+      "match": "exact",
+      "sourceTool": "query-meal-detail",
+      "reservationDate": "2026-10-22 08:30"
     },
     {
       "foodId": "food-1nx8jim",
@@ -359,6 +551,17 @@
       "note": "已核对名称、杯型或份量；保留菜单原名。"
     },
     {
+      "foodId": "food-1t806bi",
+      "foodName": "热燕麦奶铁中杯",
+      "menuName": "热燕麦奶铁中杯",
+      "code": "510478",
+      "url": "https://menu-img.mcd.cn/pcm/prod/menu/20250324/product/MS_510478_600.png",
+      "src": "/food-photos/510478.png",
+      "match": "exact",
+      "sourceTool": "query-meal-detail",
+      "reservationDate": "2026-10-22 08:30"
+    },
+    {
       "foodId": "food-1td5571",
       "foodName": "芝士安格斯厚牛堡",
       "menuName": "芝士安格斯厚牛堡",
@@ -367,6 +570,42 @@
       "src": "/food-photos/511782.png",
       "match": "exact",
       "sourceTool": "query-meal-detail"
+    },
+    {
+      "foodId": "food-1ttr0zz",
+      "foodName": "热奶铁小杯",
+      "menuName": "麦咖啡™热奶铁中杯",
+      "code": "507328",
+      "url": "https://menu-img.mcd.cn/pcm/prod/menu/20250324/product/MS_507328_600.png",
+      "src": "/food-photos/507328.png",
+      "match": "family-reference",
+      "sourceTool": "query-meal-detail",
+      "note": "仅作为同冰热、同口味、同奶基底的商品参考；当前规格外观尚未由接口核实。",
+      "referenceLabel": "同款中杯参考图 · 当前为小杯"
+    },
+    {
+      "foodId": "food-1ubqih9",
+      "foodName": "热美式大杯",
+      "menuName": "麦咖啡™热美式中杯",
+      "code": "507368",
+      "url": "https://menu-img.mcd.cn/pcm/prod/menu/20260610/product/MS_507368_600.png",
+      "src": "/food-photos/507368.png",
+      "match": "family-reference",
+      "sourceTool": "query-meal-detail",
+      "note": "仅作为同冰热、同口味、同奶基底的商品参考；当前规格外观尚未由接口核实。",
+      "referenceLabel": "同款中杯参考图 · 当前为大杯"
+    },
+    {
+      "foodId": "food-1uk86h2",
+      "foodName": "小薯条",
+      "menuName": "中薯条",
+      "code": "4810",
+      "url": "https://menu-img.mcd.cn/pcm/prod/menu/20250423/product/MS_4810_600_1745199801147.png",
+      "src": "/food-photos/4810.png",
+      "match": "family-reference",
+      "sourceTool": "query-meal-detail",
+      "referenceLabel": "同款中份参考图 · 当前为小份",
+      "note": "仅作为同款不同容量/份量的商品参考；当前规格外观尚未由接口核实。"
     },
     {
       "foodId": "food-1uv83i8",
@@ -423,6 +662,18 @@
       "note": "已核对名称、杯型或份量；保留菜单原名。"
     },
     {
+      "foodId": "food-2tjgic",
+      "foodName": "冰焦糖玛奇朵",
+      "menuName": "冰焦糖玛奇朵",
+      "code": "official-iced-caramel-macchiato",
+      "url": "https://officiaweb-afd.mcdonalds.com.cn/public/upload/attachment/2022/08/202208292209215242.png",
+      "src": "/food-photos/official-iced-caramel-macchiato.png",
+      "match": "exact",
+      "sourceTool": "official-product-page",
+      "sourcePage": "https://www.mcdonalds.com.cn/product/Iced-Caramel-Macchiato-2",
+      "note": "来自官网该中文商品名的主图；网页营养表展示中杯，营养接口餐品名称未标尺寸。图片来源与门店菜单无关。"
+    },
+    {
       "foodId": "food-2vziy7",
       "foodName": "小杯鲜萃咖啡",
       "menuName": "小杯鲜萃咖啡",
@@ -444,6 +695,18 @@
       "note": "已核对名称、杯型或份量；保留菜单原名。"
     },
     {
+      "foodId": "food-4numco",
+      "foodName": "冰浓浓燕麦黑巧大杯",
+      "menuName": "冰浓浓燕麦黑巧中杯",
+      "code": "515955",
+      "url": "https://menu-img.mcd.cn/pcm/prod/menu/20250611/product/MS_515955_600.png",
+      "src": "/food-photos/515955.png",
+      "match": "family-reference",
+      "sourceTool": "query-meal-detail",
+      "referenceLabel": "同款中杯参考图 · 当前为大杯",
+      "note": "仅作为同冰热、同口味、同奶基底的商品参考；当前规格外观尚未由接口核实。"
+    },
+    {
       "foodId": "food-5ohq57",
       "foodName": "图林根香肠早安营养卷",
       "menuName": "图林根香肠早安营养卷",
@@ -455,6 +718,18 @@
       "reservationDate": "2026-10-22 08:30"
     },
     {
+      "foodId": "food-6wb0cq",
+      "foodName": "冰美式小杯",
+      "menuName": "麦咖啡™冰美式中杯",
+      "code": "507411",
+      "url": "https://menu-img.mcd.cn/pcm/prod/menu/20250804/product/MS_507411_600.png",
+      "src": "/food-photos/507411.png",
+      "match": "family-reference",
+      "sourceTool": "query-meal-detail",
+      "note": "仅作为同冰热、同口味、同奶基底的商品参考；当前规格外观尚未由接口核实。",
+      "referenceLabel": "同款中杯参考图 · 当前为小杯"
+    },
+    {
       "foodId": "food-71ivrc",
       "foodName": "小杯玉米杯",
       "menuName": "小杯玉米杯",
@@ -463,6 +738,65 @@
       "src": "/food-photos/4437.png",
       "match": "exact",
       "sourceTool": "query-meal-detail"
+    },
+    {
+      "foodId": "food-8pgvoi",
+      "foodName": "雪碧中杯",
+      "menuName": "雪碧（中杯）",
+      "code": "3060",
+      "url": "https://menu-img.mcd.cn/pcm/prod/menu/ProductPool/product/MS_3060_600.png",
+      "src": "/food-photos/3060.png",
+      "match": "alias",
+      "sourceTool": "query-meal-detail",
+      "reservationDate": "2026-10-22 08:30",
+      "note": "已核对菜单单品名称、杯型与营养餐品名称对应。"
+    },
+    {
+      "foodId": "food-9any2j",
+      "foodName": "大杯怡泉+C",
+      "menuName": "大杯怡泉+C",
+      "code": "515521",
+      "url": "https://menu-img.mcd.cn/pcm/prod/menu/ProductPool/product/MS_515521_600.png",
+      "src": "/food-photos/515521.png",
+      "match": "exact",
+      "sourceTool": "query-meal-detail",
+      "reservationDate": "2026-10-22 08:30"
+    },
+    {
+      "foodId": "food-a49rzm",
+      "foodName": "冰美式大杯",
+      "menuName": "麦咖啡™冰美式中杯",
+      "code": "507411",
+      "url": "https://menu-img.mcd.cn/pcm/prod/menu/20250804/product/MS_507411_600.png",
+      "src": "/food-photos/507411.png",
+      "match": "family-reference",
+      "sourceTool": "query-meal-detail",
+      "note": "仅作为同冰热、同口味、同奶基底的商品参考；当前规格外观尚未由接口核实。",
+      "referenceLabel": "同款中杯参考图 · 当前为大杯"
+    },
+    {
+      "foodId": "food-ac8jqg",
+      "foodName": "热燕麦奶铁大杯",
+      "menuName": "热燕麦奶铁中杯",
+      "code": "510478",
+      "url": "https://menu-img.mcd.cn/pcm/prod/menu/20250324/product/MS_510478_600.png",
+      "src": "/food-photos/510478.png",
+      "match": "family-reference",
+      "sourceTool": "query-meal-detail",
+      "reservationDate": "2026-10-22 08:30",
+      "referenceLabel": "同款中杯参考图 · 当前为大杯",
+      "note": "仅作为同冰热、同口味、同奶基底的商品参考；当前规格外观尚未由接口核实。"
+    },
+    {
+      "foodId": "food-aryrvr",
+      "foodName": "大杯鲜萃咖啡",
+      "menuName": "大杯鲜萃咖啡",
+      "code": "520688",
+      "url": "https://menu-img.mcd.cn/pcm/prod/menu/ProductPool/product/MS_520688_600.png",
+      "src": "/food-photos/520688.png",
+      "match": "exact",
+      "sourceTool": "query-meal-detail",
+      "reservationDate": "2026-10-22 08:30"
     },
     {
       "foodId": "food-c7xeq1",
@@ -495,6 +829,45 @@
       "match": "exact",
       "sourceTool": "query-meals",
       "reservationDate": "2026-10-22 08:30"
+    },
+    {
+      "foodId": "food-cadq34",
+      "foodName": "热燕麦奶铁小杯",
+      "menuName": "热燕麦奶铁中杯",
+      "code": "510478",
+      "url": "https://menu-img.mcd.cn/pcm/prod/menu/20250324/product/MS_510478_600.png",
+      "src": "/food-photos/510478.png",
+      "match": "family-reference",
+      "sourceTool": "query-meal-detail",
+      "reservationDate": "2026-10-22 08:30",
+      "referenceLabel": "同款中杯参考图 · 当前为小杯",
+      "note": "仅作为同冰热、同口味、同奶基底的商品参考；当前规格外观尚未由接口核实。"
+    },
+    {
+      "foodId": "food-cpz2a7",
+      "foodName": "热浓浓燕麦黑巧大杯",
+      "menuName": "热浓浓燕麦黑巧中杯",
+      "code": "515954",
+      "url": "https://menu-img.mcd.cn/pcm/prod/menu/20250611/product/MS_515954_600.png",
+      "src": "/food-photos/515954.png",
+      "match": "family-reference",
+      "sourceTool": "query-meal-detail",
+      "reservationDate": "2026-10-22 08:30",
+      "referenceLabel": "同款中杯参考图 · 当前为大杯",
+      "note": "仅作为同冰热、同口味、同奶基底的商品参考；当前规格外观尚未由接口核实。"
+    },
+    {
+      "foodId": "food-dhl8fo",
+      "foodName": "优品豆浆小杯",
+      "menuName": "优品豆浆大杯",
+      "code": "1089",
+      "url": "https://menu-img.mcd.cn/pcm/prod/menu/ProductPool/product/MS_1089_600.png",
+      "src": "/food-photos/1089.png",
+      "match": "family-reference",
+      "sourceTool": "query-meal-detail",
+      "reservationDate": "2026-10-22 08:30",
+      "referenceLabel": "同款大杯参考图 · 当前为小杯",
+      "note": "仅作为同款不同容量/份量的商品参考；当前规格外观尚未由接口核实。"
     },
     {
       "foodId": "food-du09pj",
@@ -569,6 +942,18 @@
       "reservationDate": "2026-10-22 08:30"
     },
     {
+      "foodId": "food-h5mjyp",
+      "foodName": "热焦糖玛奇朵",
+      "menuName": "热焦糖玛奇朵",
+      "code": "official-hot-caramel-macchiato",
+      "url": "https://officiaweb-afd.mcdonalds.com.cn/public/upload/attachment/2022/08/202208292209422511.png",
+      "src": "/food-photos/official-hot-caramel-macchiato.png",
+      "match": "exact",
+      "sourceTool": "official-product-page",
+      "sourcePage": "https://www.mcdonalds.com.cn/product/Hot-Caramel-Macchiato-2",
+      "note": "来自官网该中文商品名的主图；网页营养表展示中杯，营养接口餐品名称未标尺寸。图片来源与门店菜单无关。"
+    },
+    {
       "foodId": "food-hl6o4p",
       "foodName": "奥利奥麦旋风",
       "menuName": "奥利奥麦旋风",
@@ -611,6 +996,17 @@
       "reservationDate": "2026-10-22 08:30"
     },
     {
+      "foodId": "food-lqtsa1",
+      "foodName": "热浓浓燕麦黑巧中杯",
+      "menuName": "热浓浓燕麦黑巧中杯",
+      "code": "515954",
+      "url": "https://menu-img.mcd.cn/pcm/prod/menu/20250611/product/MS_515954_600.png",
+      "src": "/food-photos/515954.png",
+      "match": "exact",
+      "sourceTool": "query-meal-detail",
+      "reservationDate": "2026-10-22 08:30"
+    },
+    {
       "foodId": "food-m7zjnv",
       "foodName": "热燕麦奶中杯",
       "menuName": "热燕麦奶中杯",
@@ -640,6 +1036,40 @@
       "src": "/food-photos/4410.png",
       "match": "exact",
       "sourceTool": "query-meal-detail"
+    },
+    {
+      "foodId": "food-o7em1q",
+      "foodName": "大薯条",
+      "menuName": "大薯条",
+      "code": "4820",
+      "url": "https://menu-img.mcd.cn/pcm/prod/menu/20260701/product/MS_4820_600.png",
+      "src": "/food-photos/4820.png",
+      "match": "exact",
+      "sourceTool": "query-meal-detail",
+      "reservationDate": "2026-10-22 15:00"
+    },
+    {
+      "foodId": "food-occ6mv",
+      "foodName": "冰燕麦奶铁大杯",
+      "menuName": "冰燕麦奶铁中杯",
+      "code": "510479",
+      "url": "https://menu-img.mcd.cn/pcm/prod/menu/20250324/product/MS_510479_600.png",
+      "src": "/food-photos/510479.png",
+      "match": "family-reference",
+      "sourceTool": "query-meal-detail",
+      "referenceLabel": "同款中杯参考图 · 当前为大杯",
+      "note": "仅作为同冰热、同口味、同奶基底的商品参考；当前规格外观尚未由接口核实。"
+    },
+    {
+      "foodId": "food-oroi8y",
+      "foodName": "迷你薯条",
+      "menuName": "迷你薯条",
+      "code": "504643",
+      "url": "https://menu-img.mcd.cn/pcm/prod/menu/ProductPool/product/MS_504643_600.png",
+      "src": "/food-photos/504643.png",
+      "match": "exact",
+      "sourceTool": "query-meal-detail",
+      "reservationDate": "2026-10-22 15:00"
     },
     {
       "foodId": "food-pg1c26",
@@ -673,6 +1103,30 @@
       "sourceTool": "query-meal-detail"
     },
     {
+      "foodId": "food-rw8uqs",
+      "foodName": "热浓浓黑巧大杯",
+      "menuName": "热浓浓黑巧中杯",
+      "code": "515945",
+      "url": "https://menu-img.mcd.cn/pcm/prod/menu/20250611/product/MS_515945_600.png",
+      "src": "/food-photos/515945.png",
+      "match": "family-reference",
+      "sourceTool": "query-meal-detail",
+      "referenceLabel": "同款中杯参考图 · 当前为大杯",
+      "note": "仅作为同冰热、同口味、同奶基底的商品参考；当前规格外观尚未由接口核实。"
+    },
+    {
+      "foodId": "food-sw2ua2",
+      "foodName": "卡布奇诺大杯",
+      "menuName": "卡布奇诺中杯",
+      "code": "507387",
+      "url": "https://menu-img.mcd.cn/pcm/prod/menu/20250324/product/MS_507387_600.png",
+      "src": "/food-photos/507387.png",
+      "match": "family-reference",
+      "sourceTool": "query-meal-detail",
+      "referenceLabel": "同款中杯参考图 · 当前为大杯",
+      "note": "仅作为同冰热、同口味、同奶基底的商品参考；当前规格外观尚未由接口核实。"
+    },
+    {
       "foodId": "food-tiq45p",
       "foodName": "热牛奶中杯",
       "menuName": "热牛奶中杯",
@@ -681,6 +1135,18 @@
       "src": "/food-photos/507394.png",
       "match": "exact",
       "sourceTool": "query-meal-detail"
+    },
+    {
+      "foodId": "food-uabsmf",
+      "foodName": "冰浓浓黑巧大杯",
+      "menuName": "冰浓浓黑巧中杯",
+      "code": "515946",
+      "url": "https://menu-img.mcd.cn/pcm/prod/menu/20250611/product/MS_515946_600.png",
+      "src": "/food-photos/515946.png",
+      "match": "family-reference",
+      "sourceTool": "query-meal-detail",
+      "referenceLabel": "同款中杯参考图 · 当前为大杯",
+      "note": "仅作为同冰热、同口味、同奶基底的商品参考；当前规格外观尚未由接口核实。"
     },
     {
       "foodId": "food-ucbnh6",
@@ -712,6 +1178,53 @@
       "src": "/food-photos/4648.png",
       "match": "exact",
       "sourceTool": "query-meal-detail"
+    },
+    {
+      "foodId": "food-xqc3kj",
+      "foodName": "热牛奶大杯",
+      "menuName": "热牛奶中杯",
+      "code": "507394",
+      "url": "https://menu-img.mcd.cn/pcm/prod/menu/ProductPool/product/MS_507394_600.png",
+      "src": "/food-photos/507394.png",
+      "match": "family-reference",
+      "sourceTool": "query-meal-detail",
+      "referenceLabel": "同款中杯参考图 · 当前为大杯",
+      "note": "仅作为同冰热、同口味、同奶基底的商品参考；当前规格外观尚未由接口核实。"
+    },
+    {
+      "foodId": "food-y93qk",
+      "foodName": "优品豆浆大杯",
+      "menuName": "优品豆浆大杯",
+      "code": "1089",
+      "url": "https://menu-img.mcd.cn/pcm/prod/menu/ProductPool/product/MS_1089_600.png",
+      "src": "/food-photos/1089.png",
+      "match": "exact",
+      "sourceTool": "query-meal-detail",
+      "reservationDate": "2026-10-22 08:30"
+    },
+    {
+      "foodId": "food-yec665",
+      "foodName": "热燕麦奶小杯",
+      "menuName": "热燕麦奶中杯",
+      "code": "510488",
+      "url": "https://menu-img.mcd.cn/pcm/prod/menu/ProductPool/product/MS_510488_600.png",
+      "src": "/food-photos/510488.png",
+      "match": "family-reference",
+      "sourceTool": "query-meal-detail",
+      "referenceLabel": "同款中杯参考图 · 当前为小杯",
+      "note": "仅作为同冰热、同口味、同奶基底的商品参考；当前规格外观尚未由接口核实。"
+    },
+    {
+      "foodId": "food-z3lkgf",
+      "foodName": "冰燕麦奶铁小杯",
+      "menuName": "冰燕麦奶铁中杯",
+      "code": "510479",
+      "url": "https://menu-img.mcd.cn/pcm/prod/menu/20250324/product/MS_510479_600.png",
+      "src": "/food-photos/510479.png",
+      "match": "family-reference",
+      "sourceTool": "query-meal-detail",
+      "referenceLabel": "同款中杯参考图 · 当前为小杯",
+      "note": "仅作为同冰热、同口味、同奶基底的商品参考；当前规格外观尚未由接口核实。"
     }
   ]
 }

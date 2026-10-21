@@ -2,6 +2,23 @@ import { expect, test } from '@playwright/test';
 import snapshot from '../../public/data/nutrition.snapshot.json' with { type: 'json' };
 import manifest from '../../src/data/food-images.json' with { type: 'json' };
 
+for (const name of ['冰奶铁大杯', '冰焦糖玛奇朵']) {
+  test(`expanded product photo is visible and accurately labelled for ${name}`, async ({ page }, info) => {
+    await page.setViewportSize({ width: 1112, height: 1000 });
+    const food = snapshot.foods.find(food => food.name === name)!;
+    const image = manifest.images.find(image => image.foodId === food.id)!;
+    await page.goto(`/atlas?food=${food.id}`);
+    const details = page.locator('.planet-details');
+    await expect(details.getByRole('heading', { name, exact: true })).toBeVisible();
+    const photo = details.locator('.food-photo img');
+    await expect(photo).toHaveAttribute('src', image.src);
+    await expect.poll(() => photo.evaluate(element => (element as HTMLImageElement).naturalWidth)).toBeGreaterThan(100);
+    if (image.match === 'family-reference') await expect(details.locator('.food-photo-caption')).toContainText(image.referenceLabel!);
+    else await expect(details.locator('.food-photo-caption')).toContainText('官网商品图');
+    await page.screenshot({ path: info.outputPath(`expanded-photo-${food.id}.png`), fullPage: true });
+  });
+}
+
 for (const width of [390, 1112, 1440]) {
   test(`home mission copy keeps a readable column at ${width}px`, async ({ page }, info) => {
     await page.setViewportSize({ width, height: 1000 });

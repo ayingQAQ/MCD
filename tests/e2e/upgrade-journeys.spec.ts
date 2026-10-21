@@ -64,7 +64,7 @@ test('random discovery opens an actual food; recent history, global keyboard sea
   const id = new URL(page.url()).searchParams.get('focus');
   const food = dataset.foods.find(item => item.id === id);
   expect(food).toBeDefined();
-  await expect(page.getByRole('heading', { name: food!.name, exact: true })).toBeVisible();
+  await expect(page.locator('.planet-details').getByRole('heading', { name: food!.name, exact: true })).toBeVisible();
   await page.getByRole('button', { name: '关闭星球档案', exact: true }).click();
   await page.getByRole('link', { name: '宇宙观测站', exact: true }).click();
   await expect(page.locator('.recent-foods')).toContainText(food!.name);
@@ -72,7 +72,7 @@ test('random discovery opens an actual food; recent history, global keyboard sea
   await ready(page, 2);
   await expect(page).toHaveURL(new RegExp(`food=${encodeURIComponent(food!.id)}`));
   await page.reload(); await ready(page, 2);
-  await expect(page.getByRole('heading', { name: food!.name, exact: true })).toBeVisible();
+  await expect(page.locator('.planet-details').getByRole('heading', { name: food!.name, exact: true })).toBeVisible();
   await page.keyboard.press('Escape');
   const search = page.getByLabel('全局搜索餐品');
   await search.fill('巨无霸');
@@ -81,11 +81,11 @@ test('random discovery opens an actual food; recent history, global keyboard sea
   await expect(search).toHaveValue('');
   await expect(page.locator('#global-food-results')).toHaveCount(0);
   await search.fill('巨无霸'); await search.press('Enter');
-  await expect(page.getByRole('heading', { name: '巨无霸', exact: true })).toBeVisible();
+  await expect(page.locator('.planet-details').getByRole('heading', { name: '巨无霸', exact: true })).toBeVisible();
   await page.goBack();
-  await expect(page.getByRole('heading', { name: '巨无霸', exact: true })).toHaveCount(0);
+  await expect(page.locator('.planet-details').getByRole('heading', { name: '巨无霸', exact: true })).toHaveCount(0);
   await page.goForward();
-  await expect(page.getByRole('heading', { name: '巨无霸', exact: true })).toBeVisible();
+  await expect(page.locator('.planet-details').getByRole('heading', { name: '巨无霸', exact: true })).toBeVisible();
   await page.goto('/atlas?food=definitely-unknown');
   await expect(page.getByRole('alert')).toContainText('找不到这颗星球');
   await page.getByRole('button', { name: '返回当前图鉴' }).click();

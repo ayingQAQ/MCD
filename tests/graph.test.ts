@@ -18,6 +18,16 @@ describe('nutrition graph', () => {
     const c = food('c', [100, null, null, null, 20]);
     expect(compareFoods(a, c, normalizeFoods([a, c]))).toBeNull();
   });
+  it('keeps normalization finite and bounded with outliers and entirely missing columns', () => {
+    const outlier = food('outlier', [1e12, null, 0, 0, null]);
+    const empty = food('empty', [null, null, null, null, null]);
+    const normalized = normalizeFoods([a, b, outlier, empty]);
+    expect(normalized.get('empty')).toEqual({});
+    for (const values of normalized.values()) for (const value of Object.values(values)) {
+      expect(Number.isFinite(value)).toBe(true); expect(value).toBeGreaterThanOrEqual(0); expect(value).toBeLessThanOrEqual(1);
+    }
+    expect(compareFoods(a, empty, normalized)).toBeNull();
+  });
   it('deduplicates undirected edges, excludes self edges and is order independent', () => {
     const foods = Array.from({ length: 6 }, (_, i) => food(`f${i}`, [100, 10, 3, 20, 100]));
     const graph = analyze(foods);

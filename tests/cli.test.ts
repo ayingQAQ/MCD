@@ -1,6 +1,7 @@
 import { describe, expect, it } from 'vitest';
 import { runCli } from '../src/cli/run';
 import { demoDataset } from '../src/data/demo';
+import { spawnSync } from 'node:child_process';
 describe('CLI shared analysis', () => {
   it('lists explicit categories and includes honest mode metadata', () => {
     const result = runCli(['list', '--category=burger'], demoDataset());
@@ -17,5 +18,13 @@ describe('CLI shared analysis', () => {
   });
   it('rejects unsupported commands, invalid limits and invalid categories', () => {
     for (const args of [['unknown'], ['neighbors', '--id=demo-0', '--limit=-1'], ['list', '--category=unknown']]) expect(runCli(args, demoDataset()).ok).toBe(false);
+  });
+  it('runs the actual Node CLI entrypoint with JSON-only stdout and correct exit codes', () => {
+    const success = spawnSync(process.execPath, ['--import', 'tsx', 'scripts/cosmos-cli.ts', 'list', '--category=burger'], { encoding: 'utf8' });
+    expect(success.status).toBe(0);
+    expect(JSON.parse(success.stdout)).toMatchObject({ ok: true, mode: 'official-snapshot' });
+    const failure = spawnSync(process.execPath, ['--import', 'tsx', 'scripts/cosmos-cli.ts', 'unknown'], { encoding: 'utf8' });
+    expect(failure.status).toBe(1);
+    expect(JSON.parse(failure.stdout)).toMatchObject({ ok: false, error: { code: 'USAGE' } });
   });
 });

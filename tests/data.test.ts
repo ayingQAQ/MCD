@@ -37,4 +37,9 @@ describe('nutrition response', () => {
     const result = parseNutritionResponse(response([row.replace('测试餐品', '"测试,餐品"')]));
     expect(result.foods[0].name).toBe('测试,餐品');
   });
+  it('does not derive per-serving kcal from kJ when the quantity basis is unverified', () => {
+    const result = parseNutritionResponse(response(['计量待确认,null,418.4,null,1,2,3,4,5']));
+    expect(result.foods[0].nutrition.kcal).toBeNull();
+    expect(result.foods[0].basis.unitsVerified).toBe(false);
+  });
 });

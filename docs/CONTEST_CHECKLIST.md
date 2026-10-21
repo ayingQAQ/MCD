@@ -6,9 +6,9 @@
 - [x] MCP_INTEGRATION 说明真实工具、流程和价值。
 - [x] 网页、同步工具、CLI、Skill，官方/合成来源分开。
 - [x] CI 不需要个人 Token，浏览器不访问凭据。
-- [ ] main 最终 Actions 全部通过，记录实际结果。
-- [ ] 人工审阅三种尺寸截图与 PNG。
-- [ ] 在线部署 URL 可访问。
+- [x] main Actions 全部通过，实际证据见实施记录。
+- [x] 人工审阅三种尺寸截图与 PNG，保存在 docs/screenshots。
+- [x] 在线部署 https://mccosmos.pages.dev ，页面/脚本/营养快照可访问。
 - [ ] 报名 Issue 前重新核对官方规则。
 
 按当前官方规则，报名截止北京时间2026-10-25 23:59；提交前再次核对。项目地址使用纯URL。构建工作流不会自动报名、发布Issue或兑奖。

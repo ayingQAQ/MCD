@@ -96,3 +96,10 @@ html[data-route=galaxy] .live-feedback{bottom:76px}
 .webgl-error h2{font:24px var(--hand);margin-bottom:12px}.webgl-error button{margin-top:16px}
 @media(max-width:850px){.scene-navigation,.has-details .scene-navigation{right:16px;bottom:115px}.cluster-labels>button{font-size:12px;padding:5px 9px}.webgl-error,.webgl-loading{top:48%;max-width:330px}}
 @media(max-width:600px){.scene-navigation,.has-details .scene-navigation{bottom:150px}.cluster-labels>button small{font-size:8px}.cluster-labels>button{font-size:11px}}
+@media(max-width:600px){
+  .has-details .galaxy-panel.sidebar{width:auto;right:auto;max-width:calc(100% - 140px);padding:8px 12px}
+  .has-details .galaxy-panel .panel-head{margin:0}
+  .has-details .galaxy-panel .search-box,.has-details .galaxy-panel .mobile-filter,.has-details .galaxy-panel .sidebar-body,.has-details .galaxy-panel .search-results{display:none}
+  .has-details .scene-navigation{top:64px;bottom:auto;right:12px;z-index:7}
+  .has-details .scene-navigation>button:first-child{display:none}
+}

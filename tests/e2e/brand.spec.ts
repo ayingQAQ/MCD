@@ -24,6 +24,7 @@ for (const width of [1440, 390]) {
         expect(svgLogo.headers()['content-type']).toContain('image/jpeg');
       }
       await page.evaluate(() => document.fonts.ready);
+      if(path==='/galaxy')await expect(page.locator('canvas.galaxy-canvas')).toHaveAttribute('data-camera', /distance/);
       expect(await page.evaluate(() => document.documentElement.scrollWidth <= innerWidth)).toBe(true);
       await page.screenshot({ path: info.outputPath(`brand-${path.slice(1) || 'home'}-${width}.png`), fullPage: true });
     }

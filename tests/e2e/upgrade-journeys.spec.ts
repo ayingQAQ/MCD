@@ -15,6 +15,7 @@ async function ready(page: Page, index: number) {
   await expect(page.getByRole('heading', { name: headingNames[index], exact: true })).toBeVisible();
   await page.evaluate(() => document.fonts.ready);
   await expect(page.getByLabel('查看全局数据来源')).toBeVisible();
+  if(index===1)await canvasScene(page.locator('canvas.galaxy-canvas'));
 }
 async function savePng(page: Page, button: Locator, info: TestInfo, name: string) {
   const downloaded = page.waitForEvent('download');
@@ -182,7 +183,7 @@ test('discovery advances across home visits and cross-category focus remains dra
   await search.pressSequentially('麦香');
   await expect(search).toHaveValue('麦香');
   await search.fill('');
-  await page.getByRole('button', { name: '关闭星球档案', exact: true }).click();
+  // A focused food remains pickable; closing now intentionally restores the pre-flight camera.
   const food = dataset.foods.find(item => item.name === '巨无霸')!;
   const canvas = page.locator('canvas.galaxy-canvas');
   await canvas.scrollIntoViewIfNeeded();
@@ -191,6 +192,7 @@ test('discovery advances across home visits and cross-category focus remains dra
   expect(projected, 'focused planet must have an uncovered actual projected center').not.toBeNull();
   await canvas.click({ position: { x: projected!.x, y: projected!.y } });
   await expect(page.getByRole('heading', { name: food.name, exact: true })).toBeVisible();
+  await page.getByRole('button', { name: '关闭星球档案', exact: true }).click();
 });
 
 test('laboratory enforces three slots, replaces, swaps, removes and downloads a real comparison PNG', async ({ page }, info) => {

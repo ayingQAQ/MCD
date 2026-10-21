@@ -39,9 +39,9 @@ export function createGalaxyScene(canvas:HTMLCanvasElement,read:()=>GalaxySceneI
   function stopInertia(){controls.enableDamping=false;controls.update();controls.enableDamping=!reduced.matches;}
   function apply(next:Pose){stopInertia();camera.position.copy(next.position);controls.target.copy(next.target);controls.update();dirty=true;}
   apply(home);
-  scene.add(new THREE.HemisphereLight('#FFF6DF','#857E91',2.3));
-  const sun=new THREE.DirectionalLight('#FFF4D4',2.1);sun.position.set(-500,1000,1400);scene.add(sun);
-  const fill=new THREE.DirectionalLight('#C4DEF2',.65);fill.position.set(900,-200,-500);scene.add(fill);
+  scene.add(new THREE.HemisphereLight('#FFF6DF','#857E91',.9));
+  const sun=new THREE.DirectionalLight('#FFF4D4',1.4);sun.position.set(-500,1000,1400);scene.add(sun);
+  const fill=new THREE.DirectionalLight('#C4DEF2',.3);fill.position.set(900,-200,-500);scene.add(fill);
   const art=createPlanetMaterials();
   const sphere=new THREE.SphereGeometry(1,24,16),vertices=sphere.getAttribute('position');
   for(let i=0;i<vertices.count;i++){const x=vertices.getX(i),y=vertices.getY(i),z=vertices.getZ(i),bend=1+.013*Math.sin(x*7+y*4)*Math.cos(z*6);vertices.setXYZ(i,x*bend,y*bend,z*bend);}
@@ -71,7 +71,7 @@ export function createGalaxyScene(canvas:HTMLCanvasElement,read:()=>GalaxySceneI
   const starCanvas=document.createElement('canvas');starCanvas.width=32;starCanvas.height=32;
   const starCtx=starCanvas.getContext('2d')!;starCtx.fillStyle='white';starCtx.beginPath();starCtx.arc(16,16,12,0,Math.PI*2);starCtx.fill();
   const starTexture=new THREE.CanvasTexture(starCanvas);
-  const starMaterial=new THREE.PointsMaterial({size:10,map:starTexture,vertexColors:true,transparent:true,opacity:.8,depthWrite:false,fog:false,sizeAttenuation:true});
+  const starMaterial=new THREE.PointsMaterial({size:18,map:starTexture,vertexColors:true,transparent:true,opacity:.85,depthWrite:false,fog:false,sizeAttenuation:true});
   const stars=new THREE.Points(starGeometry,starMaterial);scene.add(stars);
   const lines=new THREE.Group();scene.add(lines);
   const edgeObjects:{edge:SimilarityEdge;line:THREE.Line;points:THREE.Vector3[]}[]=[];
@@ -100,7 +100,7 @@ export function createGalaxyScene(canvas:HTMLCanvasElement,read:()=>GalaxySceneI
     const p=read(),inset=p.insets?.()??{left:0,bottom:0};
     const left=width>850?Math.min(inset.left,width*.45):0,right=width>750&&p.selected?370:0;
     const centerX=left+(width-left-right)/2;
-    const centerY=width<600&&p.selected?height*.27:(height-Math.min(inset.bottom,height*.25))/2;
+    const centerY=width<600&&p.selected?height*.20:(height-Math.min(inset.bottom,height*.25))/2;
     camera.aspect=width/height;camera.setViewOffset(width,height,width/2-centerX,height/2-centerY,width,height);camera.updateProjectionMatrix();dirty=true;
   }
   function clearEdges(){for(const item of edgeObjects){item.line.geometry.dispose();(item.line.material as THREE.Material).dispose();}edgeObjects.length=0;lines.clear();}
@@ -116,7 +116,7 @@ export function createGalaxyScene(canvas:HTMLCanvasElement,read:()=>GalaxySceneI
       if(p.selected){
         if(!previousSelected&&!saved)saved=pose();
         const planet=byId.get(p.selected);
-        if(planet){const direction=camera.position.clone().sub(controls.target).normalize(),target=planet.group.position.clone();fly({target,position:target.clone().addScaledVector(direction,Math.max(240,planet.targetRadius*7))});}
+        if(planet){const direction=camera.position.clone().sub(controls.target).normalize(),target=planet.group.position.clone();fly({target,position:target.clone().addScaledVector(direction,width<600?Math.max(380,planet.targetRadius*12):Math.max(240,planet.targetRadius*7))});}
       }else if(saved){const previous=saved;saved=null;fly(previous);}
       previousSelected=p.selected;
     }
@@ -173,7 +173,11 @@ export function createGalaxyScene(canvas:HTMLCanvasElement,read:()=>GalaxySceneI
   let lastReport='';
   function publish(){
     const snapshot=planets.map(planet=>{
-      const center=project(planet.group.position),distance=camera.position.distanceTo(planet.group.position),radius=planet.radius*height/(2*Math.tan(THREE.MathUtils.degToRad(camera.fov/2))*distance);
+      const center=project(planet.group.position),local=planet.group.position.clone().applyMatrix4(camera.matrixWorldInverse),depth=-local.z,r=planet.radius*1.035;
+      // Tangents to a camera-space sphere: conservative projected bounds also work off axis.
+      const denominator=Math.max(.001,depth*depth-r*r),focal=height/(2*Math.tan(THREE.MathUtils.degToRad(camera.fov/2)));
+      const axisRadius=(axis:number)=>{const tangent=r*Math.sqrt(Math.max(0,axis*axis+depth*depth-r*r));return Math.max(Math.abs((axis*depth-tangent)/denominator-axis/depth),Math.abs((axis*depth+tangent)/denominator-axis/depth))*focal;};
+      const radius=depth>r?Math.hypot(axisRadius(local.x),axisRadius(local.y)):Math.max(width,height);
       return {id:planet.id,...center,radius,visible:planet.group.visible&&center.z>-1&&center.z<1&&center.x>-radius&&center.x<width+radius&&center.y>-radius&&center.y<height+radius};
     });
     const windowIds=snapshot.filter(p=>p.visible).map(p=>p.id);

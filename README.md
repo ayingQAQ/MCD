@@ -12,7 +12,7 @@
 
 ## 功能
 
-- 拖动/缩放星图、搜索、分类筛选，切换热量/蛋白质/脂肪/碳水/钠五种透镜。
+- 在真正的 WebGL 三维星系中，左键旋转、右键平移、滚轮/双指靠近星团；搜索、分类筛选和热量/蛋白质/脂肪/碳水/钠五种营养透镜保持联动。
 - 营养详情、前三名邻居及数字解释、最少关系跳数航线。
 - 跨类别双生星、孤独星球、中文 PNG 星球卡。
 - 独立图鉴支持中文搜索、类别/收藏筛选、完整数据筛选、数值排序及分页；收藏与最近查看跨页同步。
@@ -84,7 +84,9 @@ Cloudflare Pages：构建命令 `pnpm build`，输出 `dist`，Node24，无需�
 
 ## 技术与原创性
 
-React、TypeScript、Vite、Canvas2D、自绘SVG、d3-force、少量Rough.js装饰；Zod和TOON严格适配、MCP SDK同步，Vitest和Playwright验证。
+React、TypeScript、Vite、Three.js WebGL2（PerspectiveCamera、OrbitControls、Raycaster）、自绘 SVG、少量 Rough.js 纸面装饰；Canvas2D 仅用于材质纹理与卡片导出。Zod 和 TOON 严格适配、MCP SDK 同步，Vitest 和 Playwright 验证。
+
+三维布局、相机、材质、资源清理与扩展入口见 [三维重构说明](docs/WEBGL_REBUILD.md)。
 
 星球、纸张布局和插画为原创。感谢 [Wired Elements](https://github.com/rough-stuff/wired-elements)、[PaperCSS](https://github.com/papercss/papercss)、[Rough.js](https://github.com/rough-stuff/rough) 的线条启发，不套用完整布局。第三方许可见 [THIRD_PARTY_NOTICES.md](THIRD_PARTY_NOTICES.md)。代码 MIT，官方数据、声明和第三方素材各遵守自身条款。
 

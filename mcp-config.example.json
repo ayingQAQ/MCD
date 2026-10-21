@@ -1,0 +1,8 @@
+{
+  "mcp_servers": {
+    "mcd": {
+      "url": "https://mcp.mcd.cn",
+      "bearer_token_env_var": "MCD_MCP_TOKEN"
+    }
+  }
+}

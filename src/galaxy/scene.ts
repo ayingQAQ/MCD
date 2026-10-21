@@ -124,12 +124,14 @@ export function createGalaxyScene(canvas:HTMLCanvasElement,read:()=>GalaxySceneI
       if(p.selected){
         if(!previousSelected&&!saved)saved=pose();
         const planet=byId.get(p.selected);
-        if(planet)focusFood(planet);
+        // Router selection may arrive after discovery state. Keep the pair's camera intent.
+        if(planet&&!p.highlight)focusFood(planet);
       }else if(saved){const previous=saved;saved=null;fly(previous);}
       previousSelected=p.selected;
     }
     const routeKey=`${p.route.join(':')}:${p.highlight?.source??''}:${p.highlight?.target??''}`;
     if((p.highlight||!p.selected)&&routeKey!==previousRoute){
+      if(p.highlight&&!saved)saved=pose();
       const ids=p.highlight?[p.highlight.source,p.highlight.target]:p.route;
       framePoints(ids.flatMap(id=>byId.has(id)?[byId.get(id)!.group.position]:[]),120);
     }

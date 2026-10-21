@@ -1,7 +1,8 @@
 import { useEffect, useRef, useState } from 'react';
 import { BrowserRouter, Link, NavLink, Route, Routes, useLocation, useNavigate } from 'react-router';
 import { RepositoryBoundary, useFood } from '../state/FoodProvider';
-import { Icon, Star } from '../components/Illustrations';
+import { McBrandMark } from '../components/McBrand';
+import { Icon } from '../components/Illustrations';
 import { Modal } from '../components/Modal';
 import { palette } from '../art/planets';
 import { formatNutrient } from '../data/schema';
@@ -36,11 +37,11 @@ function AppShell(){
   useEffect(()=>{document.documentElement.dataset.route=location.pathname.slice(1)||'home';return()=>{delete document.documentElement.dataset.route;};},[location.pathname]);
   useEffect(()=>{window.scrollTo({top:0,behavior:'instant'});const page=navigation.find(([href])=>href===location.pathname);document.title=`${page?.[1]??'迷路了'} · McCosmos 麦门星图`;},[location.pathname]);
   return <>
-    <header className="site-header upgrade-header"><Link className="brand" to={path('/')} aria-label="McCosmos 麦门星图首页"><Star/><div><strong>McCosmos<span>麦门星图</span></strong><small>A LITTLE FOOD UNIVERSE</small></div></Link><nav aria-label="主导航">{navigation.map(([href,title],i)=><NavLink key={href} aria-label={title} end={href==='/'} to={path(href)} className={({isActive})=>isActive?'nav-current':''}><small>0{i+1}</small>{title}{href==='/lab'&&state.labSelectedIds.length>0&&<b>{state.labSelectedIds.length}</b>}</NavLink>)}</nav>
+    <header className="site-header upgrade-header"><Link className="brand" to={path('/')} aria-label="McCosmos 麦门星图首页"><McBrandMark decorative/><div><strong>McCosmos<span>麦门星图</span></strong><small>麦门星图 / A LITTLE McUNIVERSE</small></div></Link><nav aria-label="主导航">{navigation.map(([href,title],i)=><NavLink key={href} aria-label={title} end={href==='/'} to={path(href)} className={({isActive})=>isActive?'nav-current':''}><small>0{i+1}</small>{title}{href==='/lab'&&state.labSelectedIds.length>0&&<b>{state.labSelectedIds.length}</b>}</NavLink>)}</nav>
       <div className="header-tools"><GlobalSearch/><button className={`global-source ${official?'':'is-demo'}`} onClick={()=>setSourceOpen(true)} aria-label="查看全局数据来源" title={`${fetched} · v${dataset.meta.schemaVersion}`}><i/><strong>{official?'官方营养快照':'合成示例数据 · 非官方营养信息'}</strong><span>{fetched} · v{dataset.meta.schemaVersion}</span><Icon name="info" size={15}/></button></div></header>
     <Routes><Route path="/" element={<ObservatoryPage/>}/><Route path="/galaxy" element={<GalaxyPage/>}/><Route path="/atlas" element={<AtlasPage/>}/><Route path="/lab" element={<LabPage/>}/><Route path="/quests" element={<QuestsPage/>}/><Route path="*" element={<main className="empty-state paper"><h1>这条航道还没有记录</h1><p>从观测站重新出发，或搜索一颗餐品星球。</p><Link className="button primary" to={path('/')}>返回宇宙观测站</Link></main>}/></Routes>
     <div className="live-feedback" role="status" aria-live="polite">{notice}</div>{storageWarning&&<p className="storage-warning" role="status">{storageWarning}</p>}
-    <footer className="site-footer"><span><Star/> 好奇心，是最好的宇宙飞船。</span><p>独立参赛作品 · 营养信息以官方渠道为准。收藏、实验台和任务仅存于当前浏览器，清除数据后消失。</p><a href="https://github.com/ayingQAQ/McCosmos" target="_blank" rel="noreferrer">项目手记 ↗</a></footer>
+    <footer className="site-footer"><span><McBrandMark decorative/> 好奇心，是最好的宇宙飞船。</span><p>独立参赛作品 · 营养信息以官方渠道为准。收藏、实验台和任务仅存于当前浏览器，清除数据后消失。</p><a href="https://github.com/ayingQAQ/McCosmos" target="_blank" rel="noreferrer">项目手记 ↗</a></footer>
     {sourceOpen&&<Modal title="数据来源与探索边界" onClose={()=>setSourceOpen(false)}><div className="about-content"><h3>{official?'官方营养快照':'合成示例数据 · 非官方营养信息'}</h3><p>{dataset.meta.source}</p><p>获取时间：{dataset.meta.fetchedAt??'不适用（合成示例）'}<br/>原始 {dataset.meta.rawCount} 条 · 当前 {dataset.foods.length} 条 · 数据结构 v{dataset.meta.schemaVersion} · 算法 v{dataset.meta.algorithmVersion}</p><p>类别由餐品名称本地推断；官方接口没有明确部分单位和计量基准，所以保留原始值，不声称每份或每 100 克。相近度和航线是数据模型下的探索，不是健康评分、进食或医疗建议。</p><ul>{dataset.warnings.map(w=><li key={w}>{w}</li>)}</ul><p>原创餐品插画为通用示意，非商品配方或官方包装复刻。浏览器只读取公开快照，不访问 Token。</p><button className="button primary" onClick={()=>{navigate(`${location.pathname}${official?'?demo=1':''}`);setSourceOpen(false);}}>{official?'切换到合成演示':'读取官方快照'}</button></div></Modal>}
   </>;
 }

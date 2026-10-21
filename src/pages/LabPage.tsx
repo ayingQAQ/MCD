@@ -1,3 +1,4 @@
+import { McBrandTab } from '../components/McBrand';
 import { useMemo, useRef, useState } from 'react';
 import { Link } from 'react-router';
 import { useFood } from '../state/FoodProvider';
@@ -43,7 +44,7 @@ export default function LabPage() {
     finally { setExporting(false); }
   }
   return <main className="lab-page page-section">
-    <header className="page-heading"><p className="eyebrow">SMALL EXPERIMENTS / 04</p><h1>营养实验室</h1><p>摆好两颗星球，看看它们真实的数字差异。最多放入三颗。</p></header>
+    <header className="page-heading"><McBrandTab/><p className="eyebrow">SMALL EXPERIMENTS / 04</p><h1>营养实验室</h1><p>摆好两颗星球，看看它们真实的数字差异。最多放入三颗。</p></header>
     <section className="lab-workbench paper" aria-label="餐品实验台"><div className="lab-slots">{[0, 1, 2].map(index => {
       const food = selected[index];
       return <article key={index} className={`lab-slot${food && replaceId === food.id ? ' is-replacing' : ''}`}><p className="eyebrow">SAMPLE {String(index + 1).padStart(2, '0')}</p>{food ? <><FoodIllustration foodId={resolveFoodIllustration(food).presetId} size={100} cosmic decorative/><h2>{food.name}</h2><p>{formatNutrient(food, 'kcal')}</p><button className="button" aria-pressed={replaceId === food.id} onClick={() => { const next = replaceId === food.id ? '' : food.id; setReplaceId(next); if (next) focusSearch(); }}>替换第 {index + 1} 项</button><button className="button" aria-label={`移除 ${food.name}`} onClick={() => { removeFromLab(food.id); if (replaceId === food.id) setReplaceId(''); }}>移除</button><Link to={path('/atlas', {food: food.id})}>查看档案</Link></> : <button className="lab-slot-empty" onClick={focusSearch}><span aria-hidden="true">＋</span><h2>等待一颗星球</h2><p>点这里搜索，或从图鉴加入餐品。</p></button>}</article>;

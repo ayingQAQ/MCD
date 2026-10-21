@@ -1,3 +1,4 @@
+import { McBrandTab } from '../components/McBrand';
 import { useEffect, useMemo, useState } from 'react';
 import { useSearchParams } from 'react-router';
 import { categories, categoryNames, nutrientKeys, type FoodPlanet } from '../data/schema';
@@ -36,7 +37,7 @@ export default function AtlasPage() {
   function reset() { const next = new URLSearchParams(params); next.delete('q'); next.delete('category'); setParams(next); setComplete(false); setSort('name'); setLimit(24); }
   const filtered = !!query || category !== 'all' || complete;
   return <main className={`atlas-page page-section${food ? ' has-details' : ''}`}>
-    <header className="page-heading"><p className="eyebrow">FIELD NOTES / 03</p><h1>星球图鉴</h1><p>点开卡片读档案；收藏发现，或送进实验台一起比较。</p></header>
+    <header className="page-heading"><McBrandTab/><p className="eyebrow">FIELD NOTES / 03</p><h1>星球图鉴</h1><p>点开卡片读档案；收藏发现，或送进实验台一起比较。</p></header>
     {foodId && !food && <section className="empty-state paper" role="alert"><h2>找不到这颗星球</h2><p>此链接的餐品 ID 不在当前数据集中。</p><button className="button" onClick={() => update('food', '')}>返回当前图鉴</button></section>}
     <section className="atlas-controls paper" aria-label="图鉴筛选">
       <div className="atlas-search-row">

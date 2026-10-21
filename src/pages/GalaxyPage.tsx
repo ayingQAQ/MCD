@@ -1,3 +1,4 @@
+import { McBrandMark } from '../components/McBrand';
 import { useEffect, useMemo, useRef, useState } from 'react';
 import { useNavigate, useSearchParams } from 'react-router';
 import { categories, categoryNames, nutrientKeys, nutrientNames, type SimilarityEdge } from '../data/schema';
@@ -86,6 +87,7 @@ export default function GalaxyPage() {
             <div className="route-playback" aria-label="航线播放控制"><button className="button" disabled={routeStep===0} onClick={()=>{setPlaying(false);setRouteStep(s=>Math.max(0,s-1));}}>上一站</button><span>{routeStep+1} / {route.length} · {foodById.get(route[routeStep])?.name}</span><button className="button primary" onClick={()=>{if(routeStep===route.length-1)setRouteStep(0);setPlaying(value=>!value);}}>{playing?'暂停航线':'播放航线'}</button><button className="button" disabled={routeStep>=route.length-1} onClick={()=>{setPlaying(false);setRouteStep(s=>Math.min(route.length-1,s+1));}}>下一站</button><button className="text-link" onClick={exitRoute}>退出航线</button></div>
             <p>{routeEdge ? routeEdge.explanation : '从起点出发，用「下一站」或点击步骤查看每一段营养关系。'}{route.some(id => !filtered.some(f => f.id === id)) ? ' 航线包含筛选外星球，已临时显示。' : ''} 营养相似路径不代表进食建议。</p><button className="text-link" onClick={() => select(route[routeStep])}>打开「{foodById.get(route[routeStep])?.name}」档案 ↗</button></>}</section>}
         </div>
+        <div className="galaxy-brand-stamp" aria-hidden="true"><McBrandMark decorative/><span>麦门观测站<small>McCOSMOS / FOOD UNIVERSE</small></span></div>
         <div className="atlas-caption stage-caption"><span><i className="snapshot-dot"/>{official ? `快照更新于 ${dataset.meta.fetchedAt?.slice(0, 10)} · ${dataset.meta.count} 款餐品` : '合成示例数据 · 非官方营养信息'}</span><span>远近为视觉示意 · 屏幕大小含透视缩放 · 营养以数值为准</span></div>
         <div className="map-bottom"><div className="display-toggles"><label><input type="checkbox" checked={showRelations} onChange={event => setShowRelations(event.target.checked)}/>显示关系</label><label><input type="checkbox" checked={showLabels} onChange={event => setShowLabels(event.target.checked)}/>显示名称</label>{selected && <button onClick={() => setExpanded(value => !value)}>{expanded ? '收起关系' : '查看更多关系'}</button>}</div><button className="about-button" onClick={() => setOverlay('about')}>这张星图怎么看？ <Icon name="info" size={15}/></button></div>
       </section>

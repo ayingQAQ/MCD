@@ -1,0 +1,41 @@
+/* Golden arches + warm paper: recognisable brand accents, quiet data surfaces. */
+:root{--mc-red:#C83528;--mc-yellow:#FFCC35;--mc-paper:#F3DCB5}
+.mc-brand-mark{display:block;object-fit:contain;flex-shrink:0;border-radius:8px;width:44px;height:44px}
+.upgrade-header .brand{gap:10px}
+.upgrade-header .brand strong{color:#9E3125;letter-spacing:-.7px}
+.upgrade-header .brand small{color:#866A47;letter-spacing:1.5px}
+.site-header.upgrade-header{border-bottom:2px solid var(--mc-yellow)}
+.upgrade-header nav a.nav-current{background:#FBE5B1;color:#9E3125}
+.upgrade-header nav a:hover{background:#FBEBCB;color:#9E3125}
+.button.primary{background:var(--mc-red);color:#FFF9E9;border-color:#8F2C22;box-shadow:2px 3px 0 #E7B866}
+.button.primary:hover{background:#AC3025}
+.mc-brand-tab{display:inline-flex;align-items:center;gap:10px;padding:6px 14px 6px 6px;margin:0 0 16px;border:1px solid #E5C28A;border-radius:7px 12px 7px 9px;background:#FFF2D2;transform:rotate(-1deg);font-size:12px;font-weight:700;color:#9E3125}
+.mc-brand-tab .mc-brand-mark{width:30px;height:30px;border-radius:4px}
+.mc-brand-tab small{display:block;font-size:8px;letter-spacing:1.5px;color:#8C7454;line-height:1.8}
+.observatory-cover{position:relative;border-bottom:3px solid var(--mc-yellow);padding-bottom:32px}
+.observatory-cover .cover-title{color:#9E3125}
+.observatory-cover .cover-copy{position:relative;z-index:2}
+.observatory-cover .cover-footnote{color:#9E5938}
+.mc-delivery-satellite{position:absolute;width:165px;left:38%;top:21%;transform:rotate(7deg);pointer-events:none}
+.mc-delivery-satellite svg{display:block;width:100%;height:auto}
+.mc-delivery-satellite>span{display:block;text-align:center;font-family:var(--hand);font-size:12px;color:#9E3125;transform:rotate(-7deg);margin-top:-13px}
+.observatory-art .observatory-orbits{opacity:.65}
+.observatory-art .mc-delivery-satellite{z-index:0}
+.observatory-art .observatory-planet{z-index:1}
+.observatory-numbers{border-top:0;border-bottom-color:#D8B97F}
+.observatory-numbers>div:first-child strong{color:var(--mc-red)}
+.page-heading{position:relative;border-bottom:2px solid #F0CE79;padding-bottom:18px}
+.page-heading>.mc-brand-tab{float:right;margin:0 0 10px 20px}
+.food-card{border-top:3px solid #E6BE60}
+.food-card-category{color:#A24731}
+.food-card-open{background-image:linear-gradient(180deg,#FFF3D94D,transparent 50%)}
+.food-card-actions{background:#FCF1DB80}
+.mission-preview .mission-number{color:#AD392C}
+.site-footer{border-top:3px solid var(--mc-yellow)}
+.site-footer .mc-brand-mark{width:34px;height:34px;border-radius:5px}
+.galaxy-brand-stamp{position:absolute;right:23px;top:76px;z-index:1;display:flex;align-items:center;gap:9px;pointer-events:none;transform:rotate(3deg);color:#A13A2C;font-family:var(--hand);font-size:15px}
+.galaxy-brand-stamp .mc-brand-mark{width:42px;height:42px;border-radius:7px;box-shadow:2px 3px 0 #E6BC6A}
+.galaxy-brand-stamp small{display:block;color:#9E8058;font:8px Nunito,sans-serif;letter-spacing:1px;margin-top:3px}
+.has-details .galaxy-brand-stamp{display:none}
+@media(max-width:850px){.mc-delivery-satellite{width:135px;left:38%;top:24%}.page-heading>.mc-brand-tab{float:none;margin:0 0 12px}.galaxy-brand-stamp{top:68px;right:14px;font-size:12px}.galaxy-brand-stamp .mc-brand-mark{width:34px;height:34px}}
+@media(max-width:600px){.upgrade-header .mc-brand-mark{width:34px;height:34px;border-radius:6px}.upgrade-header .brand{gap:7px}.mc-brand-tab{font-size:11px;margin-bottom:14px}.mc-delivery-satellite{width:120px;left:38%;top:23%}.page-heading>.mc-brand-tab{padding:4px 9px 4px 4px;gap:7px}.page-heading>.mc-brand-tab .mc-brand-mark{width:24px;height:24px}.galaxy-brand-stamp{font-size:10px;gap:6px;top:61px}.galaxy-brand-stamp .mc-brand-mark{width:28px;height:28px}.galaxy-brand-stamp small{font-size:7px;letter-spacing:0}.upgrade-header nav a.nav-current{background:transparent;color:#A42F25}.upgrade-header nav a.nav-current:after{background:var(--mc-red)}}

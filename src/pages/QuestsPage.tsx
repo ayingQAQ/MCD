@@ -1,3 +1,4 @@
+import { McBrandTab } from '../components/McBrand';
 import { useEffect, useState } from 'react';
 import { Link, useSearchParams } from 'react-router';
 import { useFood } from '../state/FoodProvider';
@@ -86,7 +87,7 @@ export default function QuestsPage() {
     } catch { notify('暂时无法导出成果卡，请检查浏览器下载设置后重试。'); }
     finally { setExporting(false); }
   }
-  return <main className="quest-page page-section"><header className="page-heading"><p className="eyebrow">A LITTLE DISCOVERY / 05</p><h1>星际探索任务</h1><p>带着三个小问题出发。每一次发现，都由当前星图的真实数据验证。</p></header>
+  return <main className="quest-page page-section"><header className="page-heading"><McBrandTab/><p className="eyebrow">A LITTLE DISCOVERY / 05</p><h1>星际探索任务</h1><p>带着三个小问题出发。每一次发现，都由当前星图的真实数据验证。</p></header>
     <section className="quest-journal paper"><div><p className="eyebrow">TODAY'S EXPLORATION</p><h2>今日已得 {claimed} 枚星章</h2><p>{date} · 本地时区 {timezone}</p><p>当前有 {available} 项可用任务；完成后领取才计入星章，同一任务只能领取一次。</p></div><div className="quest-actions"><label><input type="checkbox" checked={state.sound} onChange={event => setSound(event.target.checked)}/>领取时播放短音效</label><button className="button" disabled={exporting} onClick={share}>{exporting ? '正在绘制成果卡…' : '分享今日成果 PNG'}</button><Link className="button" to={path('/galaxy')}>返回星图</Link><Link className="button" to={path('/atlas')}>翻开星球图鉴</Link></div></section>
     <div className="quest-grid">{quests.map((quest, index) => <QuestCard key={quest.id} quest={quest} index={index}/>)}</div>
     <aside className="quest-notes"><p>任务按本地日期和当前数据版本固定生成；日期或数据版本改变会产生新任务。收藏与探索进度仅保存在当前浏览器，清除浏览器数据后会消失。</p><p>{dataset.meta.mode === 'synthetic-demo' ? '演示数据（非官方）' : '官方数据快照'} · {dataset.meta.source} · {dataset.meta.fetchedAt ?? '获取时间未提供'}。未核实单位仅按原始值比较，不作健康判断。</p></aside>

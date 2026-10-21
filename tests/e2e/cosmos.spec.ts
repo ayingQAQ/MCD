@@ -1,6 +1,6 @@
 import { expect, test } from '@playwright/test';
 
-test('official snapshot, search, lenses, details and PNG export', async ({ page }) => {
+test('official snapshot, search, lenses, details and PNG export', async ({ page }, testInfo) => {
   const errors: string[] = [];
   page.on('pageerror', error => errors.push(error.message));
   await page.goto('/');

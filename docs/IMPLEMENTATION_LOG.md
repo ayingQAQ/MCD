@@ -46,7 +46,7 @@
 - 在线地址：https://mccosmos.pages.dev 。部署地址：https://efafbb13.mccosmos.pages.dev 。页面和主脚本均HTTP200，公开营养快照为 official-snapshot、158条。
 - Cloudflare CLI 默认尝试将新 Pages 项目委托 Workers；已按CLI说明在创建时明确选择原Pages静态项目，部署仍使用正常pages deploy。
 - 最终审阅的小问题（缩放百分比、导出中文字体）一并修复，无已知未解决的重要审阅项。
-- 未提交比赛报名Issue；报名与兑奖不由CI自动执行。
+- 初版交付时尚未报名；后续已按用户要求提交[参赛 Issue #960](https://github.com/M-China/mcd-developer-innovation-challenge/issues/960)。报名与兑奖不由 CI 自动执行。
 
 ## 已知边界
 
@@ -54,3 +54,33 @@
 - 部分单位和计量基准未确认，界面/导出均显式注明；图谱比较的是接口所列规格原始数值轮廓。
 - 全量158节点在小屏默认缩放较小，适合通过搜索、图鉴或缩放探索；全部名称同时打开时仍可能发生标签重叠。
 - 数据同步与Cloudflare发布为显式操作；普通push自动验证和产出静态包，不自动使用个人MCP Token或重新发布站点。
+
+## McCosmos 2.0 五页交互升级（2026-10-21）
+
+需求参考根目录任务书，源码与线上检查记录在 `UPGRADE_BASELINE.md`，阶段清单在 `UPGRADE_PLAN.md`，12 条验收链路与一分钟演示脚本在 `USER_JOURNEYS.md`。基线 `3348262`，功能发布版本 `40fdd93`；所有工作直接提交 main。
+
+### 实际变化
+
+- React Router 五页：观测站 `/`、星系 `/galaxy`、图鉴 `/atlas`、实验室 `/lab`、任务 `/quests`。全局搜索支持建议、Enter/Escape；导航状态、深链、刷新、返回有效。
+- FoodProvider 复用同一 Repository、图和发现结果；版本化 localStorage 对官方/演示分别保存收藏、实验台、最近查看和任务。损坏、过大、未知版本、存储拒绝均容错。
+- 图鉴搜索、类别/收藏/完整数据筛选、四种排序、分页、共享完整档案；未知 ID 有明确返回动作。
+- 三槽实验室添加/替换/交换/移除/清空、五个独立营养量尺、原始值/差值、完整数据集标准化后的相近度、携带两 ID 返回星系与真实 PNG 导出。
+- 三类每日有解任务：跨类别双生星、指定指标前三名、指定连通航线；严格验证、领取一次、刷新恢复、下一任务入口、可选默认静音短音效和成果 PNG。
+- 星系保留原生触控/滚轮/拖动及命中，增加关系曲线连续命中、可访问关系列表、380ms 镜头定位（减少动态效果时立即定位），以及航线手动步进/播放/暂停/退出。
+- 现有 31 个 SVG 通用示例及独立工坊保留。鱼/未确认鸡肉形态不使用牛肉饼示意。图鉴与导出均保留“通用示意”说明。
+
+### 决策与边界
+
+- 用户此前明确要求云端验证，所以未本地启动、构建或跑测试；基线使用已部署站点操作与截图，交互检查在 Actions 的离线静态服务运行。
+- 任务书建议实验室标每份 g/mg，与现有来源证据冲突：继续展示原始值，未知单位不推定，不把 null 当零。该取舍避免产生错误的等重量或每份营养结论。
+- 没有修改 `src/mcp/`、`src/data/`、`src/graph/` 或官方快照。升级期间真实只读调用 `list-nutrition-foods` 成功（200 / success），返回160条 TOON；仅核验连接，网页快照未被覆盖。
+- 本地进度没有跨设备账号同步，快照不是实时菜单。未实测 Safari/Firefox、真实低端手机帧率；已测 Chromium 四档视口与原生 CDP 双指触控。
+
+### 验证证据
+
+- RED：[39559845997](https://github.com/ayingQAQ/McCosmos/actions/runs/39559845997)，新比较/任务/持久化测试首先失败，原有功能测试保留。
+- 完整 GREEN：[39563109195](https://github.com/ayingQAQ/McCosmos/actions/runs/39563109195)，42 项单元测试、29 项浏览器测试、`pnpm typecheck`、`pnpm lint`、`pnpm build`、`pnpm verify:contest` 及62份 SVG 导出全部成功。任务书12条端到端链路全部通过，对照表见 USER_JOURNEYS。
+- 新增回归覆盖：手机仅终点深链与往返/刷新、切分类后深链可见与命中、选中时搜索不被清空、返回首页后随机序列前进、Escape 不清除航线参数、2.6倍缩放下采样点之间的真实关系曲线点击。
+- 独立静态审阅发现的 URL 同步、手机表单、筛选保留、随机序列与连线命中问题均修复。后续 Escape 旧闭包监听已移除，由共享档案维护当前关闭行为，并由 GREEN 中的回归断言覆盖。
+- 已人工查看桌面观测站/图鉴/实验台/任务、360px 首页/图鉴/任务/档案，以及实际导出的比较与三枚星章成果 PNG。当前可查看图片位于 `docs/screenshots/`；全部 28 张五页/档案四视口证据及更多交互图在 `browser-evidence` Artifact。
+- 发布直接使用 GREEN 的 `mccosmos-static` Artifact，无本地重建。部署 https://9fd3526b.mccosmos.pages.dev ，正式地址 https://mccosmos.pages.dev 。五个深链和独立图库均 HTTP200；线上营养快照保持 official-snapshot、158条；已实际打开线上 `/lab` 确认五页导航、来源和实验室加载成功。

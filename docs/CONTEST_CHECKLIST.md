@@ -7,7 +7,7 @@
 - [x] 网页、同步工具、CLI、Skill，官方/合成来源分开。
 - [x] CI 不需要个人 Token，浏览器不访问凭据。
 - [x] main Actions 全部通过，实际证据见实施记录。
-- [x] 人工审阅三种尺寸截图与 PNG，保存在 docs/screenshots。
+- [x] 人工审阅桌面/平板/手机四档截图与比较/任务 PNG，保存在 docs/screenshots。
 - [x] 在线部署 https://mccosmos.pages.dev ，页面/脚本/营养快照可访问。
 - [x] 报名 Issue 前重新核对官方规则及声明原文。
 - [x] 按四行纯文本格式提交[参赛 Issue #960](https://github.com/M-China/mcd-developer-innovation-challenge/issues/960)。
@@ -16,4 +16,4 @@
 
 按当前官方规则，报名截止北京时间2026-10-25 23:59；提交前再次核对。项目地址使用纯URL。构建工作流不会自动报名、发布Issue或兑奖。
 
-约45秒演示：打开星图 → 搜索巨无霸 → 看来源与计量边界 → 切换透镜 → 看相似邻居与依据 → 规划航线与步骤 → 保存星球卡片。
+2.0 完成五页导航、共享收藏、营养实验室和三类每日任务。约60秒演示与12条验收路径见 [USER_JOURNEYS.md](USER_JOURNEYS.md)；42项单测、29项浏览器测试与发布证据见 [IMPLEMENTATION_LOG.md](IMPLEMENTATION_LOG.md)。

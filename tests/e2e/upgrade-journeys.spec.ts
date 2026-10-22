@@ -68,6 +68,8 @@ test('random discovery opens an actual food; recent history, global keyboard sea
   await expect(page.locator('.planet-details').getByRole('heading', { name: food!.name, exact: true })).toBeVisible();
   await page.getByRole('button', { name: '关闭星球档案', exact: true }).click();
   await page.getByRole('link', { name: '宇宙观测站', exact: true }).click();
+  // CI uses software WebGL; releasing its context can delay the route commit.
+  await expect(page.getByRole('heading', { name: '宇宙观测站', exact: true })).toBeVisible({ timeout: 15_000 });
   await expect(page.locator('.recent-foods')).toContainText(food!.name);
   await page.locator('.recent-foods').getByRole('link').first().click();
   await ready(page, 2);

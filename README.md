@@ -103,6 +103,8 @@ Cloudflare Pages：构建命令 `pnpm build`，输出 `dist`，Node24，无需�
 
 ## 技术与原创性
 
+星系使用按需渲染、InstancedMesh 批量绘制与有上限的插画解码缓存（32 张 / 8 MiB）；静止后停止动画帧，退出页面释放 GPU 资源。保留真正的三维透视与逐星球拾取，详见[性能与缓存说明](docs/PERFORMANCE.md)。
+
 React、TypeScript、Vite、Three.js WebGL2（PerspectiveCamera、OrbitControls、Raycaster）、自绘 SVG、少量 Rough.js 纸面装饰；Canvas2D 仅用于材质纹理与卡片导出。Zod 和 TOON 严格适配、MCP SDK 同步，Vitest 和 Playwright 验证。
 
 三维布局、相机、材质、资源清理与扩展入口见 [三维重构说明](docs/WEBGL_REBUILD.md)。

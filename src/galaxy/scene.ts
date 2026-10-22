@@ -7,6 +7,8 @@ import { quantile } from '../graph/analysis';
 import { relationEdges } from '../graph/view';
 import { createPlanetMaterials, makeLabelTexture } from './materials';
 import { resolveFoodIllustration } from '../components/food-illustrations/registry';
+import { loadFoodArt } from './imageCache';
+import { createPlanetBatches } from './batches';
 
 export interface GalaxySceneInput {
   dataset:Dataset; graph:NutritionGraph; positions:PlanetPosition[]; visible:Set<string>;
@@ -34,7 +36,9 @@ export function createGalaxyScene(canvas:HTMLCanvasElement,read:()=>GalaxySceneI
   const copy=(pose:Pose):Pose=>({position:pose.position.clone(),target:pose.target.clone()});
   const pose=():Pose=>({position:camera.position.clone(),target:controls.target.clone()});
   const initialBounds=canvas.getBoundingClientRect();
-  let width=initialBounds.width||1000,height=initialBounds.height||800,frame=0,dirty=true,disposed=false,hover:string|null=null,saved:Pose|null=null;
+  let width=initialBounds.width||1000,height=initialBounds.height||800,frame=0,dirty=true,disposed=false,drawing=false,hover:string|null=null,saved:Pose|null=null;
+  function requestDraw(){if(!frame&&!drawing&&!disposed&&!document.hidden)frame=requestAnimationFrame(draw);}
+  function invalidate(){dirty=true;requestDraw();}
   camera.aspect=width/height;camera.updateProjectionMatrix();
   let flight:{start:number;duration:number;from:Pose;to:Pose}|null=null;
   let viewInitialized=false,viewX=0,viewY=0,targetViewX=0,targetViewY=0;
@@ -42,8 +46,13 @@ export function createGalaxyScene(canvas:HTMLCanvasElement,read:()=>GalaxySceneI
   let previousCategoryFocusKey:number|undefined;
   let down:{x:number;y:number;pointer:number;moved:boolean;threshold:number}|null=null;
   const pointers=new Set<number>();
+  let pendingPointer:{x:number;y:number;type:string}|null=null;
+  const scratch=new THREE.Vector3(),projected=new THREE.Vector3();
+  const foodById=new Map(initial.dataset.foods.map(food=>[food.id,food]));
+  type ScreenRect={x:number;y:number;width:number;height:number};
+  let blockers:ScreenRect[]=[];
   function stopInertia(){controls.enableDamping=false;controls.update();controls.enableDamping=!reduced.matches;}
-  function apply(next:Pose){stopInertia();camera.position.copy(next.position);controls.target.copy(next.target);controls.update();dirty=true;}
+  function apply(next:Pose){stopInertia();camera.position.copy(next.position);controls.target.copy(next.target);controls.update();invalidate();}
   apply(home);
   scene.add(new THREE.HemisphereLight('#FFF6DF','#857E91',.9));
   const sun=new THREE.DirectionalLight('#FFF4D4',1.4);sun.position.set(-500,1000,1400);scene.add(sun);
@@ -63,14 +72,15 @@ export function createGalaxyScene(canvas:HTMLCanvasElement,read:()=>GalaxySceneI
   const planets:Planet[]=[],byId=new Map<string,Planet>(),bodies:THREE.Mesh[]=[];
   const positionById=new Map(initial.positions.map(p=>[p.id,p]));
   const labelTextures:THREE.Texture[]=[],labelMaterials:THREE.SpriteMaterial[]=[];
-  const textureLoader=new THREE.TextureLoader(),foodTextures=new Map<string,THREE.Texture>(),foodMaterials=new Map<string,THREE.MeshToonMaterial>();
+  const foodTextures=new Map<string,THREE.Texture>(),foodMaterials=new Map<string,THREE.MeshToonMaterial>();
     let loadedArt=0,failedArt=0;
   function foodMaterial(presetId:string){
     const existing=foodMaterials.get(presetId);if(existing)return existing;
-    const texture=textureLoader.load(`/food-planets/${presetId}.svg`,()=>{
-      if(disposed)return;loadedArt++;dirty=true;
-    },undefined,()=>{
-      if(disposed)return;failedArt++;dirty=true;onError('餐品插画载入失败，请重新载入；餐品目录仍可使用。');
+    const texture=new THREE.Texture();
+    loadFoodArt(presetId).then(image=>{
+      if(disposed)return;texture.image=image;texture.needsUpdate=true;loadedArt++;invalidate();
+    }).catch(()=>{
+      if(disposed)return;failedArt++;invalidate();onError('餐品插画载入失败，请重新载入；餐品目录仍可使用。');
     });
     texture.colorSpace=THREE.SRGBColorSpace;texture.anisotropy=Math.min(4,renderer.capabilities.getMaxAnisotropy());
     const material=new THREE.MeshToonMaterial({map:texture,gradientMap:art.materials.burger.gradientMap,transparent:true,alphaTest:.08,depthTest:true,depthWrite:true,fog:true});
@@ -87,6 +97,7 @@ export function createGalaxyScene(canvas:HTMLCanvasElement,read:()=>GalaxySceneI
     if(food.category==='dessert'||stableHash(food.id)%5===0){const ring=new THREE.Mesh(ringGeometry,art.ring);ring.rotation.set(1.15,.22,(stableHash(food.id)%10)*.06);group.add(ring);planet.ring=ring;}
     planets.push(planet);byId.set(food.id,planet);scene.add(group);
   }
+  const batches=createPlanetBatches(scene,planets.flatMap(planet=>[planet.body,planet.outline,planet.illustration,...(planet.ring?[planet.ring]:[])]));
   const clouds=clusterVolumes(initial.positions);
   // A single batched 3D point cloud, with deterministic XYZ positions, recedes behind the food.
   const starGeometry=new THREE.BufferGeometry(),starPositions:number[]=[],starColors:number[]=[];
@@ -109,7 +120,7 @@ export function createGalaxyScene(canvas:HTMLCanvasElement,read:()=>GalaxySceneI
   function fly(next:Pose){
     stopInertia();
     if(reduced.matches){flight=null;apply(next);}else flight={start:performance.now(),duration:Math.min(800,400+camera.position.distanceTo(next.position)*.12),from:pose(),to:copy(next)};
-    dirty=true;
+    invalidate();
   }
   function focusFood(planet:Planet){
     const direction=camera.position.clone().sub(controls.target).normalize(),target=planet.group.position.clone();
@@ -131,7 +142,7 @@ export function createGalaxyScene(canvas:HTMLCanvasElement,read:()=>GalaxySceneI
     const distance=Math.max(550,cloud.radius*(width<600?1.6:1.35));
     fly({target,position:target.clone().addScaledVector(direction,distance)});
   }
-  function restore(){if(saved){const previous=saved;saved=null;fly(previous);}read().onSelect(null);dirty=true;}
+  function restore(){if(saved){const previous=saved;saved=null;fly(previous);}read().onSelect(null);invalidate();}
   function updateView(immediate=false){
     const p=read(),inset=p.insets?.()??{left:0,bottom:0};
     const left=width>850?Math.min(inset.left,width*.45):0,right=width>750&&p.selected?370:0;
@@ -139,7 +150,11 @@ export function createGalaxyScene(canvas:HTMLCanvasElement,read:()=>GalaxySceneI
     const centerY=width<600&&p.selected?height*.20:(height-Math.min(inset.bottom,height*.25))/2;
     targetViewX=width/2-centerX;targetViewY=height/2-centerY;
     if(!viewInitialized||immediate||reduced.matches){viewX=targetViewX;viewY=targetViewY;viewInitialized=true;}
-    camera.aspect=width/height;camera.setViewOffset(width,height,viewX,viewY,width,height);camera.updateProjectionMatrix();dirty=true;
+    camera.aspect=width/height;camera.setViewOffset(width,height,viewX,viewY,width,height);camera.updateProjectionMatrix();
+    // Panels only change at sync/resize, not every camera frame. Avoid forced layout while orbiting.
+    const canvasBox=canvas.getBoundingClientRect();
+    blockers=Array.from(canvas.parentElement?.querySelectorAll<HTMLElement>('.galaxy-panel')??[]).map(element=>{const box=element.getBoundingClientRect();return {x:box.x-canvasBox.x,y:box.y-canvasBox.y,width:box.width,height:box.height};});
+    invalidate();
   }
   function clearEdges(){for(const item of edgeObjects){item.line.geometry.dispose();(item.line.material as THREE.Material).dispose();}edgeObjects.length=0;lines.clear();}
   function sync(){
@@ -186,7 +201,7 @@ export function createGalaxyScene(canvas:HTMLCanvasElement,read:()=>GalaxySceneI
       previousEdges=edgeKey;
     }
     controls.minDistance=p.selected?Math.max(75,(byId.get(p.selected)?.targetRadius??30)*2.7):45;
-    updateView();dirty=true;
+    updateView();invalidate();
   }
   function hit(clientX:number,clientY:number,pointerType='mouse'){
     const rect=canvas.getBoundingClientRect();ndc.set((clientX-rect.left)/rect.width*2-1,-(clientY-rect.top)/rect.height*2+1);
@@ -202,35 +217,35 @@ export function createGalaxyScene(canvas:HTMLCanvasElement,read:()=>GalaxySceneI
     for(const planet of planets){
       if(!planet.group.visible)continue;
       const center=project(planet.group.position);if(center.z<=-1||center.z>=1)continue;
-      const local=planet.group.position.clone().applyMatrix4(camera.matrixWorldInverse),depth=-local.z;
+      const local=scratch.copy(planet.group.position).applyMatrix4(camera.matrixWorldInverse),depth=-local.z;
       const radius=depth>planet.radius?focal*planet.radius/Math.sqrt(depth*depth-planet.radius*planet.radius):0;
       const distance=Math.hypot(px-center.x,py-center.y);
       if(distance<=Math.max(radius,minRadius)&&distance<best){nearest=planet;best=distance;}
     }
     return nearest?{foodId:nearest.id}:{};
   }
-  const start=()=>{flight=null;hover=null;dirty=true;};controls.addEventListener('start',start);
-  const change=()=>{dirty=true;};controls.addEventListener('change',change);
+  const start=()=>{flight=null;hover=null;pendingPointer=null;invalidate();};controls.addEventListener('start',start);
+  const change=()=>{invalidate();};controls.addEventListener('change',change);
   const keyboard=(event:KeyboardEvent)=>{if(['ArrowUp','ArrowDown','ArrowLeft','ArrowRight'].includes(event.key))start();};
   canvas.addEventListener('keydown',keyboard,{capture:true});
   const pointerDown=(event:PointerEvent)=>{pointers.add(event.pointerId);if(pointers.size===1)down={x:event.clientX,y:event.clientY,pointer:event.pointerId,moved:false,threshold:event.pointerType==='touch'?10:6};else if(down)down.moved=true;};
   const pointerMove=(event:PointerEvent)=>{
     if(down&&Math.hypot(event.clientX-down.x,event.clientY-down.y)>down.threshold)down.moved=true;
-    if(!pointers.size){const result=hit(event.clientX,event.clientY,event.pointerType);hover=result.foodId??null;canvas.style.cursor=hover||result.edge?'pointer':'grab';dirty=true;}
+    if(!pointers.size){pendingPointer={x:event.clientX,y:event.clientY,type:event.pointerType};invalidate();}
   };
   const pointerEnd=(event:PointerEvent)=>{
     if(event.type==='pointerup'&&event.button===0&&pointers.size===1&&down&&!down.moved){const result=hit(event.clientX,event.clientY,event.pointerType);if(result.edge)read().onRelationSelect?.(result.edge);else if(result.foodId)read().onSelect(result.foodId);}
     pointers.delete(event.pointerId);if(!pointers.size)down=null;else if(down)down.moved=true;
   };
-  const leave=()=>{hover=null;dirty=true;};
+  const leave=()=>{hover=null;pendingPointer=null;invalidate();};
   canvas.addEventListener('pointerdown',pointerDown);canvas.addEventListener('pointermove',pointerMove);canvas.addEventListener('pointerup',pointerEnd);canvas.addEventListener('pointercancel',pointerEnd);canvas.addEventListener('pointerleave',leave);
   const lost=(event:Event)=>{event.preventDefault();onError('三维图形上下文已中断，请重新载入星系。餐品目录仍可使用。');};canvas.addEventListener('webglcontextlost',lost);
-  function project(point:THREE.Vector3){const v=point.clone().project(camera);return {x:(v.x+1)*width/2,y:(1-v.y)*height/2,z:v.z};}
-  let lastReport='';
-  function publish(){
+  function project(point:THREE.Vector3){projected.copy(point).project(camera);return {x:(projected.x+1)*width/2,y:(1-projected.y)*height/2,z:projected.z};}
+  let lastReport='',lastSnapshot=-Infinity,snapshotPending=false;
+  function publishSnapshot(){
     canvas.dataset.foodTextures=JSON.stringify({loaded:loadedArt,failed:failedArt,total:foodMaterials.size});
     const snapshot=planets.map(planet=>{
-      const center=project(planet.group.position),local=planet.group.position.clone().applyMatrix4(camera.matrixWorldInverse),depth=-local.z,r=planet.radius*1.035;
+      const center=project(planet.group.position),local=scratch.copy(planet.group.position).applyMatrix4(camera.matrixWorldInverse),depth=-local.z,r=planet.radius*1.035;
       // Tangents to a camera-space sphere: conservative projected bounds also work off axis.
       const denominator=Math.max(.001,depth*depth-r*r),focal=height/(2*Math.tan(THREE.MathUtils.degToRad(camera.fov/2)));
       const axisRadius=(axis:number)=>{const tangent=r*Math.sqrt(Math.max(0,axis*axis+depth*depth-r*r));return Math.max(Math.abs((axis*depth-tangent)/denominator-axis/depth),Math.abs((axis*depth+tangent)/denominator-axis/depth))*focal;};
@@ -243,15 +258,15 @@ export function createGalaxyScene(canvas:HTMLCanvasElement,read:()=>GalaxySceneI
     canvas.dataset.planets=JSON.stringify(snapshot);canvas.dataset.edges=JSON.stringify(edgeObjects.map(e=>({source:e.edge.source,target:e.edge.target,points:e.points.map(project)})));
     canvas.dataset.rendered=String(windowIds.length);canvas.dataset.window=JSON.stringify(windowIds);canvas.dataset.total=String(read().visible.size);
     canvas.dataset.gpu=JSON.stringify({calls:renderer.info.render.calls,geometries:renderer.info.memory.geometries,textures:renderer.info.memory.textures});
+  }
+  function publish(){
     const zoom=Math.round(home.position.distanceTo(home.target)/camera.position.distanceTo(controls.target)*100);
     const hovered=hover&&hover!==read().selected&&byId.get(hover)?.group.visible?byId.get(hover):undefined;
     const hoverPoint=hovered?project(hovered.group.position):undefined;
-    const hoverInfo=hovered&&hoverPoint?{id:hovered.id,name:initial.dataset.foods.find(food=>food.id===hovered.id)!.name,x:Math.round(Math.max(90,Math.min(width-90,hoverPoint.x))),y:Math.round(Math.max(55,Math.min(height-120,hoverPoint.y)))}:null;
+    const hoverInfo=hovered&&hoverPoint?{id:hovered.id,name:foodById.get(hovered.id)!.name,x:Math.round(Math.max(90,Math.min(width-90,hoverPoint.x))),y:Math.round(Math.max(55,Math.min(height-120,hoverPoint.y)))}:null;
     const key=JSON.stringify({zoom,focused:!!saved,hoverInfo});
     if(key!==lastReport){report(zoom,!!saved,hoverInfo);lastReport=key;}
     const occupied:{x:number;y:number;width:number;height:number}[]=[];
-    const canvasBox=canvas.getBoundingClientRect();
-    const blockers=Array.from(canvas.parentElement?.querySelectorAll<HTMLElement>('.galaxy-panel')??[]).map(element=>{const box=element.getBoundingClientRect();return {x:box.x-canvasBox.x,y:box.y-canvasBox.y,width:box.width,height:box.height};});
     const overlaps=(a:{x:number;y:number;width:number;height:number},b:{x:number;y:number;width:number;height:number})=>a.x<b.x+b.width+8&&a.x+a.width+8>b.x&&a.y<b.y+b.height+8&&a.y+a.height+8>b.y;
     for(const cloud of clouds){
       const button=labels.get(cloud.category);if(!button)continue;
@@ -266,50 +281,65 @@ export function createGalaxyScene(canvas:HTMLCanvasElement,read:()=>GalaxySceneI
   }
   function draw(){
     frame=0;if(disposed||document.hidden)return;
+    drawing=true;
     const p=read();controls.enableDamping=!reduced.matches;
+    if(pendingPointer){
+      const point=pendingPointer;pendingPointer=null;
+      const result=hit(point.x,point.y,point.type);hover=result.foodId??null;
+      canvas.style.cursor=hover||result.edge?'pointer':'grab';dirty=true;
+    }
     if(flight){const t=Math.min(1,(performance.now()-flight.start)/flight.duration),ease=t*t*(3-2*t);camera.position.lerpVectors(flight.from.position,flight.to.position,ease);controls.target.lerpVectors(flight.from.target,flight.to.target,ease);if(t===1)flight=null;dirty=true;}
-    controls.update();
+    const controlsChanged=controls.update();
     if(viewX!==targetViewX||viewY!==targetViewY){
       viewX=reduced.matches||Math.abs(targetViewX-viewX)<.25?targetViewX:viewX+(targetViewX-viewX)*.18;
       viewY=reduced.matches||Math.abs(targetViewY-viewY)<.25?targetViewY:viewY+(targetViewY-viewY)*.18;
       camera.setViewOffset(width,height,viewX,viewY,width,height);camera.updateProjectionMatrix();dirty=true;
     }
+    let resizing=false;
     for(const planet of planets){
       const target=planet.targetRadius*(hover===planet.id?1.09:1),delta=target-planet.radius;
-      if(Math.abs(delta)>.02){planet.radius=reduced.matches?target:planet.radius+delta*.16;dirty=true;}
+      if(delta!==0){planet.radius=reduced.matches||Math.abs(delta)<.02?target:planet.radius+delta*.16;dirty=true;}
+      if(planet.radius!==target)resizing=true;
       // Food art bends with the spherical cap and receives the same world lighting.
       // Keep its readable face towards the viewer without flattening the 3D planet.
       planet.illustration.scale.setScalar(planet.radius);
       planet.illustration.lookAt(camera.position);planet.body.scale.setScalar(planet.radius);planet.outline.scale.setScalar(planet.radius*1.035);planet.ring?.scale.setScalar(planet.radius);
       const show=planet.group.visible&&(p.showLabels||p.selected===planet.id||p.route[p.routeStep]===planet.id);
-      if(show&&!planet.label){const food=initial.dataset.foods.find(f=>f.id===planet.id)!;const texture=makeLabelTexture(food.name);labelTextures.push(texture);const material=new THREE.SpriteMaterial({map:texture,depthTest:true,depthWrite:false});labelMaterials.push(material);planet.label=new THREE.Sprite(material);planet.label.scale.set(125,24,1);planet.group.add(planet.label);}
+      if(show&&!planet.label){const food=foodById.get(planet.id)!;const texture=makeLabelTexture(food.name);labelTextures.push(texture);const material=new THREE.SpriteMaterial({map:texture,depthTest:true,depthWrite:false});labelMaterials.push(material);planet.label=new THREE.Sprite(material);planet.label.scale.set(125,24,1);planet.group.add(planet.label);}
       if(planet.label){planet.label.visible=show;planet.label.position.set(0,-planet.radius-20,0);}
       // Keep the camera outside every visible food sphere while allowing entry into the cloud itself.
-      if(planet.group.visible){const delta=camera.position.clone().sub(planet.group.position),safe=planet.radius+14;if(delta.length()<safe){camera.position.copy(planet.group.position).add(delta.lengthSq()?delta.setLength(safe):new THREE.Vector3(0,0,safe));dirty=true;}}
+      if(planet.group.visible){const delta=scratch.copy(camera.position).sub(planet.group.position),safe=planet.radius+14;if(delta.lengthSq()<safe*safe){camera.position.copy(planet.group.position).add(delta.lengthSq()?delta.setLength(safe):delta.set(0,0,safe));dirty=true;}}
     }
-    if(controls.target.length()>8500){const displacement=controls.target.clone().setLength(8500).sub(controls.target);controls.target.add(displacement);camera.position.add(displacement);dirty=true;}
+    if(controls.target.lengthSq()>8500*8500){const displacement=scratch.copy(controls.target).setLength(8500).sub(controls.target);controls.target.add(displacement);camera.position.add(displacement);dirty=true;}
+    const moving=!!flight||resizing||viewX!==targetViewX||viewY!==targetViewY||controlsChanged&&!reduced.matches;
     if(dirty){
       const distance=camera.position.distanceTo(controls.target);(scene.fog as THREE.Fog).near=Math.max(1200,distance*.8);(scene.fog as THREE.Fog).far=Math.max(6500,distance*2.1);
-      camera.updateMatrixWorld();scene.updateMatrixWorld(true);renderer.render(scene,camera);publish();dirty=false;
+      camera.updateMatrixWorld();scene.updateMatrixWorld(true);batches.sync(camera);renderer.render(scene,camera);publish();
+      // Detailed DOM diagnostics are useful for accessibility/regression tooling, not per-frame work.
+      snapshotPending=true;
+      const now=performance.now();if(!moving||now-lastSnapshot>=120){publishSnapshot();lastSnapshot=now;snapshotPending=false;}
+      dirty=false;
     }
-    frame=requestAnimationFrame(draw);
+    if(!moving&&snapshotPending){publishSnapshot();lastSnapshot=performance.now();snapshotPending=false;}
+    drawing=false;
+    if(moving)requestDraw();
   }
   const resize=new ResizeObserver(entries=>{const bounds=entries[0].contentRect;if(!bounds.width||!bounds.height)return;const changed=width!==bounds.width||height!==bounds.height;width=bounds.width;height=bounds.height;renderer.setPixelRatio(Math.min(devicePixelRatio||1,width<600?1.25:1.5));renderer.setSize(width,height,false);updateView(true);const selected=read().selected;if(changed&&selected&&byId.has(selected))focusFood(byId.get(selected)!);});resize.observe(canvas);
-  const visibility=()=>{if(document.hidden){cancelAnimationFrame(frame);frame=0;}else{dirty=true;if(!frame)frame=requestAnimationFrame(draw);}};document.addEventListener('visibilitychange',visibility);
-  const motion=()=>{stopInertia();if(reduced.matches&&flight){const target=flight.to;flight=null;apply(target);}dirty=true;};reduced.addEventListener('change',motion);
+  const visibility=()=>{if(document.hidden){cancelAnimationFrame(frame);frame=0;}else invalidate();};document.addEventListener('visibilitychange',visibility);
+  const motion=()=>{stopInertia();if(reduced.matches&&flight){const target=flight.to;flight=null;apply(target);}invalidate();};reduced.addEventListener('change',motion);
   canvas.dataset.world=JSON.stringify(initial.positions.map(({id,x,y,z})=>({id,x,y,z})));
-  canvas.style.cursor='grab';sync();frame=requestAnimationFrame(draw);
+  canvas.style.cursor='grab';sync();requestDraw();
   return {
     sync,
-    home(){flight=null;saved=null;apply(home);read().onSelect(null);dirty=true;},
+    home(){flight=null;saved=null;apply(home);read().onSelect(null);invalidate();},
     overview(){saved=null;read().onSelect(null);framePoints(initial.positions.map(p=>new THREE.Vector3(p.x,p.y,p.z)),180);},
     restore,
     category(category){saved=null;focusCategory(category);},
-    dolly(factor){flight=null;stopInertia();const offset=camera.position.clone().sub(controls.target),distance=THREE.MathUtils.clamp(offset.length()/factor,controls.minDistance,controls.maxDistance);camera.position.copy(controls.target).add(offset.setLength(distance));controls.update();dirty=true;},
+    dolly(factor){flight=null;stopInertia();const offset=camera.position.clone().sub(controls.target),distance=THREE.MathUtils.clamp(offset.length()/factor,controls.minDistance,controls.maxDistance);camera.position.copy(controls.target).add(offset.setLength(distance));controls.update();invalidate();},
     dispose(){
       disposed=true;cancelAnimationFrame(frame);resize.disconnect();document.removeEventListener('visibilitychange',visibility);reduced.removeEventListener('change',motion);
       canvas.removeEventListener('keydown',keyboard,{capture:true});canvas.removeEventListener('pointerdown',pointerDown);canvas.removeEventListener('pointermove',pointerMove);canvas.removeEventListener('pointerup',pointerEnd);canvas.removeEventListener('pointercancel',pointerEnd);canvas.removeEventListener('pointerleave',leave);canvas.removeEventListener('webglcontextlost',lost);
-      controls.removeEventListener('start',start);controls.removeEventListener('change',change);controls.dispose();clearEdges();sphere.dispose();ringGeometry.dispose();foodSurface.dispose();art.dispose();foodTextures.forEach(t=>t.dispose());foodMaterials.forEach(m=>m.dispose());starGeometry.dispose();starMaterial.dispose();starTexture.dispose();labelTextures.forEach(t=>t.dispose());labelMaterials.forEach(m=>m.dispose());scene.clear();renderer.dispose();renderer.forceContextLoss();
+      controls.removeEventListener('start',start);controls.removeEventListener('change',change);controls.dispose();clearEdges();batches.dispose();sphere.dispose();ringGeometry.dispose();foodSurface.dispose();art.dispose();foodTextures.forEach(t=>t.dispose());foodMaterials.forEach(m=>m.dispose());foodTextures.clear();foodMaterials.clear();starGeometry.dispose();starMaterial.dispose();starTexture.dispose();labelTextures.forEach(t=>t.dispose());labelMaterials.forEach(m=>m.dispose());scene.clear();renderer.dispose();renderer.forceContextLoss();
     }
   };
 }

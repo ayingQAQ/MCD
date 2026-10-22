@@ -25,3 +25,12 @@ GitHub Actions 的 `performance.spec.ts` 检查静止后的动画回调、相机
 可在 Actions 手动运行 `Validate McCosmos`，选择 `performance` 仅执行专项浏览器检查；日常 push 仍执行完整验证。软件 WebGL 的回归计数用于比较同一环境下的工作量，不作为用户设备的 FPS 承诺。
 
 优化前基线：Actions [39745800563](https://github.com/ayingQAQ/McCosmos/actions/runs/39745800563)，静止 400ms 仍有 24 次动画回调，全景 521 次绘制提交。
+
+优化后：Actions [39747393708](https://github.com/ayingQAQ/McCosmos/actions/runs/39747393708)，56 项单元测试、57 项浏览器测试全部通过，类型、lint、构建及 SVG 导出通过。相同专项场景记录如下：
+
+| 指标 | 优化前 | 优化后 |
+| --- | --- | --- |
+| 静止 400ms 的动画回调 | 24 | 0 |
+| 全景每帧绘制提交 | 521 | 32 |
+
+名称纹理检查：初始 19 个 GPU 纹理，开启名称后 132 个，关闭后恢复为 19 个。跨页返回星系时，没有新增插画源图加载。计数来自报告中的 `idle-animation-callbacks.json`、`overview-gpu.json`、`label-texture-memory.json` 与相应浏览器断言。

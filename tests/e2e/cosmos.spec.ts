@@ -62,6 +62,7 @@ test('route steps and discoveries are usable', async ({ page }, testInfo) => {
 });
 
 test('native wheel and mobile two-finger gestures change the camera zoom', async ({ page, browser }) => {
+  test.setTimeout(60_000); // Two WebGL contexts render in software on GitHub's runner.
   await page.goto('/galaxy');
   const canvas = page.locator('canvas').first();
   await expect(canvas).toBeVisible();

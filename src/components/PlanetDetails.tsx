@@ -5,7 +5,7 @@ import { exportPlanetCard } from '../art/shareCard';
 import { Icon } from './Illustrations';
 import { FoodPhoto } from './FoodPhoto';
 
-export function PlanetDetails({ food, dataset, graph, onClose, onSelect, onRouteEndpoint, actions }: { food: FoodPlanet; dataset: Dataset; graph: NutritionGraph; onClose: () => void; onSelect: (id: string) => void; onRouteEndpoint: (which: 'from' | 'to', id: string) => void; actions?: ReactNode }) {
+export function PlanetDetails({ food, dataset, graph, onClose, onSelect, onRouteEndpoint, actions, variantControls }: { food: FoodPlanet; dataset: Dataset; graph: NutritionGraph; onClose: () => void; onSelect: (id: string) => void; onRouteEndpoint: (which: 'from' | 'to', id: string) => void; actions?: ReactNode; variantControls?: ReactNode }) {
   const heading = useRef<HTMLHeadingElement>(null), [exporting, setExporting] = useState(false), [error, setError] = useState('');
   useEffect(() => { const previous = document.activeElement as HTMLElement | null; heading.current?.focus({ preventScroll: true }); return () => { if (previous?.isConnected) previous.focus({ preventScroll: true }); }; }, [food.id]);
   const related = neighbors(graph, food.id);
@@ -14,6 +14,7 @@ export function PlanetDetails({ food, dataset, graph, onClose, onSelect, onRoute
     <div className="detail-top"><span className="eyebrow">PLANET FIELD NOTES</span><button className="icon-button" aria-label="关闭星球档案" onClick={onClose}><Icon name="close"/></button></div>
     <FoodPhoto food={food}/><span className="category-tag">{categoryNames[food.category]} · {food.categorySource === 'inferred' ? '本地推断' : '未分类'}</span>
     <h2 ref={heading} tabIndex={-1}>{food.name}</h2><p className="detail-basis">{food.basis.description}</p>
+    {variantControls}
     <dl className="nutrition-values">{nutrientKeys.map(key => <div key={key}><dt>{nutrientNames[key]}</dt><dd>{formatNutrient(food, key)}</dd></div>)}</dl>
     {!food.basis.unitsVerified && <p className="unit-note">蛋白质等字段单位待核实，显示接口原始值。不同餐品规格的相似性不代表等重量比较。</p>}
     {actions}

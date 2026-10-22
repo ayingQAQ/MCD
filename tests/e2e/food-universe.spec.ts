@@ -2,7 +2,41 @@ import { expect, test } from '@playwright/test';
 import snapshot from '../../public/data/nutrition.snapshot.json' with { type: 'json' };
 import manifest from '../../src/data/food-images.json' with { type: 'json' };
 
-for (const name of ['冰奶铁大杯', '冰焦糖玛奇朵']) {
+for (const width of [390, 1440]) {
+  test(`one iced milk card switches original size records without losing filters at ${width}px`, async ({ page }, info) => {
+    await page.setViewportSize({ width, height: 1000 });
+    await page.goto('/atlas?q=冰牛奶&category=drink');
+    const cards = page.locator('.atlas-grid .food-card');
+    await expect(cards).toHaveCount(1);
+    await expect(cards.getByRole('heading')).toHaveText('冰牛奶');
+    await expect(cards).toContainText('3 种杯型');
+    await page.getByRole('button', { name: '查看 冰牛奶', exact: true }).click();
+    const details = page.locator('.planet-details');
+    const sizes = details.getByRole('group', { name: '杯型选择' });
+    await expect(sizes.getByRole('button', { name: '中杯', exact: true })).toHaveAttribute('aria-pressed', 'true');
+    for (const [size, kcal] of [['大杯', 269], ['小杯', 147], ['中杯', 224]] as const) {
+      await sizes.getByRole('button', { name: size, exact: true }).click();
+      const food = snapshot.foods.find(food => food.name === `冰牛奶${size}`)!;
+      await expect(details.getByRole('heading', { name: food.name, exact: true })).toBeVisible();
+      await expect(details.locator('.nutrition-values dd').first()).toContainText(`${kcal}`);
+      await expect(page).toHaveURL(new RegExp(`food=${food.id}`));
+      await expect(page.getByLabel('图鉴搜索')).toHaveValue('冰牛奶');
+      await expect(cards).toHaveCount(1);
+      await expect(sizes.getByRole('button', { name: size, exact: true })).toHaveAttribute('aria-pressed', 'true');
+    }
+    await sizes.getByRole('button', { name: '大杯', exact: true }).click();
+    await details.getByRole('button', { name: '收藏星球', exact: true }).click();
+    await details.getByRole('button', { name: '加入实验室', exact: true }).click();
+    await page.screenshot({ path: info.outputPath(`drink-sizes-${width}.png`), fullPage: true });
+    await page.reload();
+    await expect(details.getByRole('heading', { name: '冰牛奶大杯', exact: true })).toBeVisible();
+    await expect(details.getByRole('button', { name: '取消收藏星球', exact: true })).toHaveAttribute('aria-pressed', 'true');
+    await details.getByRole('button', { name: /去实验室比较/ }).click();
+    await expect(page.locator('main')).toContainText('冰牛奶大杯');
+  });
+}
+
+for (const name of ['冰奶铁大杯', '冰焦糖玛奇朵', '迷你朱古力新地', '酥酥多笋卷', '果然多肉']) {
   test(`expanded product photo is visible and accurately labelled for ${name}`, async ({ page }, info) => {
     await page.setViewportSize({ width: 1112, height: 1000 });
     const food = snapshot.foods.find(food => food.name === name)!;
@@ -14,7 +48,7 @@ for (const name of ['冰奶铁大杯', '冰焦糖玛奇朵']) {
     await expect(photo).toHaveAttribute('src', image.src);
     await expect.poll(() => photo.evaluate(element => (element as HTMLImageElement).naturalWidth)).toBeGreaterThan(100);
     if (image.match === 'family-reference') await expect(details.locator('.food-photo-caption')).toContainText(image.referenceLabel!);
-    else await expect(details.locator('.food-photo-caption')).toContainText('官网商品图');
+    else await expect(details.locator('.food-photo-caption')).toContainText(image.sourceTool === 'official-promotion-page' ? '官网套餐推广图' : '官网商品图');
     await page.screenshot({ path: info.outputPath(`expanded-photo-${food.id}.png`), fullPage: true });
   });
 }

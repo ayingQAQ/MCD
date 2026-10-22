@@ -4,6 +4,7 @@ import snapshot from '../../public/data/nutrition.snapshot.json' with { type: 'j
 import { datasetSchema, nutrientKeys } from '../../src/data/schema';
 import { analyze } from '../../src/graph/analysis';
 import { createDailyQuests } from '../../src/core/quests';
+import { groupFoodVariants } from '../../src/data/foodVariants';
 
 const dataset = datasetSchema.parse(snapshot);
 const graph = analyze(dataset.foods);
@@ -103,7 +104,8 @@ test('atlas sorts real values, filters complete records, paginates and persists 
   await expect(cards).toHaveCount(48);
   for (const sort of ['kcal-desc', 'kcal-asc', 'protein-desc']) {
     const key = sort === 'protein-desc' ? 'proteinG' : 'kcal';
-    const sorted = [...dataset.foods].sort((a, b) => {
+    const sorted = groupFoodVariants(dataset.foods).sort((aGroup, bGroup) => {
+      const a = aGroup.food, b = bGroup.food;
       const av = a.nutrition[key], bv = b.nutrition[key];
       if (av === null) return bv === null ? a.id.localeCompare(b.id) : 1;
       if (bv === null) return -1;
@@ -115,7 +117,7 @@ test('atlas sorts real values, filters complete records, paginates and persists 
   }
   await page.getByLabel('仅有完整营养数据').check();
   const complete = dataset.foods.filter(food => nutrientKeys.every(key => food.nutrition[key] !== null));
-  await expect(page.locator('.atlas-count')).toContainText(`找到 ${complete.length} 颗星球`);
+  await expect(page.locator('.atlas-count')).toContainText(`找到 ${groupFoodVariants(complete).length} 颗星球`);
   await page.getByLabel('图鉴搜索').fill('巨无霸');
   await page.getByRole('button', { name: '收藏 巨无霸', exact: true }).click();
   await page.getByRole('button', { name: '已收藏', exact: true }).click();
@@ -127,7 +129,7 @@ test('atlas sorts real values, filters complete records, paginates and persists 
   await page.getByRole('button', { name: '重置筛选', exact: true }).click();
   await expect(cards).toHaveCount(24);
   await page.getByRole('button', { name: '饮品星系', exact: true }).click();
-  await expect(page.locator('.atlas-count')).toContainText(`找到 ${dataset.foods.filter(food => food.category === 'drink').length} 颗星球`);
+  await expect(page.locator('.atlas-count')).toContainText(`找到 ${groupFoodVariants(dataset.foods.filter(food => food.category === 'drink')).length} 颗星球`);
 });
 
 test('mobile atlas endpoint handoff exposes the route form and URL endpoints survive history and reload', async ({ page }) => {

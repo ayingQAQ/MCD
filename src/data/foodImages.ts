@@ -11,7 +11,7 @@ export interface FoodImage {
   /** Public label required when the image shows another size of the same product. */
   referenceLabel?: string;
   note?: string;
-  sourceTool?: 'query-meals' | 'query-meal-detail' | 'official-product-page';
+  sourceTool?: 'query-meals' | 'query-meal-detail' | 'official-product-page' | 'official-nutrition-page' | 'official-promotion-page';
   sourcePage?: string;
   reservationDate?: string;
 }

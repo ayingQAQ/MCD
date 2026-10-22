@@ -20,6 +20,6 @@ function ProductPhoto({ name, image, compact }: { name: string; image?: FoodImag
   if (compact) return <span className={className}>{content}{reference && <small className="food-photo-reference">{reference}</small>}</span>;
   return <figure className={className}>
     {content}
-    {available && <figcaption className="food-photo-caption">{reference ?? `${image.sourceTool === 'official-product-page' ? '官网' : '菜单'}商品图 · ${image.menuName}`}</figcaption>}
+    {available && <figcaption className="food-photo-caption">{reference ?? `${image.sourceTool === 'official-promotion-page' ? '官网套餐推广图' : image.sourceTool?.startsWith('official-') ? '官网商品图' : '菜单商品图'} · ${image.menuName}`}</figcaption>}
   </figure>;
 }

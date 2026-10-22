@@ -1,5 +1,5 @@
 {
-  "fetchedAt": "2026-10-21T17:13:37.611Z",
+  "fetchedAt": "2026-10-22T13:47:10.887324+00:00",
   "tool": "query-meals",
   "detailTool": "query-meal-detail",
   "store": {
@@ -36,6 +36,18 @@
       "src": "/food-photos/510041.png",
       "match": "exact",
       "sourceTool": "query-meal-detail"
+    },
+    {
+      "foodId": "food-122drbu",
+      "foodName": "果然多肉",
+      "menuName": "果然多肉",
+      "code": "official-combo-3",
+      "url": "https://officiaweb-afd.mcdonalds.com.cn/public/upload/photo_db/2025/05/19/202505191122132103.png",
+      "src": "/food-photos/official-combo-3.png",
+      "match": "exact",
+      "sourceTool": "official-promotion-page",
+      "sourcePage": "https://www.mcdonalds.com.cn/news/20250516-500kcal",
+      "note": "官网同名套餐推广原图，包含真实餐品照片与历史宣传文案。仅用于同名组合本身，不绑定其中单品；营养数值保留 MCP 原始记录，推广价格不代表当前价格。"
     },
     {
       "foodId": "food-1242dmy",
@@ -101,6 +113,18 @@
       "match": "alias",
       "sourceTool": "query-meal-detail",
       "note": "已核对名称、杯型或份量；保留菜单原名。"
+    },
+    {
+      "foodId": "food-168jsxi",
+      "foodName": "迷你草莓新地",
+      "menuName": "迷你草莓新地",
+      "code": "official-nutrition-341",
+      "url": "https://officiaweb-afd.mcdonalds.com.cn/public/upload/attachment/2025/05/202505112259357730.png",
+      "src": "/food-photos/official-nutrition-341.png",
+      "match": "exact",
+      "sourceTool": "official-nutrition-page",
+      "sourcePage": "https://www.mcdonalds.com.cn/nutrition_calculator",
+      "note": "官网营养计算器 Product 字段提供的同名商品图，使用官网原始图片地址。"
     },
     {
       "foodId": "food-17b13vo",
@@ -285,6 +309,18 @@
       "note": "鱼排堡编码来自鱼排堡开心乐园餐的单品轮次，核对为儿童鱼排堡。"
     },
     {
+      "foodId": "food-1h9awck",
+      "foodName": "迷你朱古力新地",
+      "menuName": "迷你朱古力新地",
+      "code": "official-nutrition-340",
+      "url": "https://officiaweb-afd.mcdonalds.com.cn/public/upload/attachment/2025/05/202505112256468336.png",
+      "src": "/food-photos/official-nutrition-340.png",
+      "match": "exact",
+      "sourceTool": "official-nutrition-page",
+      "sourcePage": "https://www.mcdonalds.com.cn/nutrition_calculator",
+      "note": "官网营养计算器 Product 字段提供的同名商品图，使用官网原始图片地址。"
+    },
+    {
       "foodId": "food-1h9g7qp",
       "foodName": "阳光柠檬红茶中杯",
       "menuName": "阳光柠檬红茶中杯",
@@ -313,6 +349,19 @@
       "src": "/food-photos/3071.png",
       "match": "exact",
       "sourceTool": "query-meal-detail"
+    },
+    {
+      "foodId": "food-1hhcvw0",
+      "foodName": "浓浓抹茶雪冰大杯",
+      "menuName": "浓浓抹茶雪冰",
+      "code": "official-nutrition-271",
+      "url": "https://officiaweb-afd.mcdonalds.com.cn/public/upload/attachment/2022/08/202208292219089745.png",
+      "src": "/food-photos/official-nutrition-271.png",
+      "match": "family-reference",
+      "sourceTool": "official-nutrition-page",
+      "sourcePage": "https://www.mcdonalds.com.cn/nutrition_calculator",
+      "note": "官网营养计算器 Product 字段提供的同名商品图，使用官网原始图片地址。",
+      "referenceLabel": "官网同款参考图 · 杯型以实物为准"
     },
     {
       "foodId": "food-1hk5zm8",
@@ -403,6 +452,18 @@
       "note": "仅作为同款不同容量/份量的商品参考；当前规格外观尚未由接口核实。"
     },
     {
+      "foodId": "food-1luvmgk",
+      "foodName": "专“薯鱼”你",
+      "menuName": "专“薯鱼”你",
+      "code": "official-combo-7",
+      "url": "https://officiaweb-afd.mcdonalds.com.cn/public/upload/photo_db/2025/05/19/202505191122141910.png",
+      "src": "/food-photos/official-combo-7.png",
+      "match": "exact",
+      "sourceTool": "official-promotion-page",
+      "sourcePage": "https://www.mcdonalds.com.cn/news/20250516-500kcal",
+      "note": "官网同名套餐推广原图，包含真实餐品照片与历史宣传文案。仅用于同名组合本身，不绑定其中单品；营养数值保留 MCP 原始记录，推广价格不代表当前价格。"
+    },
+    {
       "foodId": "food-1lx0bxu",
       "foodName": "麦乐鸡5块",
       "menuName": "麦乐鸡5块",
@@ -442,6 +503,18 @@
       "src": "/food-photos/515955.png",
       "match": "exact",
       "sourceTool": "query-meal-detail"
+    },
+    {
+      "foodId": "food-1n842q9",
+      "foodName": "酥酥多笋卷",
+      "menuName": "酥酥多笋卷",
+      "code": "official-product-wrap",
+      "url": "https://officiaweb-afd.mcdonalds.com.cn/public/upload/attachment/2024/12/202412031221494776.png",
+      "src": "/food-photos/official-product-wrap.png",
+      "match": "exact",
+      "sourceTool": "official-product-page",
+      "sourcePage": "https://www.mcdonalds.com.cn/product/%E9%85%A5%E9%85%A5%E5%A4%9A%E7%AC%8B%E5%8D%B7",
+      "note": "同中文名称官网商品页的主商品图片，保留原始图片。"
     },
     {
       "foodId": "food-1n87bhk",
@@ -517,6 +590,19 @@
       "match": "alias",
       "sourceTool": "query-meal-detail",
       "note": "已核对名称、杯型或份量；保留菜单原名。"
+    },
+    {
+      "foodId": "food-1quxity",
+      "foodName": "热浓浓抹茶牛奶大杯",
+      "menuName": "热浓浓抹茶牛奶",
+      "code": "official-nutrition-307",
+      "url": "https://officiaweb-afd.mcdonalds.com.cn/public/upload/attachment/2022/08/202208292216596791.png",
+      "src": "/food-photos/official-nutrition-307.png",
+      "match": "family-reference",
+      "sourceTool": "official-nutrition-page",
+      "sourcePage": "https://www.mcdonalds.com.cn/nutrition_calculator",
+      "note": "官网营养计算器 Product 字段提供的同名商品图，使用官网原始图片地址。",
+      "referenceLabel": "官网同款参考图 · 杯型以实物为准"
     },
     {
       "foodId": "food-1s2k22e",
@@ -608,6 +694,19 @@
       "note": "仅作为同款不同容量/份量的商品参考；当前规格外观尚未由接口核实。"
     },
     {
+      "foodId": "food-1ukhqae",
+      "foodName": "浓浓抹茶雪冰中杯",
+      "menuName": "浓浓抹茶雪冰",
+      "code": "official-nutrition-271",
+      "url": "https://officiaweb-afd.mcdonalds.com.cn/public/upload/attachment/2022/08/202208292219089745.png",
+      "src": "/food-photos/official-nutrition-271.png",
+      "match": "family-reference",
+      "sourceTool": "official-nutrition-page",
+      "sourcePage": "https://www.mcdonalds.com.cn/nutrition_calculator",
+      "note": "官网营养计算器 Product 字段提供的同名商品图，使用官网原始图片地址。",
+      "referenceLabel": "官网同款参考图 · 杯型以实物为准"
+    },
+    {
       "foodId": "food-1uv83i8",
       "foodName": "麦辣鸡翅-2块",
       "menuName": "麦辣鸡翅2块",
@@ -662,6 +761,31 @@
       "note": "已核对名称、杯型或份量；保留菜单原名。"
     },
     {
+      "foodId": "food-1yppnpf",
+      "foodName": "草莓拉明顿",
+      "menuName": "草莓拉明顿",
+      "code": "official-product-strawberry",
+      "url": "https://officiaweb-afd.mcdonalds.com.cn/public/upload/attachment/2020/11/202011171504325277.png",
+      "src": "/food-photos/official-product-strawberry.png",
+      "match": "exact",
+      "sourceTool": "official-product-page",
+      "sourcePage": "https://www.mcdonalds.com.cn/product/Lamington-stawberry",
+      "note": "同中文名称官网商品页的主商品图片，保留原始图片。"
+    },
+    {
+      "foodId": "food-2aaahz",
+      "foodName": "浓浓黑巧雪冰大杯",
+      "menuName": "浓浓黑巧雪冰",
+      "code": "official-nutrition-269",
+      "url": "https://officiaweb-afd.mcdonalds.com.cn/public/upload/attachment/2022/08/202208292219557802.png",
+      "src": "/food-photos/official-nutrition-269.png",
+      "match": "family-reference",
+      "sourceTool": "official-nutrition-page",
+      "sourcePage": "https://www.mcdonalds.com.cn/nutrition_calculator",
+      "note": "官网营养计算器 Product 字段提供的同名商品图，使用官网原始图片地址。",
+      "referenceLabel": "官网同款参考图 · 杯型以实物为准"
+    },
+    {
       "foodId": "food-2tjgic",
       "foodName": "冰焦糖玛奇朵",
       "menuName": "冰焦糖玛奇朵",
@@ -695,6 +819,18 @@
       "note": "已核对名称、杯型或份量；保留菜单原名。"
     },
     {
+      "foodId": "food-3ri8ti",
+      "foodName": "绝代双翅",
+      "menuName": "绝代双翅",
+      "code": "official-combo-8",
+      "url": "https://officiaweb-afd.mcdonalds.com.cn/public/upload/photo_db/2025/05/19/202505191122144333.png",
+      "src": "/food-photos/official-combo-8.png",
+      "match": "exact",
+      "sourceTool": "official-promotion-page",
+      "sourcePage": "https://www.mcdonalds.com.cn/news/20250516-500kcal",
+      "note": "官网同名套餐推广原图，包含真实餐品照片与历史宣传文案。仅用于同名组合本身，不绑定其中单品；营养数值保留 MCP 原始记录，推广价格不代表当前价格。"
+    },
+    {
       "foodId": "food-4numco",
       "foodName": "冰浓浓燕麦黑巧大杯",
       "menuName": "冰浓浓燕麦黑巧中杯",
@@ -707,6 +843,31 @@
       "note": "仅作为同冰热、同口味、同奶基底的商品参考；当前规格外观尚未由接口核实。"
     },
     {
+      "foodId": "food-4yy568",
+      "foodName": "热浓浓抹茶牛奶中杯",
+      "menuName": "热浓浓抹茶牛奶",
+      "code": "official-nutrition-307",
+      "url": "https://officiaweb-afd.mcdonalds.com.cn/public/upload/attachment/2022/08/202208292216596791.png",
+      "src": "/food-photos/official-nutrition-307.png",
+      "match": "family-reference",
+      "sourceTool": "official-nutrition-page",
+      "sourcePage": "https://www.mcdonalds.com.cn/nutrition_calculator",
+      "note": "官网营养计算器 Product 字段提供的同名商品图，使用官网原始图片地址。",
+      "referenceLabel": "官网同款参考图 · 杯型以实物为准"
+    },
+    {
+      "foodId": "food-5lxxqd",
+      "foodName": "脆脆薯条",
+      "menuName": "脆脆薯条",
+      "code": "official-nutrition-326",
+      "url": "https://officiaweb-afd.mcdonalds.com.cn/public/upload/attachment/2024/11/202411281827123412.png",
+      "src": "/food-photos/official-nutrition-326.png",
+      "match": "exact",
+      "sourceTool": "official-nutrition-page",
+      "sourcePage": "https://www.mcdonalds.com.cn/nutrition_calculator",
+      "note": "官网营养计算器 Product 字段提供的同名商品图，使用官网原始图片地址。"
+    },
+    {
       "foodId": "food-5ohq57",
       "foodName": "图林根香肠早安营养卷",
       "menuName": "图林根香肠早安营养卷",
@@ -716,6 +877,19 @@
       "match": "exact",
       "sourceTool": "query-meals",
       "reservationDate": "2026-10-22 08:30"
+    },
+    {
+      "foodId": "food-6ia769",
+      "foodName": "浓浓黑巧雪冰中杯",
+      "menuName": "浓浓黑巧雪冰",
+      "code": "official-nutrition-269",
+      "url": "https://officiaweb-afd.mcdonalds.com.cn/public/upload/attachment/2022/08/202208292219557802.png",
+      "src": "/food-photos/official-nutrition-269.png",
+      "match": "family-reference",
+      "sourceTool": "official-nutrition-page",
+      "sourcePage": "https://www.mcdonalds.com.cn/nutrition_calculator",
+      "note": "官网营养计算器 Product 字段提供的同名商品图，使用官网原始图片地址。",
+      "referenceLabel": "官网同款参考图 · 杯型以实物为准"
     },
     {
       "foodId": "food-6wb0cq",
@@ -750,6 +924,17 @@
       "sourceTool": "query-meal-detail",
       "reservationDate": "2026-10-22 08:30",
       "note": "已核对菜单单品名称、杯型与营养餐品名称对应。"
+    },
+    {
+      "foodId": "food-9366dn",
+      "foodName": "麦乐鸡4块",
+      "menuName": "麦乐鸡",
+      "code": "2846",
+      "url": "https://menu-img.mcd.cn/pcm/prod/menu/ProductPool/product/MS_2846_600.png",
+      "src": "/food-photos/2846.png",
+      "match": "alias",
+      "sourceTool": "query-meal-detail",
+      "note": "单品编码来自公开套餐中明确的四块麦乐鸡或琵琶腿选项。"
     },
     {
       "foodId": "food-9any2j",
@@ -920,6 +1105,18 @@
       "sourceTool": "query-meal-detail"
     },
     {
+      "foodId": "food-flo1sg",
+      "foodName": "牛气满满",
+      "menuName": "牛气满满",
+      "code": "official-nutrition-338",
+      "url": "https://officiaweb-afd.mcdonalds.com.cn/public/upload/attachment/2025/05/202505112207211930.png",
+      "src": "/food-photos/official-nutrition-338.png",
+      "match": "exact",
+      "sourceTool": "official-nutrition-page",
+      "sourcePage": "https://www.mcdonalds.com.cn/nutrition_calculator",
+      "note": "官网营养计算器 Product 字段提供的同名商品图，使用官网原始图片地址。"
+    },
+    {
       "foodId": "food-fwjmcd",
       "foodName": "100%苹果汁",
       "menuName": "100% 苹果汁(盒装)",
@@ -972,6 +1169,29 @@
       "src": "/food-photos/9900003586.png",
       "match": "exact",
       "sourceTool": "query-meals"
+    },
+    {
+      "foodId": "food-j3hdcq",
+      "foodName": "麦麦脆汁鸡-琵琶腿",
+      "menuName": "麦麦脆汁鸡-琵琶腿",
+      "code": "505416",
+      "url": "https://menu-img.mcd.cn/pcm/prod/menu/20241204/product/MS_505416_600.png",
+      "src": "/food-photos/505416.png",
+      "match": "exact",
+      "sourceTool": "query-meal-detail",
+      "note": "单品编码来自公开套餐中明确的四块麦乐鸡或琵琶腿选项。"
+    },
+    {
+      "foodId": "food-jk78m5",
+      "foodName": "蜜汁快乐",
+      "menuName": "蜜汁快乐",
+      "code": "official-combo-4",
+      "url": "https://officiaweb-afd.mcdonalds.com.cn/public/upload/photo_db/2025/05/19/202505191122137742.png",
+      "src": "/food-photos/official-combo-4.png",
+      "match": "exact",
+      "sourceTool": "official-promotion-page",
+      "sourcePage": "https://www.mcdonalds.com.cn/news/20250516-500kcal",
+      "note": "官网同名套餐推广原图，包含真实餐品照片与历史宣传文案。仅用于同名组合本身，不绑定其中单品；营养数值保留 MCP 原始记录，推广价格不代表当前价格。"
     },
     {
       "foodId": "food-kha24k",
@@ -1049,6 +1269,19 @@
       "reservationDate": "2026-10-22 15:00"
     },
     {
+      "foodId": "food-o8f7sp",
+      "foodName": "冰浓浓抹茶牛奶大杯",
+      "menuName": "冰浓浓抹茶牛奶",
+      "code": "official-nutrition-306",
+      "url": "https://officiaweb-afd.mcdonalds.com.cn/public/upload/attachment/2022/08/202208292216395610.png",
+      "src": "/food-photos/official-nutrition-306.png",
+      "match": "family-reference",
+      "sourceTool": "official-nutrition-page",
+      "sourcePage": "https://www.mcdonalds.com.cn/nutrition_calculator",
+      "note": "官网营养计算器 Product 字段提供的同名商品图，使用官网原始图片地址。",
+      "referenceLabel": "官网同款参考图 · 杯型以实物为准"
+    },
+    {
       "foodId": "food-occ6mv",
       "foodName": "冰燕麦奶铁大杯",
       "menuName": "冰燕麦奶铁中杯",
@@ -1103,6 +1336,19 @@
       "sourceTool": "query-meal-detail"
     },
     {
+      "foodId": "food-rt7k14",
+      "foodName": "冰燕麦奶大杯",
+      "menuName": "冰燕麦奶",
+      "code": "official-nutrition-304",
+      "url": "https://officiaweb-afd.mcdonalds.com.cn/public/upload/attachment/2022/08/202208292214522529.png",
+      "src": "/food-photos/official-nutrition-304.png",
+      "match": "family-reference",
+      "sourceTool": "official-nutrition-page",
+      "sourcePage": "https://www.mcdonalds.com.cn/nutrition_calculator",
+      "note": "官网营养计算器 Product 字段提供的同名商品图，使用官网原始图片地址。",
+      "referenceLabel": "官网同款参考图 · 杯型以实物为准"
+    },
+    {
       "foodId": "food-rw8uqs",
       "foodName": "热浓浓黑巧大杯",
       "menuName": "热浓浓黑巧中杯",
@@ -1125,6 +1371,19 @@
       "sourceTool": "query-meal-detail",
       "referenceLabel": "同款中杯参考图 · 当前为大杯",
       "note": "仅作为同冰热、同口味、同奶基底的商品参考；当前规格外观尚未由接口核实。"
+    },
+    {
+      "foodId": "food-tfk68g",
+      "foodName": "冰燕麦奶小杯",
+      "menuName": "冰燕麦奶",
+      "code": "official-nutrition-304",
+      "url": "https://officiaweb-afd.mcdonalds.com.cn/public/upload/attachment/2022/08/202208292214522529.png",
+      "src": "/food-photos/official-nutrition-304.png",
+      "match": "family-reference",
+      "sourceTool": "official-nutrition-page",
+      "sourcePage": "https://www.mcdonalds.com.cn/nutrition_calculator",
+      "note": "官网营养计算器 Product 字段提供的同名商品图，使用官网原始图片地址。",
+      "referenceLabel": "官网同款参考图 · 杯型以实物为准"
     },
     {
       "foodId": "food-tiq45p",
@@ -1160,6 +1419,19 @@
       "reservationDate": "2026-10-22 08:30"
     },
     {
+      "foodId": "food-uhqgqm",
+      "foodName": "冰燕麦奶中杯",
+      "menuName": "冰燕麦奶",
+      "code": "official-nutrition-304",
+      "url": "https://officiaweb-afd.mcdonalds.com.cn/public/upload/attachment/2022/08/202208292214522529.png",
+      "src": "/food-photos/official-nutrition-304.png",
+      "match": "family-reference",
+      "sourceTool": "official-nutrition-page",
+      "sourcePage": "https://www.mcdonalds.com.cn/nutrition_calculator",
+      "note": "官网营养计算器 Product 字段提供的同名商品图，使用官网原始图片地址。",
+      "referenceLabel": "官网同款参考图 · 杯型以实物为准"
+    },
+    {
       "foodId": "food-urmp92",
       "foodName": "板烧鸡腿堡",
       "menuName": "板烧鸡腿堡",
@@ -1178,6 +1450,42 @@
       "src": "/food-photos/4648.png",
       "match": "exact",
       "sourceTool": "query-meal-detail"
+    },
+    {
+      "foodId": "food-vuzmft",
+      "foodName": "“苹板”支撑Pro",
+      "menuName": "“苹板”支撑Pro",
+      "code": "official-nutrition-335",
+      "url": "https://officiaweb-afd.mcdonalds.com.cn/public/upload/attachment/2025/05/202505112154184281.png",
+      "src": "/food-photos/official-nutrition-335.png",
+      "match": "exact",
+      "sourceTool": "official-nutrition-page",
+      "sourcePage": "https://www.mcdonalds.com.cn/nutrition_calculator",
+      "note": "官网营养计算器 Product 字段提供的同名商品图，使用官网原始图片地址。"
+    },
+    {
+      "foodId": "food-waokxn",
+      "foodName": "皮蛋鸡肉粥",
+      "menuName": "皮蛋鸡肉粥",
+      "code": "official-nutrition-168",
+      "url": "https://officiaweb-afd.mcdonalds.com.cn/public/upload/attachment/2020/05/202005061021247170.png",
+      "src": "/food-photos/official-nutrition-168.png",
+      "match": "exact",
+      "sourceTool": "official-nutrition-page",
+      "sourcePage": "https://www.mcdonalds.com.cn/nutrition_calculator",
+      "note": "官网营养计算器 Product 字段提供的同名商品图，使用官网原始图片地址。"
+    },
+    {
+      "foodId": "food-wc52dr",
+      "foodName": "柠檬拉明顿",
+      "menuName": "柠檬拉明顿",
+      "code": "official-product-lemon",
+      "url": "https://officiaweb-afd.mcdonalds.com.cn/public/upload/attachment/2020/11/202011171514065036.png",
+      "src": "/food-photos/official-product-lemon.png",
+      "match": "exact",
+      "sourceTool": "official-product-page",
+      "sourcePage": "https://www.mcdonalds.com.cn/product/Lamington-lemon",
+      "note": "同中文名称官网商品页的主商品图片，保留原始图片。"
     },
     {
       "foodId": "food-xqc3kj",
@@ -1213,6 +1521,19 @@
       "sourceTool": "query-meal-detail",
       "referenceLabel": "同款中杯参考图 · 当前为小杯",
       "note": "仅作为同冰热、同口味、同奶基底的商品参考；当前规格外观尚未由接口核实。"
+    },
+    {
+      "foodId": "food-yg6j33",
+      "foodName": "冰浓浓抹茶牛奶中杯",
+      "menuName": "冰浓浓抹茶牛奶",
+      "code": "official-nutrition-306",
+      "url": "https://officiaweb-afd.mcdonalds.com.cn/public/upload/attachment/2022/08/202208292216395610.png",
+      "src": "/food-photos/official-nutrition-306.png",
+      "match": "family-reference",
+      "sourceTool": "official-nutrition-page",
+      "sourcePage": "https://www.mcdonalds.com.cn/nutrition_calculator",
+      "note": "官网营养计算器 Product 字段提供的同名商品图，使用官网原始图片地址。",
+      "referenceLabel": "官网同款参考图 · 杯型以实物为准"
     },
     {
       "foodId": "food-z3lkgf",

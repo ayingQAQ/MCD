@@ -220,3 +220,9 @@ input:focus-visible, select:focus-visible { outline-color: var(--mc-red); }
   .upgrade-header nav a.nav-current { color: #a52520!important; }
   .cover-actions { flex-wrap: wrap; }
 }
+.food-variant-picker{display:flex;flex-wrap:wrap;align-items:center;gap:8px;margin:16px 0;text-align:left}
+.food-variant-picker>span{font-size:13px;color:var(--ink,#594638);margin-right:4px}
+.food-variant-picker .button{padding:7px 12px;font-size:13px;min-height:36px}
+.food-variant-picker .button[aria-pressed="true"]{background:#FFF0C7;border-color:#E8AD45;color:#B73528}
+.food-variant-picker>small{width:100%;font-size:11px;color:#8D755C;line-height:1.6}
+.food-card-variants{color:#987443;font-size:12px}

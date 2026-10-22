@@ -3,6 +3,12 @@ on:
   push:
   pull_request:
   workflow_dispatch:
+    inputs:
+      e2e_scope:
+        description: Browser verification scope
+        type: choice
+        options: [all, performance]
+        default: all
 permissions:
   contents: read
 concurrency:
@@ -31,6 +37,9 @@ jobs:
       - run: pnpm verify:contest
       - run: pnpm exec playwright install --with-deps chromium
       - run: pnpm test:e2e
+        if: inputs.e2e_scope != 'performance'
+      - run: pnpm test:e2e performance.spec.ts
+        if: inputs.e2e_scope == 'performance'
       - uses: actions/upload-artifact@v4
         if: always()
         with:

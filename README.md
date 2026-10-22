@@ -1,12 +1,42 @@
 # McCosmos · 麦门星图
 
+![McCosmos 宇宙观测站：首页与今日探索任务](docs/screenshots/observatory-home.png)
+
 把日常的一口，装进小小宇宙。浅色卡通绘本风的麦当劳营养探索应用，让餐品变成星球，用营养透镜发现彼此的连接。
 
 适合想直观看懂餐品营养、喜欢交互图鉴的用户，以及复用 MCP 分析能力的 Agent 开发者。独立参赛作品，非麦当劳官方产品；信息以官方渠道为准。
 
-[在线探索](https://mccosmos.pages.dev) · [Actions 与静态包](https://github.com/ayingQAQ/McCosmos/actions/workflows/ci.yml) · [实际 MCP 接入](MCP_INTEGRATION.md) · [Skill](skills/mccosmos/SKILL.md) · [实施记录](docs/IMPLEMENTATION_LOG.md)
+## 五个探索站
 
-2.0 新增五个互通的探索站：[观测站](https://mccosmos.pages.dev/) → [营养星系](https://mccosmos.pages.dev/galaxy) → [星球图鉴](https://mccosmos.pages.dev/atlas) → [实验室](https://mccosmos.pages.dev/lab) → [探索任务](https://mccosmos.pages.dev/quests)。交互路径与验收记录见 [USER_JOURNEYS](docs/USER_JOURNEYS.md)。
+| 探索站 | 简介 | 可以做什么 |
+| --- | --- | --- |
+| [宇宙观测站](https://mccosmos.pages.dev/) | 探索首页 | 查看星图概况、随机发现餐品、开启今日任务 |
+| [营养星系](https://mccosmos.pages.dev/galaxy) | 三维美食宇宙 | 旋转与穿梭星团，搜索餐品，切换营养透镜，规划星际航线 |
+| [星球图鉴](https://mccosmos.pages.dev/atlas) | 餐品资料册 | 按类别筛选、排序、收藏，查看商品图片和营养档案 |
+| [营养实验室](https://mccosmos.pages.dev/lab) | 餐品对照台 | 对比 2–3 款餐品，查看原值、差值与相近度，导出对照卡 |
+| [探索任务](https://mccosmos.pages.dev/quests) | 每日发现手帐 | 完成双生星、营养排名和指定航线任务，领取星章 |
+
+建议从观测站开始探索；五个站点均可通过顶部导航直接进入。
+
+```mermaid
+flowchart LR
+    A["宇宙观测站<br/>发现今日线索"] --> B["营养星系<br/>靠近餐品星球"]
+    B --> C["星球图鉴<br/>查阅餐品档案"]
+    C --> D["营养实验室<br/>对照营养数据"]
+    D --> E["探索任务<br/>完成任务与收集星章"]
+```
+
+## 开发与接入
+
+| 入口 | 内容 |
+| --- | --- |
+| [Actions 与静态包](https://github.com/ayingQAQ/McCosmos/actions/workflows/ci.yml) | 查看构建、测试结果，下载可离线运行的静态包 |
+| [MCP 接入说明](MCP_INTEGRATION.md) | 数据同步、接口使用与凭据配置方式 |
+| [McCosmos Skill](skills/mccosmos/SKILL.md) | 在支持 Skill 的客户端复用餐品查询与分析能力 |
+| [用户旅程与验收](docs/USER_JOURNEYS.md) | 五站之间的交互路径和验收记录 |
+| [实施记录](docs/IMPLEMENTATION_LOG.md) | 项目开发过程与阶段记录 |
+
+## 更多预览
 
 ![麦门星图 · 三维卡通美食宇宙](docs/screenshots/food-universe-desktop.png)
 

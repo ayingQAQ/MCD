@@ -1,0 +1,29 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1100" height="158" viewBox="0 0 1100 158" role="img" aria-labelledby="title desc">
+  <title id="title">McCosmos 五站探索路径</title>
+  <desc id="desc">宇宙观测站发现线索，进入营养星系，查阅星球图鉴，在营养实验室对照数据，完成探索任务。</desc>
+  <rect width="1100" height="158" rx="20" fill="#FFF8EB"/>
+  <g fill="#FFFDF7" stroke="#DCC6A2" stroke-width="1.5">
+    <rect x="20" y="27" width="184" height="104" rx="16"/>
+    <rect x="239" y="27" width="184" height="104" rx="16"/>
+    <rect x="458" y="27" width="184" height="104" rx="16"/>
+    <rect x="677" y="27" width="184" height="104" rx="16"/>
+    <rect x="896" y="27" width="184" height="104" rx="16"/>
+  </g>
+  <g fill="none" stroke="#C49351" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+    <path d="M213 79h16m-5-5 5 5-5 5"/>
+    <path d="M432 79h16m-5-5 5 5-5 5"/>
+    <path d="M651 79h16m-5-5 5 5-5 5"/>
+    <path d="M870 79h16m-5-5 5 5-5 5"/>
+  </g>
+  <g font-family="'Microsoft YaHei','PingFang SC',sans-serif" text-anchor="middle">
+    <g fill="#BC3629" font-size="13" font-weight="700">
+      <text x="112" y="51">01</text><text x="331" y="51">02</text><text x="550" y="51">03</text><text x="769" y="51">04</text><text x="988" y="51">05</text>
+    </g>
+    <g fill="#594638" font-size="20" font-weight="700">
+      <text x="112" y="81">宇宙观测站</text><text x="331" y="81">营养星系</text><text x="550" y="81">星球图鉴</text><text x="769" y="81">营养实验室</text><text x="988" y="81">探索任务</text>
+    </g>
+    <g fill="#8D755C" font-size="15">
+      <text x="112" y="109">发现今日线索</text><text x="331" y="109">靠近餐品星球</text><text x="550" y="109">查阅餐品档案</text><text x="769" y="109">对照营养数据</text><text x="988" y="109">完成任务与收集星章</text>
+    </g>
+  </g>
+</svg>

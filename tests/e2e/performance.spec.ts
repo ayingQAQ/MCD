@@ -65,3 +65,21 @@ test('full universe batches planet draw calls and reuses decoded art after navig
   await ready();
   expect(await artLoads(), 'revisiting should reuse bounded decoded-image cache, with a new GPU texture per scene').toBe(firstLoads);
 });
+
+test('hiding planet names releases their GPU textures instead of retaining every visited label', async ({ page }, info) => {
+  await page.emulateMedia({ reducedMotion: 'reduce' });
+  await page.goto('/galaxy');
+  const canvas = page.locator('canvas.galaxy-canvas');
+  await expect.poll(async () => {
+    const textures = JSON.parse((await canvas.getAttribute('data-food-textures')) ?? '{}');
+    return textures.total > 0 && textures.loaded === textures.total;
+  }).toBe(true);
+  const memory = async () => JSON.parse((await canvas.getAttribute('data-gpu'))!) as { textures: number };
+  const initial = (await memory()).textures;
+  await page.getByLabel('显示名称', { exact: true }).check();
+  await expect.poll(async () => (await memory()).textures).toBeGreaterThan(initial + 5);
+  const named = (await memory()).textures;
+  await page.getByLabel('显示名称', { exact: true }).uncheck();
+  await expect.poll(async () => (await memory()).textures).toBe(initial);
+  await info.attach('label-texture-memory.json', { body: JSON.stringify({ initial, named, after: (await memory()).textures }), contentType: 'application/json' });
+});

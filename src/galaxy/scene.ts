@@ -71,7 +71,7 @@ export function createGalaxyScene(canvas:HTMLCanvasElement,read:()=>GalaxySceneI
   foodSurface.computeVertexNormals();
   const planets:Planet[]=[],byId=new Map<string,Planet>(),bodies:THREE.Mesh[]=[];
   const positionById=new Map(initial.positions.map(p=>[p.id,p]));
-  const labelTextures:THREE.Texture[]=[],labelMaterials:THREE.SpriteMaterial[]=[];
+  const labelTextures=new Set<THREE.Texture>(),labelMaterials=new Set<THREE.SpriteMaterial>();
   const foodTextures=new Map<string,THREE.Texture>(),foodMaterials=new Map<string,THREE.MeshToonMaterial>();
     let loadedArt=0,failedArt=0;
   function foodMaterial(presetId:string){
@@ -305,7 +305,12 @@ export function createGalaxyScene(canvas:HTMLCanvasElement,read:()=>GalaxySceneI
       planet.illustration.scale.setScalar(planet.radius);
       planet.illustration.lookAt(camera.position);planet.body.scale.setScalar(planet.radius);planet.outline.scale.setScalar(planet.radius*1.035);planet.ring?.scale.setScalar(planet.radius);
       const show=planet.group.visible&&(p.showLabels||p.selected===planet.id||p.route[p.routeStep]===planet.id);
-      if(show&&!planet.label){const food=foodById.get(planet.id)!;const texture=makeLabelTexture(food.name);labelTextures.push(texture);const material=new THREE.SpriteMaterial({map:texture,depthTest:true,depthWrite:false});labelMaterials.push(material);planet.label=new THREE.Sprite(material);planet.label.scale.set(125,24,1);planet.group.add(planet.label);}
+      if(!show&&planet.label){
+        const label=planet.label,material=label.material,texture=material.map;
+        planet.group.remove(label);if(texture){texture.dispose();labelTextures.delete(texture);}
+        material.dispose();labelMaterials.delete(material);delete planet.label;
+      }
+      if(show&&!planet.label){const food=foodById.get(planet.id)!;const texture=makeLabelTexture(food.name);labelTextures.add(texture);const material=new THREE.SpriteMaterial({map:texture,depthTest:true,depthWrite:false});labelMaterials.add(material);planet.label=new THREE.Sprite(material);planet.label.scale.set(125,24,1);planet.group.add(planet.label);}
       if(planet.label){planet.label.visible=show;planet.label.position.set(0,-planet.radius-20,0);}
       // Keep the camera outside every visible food sphere while allowing entry into the cloud itself.
       if(planet.group.visible){const delta=scratch.copy(camera.position).sub(planet.group.position),safe=planet.radius+14;if(delta.lengthSq()<safe*safe){camera.position.copy(planet.group.position).add(delta.lengthSq()?delta.setLength(safe):delta.set(0,0,safe));dirty=true;}}

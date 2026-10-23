@@ -21,7 +21,7 @@ describe('CLI shared analysis', () => {
   });
   it('runs the actual Node CLI entrypoint with JSON-only stdout and correct exit codes', () => {
     const success = spawnSync(process.execPath, ['--import', 'tsx', 'scripts/cosmos-cli.ts', 'list', '--category=burger'], { encoding: 'utf8' });
-    expect(success.status).toBe(0);
+    expect(success.status, success.stderr || success.stdout).toBe(0);
     expect(JSON.parse(success.stdout)).toMatchObject({ ok: true, mode: 'official-snapshot' });
     const failure = spawnSync(process.execPath, ['--import', 'tsx', 'scripts/cosmos-cli.ts', 'unknown'], { encoding: 'utf8' });
     expect(failure.status).toBe(1);

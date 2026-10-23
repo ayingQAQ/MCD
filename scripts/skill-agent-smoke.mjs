@@ -9,7 +9,7 @@ try {
   const args = JSON.parse(process.env.MCCOSMOS_SKILL_ARGS || '[]');
   if (!Array.isArray(args) || args.length < 1 || args.length > 24 || args.some(arg => typeof arg !== 'string' || arg.length > 1000 || arg.includes('\0'))
     || !['search', 'compare', 'alternatives', 'list', 'neighbors', 'route', 'discover'].includes(args[0])
-    || args.some(arg => /^--(?:data|response|fetched-at)(?:=|$)/.test(arg))) throw new Error('Invalid request');
+    || args.some(arg => /^--(?:data|response|fetched-at|demo)(?:=|$)/.test(arg))) throw new Error('Invalid request');
   temporary = await mkdtemp(join(tmpdir(), 'mccosmos-agent-'));
   const installed = join(temporary, 'mccosmos');
   await cp('dist-skill/mccosmos', installed, { recursive: true });

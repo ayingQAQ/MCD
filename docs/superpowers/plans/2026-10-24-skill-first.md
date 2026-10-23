@@ -27,3 +27,7 @@
 - 已检查：现有 Skill、CLI、MCP 适配器、比较函数、比赛规则与报名成功回复。
 - 决策：不添加运行时网络依赖；实时查询由宿主 Agent 的麦当劳 MCP 工具完成，CLI 消费已返回数据。离线包明确使用快照。
 - 审查重点：未知单位的差异解释、严格热量限制与 null、同名消歧、离线/实时来源混淆、独立包的外部依赖与路径。
+- Task 1 complete：Actions #40032970045 记录了七项新增工作流测试在旧 CLI 上的预期失败。
+- Tasks 2–4 complete：search/compare/alternatives、统一来源输入、Node 独立包及 Skill 指令已实现；#40034495965 的15项 CLI/来源测试、类型/lint/打包及七场景独立运行验收通过。
+- 独立审查：确认并修复 Node 入口扩展名解析；远程试用明确禁止演示模式。新上下文 Agent 已在 #40034359098 独立选参并实际远程调用，数值结果见 SKILL_ACCEPTANCE。
+- 最后产物检查：发现 Vite 默认复制 public 目录使包包含无关照片；禁用 publicDir，并在独立验收中断言执行目录只含 mccosmos.mjs。等待最终 Actions 后发布独立包。

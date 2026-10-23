@@ -11,6 +11,7 @@ try {
   const installed = join(scratch, 'skills', 'mccosmos'), working = join(scratch, 'unrelated-directory');
   await cp(source, installed, { recursive: true }); await mkdir(working);
   const entry = join(installed, 'scripts', 'mccosmos.mjs');
+  assert.deepEqual((await readdir(join(installed, 'scripts'))).sort(), ['mccosmos.mjs'], 'Skill executable directory must not include website photos or other public assets');
   const snapshot = JSON.parse(await readFile(join(installed, 'assets', 'nutrition.snapshot.json'), 'utf8'));
   const skill = await readFile(join(installed, 'SKILL.md'), 'utf8');
   assert.match(skill, /^---\r?\nname: mccosmos\r?\ndescription: .+\r?\n---/);

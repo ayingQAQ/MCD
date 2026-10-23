@@ -4,6 +4,7 @@ import { cp, copyFile, mkdir, readFile, writeFile } from 'node:fs/promises';
 const root = 'dist-skill/mccosmos';
 await build({
   configFile: false,
+  publicDir: false,
   ssr: { target: 'node', noExternal: true },
   build: {
     ssr: 'scripts/skill-cli.ts', target: 'node24', outDir: `${root}/scripts`, emptyOutDir: true, minify: false,

@@ -22,4 +22,19 @@ jobs:
           node-version: '24'
           cache: pnpm
       - run: pnpm install --frozen-lockfile
-      - run: pnpm test tests/cli.test.ts tests/skill-workflows.test.ts
+      - run: pnpm test tests/cli.test.ts tests/skill-workflows.test.ts tests/skill-input.test.ts
+      - run: pnpm typecheck
+      - run: pnpm lint
+      - run: pnpm skill:build
+      - run: pnpm skill:verify
+      - uses: actions/upload-artifact@v4
+        with:
+          name: mccosmos-skill
+          path: dist-skill/
+          retention-days: 30
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: skill-acceptance
+          path: artifacts/skill/
+          retention-days: 30

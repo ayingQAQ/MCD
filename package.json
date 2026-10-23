@@ -17,6 +17,8 @@
     "test:e2e": "playwright test",
     "sync:mcd": "tsx scripts/sync-nutrition.ts",
     "cosmos:cli": "tsx scripts/cosmos-cli.ts",
+    "skill:build": "node scripts/package-skill.mjs",
+    "skill:verify": "node scripts/verify-skill.mjs",
     "verify:contest": "tsx scripts/verify-contest.ts",
     "illustrations:export": "tsx scripts/export-food-illustrations.ts"
   },

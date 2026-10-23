@@ -1,0 +1,4 @@
+interface:
+  display_name: "McCosmos · 麦门星图"
+  short_description: "基于麦当劳 MCP 营养数据，对比真实餐品规格、筛选热量条件并解释相近替代。"
+  default_prompt: "使用 $mccosmos 对比巨无霸和麦香鱼的营养差异，并说明数据来源和获取时间。"

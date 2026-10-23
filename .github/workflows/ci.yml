@@ -33,6 +33,8 @@ jobs:
       - run: pnpm typecheck
       - run: pnpm lint
       - run: pnpm build
+      - run: pnpm skill:build
+      - run: pnpm skill:verify
       - run: pnpm illustrations:export
       - run: pnpm verify:contest
       - run: pnpm exec playwright install --with-deps chromium

@@ -2,11 +2,41 @@
 
 ![McCosmos 宇宙观测站：首页与今日探索任务](docs/screenshots/observatory-home.png)
 
-把日常的一口，装进小小宇宙。浅色卡通绘本风的麦当劳营养探索应用，让餐品变成星球，用营养透镜发现彼此的连接。
+基于麦当劳 MCP 的**餐品营养对比与替代发现 Skill**。用自然语言比较真实餐品、按热量条件找候选、解释营养相似性，并通过三维星图查看结果。
 
-适合想直观看懂餐品营养、喜欢交互图鉴的用户，以及复用 MCP 分析能力的 Agent 开发者。独立参赛作品，非麦当劳官方产品；信息以官方渠道为准。
+面向使用 Agent 查询与比较麦当劳餐品的用户，以及复用可解释营养分析能力的开发者。核心分析无需打开网页；已有三维宇宙、图鉴和实验室是可视化探索入口。独立参赛作品，信息以官方渠道为准。
 
-## 五个探索站
+## 安装 Skill，开始一次餐品比较
+
+下载 [独立 Skill 包 mccosmos-skill.zip](https://github.com/ayingQAQ/McCosmos/releases/download/skill-v1.0.0/mccosmos-skill.zip)，将其中的 `mccosmos` 文件夹放到目标客户端支持的 Skill 目录。也可从成功的 [Skill Actions](https://github.com/ayingQAQ/McCosmos/actions/workflows/skill.yml) 下载同名产物。
+
+- Codex 用户可安装到 `~/.agents/skills/mccosmos`；客户端发现方式以其支持为准，必要时启动新会话。
+- 需要 Node.js 24+。独立包已包含依赖和营养快照，不必克隆整个仓库、运行 pnpm 或启动网页。
+- 普通快照分析不需要 Token。查询最新数据需要宿主连接麦当劳 MCP；返回来源与获取时间，不用旧快照冒充实时结果。
+
+安装后向 Agent 输入：
+
+> 使用 $mccosmos 对比巨无霸和麦香鱼的营养差异。
+
+| 可以这样问 | Skill 会做什么 |
+| --- | --- |
+| 对比巨无霸和麦香鱼 | 核对原始规格，列出营养原值与差异 |
+| 找比巨无霸热量低、营养特征相近的同类替代 | 严格筛选真实候选，解释相似维度和热量差 |
+| 早餐里不超过400 kcal的有哪些，按热量升序 | 按真实数值筛选、排序；缺失不算0 |
+| 冰牛奶有哪些杯型 | 列出具体规格，避免混用大小杯数据 |
+| 想在星图里看这些餐品 | 提供对应图鉴或星图链接 |
+
+Skill 会检查实际 CLI 结果再答复。相似度不是健康评分；未核实单位保持“原始值”，不声称每份或每100克；没有符合结果时明确说明。[Skill 入口](skills/mccosmos/SKILL.md) · [命令参考](skills/mccosmos/references/commands.md) · [验收方法与证据](docs/SKILL_ACCEPTANCE.md)
+
+独立包也能直接运行：
+
+```sh
+node "/path/to/mccosmos/scripts/mccosmos.mjs" compare --from="巨无霸" --to="麦香鱼"
+node "/path/to/mccosmos/scripts/mccosmos.mjs" alternatives --name="巨无霸" --lower-kcal --limit=3
+```
+
+## 可视化探索网站
+
 
 | 探索站 | 简介 | 可以做什么 |
 | --- | --- | --- |
@@ -26,7 +56,7 @@
 | --- | --- |
 | [Actions 与静态包](https://github.com/ayingQAQ/McCosmos/actions/workflows/ci.yml) | 查看构建、测试结果，下载可离线运行的静态包 |
 | [MCP 接入说明](MCP_INTEGRATION.md) | 数据同步、接口使用与凭据配置方式 |
-| [McCosmos Skill](skills/mccosmos/SKILL.md) | 在支持 Skill 的客户端复用餐品查询与分析能力 |
+| [McCosmos Skill](skills/mccosmos/SKILL.md) | 安装后使用自然语言对比、筛选与查找替代餐品 |
 | [用户旅程与验收](docs/USER_JOURNEYS.md) | 五站之间的交互路径和验收记录 |
 | [实施记录](docs/IMPLEMENTATION_LOG.md) | 项目开发过程与阶段记录 |
 
@@ -110,6 +140,9 @@ Token 不带 Bearer 前缀，不进入浏览器或公开仓库。同步失败保
 ## CLI 与 Skill
 
 ```sh
+pnpm cosmos:cli -- compare --from="巨无霸" --to="麦香鱼"
+pnpm cosmos:cli -- search --category=breakfast --max-kcal=400 --sort=kcal-asc --limit=10
+pnpm cosmos:cli -- alternatives --name="巨无霸" --lower-kcal
 pnpm cosmos:cli -- list --category=burger
 pnpm cosmos:cli -- neighbors --name="巨无霸" --limit=3
 pnpm cosmos:cli -- route --from="巨无霸" --to="双层吉士汉堡"
@@ -119,11 +152,11 @@ pnpm cosmos:cli -- discover --kind=lonely --demo
 
 返回 JSON：ok/mode/source/fetchedAt/warnings 和 data/error。失败退出码非零；重名返回候选，请使用 `--id`、`--from-id` 或 `--to-id`。图不连通时可能无路径。
 
-将 `skills/mccosmos` 复制到目标客户端支持的 Skill 目录（Codex 可用 `~/.agents/skills/mccosmos`）。调用时进入已安装依赖的项目目录，详见 SKILL.md；不自动修改客户端配置。
+上面是源码模式，需要项目依赖。分发时使用 `pnpm skill:build` 生成 `dist-skill/mccosmos`，`pnpm skill:verify` 在仓库外的临时目录验收纯 Node 包；这些构建和验收在 Actions 中执行。复制源码 `skills/mccosmos` 仅得到指令与参考，仍需要项目；用户安装应优先下载完整独立包。不会自动修改客户端配置。
 
 ## 验证与部署
 
-每次 push、PR、手动触发均运行 Actions：test → typecheck → lint → build → verify:contest → Playwright。普通 CI 不配置 MCP Token；浏览器测试使用真正的离线静态包，保存1440×900、768×1024、390×844截图和测试报告。
+每次 push、PR、手动触发均运行 Actions：test → typecheck → lint → build → skill:build → skill:verify → verify:contest → Playwright。普通 CI 不配置 MCP Token；浏览器测试使用真正的离线静态包，保存1440×900、768×1024、390×844截图和测试报告。
 
 Cloudflare Pages：构建命令 `pnpm build`，输出 `dist`，Node24，无需服务端凭据。也可上传 Actions 产物。在线部署状态见实施记录；没有实际可访问地址前不宣称上线。
 

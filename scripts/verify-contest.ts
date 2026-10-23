@@ -18,4 +18,7 @@ for (const name of await readdir('dist/assets')) {
 }
 const skill = await readFile('skills/mccosmos/SKILL.md', 'utf8');
 if (!/^---\r?\nname: mccosmos\r?\ndescription: .+\r?\n---/.test(skill)) throw new Error('Skill 缺少有效 frontmatter');
+for (const path of ['dist-skill/mccosmos/SKILL.md', 'dist-skill/mccosmos/scripts/mccosmos.mjs', 'dist-skill/mccosmos/assets/nutrition.snapshot.json', 'dist-skill/mccosmos/references/commands.md', 'artifacts/skill/acceptance.json']) await readFile(path);
+const acceptance = JSON.parse(await readFile('artifacts/skill/acceptance.json', 'utf8'));
+if (acceptance.kind !== 'deterministic-command-acceptance' || acceptance.cases.length < 7) throw new Error('缺少独立 Skill 包的实际命令验收证据');
 console.log(`参赛文件、声明原文、来源模型与浏览器隔离检查通过；${dataset.foods.length} 款官方快照餐品。`);

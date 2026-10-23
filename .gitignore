@@ -8,6 +8,7 @@ node_modules/
 .venv/
 __pycache__/
 dist/
+dist-skill/
 build/
 
 # Operating system files

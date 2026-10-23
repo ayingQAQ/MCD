@@ -20,6 +20,8 @@
 
 额外来源测试使用模拟 MCP 响应夹具验证解析和获取时间保留，夹具不是官方真实菜单。本项目已有真实 MCP 同步证据，见 [MCP_INTEGRATION.md](../MCP_INTEGRATION.md)。CI 不访问个人 Token 或认证接口。
 
+Skill 工作流支持可选的 workflow_dispatch 输入 skill_args（JSON 字符串数组），供独立 Agent 根据自然语言请求选择命令。它在远程临时目录复制并实际执行独立包，保存 skill-agent-invocation 产物；参数经数组校验后作为 argv 传入，不经过 shell。该试用只用包内快照，不接受外部文件或凭据，不等同于目标客户端自动发现 Skill 的验证。未实际调度运行前不能称为 Agent 试用通过。
+
 ## 下载与手动验收
 
 从成功的 `Validate McCosmos Skill` 工作流下载 `mccosmos-skill`，将其中 mccosmos 文件夹放到客户端支持的 Skill 目录。Codex 用户可使用 `~/.agents/skills/mccosmos`；如果当前客户端会话尚未发现它，启动新会话再显式调用 `$mccosmos`。独立包运行示例：

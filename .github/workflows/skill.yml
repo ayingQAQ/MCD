@@ -3,6 +3,11 @@ on:
   push:
     paths: ['skills/**', 'src/cli/**', 'src/core/**', 'src/graph/analysis.ts', 'src/data/**', 'src/mcp/**', 'scripts/*skill*', 'scripts/cosmos-cli.ts', 'tests/*skill*', 'tests/cli.test.ts', 'package.json', 'pnpm-lock.yaml', '.github/workflows/skill.yml']
   workflow_dispatch:
+    inputs:
+      skill_args:
+        description: 'Optional Agent-selected CLI arguments as a JSON array; snapshot mode only, no credentials.'
+        type: string
+        default: ''
 permissions:
   contents: read
 concurrency:
@@ -27,6 +32,16 @@ jobs:
       - run: pnpm lint
       - run: pnpm skill:build
       - run: pnpm skill:verify
+      - run: node scripts/skill-agent-smoke.mjs
+        if: github.event_name == 'workflow_dispatch' && inputs.skill_args != ''
+        env:
+          MCCOSMOS_SKILL_ARGS: ${{ inputs.skill_args }}
+      - uses: actions/upload-artifact@v4
+        if: github.event_name == 'workflow_dispatch' && inputs.skill_args != ''
+        with:
+          name: skill-agent-invocation
+          path: artifacts/skill-agent/
+          retention-days: 30
       - uses: actions/upload-artifact@v4
         with:
           name: mccosmos-skill

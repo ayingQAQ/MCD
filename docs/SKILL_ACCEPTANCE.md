@@ -45,3 +45,11 @@ node "/path/to/skills/mccosmos/scripts/mccosmos.mjs" compare --from="巨无霸" 
 ```
 
 要求最新数据的请求应由宿主 Agent 实际调用 MCP，再提供 --response 与该次 --fetched-at。MCP 不可用时必须说明，不能把包内快照说成刚刚查到的结果。网页、收藏、任务与实验台不参与离线分析，链接也不触发这些状态变化。
+
+## 最终发布与全量回归
+
+- 代码提交：`d18f83869de49e54f9b780efbbdbb4e4a8109c74`。
+- [全量 Actions #40034749294](https://github.com/ayingQAQ/McCosmos/actions/runs/40034749294)：68 项单测、类型、lint、网站构建、Skill 打包/仓库外验收、声明校验及 62 项浏览器测试全部通过。
+- [Skill 专属 Actions #40034749222](https://github.com/ayingQAQ/McCosmos/actions/runs/40034749222)：15 项 CLI/来源测试及七个独立包执行场景通过。
+- [Skill 1.0 发布](https://github.com/ayingQAQ/McCosmos/releases/tag/skill-v1.0.0)：75588 字节压缩包，10 个必要文件，无网页照片。发布 ZIP 直接来自 Actions，公开下载 HTTP 200，SHA-256 与 CI 产物一致。
+- 后续仅更新 README 和验收记录，不改变已验证的运行代码。原有网页保留，未增加产品页面或变更营养算法。
